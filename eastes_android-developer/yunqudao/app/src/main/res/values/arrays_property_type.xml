@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!--* {"id":60,"param":"公寓"},{"id":61,"param":"别墅"},{"id":62,"param":"商铺"},{"id":63,"param":"写字楼"},-->
+    <!--* {"id":64,"param":"车位"}]},-->
+
+
+    <string-array name="物业类型">
+        <item>公寓</item>
+        <item>别墅</item>
+        <item>商铺</item>
+        <item>写字楼</item>
+        <item>车位</item>
+
+
+
+
+
+
+    </string-array>
+</resources>

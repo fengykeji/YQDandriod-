@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!--* "9":{"type":"住房类型","param":[{"id":32,"param":"3室2厅2卫"},-->
+    <!--* {"id":33,"param":"1室1厅2卫"},{"id":106,"param":"1室1厅1卫"}]},-->
+    <string-array name="户型">
+        <item>3室2厅2卫</item>
+        <item>3室1厅2卫</item>
+        <item>2室1厅1卫</item>
+        <item>1室1厅1卫</item>
+
+
+    </string-array>
+</resources>

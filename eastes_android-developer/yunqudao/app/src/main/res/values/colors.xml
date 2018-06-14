@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#3F51B5</color>
+    <color name="colorPrimaryDark">#303F9F</color>
+    <color name="colorAccent">#FF4081</color>
+    <color name="juse">#FFA51D</color>
+    <color name="chunbai">#FFFFFF</color>
+    <color name="shenlan">#1B98FF</color>
+    <color name="danlan">#D5F2FF</color>
+    <color name="danlv">#EAF2ED</color>
+    <color name="danqing">#D0F3F5</color>
+    <color name="dancheng">#F1E1C9</color>
+    <color name="hongfen">#FF4646</color>
+    <color name="chunhei">#020202</color>
+    <color name="qianlan">#13A5FD</color>
+    <color name="qianhui">#F0F0F0</color>
+    <color name="transparent">#00000000</color>
+    <color name="pickerview_bgColor_overlay">#60000000</color>
+    <color name="white">#ffffff</color>
+    <color name="contacts_indexbar_color">#8599b1</color>     <!-- 联系人拼音色 -->
+    <color name="primary">#4393f9</color>   <!-- 主色 -->
+    <color name="huxing">#565656</color>
+    <color name="sale">#1b98ff</color>
+</resources>

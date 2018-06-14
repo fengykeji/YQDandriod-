@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="pickerview">
+        <attr name="pickerview_gravity">
+            <enum name="center" value="17"/>
+            <enum name="left" value="3"/>
+            <enum name="right" value="5"/>
+        </attr>
+        <attr format="dimension" name="pickerview_textSize"/>
+        <attr format="color" name="pickerview_textColorOut"/>
+        <attr format="color" name="pickerview_textColorCenter"/>
+        <attr format="color" name="pickerview_dividerColor"/>
+        <attr format="float" name="pickerview_lineSpacingMultiplier"/>
+    </declare-styleable>
+
+    <declare-styleable name="CirclePercentView">
+        <attr format="color" name="circleBg"/>
+        <attr format="color" name="arcColor"/>
+        <attr format="dimension" name="arcWidth"/>
+        <attr format="color" name="percentTextColor"/>
+        <attr format="dimension" name="percentTextSize"/>
+        <attr format="dimension" name="radius"/>
+    </declare-styleable>
+
+    <declare-styleable name="CubeIndexBar">
+        <attr format="dimension" name="indexBarTextSize"/>
+        <attr format="color" name="indexBarPressBackground"/>
+    </declare-styleable>
+</resources>

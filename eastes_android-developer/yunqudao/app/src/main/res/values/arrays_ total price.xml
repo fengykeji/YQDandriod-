@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!--* "25":{"type":"总价","param":[{"id":91,"param":"50"},{"id":92,"param":"50-80"},-->
+    <!--* {"id":93,"param":"80-120"},{"id":94,"param":"120-200"},{"id":95,"param":"200"}]},-->
+
+    <string-array name="总价">
+        <item>50</item>
+        <item>50-80</item>
+        <item>80-120</item>
+        <item>120-200</item>
+        <item>200</item>
+
+    </string-array>
+
+
+</resources>

@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/qianhui"
+    android:focusable="true"
+    android:focusableInTouchMode="true"
+    android:orientation="vertical"
+    >
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/chunbai"
+        android:orientation="horizontal"
+        android:padding="20dp"
+        >
+        <ImageButton
+            android:id="@+id/me_button_返回"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:background="@android:color/transparent"
+            android:src="@drawable/ic_leftarrow"
+            />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:text="地址"
+            android:textColor="@color/chunhei"
+            android:textSize="20sp"
+            />
+        <Button
+            android:id="@+id/me_button_保存"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_alignParentRight="true"
+            android:text="保存"
+            android:textColor="@color/chunhei"
+            android:textSize="15sp"
+            android:background="@android:color/transparent"
+            />
+    </RelativeLayout>
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="10dp"
+        android:src="@drawable/ic_line"
+        />
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/chunbai"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:padding="10dp"
+        android:weightSum="10"
+        >
+
+        <TextView
+            android:id="@+id/me_text_地区"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="9.5"
+            android:text="成都市-郫都区"
+            android:textColor="@color/chunhei"
+            android:textSize="15sp"
+            />
+        <ImageButton
+            android:id="@+id/me_button_地区选择器"
+            android:layout_width="0dp"
+            android:layout_height="30dp"
+            android:layout_weight="0.5"
+            android:background="@android:color/transparent"
+            android:src="@drawable/ic_downarrow2"
+            />
+    </LinearLayout>
+
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/ic_line"
+        android:padding="10dp"
+        android:text="具体地址"
+        android:textColor="@color/chunhei"
+        android:textSize="14sp"
+        />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/chunbai"
+        >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            android:layout_margin="10dp"
+            android:background="@drawable/shape_case"
+            >
+            <EditText
+                android:id="@+id/me_edittext_详细地址"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@android:color/transparent"
+                android:hint="请输入详细地址"
+                android:lineSpacingExtra="3dp"
+                android:maxLines="100"
+                android:padding="10dp"
+                android:textSize="14sp"
+                />
+        </LinearLayout>
+    </LinearLayout>
+</LinearLayout>

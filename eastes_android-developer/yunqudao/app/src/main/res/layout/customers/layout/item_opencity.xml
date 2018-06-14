@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+<TextView
+    android:id="@+id/city_tv"
+    android:layout_width="match_parent"
+    android:layout_height="40dp"
+    android:text="成都"
+    android:textSize="16sp"
+    android:textColor="@color/chunhei"
+    android:gravity="center_vertical"
+    android:layout_marginLeft="16dp"
+    />
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:background="#d2d6da"
+        android:layout_marginLeft="16dp"
+        >
+    </View>
+</LinearLayout>
