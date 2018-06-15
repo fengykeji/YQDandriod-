@@ -164,17 +164,16 @@
                         android:padding="10dp"
                         android:weightSum="10"
                         >
-                        <TextView
-                            android:id="@+id/need_text_property_type"
-                            android:layout_weight="8"
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            />
+                        <!--<TextView-->
+                            <!--android:id="@+id/need_text_property_type"-->
+                            <!--android:layout_weight="8"-->
+                            <!--android:layout_width="0dp"-->
+                            <!--android:layout_height="wrap_content"-->
+                            <!--/>-->
 
                         <Spinner
                             android:id="@+id/spinner_property_type"
-                            android:layout_weight="2"
-                            android:layout_width="0dp"
+                            android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:dropDownVerticalOffset="35dp"
                             android:dropDownWidth="1080px"
@@ -213,17 +212,16 @@
                         android:padding="10dp"
                         android:weightSum="10"
                         >
-                        <TextView
-                            android:id="@+id/need_text_total_price"
-                            android:layout_weight="8"
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            />
+                        <!--<TextView-->
+                            <!--android:id="@+id/need_text_total_price"-->
+                            <!--android:layout_weight="8"-->
+                            <!--android:layout_width="0dp"-->
+                            <!--android:layout_height="wrap_content"-->
+                            <!--/>-->
 
                         <Spinner
                             android:id="@+id/spinner_total_price"
-                            android:layout_weight="2"
-                            android:layout_width="0dp"
+                            android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:dropDownVerticalOffset="35dp"
                             android:dropDownWidth="1080px"
@@ -262,17 +260,16 @@
                         android:padding="10dp"
                         android:weightSum="10"
                         >
-                        <TextView
-                            android:id="@+id/need_text_area"
-                            android:layout_weight="8"
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            />
+                        <!--<TextView-->
+                            <!--android:id="@+id/need_text_area"-->
+                            <!--android:layout_weight="8"-->
+                            <!--android:layout_width="0dp"-->
+                            <!--android:layout_height="wrap_content"-->
+                            <!--/>-->
 
                         <Spinner
                             android:id="@+id/spinner_area"
-                            android:layout_weight="2"
-                            android:layout_width="0dp"
+                            android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:dropDownVerticalOffset="35dp"
                             android:dropDownWidth="1080px"
@@ -311,17 +308,16 @@
                         android:padding="10dp"
                         android:weightSum="10"
                         >
-                        <TextView
-                            android:id="@+id/need_text_house_type"
-                            android:layout_weight="8"
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            />
+                        <!--<TextView-->
+                            <!--android:id="@+id/need_text_house_type"-->
+                            <!--android:layout_weight="8"-->
+                            <!--android:layout_width="0dp"-->
+                            <!--android:layout_height="wrap_content"-->
+                            <!--/>-->
 
                         <Spinner
                             android:id="@+id/spinner_house_type"
-                            android:layout_weight="2"
-                            android:layout_width="0dp"
+                            android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:dropDownVerticalOffset="35dp"
                             android:dropDownWidth="1080px"
@@ -360,6 +356,7 @@
                         >
 
                         <EditText
+                            android:id="@+id/tv_floor_min"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_centerInParent="true"
@@ -397,6 +394,7 @@
                         >
 
                         <EditText
+                            android:id="@+id/tv_floor_max"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_centerInParent="true"
@@ -447,17 +445,16 @@
                         android:padding="10dp"
                         android:weightSum="10"
                         >
-                        <TextView
-                            android:id="@+id/need_text_decorated"
-                            android:layout_weight="8"
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            />
+                        <!--<TextView-->
+                            <!--android:id="@+id/need_text_decorated"-->
+                            <!--android:layout_weight="8"-->
+                            <!--android:layout_width="0dp"-->
+                            <!--android:layout_height="wrap_content"-->
+                            <!--/>-->
 
                         <Spinner
                             android:id="@+id/spinner_decorated"
-                            android:layout_weight="2"
-                            android:layout_width="0dp"
+                            android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:dropDownVerticalOffset="35dp"
                             android:dropDownWidth="1080px"
@@ -496,17 +493,16 @@
                         android:padding="10dp"
                         android:weightSum="10"
                         >
-                        <TextView
-                            android:id="@+id/need_text_buy_type"
-                            android:layout_weight="8"
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            />
+                        <!--<TextView-->
+                            <!--android:id="@+id/need_text_buy_type"-->
+                            <!--android:layout_weight="8"-->
+                            <!--android:layout_width="0dp"-->
+                            <!--android:layout_height="wrap_content"-->
+                            <!--/>-->
 
                         <Spinner
                             android:id="@+id/spinner_buy_type"
-                            android:layout_weight="2"
-                            android:layout_width="0dp"
+                            android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:dropDownVerticalOffset="35dp"
                             android:dropDownWidth="1080px"
@@ -545,17 +541,16 @@
                         android:padding="10dp"
                         android:weightSum="10"
                         >
-                        <TextView
-                            android:id="@+id/need_text_pay_type"
-                            android:layout_weight="8"
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            />
+                        <!--<TextView-->
+                            <!--android:id="@+id/need_text_pay_type"-->
+                            <!--android:layout_weight="8"-->
+                            <!--android:layout_width="0dp"-->
+                            <!--android:layout_height="wrap_content"-->
+                            <!--/>-->
 
                         <Spinner
                             android:id="@+id/spinner_pay_type"
-                            android:layout_weight="2"
-                            android:layout_width="0dp"
+                            android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:dropDownVerticalOffset="35dp"
                             android:dropDownWidth="1080px"
@@ -804,6 +799,7 @@
                 android:orientation="vertical"
                 >
                 <EditText
+                    android:id="@+id/ed_comment"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="@android:color/transparent"

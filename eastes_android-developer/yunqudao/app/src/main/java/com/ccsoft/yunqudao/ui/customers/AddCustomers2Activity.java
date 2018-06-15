@@ -8,7 +8,9 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.SeekBar;
 import android.widget.Spinner;
@@ -24,6 +26,7 @@ import com.ccsoft.yunqudao.model.StringModel;
 import com.ccsoft.yunqudao.ui.fragment.CustomersFragment;
 import com.ccsoft.yunqudao.ui.fragment.WorkFragment;
 import com.ccsoft.yunqudao.ui.home.HomeActivity;
+import com.ccsoft.yunqudao.ui.mian.MainActivity;
 import com.ccsoft.yunqudao.utils.ActivityManager;
 import com.ccsoft.yunqudao.utils.JsonUtil;
 import com.ccsoft.yunqudao.utils.LogUtil;
@@ -55,6 +58,7 @@ public class AddCustomers2Activity extends AppCompatActivity implements View.OnC
     private SeekBar     mCustomers_seekbar2;
     private Spinner     mSpinner_address, mSpinner_property_type, mSpinner_total_price, mSpinner_area, mSpinner_house_type, mSpinner_decorated, mSpinner_buy_type, mSpinner_pay_type;
     private TextView mNeed_text_address, mNeed_text_property_type, mNeed_text_total_price, mNeed_text_area, mNeed_text_house_type, mNeed_text_decorated, mNeed_text_buy_type, mNeed_text_pay_type;
+    private EditText et_floor_min,et_floor_max,et_comment;
     private String mString1;
     private String mString2;
     private String mString3;
@@ -69,6 +73,17 @@ public class AddCustomers2Activity extends AppCompatActivity implements View.OnC
     private String birth;
     private String card_id;
     private String address;
+    private ArrayAdapter adapter ;
+    private int house_type;
+    private int floor_min;
+    private int floor_max;
+    private int decorate;
+    private int buy_purpose;
+    private int pay_type;
+    private int intent;
+    private int urgency;
+    private String comment;
+
 
 
     @Override
@@ -101,13 +116,16 @@ public class AddCustomers2Activity extends AppCompatActivity implements View.OnC
         mSpinner_buy_type = findViewById(R.id.spinner_buy_type);
         mSpinner_pay_type = findViewById(R.id.spinner_pay_type);
         mNeed_text_address = findViewById(R.id.need_text_address);
-        mNeed_text_property_type = findViewById(R.id.need_text_property_type);
-        mNeed_text_total_price = findViewById(R.id.need_text_total_price);
-        mNeed_text_area = findViewById(R.id.need_text_area);
-        mNeed_text_house_type = findViewById(R.id.need_text_house_type);
-        mNeed_text_decorated = findViewById(R.id.need_text_decorated);
-        mNeed_text_buy_type = findViewById(R.id.need_text_buy_type);
-        mNeed_text_pay_type = findViewById(R.id.need_text_pay_type);
+        et_floor_min = findViewById(R.id.tv_floor_min);
+        et_floor_max = findViewById(R.id.tv_floor_max);
+        et_comment = findViewById(R.id.ed_comment);
+//        mNeed_text_property_type = findViewById(R.id.need_text_property_type);
+//        mNeed_text_total_price = findViewById(R.id.need_text_total_price);
+//        mNeed_text_area = findViewById(R.id.need_text_area);
+//        mNeed_text_house_type = findViewById(R.id.need_text_house_type);
+//        mNeed_text_decorated = findViewById(R.id.need_text_decorated);
+//        mNeed_text_buy_type = findViewById(R.id.need_text_buy_type);
+//        mNeed_text_pay_type = findViewById(R.id.need_text_pay_type);
         mString1 = (String) mSpinner_address.getSelectedItem();
         mString2 = (String) mSpinner_property_type.getSelectedItem();
         mString3 = (String) mSpinner_total_price.getSelectedItem();
@@ -116,6 +134,12 @@ public class AddCustomers2Activity extends AppCompatActivity implements View.OnC
         mString6 = (String) mSpinner_decorated.getSelectedItem();
         mString7 = (String) mSpinner_buy_type.getSelectedItem();
         mString8 = (String) mSpinner_pay_type.getSelectedItem();
+
+        adapter = ArrayAdapter.createFromResource(this,R.array.物业类型,
+                android.R.layout.simple_spinner_item);
+        mSpinner_property_type.setAdapter(adapter);
+        mSpinner_property_type.setOnItemSelectedListener(this );
+
 
         Submit();
     }
@@ -149,6 +173,83 @@ public class AddCustomers2Activity extends AppCompatActivity implements View.OnC
                 break;
             case R.id.customers_button_commit:
 
+
+
+                if(mString2 == null){
+                    mString2 = "";
+                }
+                if(mString3 == null){
+                    mString3 = "";
+                }
+                if(mString4 == null){
+                    mString4 = "";
+                }
+                if(mString5 == null){
+                    house_type=0;
+                }else if(mString5.equals("3室2厅2卫")){
+                    house_type=32;
+                }else if(mString5.equals("1室1厅2卫")){
+                    house_type=33;
+                }else if(mString5.equals("1室1厅1卫")){
+                    house_type=106;
+            }
+                floor_min = Integer.parseInt(et_floor_min.getText().toString()) ;
+                floor_max = Integer.parseInt(et_floor_max.getText().toString());
+                if(mString6 == null){
+                    decorate=0;
+                }else if(mString6.equals("毛坯")){
+                    decorate = 80;
+                }else if(mString6.equals("简装")){
+                    decorate = 81;
+                }else if(mString6.equals("精装")){
+                    decorate = 82;
+                }
+                if(mString7 == null){
+                    buy_purpose=0;
+                }if(mString7.equals("投资")){
+                buy_purpose = 43;
+            }else if(mString7.equals("自住")){
+                buy_purpose = 44;
+            }else if(mString7.equals("投资兼自住")){
+                buy_purpose = 45;
+            }
+                if(mString8 == null){
+                    pay_type = 0 ;
+                }else {
+                    MainActivity.savePeizhi().getData().get_$13().getParam();
+                    for(int i=0;i<MainActivity.savePeizhi().getData().get_$13().getParam().size();i++){
+                        if(mString8.equals(MainActivity.savePeizhi().getData().get_$13().getParam().get(0))){
+                            pay_type = 46;
+                        }else if(mString8.equals(MainActivity.savePeizhi().getData().get_$13().getParam().get(1))){
+                            pay_type =47;
+                        }
+                        else if(mString8.equals(MainActivity.savePeizhi().getData().get_$13().getParam().get(2))){
+                            pay_type = 48;
+                        }else if(mString8.equals(MainActivity.savePeizhi().getData().get_$13().getParam().get(3))){
+                            pay_type = 49;
+                        }else if(mString8.equals(MainActivity.savePeizhi().getData().get_$13().getParam().get(4))){
+                            pay_type = 50;
+                        }
+                    }
+                }
+                if(mCustomers_text_seekbar1==null){
+                    intent = 0;
+                }else {
+                    intent = Integer.parseInt(mCustomers_text_seekbar1.getText().toString());
+                }
+                if(mCustomers_text_seekbar2==null){
+                    urgency = 0;
+                }else {
+                    urgency = Integer.parseInt(mCustomers_text_seekbar2.getText().toString());
+                }
+
+                if(et_comment.getText().toString()==null){
+                        comment = "";
+                }else {
+                    comment = et_comment.getText().toString();
+                }
+
+
                 OkHttpUtils.post(HttpAdress.addClientAndNeed)
                         .tag(this)
                         .params("name", name)
@@ -157,6 +258,19 @@ public class AddCustomers2Activity extends AppCompatActivity implements View.OnC
                         .params("birth", birth)
                         .params("card_id",card_id)
                         .params("address",address)
+                        .params("property_type",mString2)
+                        .params("total_price",mString3)
+                        .params("area",mString4)
+                        .params("house_type",house_type)
+                        .params("floor_min",floor_min)
+                        .params("floor_max",floor_max)
+                        .params("decorate",decorate)
+                        .params("buy_purpose",buy_purpose)
+                        .params("pay_type",pay_type)
+                        .params("intent",intent)
+                        .params("urgency",urgency)
+//                        .params("need_tags",)
+                        .params("comment",comment)
                         .execute(new MyStringCallBack() {
                             @Override
                             public void onSuccess(String s, Call call, Response response) {
@@ -233,30 +347,29 @@ public class AddCustomers2Activity extends AppCompatActivity implements View.OnC
 
     @Override
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-
         mString1 = (String) mSpinner_address.getSelectedItem();
         mNeed_text_address.setText(mString1);
 
-        mString2 = (String) mSpinner_property_type.getSelectedItem();
-        mNeed_text_property_type.setText(mString2);
+        mString2 = (String) adapter.getItem(position);
+//        mNeed_text_property_type.setText(mString2);
 
         mString3 = (String) mSpinner_total_price.getSelectedItem();
+//        mNeed_text_total_price.setText(mString3);
 
-        mNeed_text_total_price.setText(mString3);
         mString4 = (String) mSpinner_area.getSelectedItem();
-        mNeed_text_area.setText(mString4);
+//        mNeed_text_area.setText(mString4);
 
         mString5 = (String) mSpinner_decorated.getSelectedItem();
-        mNeed_text_house_type.setText(mString5);
+//        mNeed_text_house_type.setText(mString5);
 
         mString6 = (String) mSpinner_buy_type.getSelectedItem();
-        mNeed_text_decorated.setText(mString6);
+//        mNeed_text_decorated.setText(mString6);
 
         mString7 = (String) mSpinner_pay_type.getSelectedItem();
-        mNeed_text_buy_type.setText(mString7);
+//        mNeed_text_buy_type.setText(mString7);
 
         mString8 = (String) mSpinner_pay_type.getSelectedItem();
-        mNeed_text_pay_type.setText(mString8);
+//        mNeed_text_pay_type.setText(mString8);
     }
 
     @Override

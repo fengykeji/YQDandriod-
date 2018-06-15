@@ -57,104 +57,163 @@
             android:textSize="18sp"
             />
     </LinearLayout>
-
     <LinearLayout
         android:layout_margin="20dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
         android:background="@drawable/shape_case"
+        android:visibility="visible"
         >
-
-        <LinearLayout
-            android:weightSum="8"
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/re_add_label_list"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:layout_marginBottom="20dp"
-            >
-            <ImageView
-                android:layout_weight="2"
-                android:layout_width="0dp"
-                android:layout_height="30dp"
-                />
-            <ImageView
-                android:layout_weight="2"
-                android:layout_width="0dp"
-                android:layout_height="30dp"
-                />
-            <ImageView
-                android:layout_weight="2"
-                android:layout_width="0dp"
-                android:layout_height="30dp"
-                />
-            <ImageView
-                android:layout_weight="2"
-                android:layout_width="0dp"
-                android:layout_height="30dp"
-                />
-
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:weightSum="8"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:layout_marginBottom="20dp"
-            >
-            <ImageView
-                android:layout_weight="2"
-                android:layout_width="0dp"
-                android:layout_height="30dp"
-                />
-            <ImageView
-                android:layout_weight="2"
-                android:layout_width="0dp"
-                android:layout_height="30dp"
-                />
-            <ImageView
-                android:layout_weight="2"
-                android:layout_width="0dp"
-                android:layout_height="30dp"
-                />
-            <ImageView
-                android:layout_weight="2"
-                android:layout_width="0dp"
-                android:layout_height="30dp"
-                />
-
-
-        </LinearLayout>
+            android:layout_height="match_parent"
+            />
     </LinearLayout>
+
+    <!--<LinearLayout-->
+        <!--android:layout_margin="20dp"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:orientation="vertical"-->
+        <!--android:background="@drawable/shape_case"-->
+        <!--android:visibility="gone"-->
+        <!--&gt;-->
+
+        <!--<LinearLayout-->
+            <!--android:weightSum="8"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:orientation="horizontal"-->
+            <!--android:layout_marginBottom="20dp"-->
+            <!--&gt;-->
+            <!--<TextView-->
+                <!--android:layout_weight="2"-->
+                <!--android:layout_width="0dp"-->
+                <!--android:layout_height="30dp"-->
+                <!--/>-->
+            <!--<TextView-->
+                <!--android:layout_weight="2"-->
+                <!--android:layout_width="0dp"-->
+                <!--android:layout_height="30dp"-->
+                <!--/>-->
+            <!--<TextView-->
+                <!--android:layout_weight="2"-->
+                <!--android:layout_width="0dp"-->
+                <!--android:layout_height="30dp"-->
+                <!--/>-->
+            <!--<TextView-->
+                <!--android:layout_weight="2"-->
+                <!--android:layout_width="0dp"-->
+                <!--android:layout_height="30dp"-->
+                <!--/>-->
+
+
+        <!--</LinearLayout>-->
+
+        <!--<LinearLayout-->
+            <!--android:weightSum="8"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:orientation="horizontal"-->
+            <!--android:layout_marginBottom="20dp"-->
+            <!--android:visibility="gone"-->
+            <!--&gt;-->
+            <!--<TextView-->
+                <!--android:layout_weight="2"-->
+                <!--android:layout_width="0dp"-->
+                <!--android:layout_height="30dp"-->
+                <!--/>-->
+            <!--<TextView-->
+                <!--android:layout_weight="2"-->
+                <!--android:layout_width="0dp"-->
+                <!--android:layout_height="30dp"-->
+                <!--/>-->
+            <!--<TextView-->
+                <!--android:layout_weight="2"-->
+                <!--android:layout_width="0dp"-->
+                <!--android:layout_height="30dp"-->
+                <!--/>-->
+            <!--<TextView-->
+                <!--android:layout_weight="2"-->
+                <!--android:layout_width="0dp"-->
+                <!--android:layout_height="30dp"-->
+                <!--/>-->
+
+
+        <!--</LinearLayout>-->
+    <!--</LinearLayout>-->
 
     <ImageView
         android:layout_width="match_parent"
         android:layout_height="1dp"
         android:src="@drawable/ic_line"
         />
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center_vertical"
         android:orientation="horizontal"
-        android:padding="10dp"
-        >
+        android:padding="10dp">
+
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginRight="10dp"
-            android:src="@drawable/ic_blue"
-            />
+            android:src="@drawable/ic_blue" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="已选标签"
             android:textColor="@color/chunhei"
-            android:textSize="18sp"
-            />
+            android:textSize="18sp" />
+    </LinearLayout>
+
+    <LinearLayout
+    android:id="@+id/ll_addTextLabel"
+    android:layout_margin="20dp"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/shape_case"
+    android:orientation="horizontal"
+    android:visibility="visible"
+    >
+
+</LinearLayout>
+    <LinearLayout
+        android:id="@+id/ll_addTextLabel2"
+        android:layout_margin="20dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/shape_case"
+        android:orientation="horizontal"
+        android:visibility="visible"
+        >
+
+    </LinearLayout>
+    <LinearLayout
+        android:id="@+id/ll_addTextLabel3"
+        android:layout_margin="20dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/shape_case"
+        android:orientation="horizontal"
+        android:visibility="visible"
+        >
+
+    </LinearLayout>
+    <LinearLayout
+        android:id="@+id/ll_addTextLabel4"
+        android:layout_margin="20dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/shape_case"
+        android:orientation="horizontal"
+        android:visibility="visible"
+        >
+
     </LinearLayout>
 
     <LinearLayout
@@ -163,6 +222,7 @@
         android:layout_height="wrap_content"
         android:orientation="vertical"
         android:background="@drawable/shape_case"
+        android:visibility="gone"
         >
 
         <LinearLayout
@@ -172,22 +232,22 @@
             android:orientation="horizontal"
             android:layout_marginBottom="20dp"
             >
-            <ImageView
+            <TextView
                 android:layout_weight="2"
                 android:layout_width="0dp"
                 android:layout_height="30dp"
                 />
-            <ImageView
+            <TextView
                 android:layout_weight="2"
                 android:layout_width="0dp"
                 android:layout_height="30dp"
                 />
-            <ImageView
+            <TextView
                 android:layout_weight="2"
                 android:layout_width="0dp"
                 android:layout_height="30dp"
                 />
-            <ImageView
+            <TextView
                 android:layout_weight="2"
                 android:layout_width="0dp"
                 android:layout_height="30dp"
@@ -203,22 +263,22 @@
             android:orientation="horizontal"
             android:layout_marginBottom="20dp"
             >
-            <ImageView
+            <TextView
                 android:layout_weight="2"
                 android:layout_width="0dp"
                 android:layout_height="30dp"
                 />
-            <ImageView
+            <TextView
                 android:layout_weight="2"
                 android:layout_width="0dp"
                 android:layout_height="30dp"
                 />
-            <ImageView
+            <TextView
                 android:layout_weight="2"
                 android:layout_width="0dp"
                 android:layout_height="30dp"
                 />
-            <ImageView
+            <TextView
                 android:layout_weight="2"
                 android:layout_width="0dp"
                 android:layout_height="30dp"

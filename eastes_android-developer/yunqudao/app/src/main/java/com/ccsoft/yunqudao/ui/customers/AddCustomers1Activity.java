@@ -105,6 +105,7 @@ public class AddCustomers1Activity extends AppCompatActivity implements View.OnC
         mCustomers_edittext_address = findViewById(R.id.customers_edittext_address1);
         mButton_next = findViewById(R.id.button_next);
         mSex = mCustomers_spinner_sex.getSelectedItem().toString();
+        Log.e("spinner1",mSex);
         if (mSex.equals("男")) {
             type = 1;
         }
@@ -197,7 +198,6 @@ public class AddCustomers1Activity extends AppCompatActivity implements View.OnC
 
                 break;
             case R.id.customers_button_birthday:
-
                 showBirthdayPicker(mCustomers_text_barthday.getText().toString());
                 break;
         }
