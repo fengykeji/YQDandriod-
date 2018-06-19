@@ -3,6 +3,7 @@ package com.ccsoft.yunqudao.ui.customers;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
@@ -113,27 +114,22 @@ public class AddLabelActivity extends AppCompatActivity implements View.OnClickL
                       for(int i = 0;i<list.size();i++){
                           if(param.equals(list.get(i))) {
                               list.remove(i);
-                              if (list.size() < 5) {
-                                  ll_addTextLabel2.setVisibility(View.GONE);
-                                  ll_addTextLabel3.setVisibility(View.GONE);
-                                  ll_addTextLabel4.setVisibility(View.GONE);
-                              } else if (list.size() < 8) {
-                                  ll_addTextLabel3.setVisibility(View.GONE);
-                                  ll_addTextLabel4.setVisibility(View.GONE);
-                              } else if (list.size() < 12) {
-                                  ll_addTextLabel4.setVisibility(View.GONE);
-                              }
-
                           }}
                        if (list.size() < 5) {
                            ll_addTextLabel2.setVisibility(View.GONE);
                            ll_addTextLabel3.setVisibility(View.GONE);
                            ll_addTextLabel4.setVisibility(View.GONE);
+                           ll_addTextLabel.setVisibility(View.VISIBLE);
                        } else if (list.size() < 8) {
                            ll_addTextLabel3.setVisibility(View.GONE);
                            ll_addTextLabel4.setVisibility(View.GONE);
+                           ll_addTextLabel.setVisibility(View.VISIBLE);
+                           ll_addTextLabel2.setVisibility(View.VISIBLE);
                        } else if (list.size() < 12) {
                            ll_addTextLabel4.setVisibility(View.GONE);
+                           ll_addTextLabel2.setVisibility(View.VISIBLE);
+                           ll_addTextLabel3.setVisibility(View.VISIBLE);
+                           ll_addTextLabel.setVisibility(View.VISIBLE);
 
 
                        }
@@ -172,7 +168,9 @@ public class AddLabelActivity extends AppCompatActivity implements View.OnClickL
                 finish();
                 break;
             case R.id.customers_button_commit:
-                finish();
+                Intent intent = new Intent(this,AddCustomers2Activity.class);
+                intent.putStringArrayListExtra("list", (ArrayList<String>) list);
+                startActivity(intent);
                 break;
         }
     }

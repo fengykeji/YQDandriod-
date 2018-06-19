@@ -184,8 +184,9 @@ public class CustomersXiangQingActivity extends AppCompatActivity implements Vie
      * 获取数据
      */
     private void getArguments() {
-        Bundle data = getIntent().getBundleExtra("data");
-        mClienID = data.getInt("client_id");
+//        Bundle data = getIntent().getBundleExtra("data");
+//        mClienID = data.getInt("client_id");
+        mClienID = getIntent().getIntExtra("client_id",0);
         Log.i("HCC--------》", "====卡片id====" + String.valueOf(mClienID).toString());
     }
 

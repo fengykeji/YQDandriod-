@@ -168,6 +168,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                         if (loginBean.getCode() == 200) {
                             SpUtil.setToken(loginBean.getData().getToken());
                             SpUtil.setInt("agent_id", loginBean.getData().getAgent_id());//保存agent_id
+                            SpUtil.setString("agent_identity",loginBean.getData().getAgent_identity());//保存判断是否为经纪人
 
                             HttpHeaders headers = new HttpHeaders();
                             headers.put("ACCESS-TOKEN", loginBean.getData().getToken());

@@ -35,4 +35,7 @@ public class HttpAdress {
     public static String HOUSEGETRULENEW = AppConstants.URL+"user/project/getRuleNew?project_id=3&agent_id=18";
     /*快速报备*/
     public static String ADDANDRECOMMEND = AppConstants.URL+"project/client/addAndRecommend";
+    /*增加跟进信息*/
+    public static String ADDFOLLOW = AppConstants.URL+"agent/client/addFollow";
+
 }

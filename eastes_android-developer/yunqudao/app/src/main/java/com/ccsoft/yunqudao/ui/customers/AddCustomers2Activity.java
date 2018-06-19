@@ -7,11 +7,13 @@ import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.LinearLayout;
 import android.widget.SeekBar;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -33,6 +35,13 @@ import com.ccsoft.yunqudao.utils.LogUtil;
 import com.lzy.okhttputils.OkHttpUtils;
 
 import org.greenrobot.eventbus.EventBus;
+
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
 
 import okhttp3.Call;
 import okhttp3.Response;
@@ -57,8 +66,9 @@ public class AddCustomers2Activity extends AppCompatActivity implements View.OnC
     private SeekBar     mCustomers_seekbar1;
     private SeekBar     mCustomers_seekbar2;
     private Spinner     mSpinner_address, mSpinner_property_type, mSpinner_total_price, mSpinner_area, mSpinner_house_type, mSpinner_decorated, mSpinner_buy_type, mSpinner_pay_type;
-    private TextView mNeed_text_address, mNeed_text_property_type, mNeed_text_total_price, mNeed_text_area, mNeed_text_house_type, mNeed_text_decorated, mNeed_text_buy_type, mNeed_text_pay_type;
+    private TextView mNeed_text_address,tv_showlabel, mNeed_text_property_type, mNeed_text_total_price, mNeed_text_area, mNeed_text_house_type, mNeed_text_decorated, mNeed_text_buy_type, mNeed_text_pay_type;
     private EditText et_floor_min,et_floor_max,et_comment;
+    private LinearLayout ll_showlabel;
     private String mString1;
     private String mString2;
     private String mString3;
@@ -75,14 +85,16 @@ public class AddCustomers2Activity extends AppCompatActivity implements View.OnC
     private String address;
     private ArrayAdapter adapter ;
     private int house_type;
-    private int floor_min;
-    private int floor_max;
+    private int floor_min ;
+    private int floor_max ;
     private int decorate;
     private int buy_purpose;
     private int pay_type;
     private int intent;
     private int urgency;
     private String comment;
+    private List<String> list = new ArrayList<>();
+    private Date date;
 
 
 
@@ -119,6 +131,8 @@ public class AddCustomers2Activity extends AppCompatActivity implements View.OnC
         et_floor_min = findViewById(R.id.tv_floor_min);
         et_floor_max = findViewById(R.id.tv_floor_max);
         et_comment = findViewById(R.id.ed_comment);
+        tv_showlabel = findViewById(R.id.tv_showlabel);
+        ll_showlabel = findViewById(R.id.ll_showlabel);
 //        mNeed_text_property_type = findViewById(R.id.need_text_property_type);
 //        mNeed_text_total_price = findViewById(R.id.need_text_total_price);
 //        mNeed_text_area = findViewById(R.id.need_text_area);
@@ -155,6 +169,22 @@ public class AddCustomers2Activity extends AppCompatActivity implements View.OnC
         mCustomers_text_seekbar2.setOnClickListener(this);
         mCustomers_seekbar1.setOnSeekBarChangeListener(this);
         mCustomers_seekbar2.setOnSeekBarChangeListener(this);
+
+
+        LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+        layoutParams.leftMargin = 6;
+        if(getIntent().getParcelableArrayListExtra("list")!=null){
+            list = getIntent().getStringArrayListExtra("list");
+            for(int i =0; i<list.size() ; i++){
+                TextView textView = new TextView(AddCustomers2Activity.this);
+                textView.setText( list.get(i));
+                textView.setBackgroundResource(R.drawable.shape_addlabel);
+                textView.setPadding(14,14,14,14);
+                textView.setTextSize(19);
+                ll_showlabel.addView(textView,layoutParams);
+                tv_showlabel.setVisibility(View.GONE);
+            }
+        }
     }
 
     private void initData() {
@@ -193,8 +223,16 @@ public class AddCustomers2Activity extends AppCompatActivity implements View.OnC
                 }else if(mString5.equals("1室1厅1卫")){
                     house_type=106;
             }
-                floor_min = Integer.parseInt(et_floor_min.getText().toString()) ;
+            if(et_floor_min.getText().toString().equals("")){
+                floor_min = 0;
+            }else {
+                floor_min = Integer.parseInt(et_floor_min.getText().toString());
+            }
+            if(et_floor_max.getText().toString().equals("")){
+                floor_max = 0;
+            }else {
                 floor_max = Integer.parseInt(et_floor_max.getText().toString());
+            }
                 if(mString6 == null){
                     decorate=0;
                 }else if(mString6.equals("毛坯")){
@@ -232,12 +270,12 @@ public class AddCustomers2Activity extends AppCompatActivity implements View.OnC
                         }
                     }
                 }
-                if(mCustomers_text_seekbar1==null){
+                if(mCustomers_text_seekbar1.getText().toString().equals("")){
                     intent = 0;
                 }else {
                     intent = Integer.parseInt(mCustomers_text_seekbar1.getText().toString());
                 }
-                if(mCustomers_text_seekbar2==null){
+                if(mCustomers_text_seekbar2.getText().toString().equals("")){
                     urgency = 0;
                 }else {
                     urgency = Integer.parseInt(mCustomers_text_seekbar2.getText().toString());
@@ -258,7 +296,7 @@ public class AddCustomers2Activity extends AppCompatActivity implements View.OnC
                         .params("birth", birth)
                         .params("card_id",card_id)
                         .params("address",address)
-                        .params("property_type",mString2)
+//                        .params("property_type",mString2)
                         .params("total_price",mString3)
                         .params("area",mString4)
                         .params("house_type",house_type)
@@ -281,6 +319,7 @@ public class AddCustomers2Activity extends AppCompatActivity implements View.OnC
 
                                 }
                                 Toast.makeText(AddCustomers2Activity.this,model.getMsg(),Toast.LENGTH_SHORT).show();
+                                Log.e("失败",model.getMsg()+"是什么");
                             }
                         });
 
@@ -380,15 +419,22 @@ public class AddCustomers2Activity extends AppCompatActivity implements View.OnC
     private void Submit(){
         name = getIntent().getStringExtra("name");
          sex = getIntent().getStringExtra("sex");
-         if(sex.equals(1)){
-             sex="男";
+         if(sex==null){
+             sex="";
          }else if(sex.equals(2)) {
              sex="女";
-         }else if(sex==null){
-             sex="";
+         }else if(sex.equals(1)){
+             sex="男";
          }
         tel = getIntent().getStringExtra("tel");
          birth = getIntent().getStringExtra("birth");
+        DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        try {
+            date= dateFormat.parse(birth);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+
          card_id = getIntent().getStringExtra("card_id");
          address = getIntent().getStringExtra("address");
 

@@ -1,5 +1,6 @@
 package com.ccsoft.yunqudao.ui.customers;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -103,8 +104,10 @@ public class ClientFollowFragment extends Fragment implements View.OnClickListen
         switch (v.getId()) {
 
             case R.id.customers_button_add_follow:
-
-                AddGenJinJiLuActivity.start(getActivity());
+                Intent intent = new Intent(getContext(),AddGenJinJiLuActivity.class);
+                intent.putExtra("client_id",getActivity().getIntent().getIntExtra("client_id",0));
+                startActivity(intent);
+//                AddGenJinJiLuActivity.start(getActivity());
         }
     }
 }

@@ -133,7 +133,10 @@ public class CustomersFragment extends Fragment implements View.OnClickListener,
             @Override
             public void onItemClickListner(View v, int position) {
                 ClientListModel.Data viewModel = dataList.get(position);//每一条item的数据
-                CustomersXiangQingActivity.start(getActivity(), viewModel.getClient_id());//拿id查数据
+//                CustomersXiangQingActivity.start(getActivity(), viewModel.getClient_id());//拿id查数据
+                Intent intent = new Intent(getContext(),CustomersXiangQingActivity.class);
+                intent.putExtra("client_id",viewModel.getClient_id());
+                startActivity(intent);
             }
         });
         et_search.addTextChangedListener(new TextWatcher() {

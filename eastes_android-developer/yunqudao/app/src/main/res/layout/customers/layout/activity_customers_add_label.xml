@@ -4,6 +4,13 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     >
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -57,6 +64,18 @@
             android:textSize="18sp"
             />
     </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/ll_addTextLabel2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="20dp"
+        android:background="@drawable/shape_case"
+        android:orientation="horizontal"
+        android:visibility="visible">
+
+    </LinearLayout>
+
     <LinearLayout
         android:layout_margin="20dp"
         android:layout_width="match_parent"
@@ -182,17 +201,7 @@
     >
 
 </LinearLayout>
-    <LinearLayout
-        android:id="@+id/ll_addTextLabel2"
-        android:layout_margin="20dp"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@drawable/shape_case"
-        android:orientation="horizontal"
-        android:visibility="visible"
-        >
 
-    </LinearLayout>
     <LinearLayout
         android:id="@+id/ll_addTextLabel3"
         android:layout_margin="20dp"
@@ -303,4 +312,7 @@
         android:layout_height="wrap_content"
         android:background="@drawable/ic_loginbackground"
         />
+    </LinearLayout>
+    </ScrollView>
+
 </LinearLayout>
