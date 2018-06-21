@@ -37,5 +37,9 @@ public class HttpAdress {
     public static String ADDANDRECOMMEND = AppConstants.URL+"project/client/addAndRecommend";
     /*增加跟进信息*/
     public static String ADDFOLLOW = AppConstants.URL+"agent/client/addFollow";
+    /*修改客户需求信息*/
+    public static String UPDATANEED = AppConstants.URL+"agent/client/updateNeed";
+    /*匹配列表*/
+    public static String PIPEI = AppConstants.URL+"agent/matching/client";
 
 }

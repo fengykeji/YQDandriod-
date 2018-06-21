@@ -2,119 +2,74 @@ package com.ccsoft.yunqudao.ui.adapter;
 
 import android.content.Context;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.TextView;
+
 import com.ccsoft.yunqudao.R;
 import com.ccsoft.yunqudao.bean.PeizhiBean;
+import com.ccsoft.yunqudao.bean.PipeiBean;
 import com.ccsoft.yunqudao.data.AppConstants;
 import com.ccsoft.yunqudao.data.base.BaseRecyclerAdapter;
 import com.ccsoft.yunqudao.data.base.BaseViewHolder;
-import com.ccsoft.yunqudao.data.model.viewmodel.QuickRecommendViewModel;
 import com.ccsoft.yunqudao.ui.mian.MainActivity;
-import com.ccsoft.yunqudao.utils.GlideUtil;
-import com.ccsoft.yunqudao.utils.recyclerviwe.BaseRecyclerViewAdapter;
-import com.ccsoft.yunqudao.utils.recyclerviwe.BaseRecyclerViewHolder;
 
-import java.lang.reflect.Array;
-import java.util.ArrayList;
 import java.util.List;
 
-import static com.umeng.commonsdk.stateless.UMSLEnvelopeBuild.mContext;
-
-/**
- * desc   :
- * author : YangFan
- * date   : 2018/5/27 00:14
- * email  : 928902646@qq.com
- */
-public class QuickRecommendAdapter extends BaseRecyclerAdapter<QuickRecommendViewModel> {
-    List list = new ArrayList<>();
-    ImageView imageView;
-
-    public QuickRecommendAdapter(Context context, int layoutId, List<QuickRecommendViewModel> data) {
+public class PipeiliebiaoAdapter extends BaseRecyclerAdapter<PipeiBean.DataBean.ListBean>{
+    public PipeiliebiaoAdapter(Context context, int layoutId, List data) {
         super(context, layoutId, data);
     }
 
-//    @Override
-//    protected void convert(BaseRecyclerViewHolder viewHolder, QuickRecommendViewModel data, int position) {
-//        ImageView icon_iv = viewHolder.getView(R.id.icon_iv);
-//        ImageView icon_iv2 = viewHolder.getView(R.id.icon_iv2);
-//        TextView title_tv1 = viewHolder.getView(R.id.title_tv1);
-//        TextView content_tv1 = viewHolder.getView(R.id.content_tv1);
-//        TextView content_tv3 = viewHolder.getView(R.id.content_tv3);
-//        TextView content_tv4 = viewHolder.getView(R.id.content_tv4);
-//        TextView number = viewHolder.getView(R.id.number);
-//        GlideUtil.loadImage(AppConstants.URL+data.img_url, mContext, icon_iv, R.drawable.ic_launcher_background, false);
-//        if (data.brokerSortCompare == 1) {//这个改成上升的
-//            icon_iv2.setImageResource(R.drawable.ic_falling);
-//        }
-//        else if (data.brokerSortCompare == 2) {
-//            icon_iv2.setImageResource(R.drawable.ic_falling);
-//        }
-//        else {
-//            icon_iv2.setVisibility(View.INVISIBLE);
-//        }
-//        title_tv1.setText(data.project_name);
-//        content_tv1.setText(data.sale_state);
-//        content_tv3.setText(data.absolute_address);
-//        number.setText("第" + data.sort + "名");
-//    }
 
 
     @Override
-    protected void convert(BaseViewHolder holder, QuickRecommendViewModel bean) {
+    protected void convert(BaseViewHolder holder, PipeiBean.DataBean.ListBean bean) {
+        holder.setText(R.id.content_tv1,"匹配度："+bean.getSort());
 
-
-        holder.setImageResource(R.id.icon_iv, AppConstants.URL + bean.img_url);
-        if (bean.brokerSortCompare == 1) {
+        holder.setImageResource(R.id.icon_iv, AppConstants.URL + bean.getImg_url());
+        if (bean.getBrokerSortCompare() == 1) {
             holder.setImageResource(R.id.icon_iv2, R.drawable.ic_rising);
-        } else if (bean.brokerSortCompare == 2) {
+        } else if (bean.getBrokerSortCompare() == 2) {
             holder.setImageResource(R.id.icon_iv2, R.drawable.ic_falling);
         } else {
             holder.setVisible(R.id.icon_iv2, View.INVISIBLE);
         }
-        holder.setText(R.id.title_tv1, bean.project_name);
-        if (bean.sort != 0 && bean.brokerSortCompare != 0) {
-            holder.setText(R.id.content_tv1, "荐");
-            holder.setText(R.id.content_tv4, "保证结佣");
-        }
-        holder.setText(R.id.content_tv3, bean.absolute_address);
-        holder.setText(R.id.number, "第" + bean.sort + "名");
-        if (bean.cycle == 0) {
+
+        holder.setText(R.id.content_tv3, bean.getAbsolute_address());
+        holder.setText(R.id.number, "第" + bean.getSort() + "名");
+        if (bean.getCycle() == 0) {
             holder.setImageResource(R.id.im_dian1, R.drawable.ic_lightning_1);
             holder.setImageResource(R.id.im_dian2, R.drawable.ic_lightning_1);
             holder.setImageResource(R.id.im_dian3, R.drawable.ic_lightning_1);
             holder.setImageResource(R.id.im_dian4, R.drawable.ic_lightning_1);
             holder.setImageResource(R.id.im_dian5, R.drawable.ic_lightning_1);
-        } else if (bean.cycle == 1) {
+        } else if (bean.getCycle() == 1) {
             holder.setImageResource(R.id.im_dian1, R.drawable.ic_lightning);
             holder.setImageResource(R.id.im_dian2, R.drawable.ic_lightning_1);
             holder.setImageResource(R.id.im_dian3, R.drawable.ic_lightning_1);
             holder.setImageResource(R.id.im_dian4, R.drawable.ic_lightning_1);
             holder.setImageResource(R.id.im_dian5, R.drawable.ic_lightning_1);
-        } else if (bean.cycle == 2) {
+        } else if (bean.getCycle() == 2) {
             holder.setImageResource(R.id.im_dian1, R.drawable.ic_lightning);
             holder.setImageResource(R.id.im_dian2, R.drawable.ic_lightning);
             holder.setImageResource(R.id.im_dian3, R.drawable.ic_lightning_1);
             holder.setImageResource(R.id.im_dian4, R.drawable.ic_lightning_1);
             holder.setImageResource(R.id.im_dian5, R.drawable.ic_lightning_1);
-        } else if (bean.cycle == 3) {
+        } else if (bean.getCycle() == 3) {
             holder.setImageResource(R.id.im_dian1, R.drawable.ic_lightning);
             holder.setImageResource(R.id.im_dian2, R.drawable.ic_lightning);
             holder.setImageResource(R.id.im_dian3, R.drawable.ic_lightning);
             holder.setImageResource(R.id.im_dian4, R.drawable.ic_lightning_1);
             holder.setImageResource(R.id.im_dian5, R.drawable.ic_lightning_1);
-        } else if (bean.cycle == 4) {
+        } else if (bean.getCycle() == 4) {
             holder.setImageResource(R.id.im_dian1, R.drawable.ic_lightning);
             holder.setImageResource(R.id.im_dian2, R.drawable.ic_lightning);
             holder.setImageResource(R.id.im_dian3, R.drawable.ic_lightning);
             holder.setImageResource(R.id.im_dian4, R.drawable.ic_lightning);
             holder.setImageResource(R.id.im_dian5, R.drawable.ic_lightning_1);
-        } else if (bean.cycle == 5) {
+        } else if (bean.getCycle() == 5) {
             holder.setImageResource(R.id.im_dian1, R.drawable.ic_lightning);
             holder.setImageResource(R.id.im_dian2, R.drawable.ic_lightning);
             holder.setImageResource(R.id.im_dian3, R.drawable.ic_lightning);
@@ -137,11 +92,12 @@ public class QuickRecommendAdapter extends BaseRecyclerAdapter<QuickRecommendVie
         PeizhiBean peizhiBean = MainActivity.savePeizhi();
         peizhiBean.getData().get_$16().getParam();
         peizhiBean.getData().get_$15().getParam();
+        ImageView imageView;
 
         for (int i = 0; i < peizhiBean.getData().get_$16().getParam().size(); i++) {
-            if (bean.property_tags.size() > 0) {
-                for (int j = 0; j < bean.property_tags.size(); j++) {
-                    if (peizhiBean.getData().get_$16().getParam().get(i).getId() == bean.property_tags.get(j)) {
+            if (bean.getProperty_tags().size() > 0) {
+                for (int j = 0; j < bean.getProperty_tags().size(); j++) {
+                    if (peizhiBean.getData().get_$16().getParam().get(i).getId() == bean.getProperty_tags().get(j)) {
                         String s = peizhiBean.getData().get_$16().getParam().get(i).getParam();
                         if(true) {
                             imageView = new ImageView(context);
@@ -168,18 +124,18 @@ public class QuickRecommendAdapter extends BaseRecyclerAdapter<QuickRecommendVie
         }
 
 
-        String ss = bean.project_tags;
+        String ss = bean.getProject_tags();
         if (TextUtils.isEmpty(ss)) {
             return;
         }
         String[] b = ss.split(",");
         for (int i = 0; i < peizhiBean.getData().get_$15().getParam().size(); i++) {
-            if (bean.project_tags.length() > 0) {
+            if (bean.getProject_tags().length() > 0) {
                 for (int j = 0; j < b.length; j++) {
                     int h = Integer.parseInt(b[j]);
                     if (peizhiBean.getData().get_$15().getParam().get(i).getId() == h) {
 
-                       imageView = new ImageView(context);
+                        imageView = new ImageView(context);
                         if (peizhiBean.getData().get_$15().getParam().get(i).getId() == 56) {
                             imageView.setImageResource(R.drawable.ic_elevatorroom);
                             linearLayout1.addView(imageView,layoutParams);
@@ -196,3 +152,4 @@ public class QuickRecommendAdapter extends BaseRecyclerAdapter<QuickRecommendVie
 
         }
     }}
+

@@ -1,11 +1,14 @@
 package com.ccsoft.yunqudao.ui.customers;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
 import android.widget.ImageButton;
 import android.widget.TextView;
 import com.ccsoft.yunqudao.R;
@@ -43,6 +46,8 @@ public class XuQiuXingXiFragment extends Fragment implements View.OnClickListene
     private int decorate    = 0;//装修类型
     private int buy_purpose = 0;//置业类型
     private int pay_type    = 0;//付款类型
+    private String need_id;
+    private boolean isGetData = false;
 
     public static XuQiuXingXiFragment newInstance(ClientPrivateData.NeedInfoBean needInfoBean) {
         XuQiuXingXiFragment fragment = new XuQiuXingXiFragment();
@@ -50,6 +55,26 @@ public class XuQiuXingXiFragment extends Fragment implements View.OnClickListene
         bundle.putSerializable("data", needInfoBean);
         fragment.setArguments(bundle);
         return fragment;
+    }
+
+    @Override
+    public Animation onCreateAnimation(int transit, boolean enter, int nextAnim) {
+        //   进入当前Fragment
+        if (enter && !isGetData) {
+            isGetData = true;
+            //   这里可以做网络请求或者需要的数据刷新操作
+
+           setData();
+        } else {
+            isGetData = false;
+        }
+        return super.onCreateAnimation(transit, enter, nextAnim);
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        isGetData = false;
     }
 
     @Nullable
@@ -87,13 +112,17 @@ public class XuQiuXingXiFragment extends Fragment implements View.OnClickListene
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.customers_button_resetclientneed:
-                ResetClientNeedActivity.start(getActivity());
+//                ResetClientNeedActivity.start(getActivity());
+                Intent intent = new Intent(getContext(),ResetClientNeedActivity.class);
+                intent.putExtra("need_id",need_id);
+                startActivity(intent);
         }
     }
 
     private void setData() {
 
         if (mData != null) {
+            need_id = String.valueOf(mData.need_id);
             propertyType = mData.property_type;
             totalPrice = mData.total_price;
             area = mData.area;
@@ -102,10 +131,10 @@ public class XuQiuXingXiFragment extends Fragment implements View.OnClickListene
             pay_type = mData.pay_type;
             // houseType = Integer.valueOf(mData.house_type).intValue();
 
-            // setPropertyType(mData.property_type, mCustomers_property_type);
+            setPropertyType(mData.property_type, mCustomers_property_type);
             setTotalPrice(mData.total_price, mCustomers_total_price);
             setArea(mData.area, mCustomers_area);
-            //  setHouseType(Integer.valueOf(mData.house_type).intValue(), mCustomers_house_type);
+//            setHouseType(Integer.valueOf(mData.house_type).intValue(), mCustomers_house_type);
             setDecorate(mData.decorate, mCustomers_decorate);
             setBuyPurpose(mData.buy_purpose, mCustomers_buy_purpose);
             setPayType(mData.pay_type, mCustomers_pay_type);

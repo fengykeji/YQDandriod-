@@ -26,6 +26,7 @@
 
 
     <RelativeLayout
+        android:id="@+id/customers_button_look_all"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/qianhui"
@@ -55,14 +56,14 @@
                 android:gravity="center_vertical"
                 android:orientation="horizontal"
                 >
-                <!--<Button-->
-                    <!--android:id="@+id/customers_button_look_all"-->
-                    <!--android:layout_width="60dp"-->
-                    <!--android:layout_height="30dp"-->
-                    <!--android:background="@android:color/transparent"-->
-                    <!--android:text="查看全部"-->
-                    <!--android:textSize="13sp"-->
-                    <!--/>-->
+                       <!--<Button-->
+                <!--android:id="@+id/customers_button_look_all"-->
+                <!--android:layout_width="60dp"-->
+                <!--android:layout_height="30dp"-->
+                <!--android:background="@android:color/transparent"-->
+                <!--android:text="查看全部"-->
+                <!--android:textSize="13sp"-->
+                <!--/>-->
 
             </LinearLayout>
 
@@ -80,6 +81,7 @@
                     android:textSize="15sp"
                     />
                 <TextView
+                    android:id="@+id/tv_num"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text=""

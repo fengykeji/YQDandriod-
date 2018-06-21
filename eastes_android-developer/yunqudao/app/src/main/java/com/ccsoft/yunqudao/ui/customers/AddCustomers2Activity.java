@@ -2,6 +2,7 @@ package com.ccsoft.yunqudao.ui.customers;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
@@ -19,8 +20,13 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bigkoo.pickerview.builder.OptionsPickerBuilder;
+import com.bigkoo.pickerview.listener.OnOptionsSelectChangeListener;
+import com.bigkoo.pickerview.listener.OnOptionsSelectListener;
+import com.bigkoo.pickerview.view.OptionsPickerView;
 import com.ccsoft.yunqudao.R;
 import com.ccsoft.yunqudao.bean.MessageEvent;
+import com.ccsoft.yunqudao.bean.ProvinceBean;
 import com.ccsoft.yunqudao.data.AppConstants;
 import com.ccsoft.yunqudao.http.HttpAdress;
 import com.ccsoft.yunqudao.http.MyStringCallBack;
@@ -32,6 +38,8 @@ import com.ccsoft.yunqudao.ui.mian.MainActivity;
 import com.ccsoft.yunqudao.utils.ActivityManager;
 import com.ccsoft.yunqudao.utils.JsonUtil;
 import com.ccsoft.yunqudao.utils.LogUtil;
+
+import com.ccsoft.yunqudao.utils.wheelview.listener.WheelView;
 import com.lzy.okhttputils.OkHttpUtils;
 
 import org.greenrobot.eventbus.EventBus;
@@ -59,15 +67,15 @@ public class AddCustomers2Activity extends AppCompatActivity implements View.OnC
      * @param savedInstanceState
      */
     private ImageButton mCustomers_button_back;
-    private Button      mCustomers_button_commit;
+    private Button mCustomers_button_commit;
     private ImageButton mCustomers_button_add;
-    private TextView    mCustomers_text_seekbar1;
-    private TextView    mCustomers_text_seekbar2;
-    private SeekBar     mCustomers_seekbar1;
-    private SeekBar     mCustomers_seekbar2;
-    private Spinner     mSpinner_address, mSpinner_property_type, mSpinner_total_price, mSpinner_area, mSpinner_house_type, mSpinner_decorated, mSpinner_buy_type, mSpinner_pay_type;
-    private TextView mNeed_text_address,tv_showlabel, mNeed_text_property_type, mNeed_text_total_price, mNeed_text_area, mNeed_text_house_type, mNeed_text_decorated, mNeed_text_buy_type, mNeed_text_pay_type;
-    private EditText et_floor_min,et_floor_max,et_comment;
+    private TextView mCustomers_text_seekbar1;
+    private TextView mCustomers_text_seekbar2;
+    private SeekBar mCustomers_seekbar1;
+    private SeekBar mCustomers_seekbar2;
+    private Spinner mSpinner_address, mSpinner_property_type, mSpinner_total_price, mSpinner_area, mSpinner_house_type, mSpinner_decorated, mSpinner_buy_type, mSpinner_pay_type;
+    private TextView mNeed_text_address, tv_showlabel, mNeed_text_property_type, mNeed_text_total_price, mNeed_text_area, mNeed_text_house_type, mNeed_text_decorated, mNeed_text_buy_type, mNeed_text_pay_type;
+    private EditText et_floor_min, et_floor_max, et_comment;
     private LinearLayout ll_showlabel;
     private String mString1;
     private String mString2;
@@ -83,10 +91,10 @@ public class AddCustomers2Activity extends AppCompatActivity implements View.OnC
     private String birth;
     private String card_id;
     private String address;
-    private ArrayAdapter adapter ;
+    private ArrayAdapter adapter1, adapter2, adapter3, adapter4, adapter5, adapter6, adapter7, adapter8;
     private int house_type;
-    private int floor_min ;
-    private int floor_max ;
+    private int floor_min;
+    private int floor_max;
     private int decorate;
     private int buy_purpose;
     private int pay_type;
@@ -95,7 +103,14 @@ public class AddCustomers2Activity extends AppCompatActivity implements View.OnC
     private String comment;
     private List<String> list = new ArrayList<>();
     private Date date;
-
+    private int property_type;
+    private ArrayList<Integer> Idlist = new ArrayList<>();
+    private String need_tags = "";
+    private OptionsPickerView pvOptions ;
+//    private ArrayList<String> options1Items = new ArrayList<>();
+//    private ArrayList<ArrayList<String>> options2Items = new ArrayList<ArrayList<String>>();
+    private ArrayList<ProvinceBean> options1Items = new ArrayList<>();
+    private ArrayList<ArrayList<String>> options2Items = new ArrayList<>();
 
 
     @Override
@@ -112,6 +127,9 @@ public class AddCustomers2Activity extends AppCompatActivity implements View.OnC
         /**
          * 初始化id
          */
+
+        getOptionData();
+        setarea();
         mCustomers_button_back = findViewById(R.id.customers_button_back);
         mCustomers_button_add = findViewById(R.id.customers_button_add);
         mCustomers_button_commit = findViewById(R.id.customers_button_commit);
@@ -119,7 +137,7 @@ public class AddCustomers2Activity extends AppCompatActivity implements View.OnC
         mCustomers_text_seekbar2 = findViewById(R.id.customers_text_seekbar2);
         mCustomers_seekbar1 = findViewById(R.id.customers_seekbar1);
         mCustomers_seekbar2 = findViewById(R.id.customers_seekbar2);
-        mSpinner_address = findViewById(R.id.spinner_address);
+//        mSpinner_address = findViewById(R.id.spinner_address);
         mSpinner_property_type = findViewById(R.id.spinner_property_type);
         mSpinner_total_price = findViewById(R.id.spinner_total_price);
         mSpinner_area = findViewById(R.id.spinner_area);
@@ -133,6 +151,7 @@ public class AddCustomers2Activity extends AppCompatActivity implements View.OnC
         et_comment = findViewById(R.id.ed_comment);
         tv_showlabel = findViewById(R.id.tv_showlabel);
         ll_showlabel = findViewById(R.id.ll_showlabel);
+
 //        mNeed_text_property_type = findViewById(R.id.need_text_property_type);
 //        mNeed_text_total_price = findViewById(R.id.need_text_total_price);
 //        mNeed_text_area = findViewById(R.id.need_text_area);
@@ -140,7 +159,7 @@ public class AddCustomers2Activity extends AppCompatActivity implements View.OnC
 //        mNeed_text_decorated = findViewById(R.id.need_text_decorated);
 //        mNeed_text_buy_type = findViewById(R.id.need_text_buy_type);
 //        mNeed_text_pay_type = findViewById(R.id.need_text_pay_type);
-        mString1 = (String) mSpinner_address.getSelectedItem();
+//        mString1 = (String) mSpinner_address.getSelectedItem();
         mString2 = (String) mSpinner_property_type.getSelectedItem();
         mString3 = (String) mSpinner_total_price.getSelectedItem();
         mString4 = (String) mSpinner_area.getSelectedItem();
@@ -149,10 +168,22 @@ public class AddCustomers2Activity extends AppCompatActivity implements View.OnC
         mString7 = (String) mSpinner_buy_type.getSelectedItem();
         mString8 = (String) mSpinner_pay_type.getSelectedItem();
 
-        adapter = ArrayAdapter.createFromResource(this,R.array.物业类型,
-                android.R.layout.simple_spinner_item);
-        mSpinner_property_type.setAdapter(adapter);
-        mSpinner_property_type.setOnItemSelectedListener(this );
+        Idlist = getIntent().getIntegerArrayListExtra("list");
+
+        if (Idlist != null) {
+            for (int i = 0; i < Idlist.size(); i++) {
+                int id = Idlist.get(i);
+                if (i == 0) {
+                    need_tags = String.valueOf(Idlist.get(i));
+                } else {
+                    need_tags = need_tags.concat("," + String.valueOf(id));
+                    Log.e("needsssss", need_tags);
+                }
+            }
+        }
+
+
+        setSpinnerAdapter();
 
 
         Submit();
@@ -162,6 +193,8 @@ public class AddCustomers2Activity extends AppCompatActivity implements View.OnC
         /**
          * 初始化监听器
          */
+
+
         mCustomers_button_back.setOnClickListener(this);
         mCustomers_button_add.setOnClickListener(this);
         mCustomers_button_commit.setOnClickListener(this);
@@ -169,19 +202,20 @@ public class AddCustomers2Activity extends AppCompatActivity implements View.OnC
         mCustomers_text_seekbar2.setOnClickListener(this);
         mCustomers_seekbar1.setOnSeekBarChangeListener(this);
         mCustomers_seekbar2.setOnSeekBarChangeListener(this);
+        mNeed_text_address.setOnClickListener(this);
 
 
         LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
         layoutParams.leftMargin = 6;
-        if(getIntent().getParcelableArrayListExtra("list")!=null){
-            list = getIntent().getStringArrayListExtra("list");
-            for(int i =0; i<list.size() ; i++){
+        if (getIntent().getParcelableArrayListExtra("lists") != null) {
+            list = getIntent().getStringArrayListExtra("lists");
+            for (int i = 0; i < list.size(); i++) {
                 TextView textView = new TextView(AddCustomers2Activity.this);
-                textView.setText( list.get(i));
+                textView.setText(list.get(i));
                 textView.setBackgroundResource(R.drawable.shape_addlabel);
-                textView.setPadding(14,14,14,14);
+                textView.setPadding(14, 14, 14, 14);
                 textView.setTextSize(19);
-                ll_showlabel.addView(textView,layoutParams);
+                ll_showlabel.addView(textView, layoutParams);
                 tv_showlabel.setVisibility(View.GONE);
             }
         }
@@ -201,92 +235,108 @@ public class AddCustomers2Activity extends AppCompatActivity implements View.OnC
             case R.id.customers_button_add:
                 AddLabelActivity.start(this);
                 break;
+            case R.id.need_text_address:
+                Log.e("ssssss","dianjil");
+
+                pvOptions.show();
+                break;
             case R.id.customers_button_commit:
 
 
-
-                if(mString2 == null){
-                    mString2 = "";
+                if (mString2 == null) {
+                    property_type = 0;
+                } else if (mString2.equals("住宅")) {
+                    property_type = 59;
+                } else if (mString2.equals("公寓")) {
+                    property_type = 60;
+                } else if (mString2.equals("别墅")) {
+                    property_type = 61;
+                } else if (mString2.equals("商铺")) {
+                    property_type = 62;
+                } else if (mString2.equals("写字楼")) {
+                    property_type = 63;
                 }
-                if(mString3 == null){
+                if (mString3 == null) {
                     mString3 = "";
                 }
-                if(mString4 == null){
+                if (mString4 == null) {
                     mString4 = "";
                 }
-                if(mString5 == null){
-                    house_type=0;
-                }else if(mString5.equals("3室2厅2卫")){
-                    house_type=32;
-                }else if(mString5.equals("1室1厅2卫")){
-                    house_type=33;
-                }else if(mString5.equals("1室1厅1卫")){
-                    house_type=106;
-            }
-            if(et_floor_min.getText().toString().equals("")){
-                floor_min = 0;
-            }else {
-                floor_min = Integer.parseInt(et_floor_min.getText().toString());
-            }
-            if(et_floor_max.getText().toString().equals("")){
-                floor_max = 0;
-            }else {
-                floor_max = Integer.parseInt(et_floor_max.getText().toString());
-            }
-                if(mString6 == null){
-                    decorate=0;
-                }else if(mString6.equals("毛坯")){
+                if (mString5 == null) {
+                    house_type = 0;
+                } else if (mString5.equals("3室2厅2卫")) {
+                    house_type = 32;
+                } else if (mString5.equals("1室1厅2卫")) {
+                    house_type = 33;
+                } else if (mString5.equals("1室1厅1卫")) {
+                    house_type = 106;
+                }
+                if (et_floor_min.getText().toString().equals("")) {
+                    floor_min = 0;
+                } else {
+                    floor_min = Integer.parseInt(et_floor_min.getText().toString());
+                }
+                if (et_floor_max.getText().toString().equals("")) {
+                    floor_max = 0;
+                } else {
+                    floor_max = Integer.parseInt(et_floor_max.getText().toString());
+                }
+                if (mString6 == null) {
+                    decorate = 0;
+                } else if (mString6.equals("毛坯")) {
                     decorate = 80;
-                }else if(mString6.equals("简装")){
+                } else if (mString6.equals("简装")) {
                     decorate = 81;
-                }else if(mString6.equals("精装")){
+                } else if (mString6.equals("精装")) {
                     decorate = 82;
                 }
-                if(mString7 == null){
-                    buy_purpose=0;
-                }if(mString7.equals("投资")){
-                buy_purpose = 43;
-            }else if(mString7.equals("自住")){
-                buy_purpose = 44;
-            }else if(mString7.equals("投资兼自住")){
-                buy_purpose = 45;
-            }
-                if(mString8 == null){
-                    pay_type = 0 ;
-                }else {
+                if (mString7 == null) {
+                    buy_purpose = 0;
+                }
+                if (mString7.equals("投资")) {
+                    buy_purpose = 43;
+                } else if (mString7.equals("自住")) {
+                    buy_purpose = 44;
+                } else if (mString7.equals("投资兼自住")) {
+                    buy_purpose = 45;
+                }
+                if (mString8 == null) {
+                    pay_type = 0;
+                } else {
                     MainActivity.savePeizhi().getData().get_$13().getParam();
-                    for(int i=0;i<MainActivity.savePeizhi().getData().get_$13().getParam().size();i++){
-                        if(mString8.equals(MainActivity.savePeizhi().getData().get_$13().getParam().get(0))){
+                    for (int i = 0; i < MainActivity.savePeizhi().getData().get_$13().getParam().size(); i++) {
+                        if (mString8.equals(MainActivity.savePeizhi().getData().get_$13().getParam().get(0))) {
                             pay_type = 46;
-                        }else if(mString8.equals(MainActivity.savePeizhi().getData().get_$13().getParam().get(1))){
-                            pay_type =47;
-                        }
-                        else if(mString8.equals(MainActivity.savePeizhi().getData().get_$13().getParam().get(2))){
+                        } else if (mString8.equals(MainActivity.savePeizhi().getData().get_$13().getParam().get(1))) {
+                            pay_type = 47;
+                        } else if (mString8.equals(MainActivity.savePeizhi().getData().get_$13().getParam().get(2))) {
                             pay_type = 48;
-                        }else if(mString8.equals(MainActivity.savePeizhi().getData().get_$13().getParam().get(3))){
+                        } else if (mString8.equals(MainActivity.savePeizhi().getData().get_$13().getParam().get(3))) {
                             pay_type = 49;
-                        }else if(mString8.equals(MainActivity.savePeizhi().getData().get_$13().getParam().get(4))){
+                        } else if (mString8.equals(MainActivity.savePeizhi().getData().get_$13().getParam().get(4))) {
                             pay_type = 50;
                         }
                     }
                 }
-                if(mCustomers_text_seekbar1.getText().toString().equals("")){
+                if (mCustomers_text_seekbar1.getText().toString().equals("")) {
                     intent = 0;
-                }else {
+                } else {
                     intent = Integer.parseInt(mCustomers_text_seekbar1.getText().toString());
                 }
-                if(mCustomers_text_seekbar2.getText().toString().equals("")){
+                if (mCustomers_text_seekbar2.getText().toString().equals("")) {
                     urgency = 0;
-                }else {
+                } else {
                     urgency = Integer.parseInt(mCustomers_text_seekbar2.getText().toString());
                 }
 
-                if(et_comment.getText().toString()==null){
-                        comment = "";
-                }else {
+                if (et_comment.getText().toString() == null) {
+                    comment = "";
+                } else {
                     comment = et_comment.getText().toString();
                 }
 
+                Log.e("data", "name" + name + "sex" + sex + "tel" + tel + "birth" + birth + "card" + card_id + "address" + address
+                        + "mstring2" + mString2 + "total_price" + mString3 + "area" + mString4);
 
                 OkHttpUtils.post(HttpAdress.addClientAndNeed)
                         .tag(this)
@@ -294,32 +344,32 @@ public class AddCustomers2Activity extends AppCompatActivity implements View.OnC
                         .params("sex", sex)
                         .params("tel", tel)
                         .params("birth", birth)
-                        .params("card_id",card_id)
-                        .params("address",address)
-//                        .params("property_type",mString2)
-                        .params("total_price",mString3)
-                        .params("area",mString4)
-                        .params("house_type",house_type)
-                        .params("floor_min",floor_min)
-                        .params("floor_max",floor_max)
-                        .params("decorate",decorate)
-                        .params("buy_purpose",buy_purpose)
-                        .params("pay_type",pay_type)
-                        .params("intent",intent)
-                        .params("urgency",urgency)
-//                        .params("need_tags",)
-                        .params("comment",comment)
+                        .params("card_id", card_id)
+                        .params("address", address)
+                        .params("property_type", property_type)
+                        .params("total_price", mString3)
+                        .params("area", mString4)
+                        .params("house_type", house_type)
+                        .params("floor_min", floor_min)
+                        .params("floor_max", floor_max)
+                        .params("decorate", decorate)
+                        .params("buy_purpose", buy_purpose)
+                        .params("pay_type", pay_type)
+                        .params("intent", intent)
+                        .params("urgency", urgency)
+                        .params("need_tags", need_tags)
+                        .params("comment", comment)
                         .execute(new MyStringCallBack() {
                             @Override
                             public void onSuccess(String s, Call call, Response response) {
                                 super.onSuccess(s, call, response);
-                                StringModel model = JsonUtil.jsonToEntity(s,StringModel.class);
-                                if(model.getCode()==200){
+                                StringModel model = JsonUtil.jsonToEntity(s, StringModel.class);
+                                if (model.getCode() == 200) {
                                     Toast.makeText(AddCustomers2Activity.this, ":添加客户基本信息成功", Toast.LENGTH_SHORT).show();
 
                                 }
-                                Toast.makeText(AddCustomers2Activity.this,model.getMsg(),Toast.LENGTH_SHORT).show();
-                                Log.e("失败",model.getMsg()+"是什么");
+                                Toast.makeText(AddCustomers2Activity.this, model.getMsg(), Toast.LENGTH_SHORT).show();
+                                Log.e("失败", model.getMsg() + "是什么");
                             }
                         });
 
@@ -386,29 +436,43 @@ public class AddCustomers2Activity extends AppCompatActivity implements View.OnC
 
     @Override
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-        mString1 = (String) mSpinner_address.getSelectedItem();
-        mNeed_text_address.setText(mString1);
 
-        mString2 = (String) adapter.getItem(position);
+        switch (view.getId()) {
+//            case R.id.spinner_address:
+//            mString1 = (String) mSpinner_address.getSelectedItem();
+//            mNeed_text_address.setText(mString1);
+//            break;
+            case R.id.spinner_property_type:
+                mString2 = (String) adapter2.getItem(position);
 //        mNeed_text_property_type.setText(mString2);
-
-        mString3 = (String) mSpinner_total_price.getSelectedItem();
+                break;
+            case R.id.spinner_total_price:
+                mString3 = (String) adapter3.getItem(position);
 //        mNeed_text_total_price.setText(mString3);
-
-        mString4 = (String) mSpinner_area.getSelectedItem();
+                break;
+            case R.id.spinner_area:
+                mString4 = (String) adapter4.getItem(position);
 //        mNeed_text_area.setText(mString4);
-
-        mString5 = (String) mSpinner_decorated.getSelectedItem();
+                break;
+            case R.id.spinner_house_type:
+                mString5 = (String) adapter5.getItem(position);
 //        mNeed_text_house_type.setText(mString5);
-
-        mString6 = (String) mSpinner_buy_type.getSelectedItem();
+                break;
+            case R.id.spinner_decorated:
+                mString6 = (String) adapter6.getItem(position);
 //        mNeed_text_decorated.setText(mString6);
-
-        mString7 = (String) mSpinner_pay_type.getSelectedItem();
+                break;
+            case R.id.spinner_buy_type:
+                mString7 = (String) adapter7.getItem(position);
 //        mNeed_text_buy_type.setText(mString7);
-
-        mString8 = (String) mSpinner_pay_type.getSelectedItem();
+                break;
+            case R.id.spinner_pay_type:
+                mString8 = (String) adapter8.getItem(position);
+                break;
+        }
 //        mNeed_text_pay_type.setText(mString8);
+
+
     }
 
     @Override
@@ -416,29 +480,155 @@ public class AddCustomers2Activity extends AppCompatActivity implements View.OnC
 
     }
 
-    private void Submit(){
+    private void Submit() {
         name = getIntent().getStringExtra("name");
-         sex = getIntent().getStringExtra("sex");
-         if(sex==null){
-             sex="";
-         }else if(sex.equals(2)) {
-             sex="女";
-         }else if(sex.equals(1)){
-             sex="男";
-         }
-        tel = getIntent().getStringExtra("tel");
-         birth = getIntent().getStringExtra("birth");
-        DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-        try {
-            date= dateFormat.parse(birth);
-        } catch (ParseException e) {
-            e.printStackTrace();
+        sex = getIntent().getStringExtra("sex");
+        if (sex == null) {
+            sex = "";
+        } else if (sex.equals(2)) {
+            sex = "女";
+        } else if (sex.equals(1)) {
+            sex = "男";
         }
-
-         card_id = getIntent().getStringExtra("card_id");
-         address = getIntent().getStringExtra("address");
+        tel = getIntent().getStringExtra("tel");
+        if (birth == null) {
+            birth = "";
+        } else {
+            birth = getIntent().getStringExtra("birth");
+        }
+        card_id = getIntent().getStringExtra("card_id");
+        address = getIntent().getStringExtra("address");
 
 
     }
 
+    /**
+     * 设置spinner适配器监听
+     */
+    private void setSpinnerAdapter() {
+        adapter2 = ArrayAdapter.createFromResource(this, R.array.物业类型,
+                android.R.layout.simple_spinner_item);
+        mSpinner_property_type.setAdapter(adapter2);
+        mSpinner_property_type.setOnItemSelectedListener(this);
+
+        adapter3 = ArrayAdapter.createFromResource(this, R.array.总价,
+                android.R.layout.simple_spinner_item);
+        mSpinner_total_price.setAdapter(adapter3);
+        mSpinner_total_price.setOnItemSelectedListener(this);
+
+        adapter4 = ArrayAdapter.createFromResource(this, R.array.面积,
+                android.R.layout.simple_spinner_item);
+        mSpinner_area.setAdapter(adapter4);
+        mSpinner_area.setOnItemSelectedListener(this);
+
+        adapter5 = ArrayAdapter.createFromResource(this, R.array.户型,
+                android.R.layout.simple_spinner_item);
+        mSpinner_house_type.setAdapter(adapter5);
+        mSpinner_house_type.setOnItemSelectedListener(this);
+
+        adapter6 = ArrayAdapter.createFromResource(this, R.array.装修类型,
+                android.R.layout.simple_spinner_item);
+        mSpinner_decorated.setAdapter(adapter6);
+        mSpinner_decorated.setOnItemSelectedListener(this);
+
+        adapter7 = ArrayAdapter.createFromResource(this, R.array.置业目的,
+                android.R.layout.simple_spinner_item);
+        mSpinner_buy_type.setAdapter(adapter7);
+        mSpinner_buy_type.setOnItemSelectedListener(this);
+
+        adapter8 = ArrayAdapter.createFromResource(this, R.array.付款方式,
+                android.R.layout.simple_spinner_item);
+        mSpinner_pay_type.setAdapter(adapter8);
+        mSpinner_pay_type.setOnItemSelectedListener(this);
+    }
+
+    private void setarea() {
+//        options1Items.add("金牛区");
+//        options1Items.add("青羊区");
+//        ArrayList<String> options2Items_01 = new ArrayList<>();
+//        options2Items_01.add("武侯区");
+//        options2Items_01.add("高新区");
+//        options2Items.add(options2Items_01);
+
+
+
+
+
+        pvOptions = new OptionsPickerBuilder(this, new OnOptionsSelectListener() {
+            @Override
+            public void onOptionsSelect(int options1, int options2, int options3, View v) {
+                //返回的分别是三个级别的选中位置
+                String tx = options1Items.get(options1).getPickerViewText()
+                        + options2Items.get(options1).get(options2)
+                        /* + options3Items.get(options1).get(options2).get(options3).getPickerViewText()*/;
+                mNeed_text_address.setText(tx);
+            }
+        })
+                .setTitleText("城市选择")
+                .setContentTextSize(20)//设置滚轮文字大小
+                .setDividerColor(Color.LTGRAY)//设置分割线的颜色
+                .setSelectOptions(0, 1)//默认选中项
+                .setBgColor(Color.WHITE)
+                .setTitleBgColor(Color.DKGRAY)
+                .setTitleColor(Color.LTGRAY)
+                .setCancelColor(Color.YELLOW)
+                .setSubmitColor(Color.YELLOW)
+                .setTextColorCenter(Color.LTGRAY)
+                .isRestoreItem(true)//切换时是否还原，设置默认选中第一项。
+                .isCenterLabel(false) //是否只显示中间选中项的label文字，false则每项item全部都带有label。
+                .setLabels("省", "市", "区")
+                .setBackgroundId(0x00000000) //设置外部遮罩颜色
+                .setOptionsSelectChangeListener(new OnOptionsSelectChangeListener() {
+                    @Override
+                    public void onOptionsSelectChanged(int options1, int options2, int options3) {
+                        String str = "options1: " + options1 + "\noptions2: " + options2 + "\noptions3: " + options3;
+                        Toast.makeText(AddCustomers2Activity.this, str, Toast.LENGTH_SHORT).show();
+                    }
+                })
+                .build();
+
+//        pvOptions.setSelectOptions(1,1);
+        /*pvOptions.setPicker(options1Items);//一级选择器*/
+        pvOptions.setPicker(options1Items, options2Items);//二级选择器
+        /*pvOptions.setPicker(options1Items, options2Items,options3Items);//三级选择器*/
+
+
+
+
+
+    }
+
+    private void getOptionData() {
+
+        /**
+         * 注意：如果是添加JavaBean实体数据，则实体类需要实现 IPickerViewData 接口，
+         * PickerView会通过getPickerViewText方法获取字符串显示出来。
+         */
+
+
+        //选项1
+        options1Items.add(new ProvinceBean(0, "广东", "描述部分", "其他数据"));
+        options1Items.add(new ProvinceBean(1, "湖南", "描述部分", "其他数据"));
+        options1Items.add(new ProvinceBean(2, "广西", "描述部分", "其他数据"));
+
+        //选项2
+        ArrayList<String> options2Items_01 = new ArrayList<>();
+        options2Items_01.add("广州");
+        options2Items_01.add("佛山");
+        options2Items_01.add("东莞");
+        options2Items_01.add("珠海");
+        ArrayList<String> options2Items_02 = new ArrayList<>();
+        options2Items_02.add("长沙");
+        options2Items_02.add("岳阳");
+        options2Items_02.add("株洲");
+        options2Items_02.add("衡阳");
+        ArrayList<String> options2Items_03 = new ArrayList<>();
+        options2Items_03.add("桂林");
+        options2Items_03.add("玉林");
+        options2Items.add(options2Items_01);
+        options2Items.add(options2Items_02);
+        options2Items.add(options2Items_03);
+
+        /*--------数据源添加完毕---------*/
+    }
 }

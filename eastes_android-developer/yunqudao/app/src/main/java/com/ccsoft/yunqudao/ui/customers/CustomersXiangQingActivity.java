@@ -70,6 +70,7 @@ public class CustomersXiangQingActivity extends AppCompatActivity implements Vie
         setContentView(R.layout.activity_customers_xiangqing);
         initView();
         initListener();
+        initData();
 
     }
 
@@ -129,7 +130,6 @@ public class CustomersXiangQingActivity extends AppCompatActivity implements Vie
 
             @Override
             protected void _onError(String message) {
-                Log.e("ssss","sssw"+message);
 
             }
 
@@ -246,6 +246,7 @@ public class CustomersXiangQingActivity extends AppCompatActivity implements Vie
     @Override
     protected void onResume() {
         super.onResume();
-        initData();
+
     }
+
 }

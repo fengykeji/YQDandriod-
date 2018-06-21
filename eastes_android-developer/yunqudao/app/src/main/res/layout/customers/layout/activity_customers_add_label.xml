@@ -65,16 +65,7 @@
             />
     </LinearLayout>
 
-    <LinearLayout
-        android:id="@+id/ll_addTextLabel2"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="20dp"
-        android:background="@drawable/shape_case"
-        android:orientation="horizontal"
-        android:visibility="visible">
 
-    </LinearLayout>
 
     <LinearLayout
         android:layout_margin="20dp"
@@ -86,7 +77,7 @@
         <android.support.v7.widget.RecyclerView
             android:id="@+id/re_add_label_list"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             />
     </LinearLayout>
 
@@ -200,101 +191,117 @@
     android:visibility="visible"
     >
 
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/re_add_label_list1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            />
 </LinearLayout>
+        <!--<LinearLayout-->
+            <!--android:id="@+id/ll_addTextLabel2"-->
+            <!--android:layout_margin="20dp"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:background="@drawable/shape_case"-->
+            <!--android:orientation="horizontal"-->
+            <!--android:visibility="visible"-->
+            <!--&gt;-->
 
-    <LinearLayout
-        android:id="@+id/ll_addTextLabel3"
-        android:layout_margin="20dp"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@drawable/shape_case"
-        android:orientation="horizontal"
-        android:visibility="visible"
-        >
+        <!--</LinearLayout>-->
 
-    </LinearLayout>
-    <LinearLayout
-        android:id="@+id/ll_addTextLabel4"
-        android:layout_margin="20dp"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@drawable/shape_case"
-        android:orientation="horizontal"
-        android:visibility="visible"
-        >
+    <!--<LinearLayout-->
+        <!--android:id="@+id/ll_addTextLabel3"-->
+        <!--android:layout_margin="20dp"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:background="@drawable/shape_case"-->
+        <!--android:orientation="horizontal"-->
+        <!--android:visibility="visible"-->
+        <!--&gt;-->
 
-    </LinearLayout>
+    <!--</LinearLayout>-->
+    <!--<LinearLayout-->
+        <!--android:id="@+id/ll_addTextLabel4"-->
+        <!--android:layout_margin="20dp"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:background="@drawable/shape_case"-->
+        <!--android:orientation="horizontal"-->
+        <!--android:visibility="visible"-->
+        <!--&gt;-->
 
-    <LinearLayout
-        android:layout_margin="20dp"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:background="@drawable/shape_case"
-        android:visibility="gone"
-        >
+    <!--</LinearLayout>-->
 
-        <LinearLayout
-            android:weightSum="8"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:layout_marginBottom="20dp"
-            >
-            <TextView
-                android:layout_weight="2"
-                android:layout_width="0dp"
-                android:layout_height="30dp"
-                />
-            <TextView
-                android:layout_weight="2"
-                android:layout_width="0dp"
-                android:layout_height="30dp"
-                />
-            <TextView
-                android:layout_weight="2"
-                android:layout_width="0dp"
-                android:layout_height="30dp"
-                />
-            <TextView
-                android:layout_weight="2"
-                android:layout_width="0dp"
-                android:layout_height="30dp"
-                />
+    <!--<LinearLayout-->
+        <!--android:layout_margin="20dp"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:orientation="vertical"-->
+        <!--android:background="@drawable/shape_case"-->
+        <!--android:visibility="gone"-->
+        <!--&gt;-->
+
+        <!--<LinearLayout-->
+            <!--android:weightSum="8"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:orientation="horizontal"-->
+            <!--android:layout_marginBottom="20dp"-->
+            <!--&gt;-->
+            <!--<TextView-->
+                <!--android:layout_weight="2"-->
+                <!--android:layout_width="0dp"-->
+                <!--android:layout_height="30dp"-->
+                <!--/>-->
+            <!--<TextView-->
+                <!--android:layout_weight="2"-->
+                <!--android:layout_width="0dp"-->
+                <!--android:layout_height="30dp"-->
+                <!--/>-->
+            <!--<TextView-->
+                <!--android:layout_weight="2"-->
+                <!--android:layout_width="0dp"-->
+                <!--android:layout_height="30dp"-->
+                <!--/>-->
+            <!--<TextView-->
+                <!--android:layout_weight="2"-->
+                <!--android:layout_width="0dp"-->
+                <!--android:layout_height="30dp"-->
+                <!--/>-->
 
 
-        </LinearLayout>
+        <!--</LinearLayout>-->
 
-        <LinearLayout
-            android:weightSum="8"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:layout_marginBottom="20dp"
-            >
-            <TextView
-                android:layout_weight="2"
-                android:layout_width="0dp"
-                android:layout_height="30dp"
-                />
-            <TextView
-                android:layout_weight="2"
-                android:layout_width="0dp"
-                android:layout_height="30dp"
-                />
-            <TextView
-                android:layout_weight="2"
-                android:layout_width="0dp"
-                android:layout_height="30dp"
-                />
-            <TextView
-                android:layout_weight="2"
-                android:layout_width="0dp"
-                android:layout_height="30dp"
-                />
+        <!--<LinearLayout-->
+            <!--android:weightSum="8"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:orientation="horizontal"-->
+            <!--android:layout_marginBottom="20dp"-->
+            <!--&gt;-->
+            <!--<TextView-->
+                <!--android:layout_weight="2"-->
+                <!--android:layout_width="0dp"-->
+                <!--android:layout_height="30dp"-->
+                <!--/>-->
+            <!--<TextView-->
+                <!--android:layout_weight="2"-->
+                <!--android:layout_width="0dp"-->
+                <!--android:layout_height="30dp"-->
+                <!--/>-->
+            <!--<TextView-->
+                <!--android:layout_weight="2"-->
+                <!--android:layout_width="0dp"-->
+                <!--android:layout_height="30dp"-->
+                <!--/>-->
+            <!--<TextView-->
+                <!--android:layout_weight="2"-->
+                <!--android:layout_width="0dp"-->
+                <!--android:layout_height="30dp"-->
+                <!--/>-->
 
-        </LinearLayout>
-    </LinearLayout>
+        <!--</LinearLayout>-->
+    <!--</LinearLayout>-->
 
     <ImageView
         android:layout_width="match_parent"

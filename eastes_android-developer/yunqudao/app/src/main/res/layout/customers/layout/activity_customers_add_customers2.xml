@@ -38,14 +38,12 @@
 
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        >
+        android:layout_height="wrap_content">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            >
+            android:orientation="vertical">
 
 
             <LinearLayout
@@ -53,21 +51,20 @@
                 android:layout_height="wrap_content"
                 android:gravity="center_vertical"
                 android:orientation="horizontal"
-                android:padding="10dp"
-                >
+                android:padding="10dp">
+
                 <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginRight="10dp"
-                    android:src="@drawable/ic_blue"
-                    />
+                    android:src="@drawable/ic_blue" />
+
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="需求信息"
                     android:textColor="@color/chunhei"
-                    android:textSize="18sp"
-                    />
+                    android:textSize="18sp" />
             </LinearLayout>
 
 
@@ -75,8 +72,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                android:padding="20dp"
-                >
+                android:padding="20dp">
                 <!--区域-->
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -84,8 +80,7 @@
                     android:gravity="center_vertical"
                     android:orientation="horizontal"
                     android:paddingBottom="20dp"
-                    android:weightSum="10"
-                    >
+                    android:weightSum="10">
 
                     <TextView
                         android:layout_width="0dp"
@@ -94,8 +89,7 @@
                         android:padding="10dp"
                         android:text="区域："
                         android:textColor="@color/chunhei"
-                        android:textSize="15sp"
-                        />
+                        android:textSize="15sp" />
 
                     <LinearLayout
                         android:layout_width="0dp"
@@ -104,36 +98,68 @@
                         android:background="@drawable/shape_case"
                         android:gravity="center_vertical"
                         android:padding="10dp"
-                        android:weightSum="10"
-                        >
+                        android:weightSum="10">
+
                         <TextView
                             android:id="@+id/need_text_address"
-                            android:layout_weight="8"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
-                            />
+                            android:layout_weight="10" />
 
-                        <Spinner
-                            android:id="@+id/spinner_address"
-                            android:layout_weight="2"
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:dropDownVerticalOffset="35dp"
-                            android:dropDownWidth="1080px"
-                            android:entries="@array/需求添加区域"
-                            />
+                        <!--<Spinner-->
+                            <!--android:id="@+id/spinner_address"-->
+                            <!--android:layout_width="0dp"-->
+                            <!--android:layout_height="wrap_content"-->
+                            <!--android:layout_weight="2"-->
+                            <!--android:dropDownVerticalOffset="35dp"-->
+                            <!--android:dropDownWidth="1080px"-->
+                            <!--android:entries="@array/需求添加区域" />-->
+
+
                     </LinearLayout>
 
-                    <ImageButton
-                        android:id="@+id/customers_button_add"
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent"
-                        android:layout_weight="1"
-                        android:background="@android:color/transparent"
-                        android:src="@drawable/ic_add_2"
-                        />
+
+
 
                 </LinearLayout>
+
+                <!--<LinearLayout-->
+                    <!--android:layout_width="match_parent"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--&gt;-->
+                    <!--<TextView-->
+                        <!--android:layout_width="0dp"-->
+                        <!--android:layout_height="wrap_content"-->
+                        <!--android:layout_weight="3"-->
+                        <!--android:padding="10dp"-->
+                        <!--android:text="城市："-->
+                        <!--android:textColor="@color/chunhei"-->
+                        <!--android:textSize="15sp" />-->
+
+                    <!--<LinearLayout-->
+                        <!--android:layout_width="0dp"-->
+                        <!--android:layout_height="wrap_content"-->
+                        <!--android:layout_weight="7"-->
+                        <!--android:background="@drawable/shape_case"-->
+                        <!--android:gravity="center_vertical"-->
+                        <!--android:padding="10dp"-->
+                        <!--android:weightSum="10">-->
+                        <!--&lt;!&ndash;<TextView&ndash;&gt;-->
+                        <!--&lt;!&ndash;android:id="@+id/need_text_property_type"&ndash;&gt;-->
+                        <!--&lt;!&ndash;android:layout_weight="8"&ndash;&gt;-->
+                        <!--&lt;!&ndash;android:layout_width="0dp"&ndash;&gt;-->
+                        <!--&lt;!&ndash;android:layout_height="wrap_content"&ndash;&gt;-->
+                        <!--&lt;!&ndash;/>&ndash;&gt;-->
+
+                        <!--<Spinner-->
+                            <!--android:id="@+id/spinner_city"-->
+                            <!--android:layout_width="match_parent"-->
+                            <!--android:layout_height="wrap_content"-->
+                            <!--android:dropDownVerticalOffset="35dp"-->
+                            <!--android:dropDownWidth="1080px"-->
+                            <!--android:entries="@array/物业类型" />-->
+                    <!--</LinearLayout>-->
+                <!--</LinearLayout>-->
                 <!--物业类型-->
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -141,8 +167,7 @@
                     android:gravity="center_vertical"
                     android:orientation="horizontal"
                     android:paddingBottom="20dp"
-                    android:weightSum="10"
-                    >
+                    android:weightSum="10">
 
                     <TextView
                         android:layout_width="0dp"
@@ -152,8 +177,7 @@
                         android:padding="10dp"
                         android:text="物业类型："
                         android:textColor="@color/chunhei"
-                        android:textSize="15sp"
-                        />
+                        android:textSize="15sp" />
 
                     <LinearLayout
                         android:layout_width="0dp"
@@ -162,14 +186,13 @@
                         android:background="@drawable/shape_case"
                         android:gravity="center_vertical"
                         android:padding="10dp"
-                        android:weightSum="10"
-                        >
+                        android:weightSum="10">
                         <!--<TextView-->
-                            <!--android:id="@+id/need_text_property_type"-->
-                            <!--android:layout_weight="8"-->
-                            <!--android:layout_width="0dp"-->
-                            <!--android:layout_height="wrap_content"-->
-                            <!--/>-->
+                        <!--android:id="@+id/need_text_property_type"-->
+                        <!--android:layout_weight="8"-->
+                        <!--android:layout_width="0dp"-->
+                        <!--android:layout_height="wrap_content"-->
+                        <!--/>-->
 
                         <Spinner
                             android:id="@+id/spinner_property_type"
@@ -177,8 +200,7 @@
                             android:layout_height="wrap_content"
                             android:dropDownVerticalOffset="35dp"
                             android:dropDownWidth="1080px"
-                            android:entries="@array/物业类型"
-                            />
+                            android:entries="@array/物业类型" />
                     </LinearLayout>
 
                 </LinearLayout>
@@ -189,8 +211,7 @@
                     android:gravity="center_vertical"
                     android:orientation="horizontal"
                     android:paddingBottom="20dp"
-                    android:weightSum="10"
-                    >
+                    android:weightSum="10">
 
                     <TextView
                         android:layout_width="0dp"
@@ -200,8 +221,7 @@
                         android:padding="10dp"
                         android:text="总价："
                         android:textColor="@color/chunhei"
-                        android:textSize="15sp"
-                        />
+                        android:textSize="15sp" />
 
                     <LinearLayout
                         android:layout_width="0dp"
@@ -210,14 +230,13 @@
                         android:background="@drawable/shape_case"
                         android:gravity="center_vertical"
                         android:padding="10dp"
-                        android:weightSum="10"
-                        >
+                        android:weightSum="10">
                         <!--<TextView-->
-                            <!--android:id="@+id/need_text_total_price"-->
-                            <!--android:layout_weight="8"-->
-                            <!--android:layout_width="0dp"-->
-                            <!--android:layout_height="wrap_content"-->
-                            <!--/>-->
+                        <!--android:id="@+id/need_text_total_price"-->
+                        <!--android:layout_weight="8"-->
+                        <!--android:layout_width="0dp"-->
+                        <!--android:layout_height="wrap_content"-->
+                        <!--/>-->
 
                         <Spinner
                             android:id="@+id/spinner_total_price"
@@ -225,8 +244,7 @@
                             android:layout_height="wrap_content"
                             android:dropDownVerticalOffset="35dp"
                             android:dropDownWidth="1080px"
-                            android:entries="@array/总价"
-                            />
+                            android:entries="@array/总价" />
                     </LinearLayout>
 
                 </LinearLayout>
@@ -237,8 +255,7 @@
                     android:gravity="center_vertical"
                     android:orientation="horizontal"
                     android:paddingBottom="20dp"
-                    android:weightSum="10"
-                    >
+                    android:weightSum="10">
 
                     <TextView
                         android:layout_width="0dp"
@@ -248,8 +265,7 @@
                         android:padding="10dp"
                         android:text="面积："
                         android:textColor="@color/chunhei"
-                        android:textSize="15sp"
-                        />
+                        android:textSize="15sp" />
 
                     <LinearLayout
                         android:layout_width="0dp"
@@ -258,14 +274,13 @@
                         android:background="@drawable/shape_case"
                         android:gravity="center_vertical"
                         android:padding="10dp"
-                        android:weightSum="10"
-                        >
+                        android:weightSum="10">
                         <!--<TextView-->
-                            <!--android:id="@+id/need_text_area"-->
-                            <!--android:layout_weight="8"-->
-                            <!--android:layout_width="0dp"-->
-                            <!--android:layout_height="wrap_content"-->
-                            <!--/>-->
+                        <!--android:id="@+id/need_text_area"-->
+                        <!--android:layout_weight="8"-->
+                        <!--android:layout_width="0dp"-->
+                        <!--android:layout_height="wrap_content"-->
+                        <!--/>-->
 
                         <Spinner
                             android:id="@+id/spinner_area"
@@ -273,8 +288,7 @@
                             android:layout_height="wrap_content"
                             android:dropDownVerticalOffset="35dp"
                             android:dropDownWidth="1080px"
-                            android:entries="@array/面积"
-                            />
+                            android:entries="@array/面积" />
                     </LinearLayout>
 
                 </LinearLayout>
@@ -285,8 +299,7 @@
                     android:gravity="center_vertical"
                     android:orientation="horizontal"
                     android:paddingBottom="20dp"
-                    android:weightSum="10"
-                    >
+                    android:weightSum="10">
 
                     <TextView
                         android:layout_width="0dp"
@@ -296,8 +309,7 @@
                         android:padding="10dp"
                         android:text="户型："
                         android:textColor="@color/chunhei"
-                        android:textSize="15sp"
-                        />
+                        android:textSize="15sp" />
 
                     <LinearLayout
                         android:layout_width="0dp"
@@ -306,14 +318,13 @@
                         android:background="@drawable/shape_case"
                         android:gravity="center_vertical"
                         android:padding="10dp"
-                        android:weightSum="10"
-                        >
+                        android:weightSum="10">
                         <!--<TextView-->
-                            <!--android:id="@+id/need_text_house_type"-->
-                            <!--android:layout_weight="8"-->
-                            <!--android:layout_width="0dp"-->
-                            <!--android:layout_height="wrap_content"-->
-                            <!--/>-->
+                        <!--android:id="@+id/need_text_house_type"-->
+                        <!--android:layout_weight="8"-->
+                        <!--android:layout_width="0dp"-->
+                        <!--android:layout_height="wrap_content"-->
+                        <!--/>-->
 
                         <Spinner
                             android:id="@+id/spinner_house_type"
@@ -321,8 +332,7 @@
                             android:layout_height="wrap_content"
                             android:dropDownVerticalOffset="35dp"
                             android:dropDownWidth="1080px"
-                            android:entries="@array/户型"
-                            />
+                            android:entries="@array/户型" />
                     </LinearLayout>
 
                 </LinearLayout>
@@ -333,8 +343,7 @@
                     android:gravity="center_vertical"
                     android:orientation="horizontal"
                     android:paddingBottom="20dp"
-                    android:weightSum="10"
-                    >
+                    android:weightSum="10">
 
                     <TextView
                         android:layout_width="0dp"
@@ -343,8 +352,7 @@
                         android:padding="10dp"
                         android:text="楼层："
                         android:textColor="@color/chunhei"
-                        android:textSize="15sp"
-                        />
+                        android:textSize="15sp" />
 
                     <RelativeLayout
                         android:layout_width="0dp"
@@ -352,8 +360,7 @@
                         android:layout_weight="3"
                         android:background="@drawable/shape_case"
                         android:gravity="center_vertical"
-                        android:padding="10dp"
-                        >
+                        android:padding="10dp">
 
                         <EditText
                             android:id="@+id/tv_floor_min"
@@ -363,16 +370,14 @@
                             android:background="@android:color/transparent"
                             android:hint="1"
                             android:maxEms="2"
-                            android:textSize="15sp"
-                            />
+                            android:textSize="15sp" />
 
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_alignParentRight="true"
                             android:text="层"
-                            android:textSize="15sp"
-                            />
+                            android:textSize="15sp" />
 
                     </RelativeLayout>
 
@@ -381,8 +386,7 @@
                         android:layout_height="1dp"
                         android:layout_margin="5dp"
                         android:layout_weight="1"
-                        android:background="@color/qianhui"
-                        />
+                        android:background="@color/qianhui" />
 
                     <RelativeLayout
                         android:layout_width="0dp"
@@ -390,8 +394,7 @@
                         android:layout_weight="3"
                         android:background="@drawable/shape_case"
                         android:gravity="center_vertical"
-                        android:padding="10dp"
-                        >
+                        android:padding="10dp">
 
                         <EditText
                             android:id="@+id/tv_floor_max"
@@ -401,16 +404,14 @@
                             android:background="@android:color/transparent"
                             android:hint="100"
                             android:maxEms="3"
-                            android:textSize="15sp"
-                            />
+                            android:textSize="15sp" />
 
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_alignParentRight="true"
                             android:text="层"
-                            android:textSize="15sp"
-                            />
+                            android:textSize="15sp" />
 
                     </RelativeLayout>
 
@@ -422,8 +423,7 @@
                     android:gravity="center_vertical"
                     android:orientation="horizontal"
                     android:paddingBottom="20dp"
-                    android:weightSum="10"
-                    >
+                    android:weightSum="10">
 
                     <TextView
                         android:layout_width="0dp"
@@ -433,8 +433,7 @@
                         android:padding="10dp"
                         android:text="装修标准："
                         android:textColor="@color/chunhei"
-                        android:textSize="15sp"
-                        />
+                        android:textSize="15sp" />
 
                     <LinearLayout
                         android:layout_width="0dp"
@@ -443,14 +442,13 @@
                         android:background="@drawable/shape_case"
                         android:gravity="center_vertical"
                         android:padding="10dp"
-                        android:weightSum="10"
-                        >
+                        android:weightSum="10">
                         <!--<TextView-->
-                            <!--android:id="@+id/need_text_decorated"-->
-                            <!--android:layout_weight="8"-->
-                            <!--android:layout_width="0dp"-->
-                            <!--android:layout_height="wrap_content"-->
-                            <!--/>-->
+                        <!--android:id="@+id/need_text_decorated"-->
+                        <!--android:layout_weight="8"-->
+                        <!--android:layout_width="0dp"-->
+                        <!--android:layout_height="wrap_content"-->
+                        <!--/>-->
 
                         <Spinner
                             android:id="@+id/spinner_decorated"
@@ -458,8 +456,7 @@
                             android:layout_height="wrap_content"
                             android:dropDownVerticalOffset="35dp"
                             android:dropDownWidth="1080px"
-                            android:entries="@array/装修类型"
-                            />
+                            android:entries="@array/装修类型" />
                     </LinearLayout>
 
                 </LinearLayout>
@@ -470,8 +467,7 @@
                     android:gravity="center_vertical"
                     android:orientation="horizontal"
                     android:paddingBottom="20dp"
-                    android:weightSum="10"
-                    >
+                    android:weightSum="10">
 
                     <TextView
                         android:layout_width="0dp"
@@ -481,8 +477,7 @@
                         android:padding="10dp"
                         android:text="置业目的："
                         android:textColor="@color/chunhei"
-                        android:textSize="15sp"
-                        />
+                        android:textSize="15sp" />
 
                     <LinearLayout
                         android:layout_width="0dp"
@@ -491,14 +486,13 @@
                         android:background="@drawable/shape_case"
                         android:gravity="center_vertical"
                         android:padding="10dp"
-                        android:weightSum="10"
-                        >
+                        android:weightSum="10">
                         <!--<TextView-->
-                            <!--android:id="@+id/need_text_buy_type"-->
-                            <!--android:layout_weight="8"-->
-                            <!--android:layout_width="0dp"-->
-                            <!--android:layout_height="wrap_content"-->
-                            <!--/>-->
+                        <!--android:id="@+id/need_text_buy_type"-->
+                        <!--android:layout_weight="8"-->
+                        <!--android:layout_width="0dp"-->
+                        <!--android:layout_height="wrap_content"-->
+                        <!--/>-->
 
                         <Spinner
                             android:id="@+id/spinner_buy_type"
@@ -506,8 +500,7 @@
                             android:layout_height="wrap_content"
                             android:dropDownVerticalOffset="35dp"
                             android:dropDownWidth="1080px"
-                            android:entries="@array/置业目的"
-                            />
+                            android:entries="@array/置业目的" />
                     </LinearLayout>
 
                 </LinearLayout>
@@ -518,8 +511,7 @@
                     android:gravity="center_vertical"
                     android:orientation="horizontal"
                     android:paddingBottom="20dp"
-                    android:weightSum="10"
-                    >
+                    android:weightSum="10">
 
                     <TextView
                         android:layout_width="0dp"
@@ -529,8 +521,7 @@
                         android:padding="10dp"
                         android:text="付款方式："
                         android:textColor="@color/chunhei"
-                        android:textSize="15sp"
-                        />
+                        android:textSize="15sp" />
 
                     <LinearLayout
                         android:layout_width="0dp"
@@ -539,14 +530,13 @@
                         android:background="@drawable/shape_case"
                         android:gravity="center_vertical"
                         android:padding="10dp"
-                        android:weightSum="10"
-                        >
+                        android:weightSum="10">
                         <!--<TextView-->
-                            <!--android:id="@+id/need_text_pay_type"-->
-                            <!--android:layout_weight="8"-->
-                            <!--android:layout_width="0dp"-->
-                            <!--android:layout_height="wrap_content"-->
-                            <!--/>-->
+                        <!--android:id="@+id/need_text_pay_type"-->
+                        <!--android:layout_weight="8"-->
+                        <!--android:layout_width="0dp"-->
+                        <!--android:layout_height="wrap_content"-->
+                        <!--/>-->
 
                         <Spinner
                             android:id="@+id/spinner_pay_type"
@@ -554,8 +544,7 @@
                             android:layout_height="wrap_content"
                             android:dropDownVerticalOffset="35dp"
                             android:dropDownWidth="1080px"
-                            android:entries="@array/付款方式"
-                            />
+                            android:entries="@array/付款方式" />
                     </LinearLayout>
 
                 </LinearLayout>
@@ -563,16 +552,15 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    >
+                    android:orientation="vertical">
                     <!--购房意向度-->
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:orientation="horizontal"
                         android:paddingBottom="20dp"
-                        android:weightSum="10"
-                        >
+                        android:weightSum="10">
+
                         <TextView
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
@@ -581,8 +569,7 @@
                             android:paddingTop="10dp"
                             android:text="购房意向度："
                             android:textColor="@color/chunhei"
-                            android:textSize="15sp"
-                            />
+                            android:textSize="15sp" />
 
                         <TextView
                             android:id="@+id/customers_text_seekbar1"
@@ -594,8 +581,7 @@
                             android:paddingLeft="10dp"
                             android:paddingTop="10dp"
                             android:text=""
-                            android:textSize="15sp"
-                            />
+                            android:textSize="15sp" />
 
                     </LinearLayout>
                     <!--SeekBar-->
@@ -603,32 +589,30 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:orientation="vertical"
-                        android:paddingBottom="20dp"
-                        >
+                        android:paddingBottom="20dp">
+
                         <SeekBar
                             android:id="@+id/customers_seekbar1"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:max="100"
                             android:min="0"
-                            android:progress="1"
-                            />
+                            android:progress="1" />
 
                         <RelativeLayout
                             android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            >
+                            android:layout_height="wrap_content">
+
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="0"
-                                />
+                                android:text="0" />
+
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_alignParentRight="true"
-                                android:text="100"
-                                />
+                                android:text="100" />
                         </RelativeLayout>
                     </LinearLayout>
                     <!--购房紧迫度-->
@@ -637,8 +621,8 @@
                         android:layout_height="wrap_content"
                         android:orientation="horizontal"
                         android:paddingBottom="20dp"
-                        android:weightSum="10"
-                        >
+                        android:weightSum="10">
+
                         <TextView
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
@@ -647,8 +631,7 @@
                             android:paddingTop="10dp"
                             android:text="购房紧迫度："
                             android:textColor="@color/chunhei"
-                            android:textSize="15sp"
-                            />
+                            android:textSize="15sp" />
 
                         <TextView
                             android:id="@+id/customers_text_seekbar2"
@@ -660,8 +643,7 @@
                             android:paddingLeft="10dp"
                             android:paddingTop="10dp"
                             android:text=""
-                            android:textSize="15sp"
-                            />
+                            android:textSize="15sp" />
 
                     </LinearLayout>
                     <!--SeekBar-->
@@ -669,8 +651,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:orientation="vertical"
-                        android:paddingBottom="20dp"
-                        >
+                        android:paddingBottom="20dp">
 
 
                         <SeekBar
@@ -679,24 +660,22 @@
                             android:layout_height="wrap_content"
                             android:max="100"
                             android:min="0"
-                            android:progress="1"
-                            />
+                            android:progress="1" />
 
                         <RelativeLayout
                             android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            >
+                            android:layout_height="wrap_content">
+
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="0"
-                                />
+                                android:text="0" />
+
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_alignParentRight="true"
-                                android:text="100"
-                                />
+                                android:text="100" />
                         </RelativeLayout>
                     </LinearLayout>
 
@@ -707,14 +686,12 @@
             <ImageView
                 android:layout_width="match_parent"
                 android:layout_height="10dp"
-                android:background="@drawable/ic_line"
-                />
+                android:background="@drawable/ic_line" />
 
 
             <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                >
+                android:layout_height="wrap_content">
 
 
                 <LinearLayout
@@ -722,47 +699,54 @@
                     android:layout_height="wrap_content"
                     android:gravity="center_vertical"
                     android:orientation="horizontal"
-                    android:padding="10dp"
-                    >
+                    android:padding="10dp">
+
                     <ImageView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginRight="10dp"
-                        android:src="@drawable/ic_blue"
-                        />
+                        android:src="@drawable/ic_blue" />
+
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="需求标签"
                         android:textColor="@color/chunhei"
-                        android:textSize="18sp"
-                        />
+                        android:textSize="18sp" />
                 </LinearLayout>
 
+                <!--<ImageButton-->
+                    <!--android:id="@+id/customers_button_add_lab"-->
+                    <!--android:layout_width="wrap_content"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:layout_alignParentRight="true"-->
+                    <!--android:layout_centerVertical="true"-->
+                    <!--android:layout_marginRight="20dp"-->
+                    <!--android:background="@android:color/transparent"-->
+                    <!--android:src="@drawable/ic_add" />-->
                 <ImageButton
-                    android:id="@+id/customers_button_add_lab"
+                    android:id="@+id/customers_button_add"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"
                     android:layout_centerVertical="true"
                     android:layout_marginRight="20dp"
                     android:background="@android:color/transparent"
-                    android:src="@drawable/ic_add"
-                    />
+                    android:src="@drawable/ic_add_2" />
             </RelativeLayout>
 
             <ImageView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:src="@drawable/ic_line"
-                />
+                android:src="@drawable/ic_line" />
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
-                >
-
+                android:orientation="vertical">
+<HorizontalScrollView
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content">
                 <LinearLayout
                     android:id="@+id/ll_showlabel"
                     android:layout_width="match_parent"
@@ -770,8 +754,7 @@
                     android:layout_margin="20dp"
                     android:background="@drawable/shape_case"
                     android:gravity="center"
-                    android:orientation="vertical"
-                    >
+                    android:orientation="horizontal">
 
 
                     <TextView
@@ -782,11 +765,11 @@
                         android:padding="10dp"
                         android:text="点击添加按钮，添加您的需求标签!"
                         android:textColor="@color/chunhei"
-                        android:textSize="13sp"
-                        />
+                        android:textSize="13sp" />
 
 
                 </LinearLayout>
+</HorizontalScrollView>
 
             </LinearLayout>
 
@@ -798,8 +781,8 @@
                 android:layout_marginRight="20dp"
                 android:layout_marginTop="20dp"
                 android:background="@drawable/shape_case"
-                android:orientation="vertical"
-                >
+                android:orientation="vertical">
+
                 <EditText
                     android:id="@+id/ed_comment"
                     android:layout_width="match_parent"
@@ -809,32 +792,28 @@
                     android:lineSpacingExtra="3dp"
                     android:maxLength="200"
                     android:padding="10dp"
-                    android:textSize="13sp"
-                    />
+                    android:textSize="13sp" />
 
             </LinearLayout>
 
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:padding="10dp"
-                >
+                android:padding="10dp">
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"
                     android:text="(200字以内)"
-                    android:textSize="13sp"
-                    />
+                    android:textSize="13sp" />
             </RelativeLayout>
 
 
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:padding="20dp"
-                >
+                android:padding="20dp">
 
                 <Button
                     android:id="@+id/customers_button_commit"
@@ -844,8 +823,7 @@
                     android:background="@drawable/ic_loginbackground"
                     android:text="提交"
                     android:textColor="@color/chunbai"
-                    android:textSize="15sp"
-                    />
+                    android:textSize="15sp" />
             </RelativeLayout>
 
         </LinearLayout>
