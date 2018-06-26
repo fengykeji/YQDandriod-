@@ -93,7 +93,6 @@ public class HouseFragment extends Fragment implements View.OnClickListener ,Hou
 
                 Type type = new TypeToken<HouseListBean>() {}.getType();
                 houseListBeans = new Gson().fromJson(obj.toString(),type);
-                Log.e("houseListBeans",houseListBeans.getMsg());
 
                 list = houseListBeans.getData();
                 recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));

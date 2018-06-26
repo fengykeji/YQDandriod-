@@ -55,8 +55,8 @@ public class PiPeiXinXiFragment extends Fragment implements View.OnClickListener
     private RelativeLayout mCustomers_button_look_all;
     private int client_id;
     private RecyclerView customers_recyclerview_项目列表;
-    private ArrayList<PipeiBean> dataList = new ArrayList<>();
-    private PipeiBean data;
+    private ArrayList<PipeiBean.DataBean.ListBean> dataList = new ArrayList<>();
+    private PipeiBean.DataBean.ListBean data = new PipeiBean.DataBean.ListBean();
     private PipeiliebiaoAdapter adapter;
     private TextView tv_num;
 
@@ -94,10 +94,13 @@ public class PiPeiXinXiFragment extends Fragment implements View.OnClickListener
         customers_recyclerview_项目列表 = mView.findViewById(R.id.customers_recyclerview_项目列表);
         tv_num = mView.findViewById(R.id.tv_num);
         customers_recyclerview_项目列表.setLayoutManager(new LinearLayoutManager(getContext()));
-//        if(data.getData().getList()!=null) {
-////            adapter = new PipeiliebiaoAdapter(getContext(), R.layout.activity_pipeiliebiao, data.getData().getList());
-//        }
-        customers_recyclerview_项目列表.setAdapter(adapter);
+
+
+            adapter = new PipeiliebiaoAdapter(getContext(), R.layout.activity_pipeiliebiao, dataList);
+
+            customers_recyclerview_项目列表.setAdapter(adapter);
+
+
 
 
     }
@@ -143,14 +146,14 @@ public class PiPeiXinXiFragment extends Fragment implements View.OnClickListener
                 if (code == 200 && data != null) {
                     Log.e("cc", "onSuccess: "+data);
                     PipeiBean matchData = JsonUtil.jsonToEntity(s, PipeiBean.class);
-                    if(matchData.getData().getList()==null) {
+                    if(matchData.getData()!=null&&matchData.getData().getList().size()==0) {
                         tv_num.setText("0");
+
+                    }else {
+                        dataList.clear();
+                        dataList.addAll(matchData.getData().getList());
+                        adapter.notifyDataSetChanged();
                     }
-//                    }else {
-//                        dataList.clear();
-//                        dataList.add(matchData);
-//                        adapter.notifyDataSetChanged();
-//                    }
 
 
                 }

@@ -10,7 +10,7 @@ import android.view.View;
  * @data: 2018/5/27 0027
  */
 
-class ViewPagerForScrollView extends ViewPager {
+public class ViewPagerForScrollView extends ViewPager {
     public ViewPagerForScrollView(Context context) {
         super(context);
     }

@@ -20,33 +20,27 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.bigkoo.pickerview.builder.OptionsPickerBuilder;
-import com.bigkoo.pickerview.listener.OnOptionsSelectChangeListener;
-import com.bigkoo.pickerview.listener.OnOptionsSelectListener;
-import com.bigkoo.pickerview.view.OptionsPickerView;
+
 import com.ccsoft.yunqudao.R;
 import com.ccsoft.yunqudao.bean.MessageEvent;
-import com.ccsoft.yunqudao.bean.ProvinceBean;
-import com.ccsoft.yunqudao.data.AppConstants;
+
 import com.ccsoft.yunqudao.http.HttpAdress;
 import com.ccsoft.yunqudao.http.MyStringCallBack;
 import com.ccsoft.yunqudao.model.StringModel;
-import com.ccsoft.yunqudao.ui.fragment.CustomersFragment;
-import com.ccsoft.yunqudao.ui.fragment.WorkFragment;
+
+
 import com.ccsoft.yunqudao.ui.home.HomeActivity;
 import com.ccsoft.yunqudao.ui.mian.MainActivity;
 import com.ccsoft.yunqudao.utils.ActivityManager;
 import com.ccsoft.yunqudao.utils.JsonUtil;
 import com.ccsoft.yunqudao.utils.LogUtil;
 
-import com.ccsoft.yunqudao.utils.wheelview.listener.WheelView;
+import com.lljjcoder.citypickerview.widget.CityPicker;
 import com.lzy.okhttputils.OkHttpUtils;
 
 import org.greenrobot.eventbus.EventBus;
 
-import java.text.DateFormat;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
+
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -106,10 +100,7 @@ public class AddCustomers2Activity extends AppCompatActivity implements View.OnC
     private int property_type;
     private ArrayList<Integer> Idlist = new ArrayList<>();
     private String need_tags = "";
-    private OptionsPickerView pvOptions ;
-//    private ArrayList<String> options1Items = new ArrayList<>();
-//    private ArrayList<ArrayList<String>> options2Items = new ArrayList<ArrayList<String>>();
-    private ArrayList<ProvinceBean> options1Items = new ArrayList<>();
+//    private OptionsPickerView pvOptions ;
     private ArrayList<ArrayList<String>> options2Items = new ArrayList<>();
 
 
@@ -128,8 +119,7 @@ public class AddCustomers2Activity extends AppCompatActivity implements View.OnC
          * 初始化id
          */
 
-        getOptionData();
-        setarea();
+
         mCustomers_button_back = findViewById(R.id.customers_button_back);
         mCustomers_button_add = findViewById(R.id.customers_button_add);
         mCustomers_button_commit = findViewById(R.id.customers_button_commit);
@@ -168,6 +158,8 @@ public class AddCustomers2Activity extends AppCompatActivity implements View.OnC
         mString7 = (String) mSpinner_buy_type.getSelectedItem();
         mString8 = (String) mSpinner_pay_type.getSelectedItem();
 
+        Submit();
+
         Idlist = getIntent().getIntegerArrayListExtra("list");
 
         if (Idlist != null) {
@@ -183,10 +175,11 @@ public class AddCustomers2Activity extends AppCompatActivity implements View.OnC
         }
 
 
+
         setSpinnerAdapter();
 
 
-        Submit();
+
     }
 
     private void initListener() {
@@ -233,12 +226,20 @@ public class AddCustomers2Activity extends AppCompatActivity implements View.OnC
                 finish();
                 break;
             case R.id.customers_button_add:
-                AddLabelActivity.start(this);
+//                AddLabelActivity.start(this);
+                Intent intent1 = new Intent(AddCustomers2Activity.this,AddLabelActivity.class);
+                intent1.putExtra("name",name);
+                intent1.putExtra("sex",sex);
+                intent1.putExtra("tel",tel);
+                intent1.putExtra("birth",birth);
+                intent1.putExtra("card_id",card_id);
+                intent1.putExtra("address",address);
+                startActivity(intent1);
                 break;
             case R.id.need_text_address:
-                Log.e("ssssss","dianjil");
-
-                pvOptions.show();
+                Log.e("ssssss","点击率");
+//                pvOptions.show();
+                selectAddress();
                 break;
             case R.id.customers_button_commit:
 
@@ -335,8 +336,6 @@ public class AddCustomers2Activity extends AppCompatActivity implements View.OnC
                     comment = et_comment.getText().toString();
                 }
 
-                Log.e("data", "name" + name + "sex" + sex + "tel" + tel + "birth" + birth + "card" + card_id + "address" + address
-                        + "mstring2" + mString2 + "total_price" + mString3 + "area" + mString4);
 
                 OkHttpUtils.post(HttpAdress.addClientAndNeed)
                         .tag(this)
@@ -369,7 +368,7 @@ public class AddCustomers2Activity extends AppCompatActivity implements View.OnC
 
                                 }
                                 Toast.makeText(AddCustomers2Activity.this, model.getMsg(), Toast.LENGTH_SHORT).show();
-                                Log.e("失败", model.getMsg() + "是什么");
+
                             }
                         });
 
@@ -491,15 +490,10 @@ public class AddCustomers2Activity extends AppCompatActivity implements View.OnC
             sex = "男";
         }
         tel = getIntent().getStringExtra("tel");
-        if (birth == null) {
-            birth = "";
-        } else {
-            birth = getIntent().getStringExtra("birth");
-        }
+
+        birth = getIntent().getStringExtra("birth");
         card_id = getIntent().getStringExtra("card_id");
         address = getIntent().getStringExtra("address");
-
-
     }
 
     /**
@@ -542,93 +536,45 @@ public class AddCustomers2Activity extends AppCompatActivity implements View.OnC
         mSpinner_pay_type.setOnItemSelectedListener(this);
     }
 
-    private void setarea() {
-//        options1Items.add("金牛区");
-//        options1Items.add("青羊区");
-//        ArrayList<String> options2Items_01 = new ArrayList<>();
-//        options2Items_01.add("武侯区");
-//        options2Items_01.add("高新区");
-//        options2Items.add(options2Items_01);
 
 
 
 
-
-        pvOptions = new OptionsPickerBuilder(this, new OnOptionsSelectListener() {
-            @Override
-            public void onOptionsSelect(int options1, int options2, int options3, View v) {
-                //返回的分别是三个级别的选中位置
-                String tx = options1Items.get(options1).getPickerViewText()
-                        + options2Items.get(options1).get(options2)
-                        /* + options3Items.get(options1).get(options2).get(options3).getPickerViewText()*/;
-                mNeed_text_address.setText(tx);
-            }
-        })
-                .setTitleText("城市选择")
-                .setContentTextSize(20)//设置滚轮文字大小
-                .setDividerColor(Color.LTGRAY)//设置分割线的颜色
-                .setSelectOptions(0, 1)//默认选中项
-                .setBgColor(Color.WHITE)
-                .setTitleBgColor(Color.DKGRAY)
-                .setTitleColor(Color.LTGRAY)
-                .setCancelColor(Color.YELLOW)
-                .setSubmitColor(Color.YELLOW)
-                .setTextColorCenter(Color.LTGRAY)
-                .isRestoreItem(true)//切换时是否还原，设置默认选中第一项。
-                .isCenterLabel(false) //是否只显示中间选中项的label文字，false则每项item全部都带有label。
-                .setLabels("省", "市", "区")
-                .setBackgroundId(0x00000000) //设置外部遮罩颜色
-                .setOptionsSelectChangeListener(new OnOptionsSelectChangeListener() {
-                    @Override
-                    public void onOptionsSelectChanged(int options1, int options2, int options3) {
-                        String str = "options1: " + options1 + "\noptions2: " + options2 + "\noptions3: " + options3;
-                        Toast.makeText(AddCustomers2Activity.this, str, Toast.LENGTH_SHORT).show();
-                    }
-                })
+    private void selectAddress() {
+        CityPicker cityPicker = new CityPicker.Builder(this)
+                .textSize(14)
+                .title("地址选择")
+                .titleBackgroundColor("#FFFFFF")
+//                .titleTextColor("#696969")
+                .confirTextColor("#696969")
+                .cancelTextColor("#696969")
+                .province("四川省")
+                .city("成都市")
+                .district("金牛区")
+                .textColor(Color.parseColor("#000000"))
+                .provinceCyclic(true)
+                .cityCyclic(false)
+                .districtCyclic(false)
+                .visibleItemsCount(7)
+                .itemPadding(15)
+                .onlyShowProvinceAndCity(false)
                 .build();
-
-//        pvOptions.setSelectOptions(1,1);
-        /*pvOptions.setPicker(options1Items);//一级选择器*/
-        pvOptions.setPicker(options1Items, options2Items);//二级选择器
-        /*pvOptions.setPicker(options1Items, options2Items,options3Items);//三级选择器*/
-
-
-
-
-
-    }
-
-    private void getOptionData() {
-
-        /**
-         * 注意：如果是添加JavaBean实体数据，则实体类需要实现 IPickerViewData 接口，
-         * PickerView会通过getPickerViewText方法获取字符串显示出来。
-         */
-
-
-        //选项1
-        options1Items.add(new ProvinceBean(0, "广东", "描述部分", "其他数据"));
-        options1Items.add(new ProvinceBean(1, "湖南", "描述部分", "其他数据"));
-        options1Items.add(new ProvinceBean(2, "广西", "描述部分", "其他数据"));
-
-        //选项2
-        ArrayList<String> options2Items_01 = new ArrayList<>();
-        options2Items_01.add("广州");
-        options2Items_01.add("佛山");
-        options2Items_01.add("东莞");
-        options2Items_01.add("珠海");
-        ArrayList<String> options2Items_02 = new ArrayList<>();
-        options2Items_02.add("长沙");
-        options2Items_02.add("岳阳");
-        options2Items_02.add("株洲");
-        options2Items_02.add("衡阳");
-        ArrayList<String> options2Items_03 = new ArrayList<>();
-        options2Items_03.add("桂林");
-        options2Items_03.add("玉林");
-        options2Items.add(options2Items_01);
-        options2Items.add(options2Items_02);
-        options2Items.add(options2Items_03);
-
-        /*--------数据源添加完毕---------*/
+        cityPicker.show();
+        //监听方法，获取选择结果
+        cityPicker.setOnCityItemClickListener(new CityPicker.OnCityItemClickListener() {
+            @Override
+            public void onSelected(String... citySelected) {
+                //省份
+                String province = citySelected[0];
+                //城市
+                String city = citySelected[1];
+                //区县（如果设定了两级联动，那么该项返回空）
+                String district = citySelected[2];
+                //邮编
+                String code = citySelected[3];
+                //为TextView赋值
+                mNeed_text_address.setText(province.trim()+ city.trim()+ district.trim());
+            }
+        });
     }
 }

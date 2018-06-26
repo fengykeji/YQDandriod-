@@ -1,5 +1,6 @@
 package com.ccsoft.yunqudao.bean;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class PipeiBean {

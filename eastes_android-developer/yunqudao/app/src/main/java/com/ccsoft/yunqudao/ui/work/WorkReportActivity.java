@@ -54,6 +54,7 @@ public class WorkReportActivity extends AppCompatActivity implements View.OnClic
         fragments.add(new WorkReportVerifyFragment());
         fragments.add(new WorkReportVaildFragment());
         fragments.add(new WorkReportDisableFragment());
+        fragments.add(new WorkReportComplainFragment());
         SelectContactsPagerAdapter adapter = new SelectContactsPagerAdapter(fragments, this.getSupportFragmentManager());
         mViewPager.setAdapter(adapter);
         mTabLayout.setupWithViewPager(mViewPager);
@@ -110,6 +111,9 @@ public class WorkReportActivity extends AppCompatActivity implements View.OnClic
                     break;
                 case 2:
                     title = "无效";
+                    break;
+                case 3:
+                    title = "申诉";
                     break;
                 default:
                     title = "确认中";

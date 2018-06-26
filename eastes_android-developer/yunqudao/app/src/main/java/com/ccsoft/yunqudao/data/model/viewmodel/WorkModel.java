@@ -12,6 +12,7 @@ public class WorkModel extends BaseData{
     public Recommend   recommend;
     public Preparation preparation;
 
+
     public class Recommend extends BaseData{
 
         public int value;
@@ -35,4 +36,6 @@ public class WorkModel extends BaseData{
             return "Preparation{" + "value=" + value + ", total=" + total + ", disabled=" + disabled + '}';
         }
     }
+
+
 }

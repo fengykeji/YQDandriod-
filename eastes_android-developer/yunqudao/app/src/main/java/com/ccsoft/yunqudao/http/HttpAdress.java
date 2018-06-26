@@ -42,4 +42,21 @@ public class HttpAdress {
     /*匹配列表*/
     public static String PIPEI = AppConstants.URL+"agent/matching/client";
 
+    /*工作待成交列表*/
+    public static String DEALLIST = AppConstants.URL+"agent/work/project/waitDeal";
+    /*工作成交列表*/
+    public static String DEALEDLIST = AppConstants.URL+"agent/work/project/deal";
+    /*工作未成交列表*/
+    public static String NODEALDIST = AppConstants.URL+"agent/work/project/dealDisabled";
+    /*经纪人推荐申诉列表*/
+    public static String APPEAL = AppConstants.URL+"agent/work/broker/appeal";
+    /*报备申诉列表*/
+    public static String DISABLE = AppConstants.URL+"agent/work/project/appealList";
+    /*成交申诉列表*/
+    public static String DEALAPPEALAINLIST = AppConstants.URL+"agent/work/project/dealAppealList";
+    /*申诉详情列表*/
+    public static String APPEALDETAIL = AppConstants.URL+"agent/work/broker/appealDetail";
+    /*信息统计*/
+    public static String COUNT = AppConstants.URL+"agent/work/broker/count";
+
 }

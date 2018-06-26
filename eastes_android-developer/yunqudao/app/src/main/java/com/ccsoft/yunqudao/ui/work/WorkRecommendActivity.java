@@ -54,11 +54,12 @@ public class WorkRecommendActivity extends AppCompatActivity implements View.OnC
         fragments.add(new WorkRecommendVerifyFragment());
         fragments.add(new WorkRecommendValidFragment());
         fragments.add(new WorkRecommendDisableFragment());
+        fragments.add(new WorkRecommendComplainFragment());
         SelectContactsPagerAdapter adapter = new SelectContactsPagerAdapter(fragments, this.getSupportFragmentManager(), this);
         mViewPager.setAdapter(adapter);
         mTabLayout.setupWithViewPager(mViewPager);
         mViewPager.setCurrentItem(0);
-        mViewPager.setOffscreenPageLimit(3);
+        mViewPager.setOffscreenPageLimit(4);
     }
 
     /**
@@ -118,6 +119,9 @@ public class WorkRecommendActivity extends AppCompatActivity implements View.OnC
                     break;
                 case 2:
                     title = "无效";
+                    break;
+                case 3:
+                    title = "申述";
                     break;
                 default:
                     title = "确认中";

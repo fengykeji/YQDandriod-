@@ -20,6 +20,7 @@ import com.ccsoft.yunqudao.manager.ClientManager;
 import com.ccsoft.yunqudao.rx.RxSchedulers;
 import com.ccsoft.yunqudao.ui.adapter.CustomersXiangQingPagerAdapter;
 import com.ccsoft.yunqudao.ui.adapter.ViewPagerAdapter;
+import com.ccsoft.yunqudao.ui.view.ViewPagerForScrollView;
 import com.ccsoft.yunqudao.utils.ActivityManager;
 import com.ccsoft.yunqudao.utils.LogUtil;
 
@@ -47,7 +48,7 @@ public class CustomersXiangQingActivity extends AppCompatActivity implements Vie
     private String                         city;
     private String                         district;
     private TextView                       mCustomers_text_address;
-    private ViewPager                      mCustomers_viewpager_xiangqing;
+    private ViewPagerForScrollView mCustomers_viewpager_xiangqing;
     private CustomersXiangQingPagerAdapter mCustomersXiangQingPagerAdapter;
     private XuQiuXingXiFragment            xuQiuXingXiFragment;
     private ClientFollowFragment           clientFollowFragment;
@@ -148,7 +149,7 @@ public class CustomersXiangQingActivity extends AppCompatActivity implements Vie
      * 添加Fragment
      */
     private void addFragments() {
-        int page = mCustomers_viewpager_xiangqing.getCurrentItem();
+        //int page = mCustomers_viewpager_xiangqing.getCurrentItem();
         fragments = new ArrayList<>();
         fragments.add(XuQiuXingXiFragment.newInstance(mClientPrivateData.need_info.get(0)));//初始化fragment  把这个Model传过去 到Fragment取里面的数据就好
         fragments.add(ClientFollowFragment.newInstance(mClienID));
@@ -156,7 +157,7 @@ public class CustomersXiangQingActivity extends AppCompatActivity implements Vie
         ViewPagerAdapter adapter = new ViewPagerAdapter(fragments, getSupportFragmentManager(), this);
         mCustomers_viewpager_xiangqing.setAdapter(adapter);
         mCustomers_TabLayout.setupWithViewPager(mCustomers_viewpager_xiangqing);
-        mCustomers_viewpager_xiangqing.setCurrentItem(page);
+        //mCustomers_viewpager_xiangqing.setCurrentItem(page);
         mCustomers_viewpager_xiangqing.setOffscreenPageLimit(3);
     }
 

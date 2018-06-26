@@ -143,8 +143,20 @@ public class AddGenJinJiLuActivity extends AppCompatActivity implements View.OnC
                 finish();
                 break;
             case R.id.customers_button_commit:
-                follow_time = DateUtil.stringToDate(mCustomers_text_barthday.getText().toString());
-                if(follow_type.equals("电话")){
+
+                if(mCustomers_text_barthday.getText().toString().equals("")){
+                    Toast.makeText(this,"请选择跟进时间",Toast.LENGTH_LONG).show();
+                    return;
+                }
+                if(customers_nextTime.getText().toString().equals("")){
+                    Toast.makeText(this,"请选择下次回访时间",Toast.LENGTH_LONG).show();
+                    return;
+                }
+
+                if(follow_type==null){
+                    Toast.makeText(this,"请选择跟进方式",Toast.LENGTH_LONG).show();
+                    return;
+                } else if(follow_type.equals("电话")){
                     follow_type1 = 86;
                 }else if(follow_type.equals("QQ")){
                     follow_type1 = 87;
@@ -159,17 +171,19 @@ public class AddGenJinJiLuActivity extends AppCompatActivity implements View.OnC
                     follow_type1 = 90;
                 }
                 if(tv_showseekbar1.getText().toString().equals("")){
-                    intent = 0;
+                    Toast.makeText(this,"请选择购房意向度",Toast.LENGTH_LONG).show();
+                    return;
                 }else {
                     intent = Integer.parseInt(tv_showseekbar1.getText().toString());
                 }
                 if(tv_showseekbar2.getText().toString().equals("")){
-                    urgency = 0;
+                    Toast.makeText(this,"请选择购房紧迫度",Toast.LENGTH_LONG).show();
                 }else {
                     urgency = Integer.parseInt(tv_showseekbar2.getText().toString());
                 }
-                if(mString2 == null) {
-                    pay_way = 0;
+                if(mString2 .equals("")) {
+                    Toast.makeText(this,"请选择付款方式",Toast.LENGTH_LONG).show();
+                    return;
                 }else {
                     MainActivity.savePeizhi().getData().get_$13().getParam();
                     for(int i=0;i<MainActivity.savePeizhi().getData().get_$13().getParam().size();i++){
@@ -187,11 +201,14 @@ public class AddGenJinJiLuActivity extends AppCompatActivity implements View.OnC
                         }
                     }
                 }
-                if(et_comment.getText().toString()==null){
-                    comment = "";
+                if(et_comment.getText().toString().equals("")){
+                    Toast.makeText(this,"请输入跟进内容",Toast.LENGTH_LONG).show();
+                    return;
                 }else {
                     comment = et_comment.getText().toString();
                 }
+
+
 
                 OkHttpUtils.post(HttpAdress.ADDFOLLOW)
                         .tag(this)
@@ -200,7 +217,7 @@ public class AddGenJinJiLuActivity extends AppCompatActivity implements View.OnC
                         .params("follow_time",mCustomers_text_barthday.getText().toString())
                         .params("intent",intent)
                         .params("urgency",urgency)
-                        .params("pay_way",46)
+                        .params("pay_way",pay_way)
                         .params("next_follow_time",customers_nextTime.getText().toString())
                         .params("comment",comment)
                         .execute(new MyStringCallBack() {
@@ -214,8 +231,7 @@ public class AddGenJinJiLuActivity extends AppCompatActivity implements View.OnC
                             }
                         });
 
-
-                finish();
+                    finish();
                 break;
             case R.id.customers_follw_time:
                 showBirthdayPicker(mCustomers_text_barthday.getText().toString());

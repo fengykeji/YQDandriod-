@@ -1,64 +1,41 @@
 package com.ccsoft.yunqudao.ui.work;
 
 import android.content.Intent;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.LinearLayout;
-import android.widget.TextView;
-import android.widget.Toast;
-
 
 import com.ccsoft.yunqudao.R;
 import com.ccsoft.yunqudao.adapter.WorkComplainAdapter;
 import com.ccsoft.yunqudao.bean.AppealBean;
-import com.ccsoft.yunqudao.bean.AppealDetailBean;
-import com.ccsoft.yunqudao.bean.HouseListBean;
-
 import com.ccsoft.yunqudao.data.base.BaseRecyclerAdapter;
 import com.ccsoft.yunqudao.data.base.FooterHolder;
 import com.ccsoft.yunqudao.data.model.response.RecordValidData;
 import com.ccsoft.yunqudao.http.HttpAdress;
-import com.ccsoft.yunqudao.ui.customers.AddCustomers2Activity;
 import com.ccsoft.yunqudao.ui.listener.EndlessRecyclerOnScrollListener;
-import com.ccsoft.yunqudao.utils.BaseCallBack;
 import com.ccsoft.yunqudao.utils.JsonUtil;
-import com.ccsoft.yunqudao.utils.OkHttpManager;
-import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
 import com.lzy.okhttputils.OkHttpUtils;
 import com.lzy.okhttputils.callback.StringCallback;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.lang.reflect.Type;
-import java.net.MalformedURLException;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 
 import okhttp3.Call;
 import okhttp3.Response;
 
-/**
- * @author: Pein
- * @data: 2018/5/14 0014
- */
-
-public class WorkReportComplainFragment extends Fragment implements View.OnClickListener {
-
+public class WorkChengjiaoComplainFragment extends Fragment implements View.OnClickListener {
     private View                       mView;
     private WorkReportComplainFragment mWorkReportComplainFragment;
-    private RecyclerView               mWork_recyclerview_complain;
+    private RecyclerView mWork_recyclerview_complain;
     private AppealBean appealBean;
     private List<AppealBean.DataBeanX.DataBean> datalist = new ArrayList<>();
     private SwipeRefreshLayout mSwipRefresh;
@@ -99,7 +76,7 @@ public class WorkReportComplainFragment extends Fragment implements View.OnClick
             public void onItemClickListner(View v, int position) {
                 Intent intent = new Intent(getContext(),WorkComplainListActivity.class);
                 intent.putExtra("appeal_id",datalist.get(position).getAppeal_id()+"");
-                intent.putExtra("gone","zhengchang");
+                intent.putExtra("gone","show");
                 startActivity(intent);
             }
         });
@@ -148,39 +125,9 @@ public class WorkReportComplainFragment extends Fragment implements View.OnClick
     }
 
     private void initData(){
-//        OkHttpManager.getInstance().get(HttpAdress.DISABLE, new BaseCallBack() {
-//            @Override
-//            public void onSuccess(Call call, Response response, Object obj) throws MalformedURLException {
-//                Type type = new TypeToken<AppealBean>() {}.getType();
-//                appealBean = new Gson().fromJson(obj.toString(),type);
-//                if(appealBean.getCode()==200&&appealBean.getData()!=null){
-//                    datalist.clear();
-//                    datalist.addAll(appealBean.getData().getData());
-//                    curPage = 2;
-//                    totalPage = appealBean.getData().getLast_page();
-//                    adapter.notifyDataSetChanged();
-//                    mSwipRefresh.setRefreshing(false);
-//                }
-//
-//            }
-//
-//            @Override
-//            public void onFailure(Call call, Exception e) {
-//
-//            }
-//
-//            @Override
-//            public void onError(Response response, int errorCode) {
-//
-//            }
-//
-//            @Override
-//            public void onRequestBefore() {
-//
-//            }
-//        });
 
-        OkHttpUtils.get(HttpAdress.DISABLE)
+
+        OkHttpUtils.get(HttpAdress.DEALAPPEALAINLIST)
                 .tag(this)
                 .execute(new StringCallback() {
                     @Override
@@ -199,9 +146,9 @@ public class WorkReportComplainFragment extends Fragment implements View.OnClick
                             curPage = 2;
                             totalPage = bean.getData().getLast_page();
                             datalist.clear();
-                    datalist.addAll(bean.getData().getData());
-                    adapter.notifyDataSetChanged();
-                    mSwipRefresh.setRefreshing(false);
+                            datalist.addAll(bean.getData().getData());
+                            adapter.notifyDataSetChanged();
+                            mSwipRefresh.setRefreshing(false);
                         }
                     }
                 });
@@ -225,5 +172,4 @@ public class WorkReportComplainFragment extends Fragment implements View.OnClick
 
         }
     };
-
 }

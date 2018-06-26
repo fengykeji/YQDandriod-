@@ -9,6 +9,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.TextView;
+
 import com.ccsoft.yunqudao.R;
 import com.ccsoft.yunqudao.data.AppConstants;
 import com.ccsoft.yunqudao.data.model.response.WorkReportVerifyDetailData;
@@ -16,15 +17,12 @@ import com.ccsoft.yunqudao.http.XutilsHttp;
 import com.ccsoft.yunqudao.utils.ActivityManager;
 import com.ccsoft.yunqudao.utils.DataUtils;
 import com.google.gson.Gson;
+
 import java.util.HashMap;
 import java.util.Map;
 
-/**
- * author lzx
- * Created on 2018/5/28.
- */
+public class WorkDealVerifydetailActivity extends AppCompatActivity {
 
-public class WorkReportVerifyActivity extends AppCompatActivity {
     private TextView mNumTv;
     private TextView mTime_Tv;
     private TextView mTelTv;
@@ -97,7 +95,7 @@ public class WorkReportVerifyActivity extends AppCompatActivity {
     private void initData() {
         Map<String, String> map = new HashMap<>();
         map.put("client_id", String.valueOf(id));
-        XutilsHttp.getInstance().gethesder(AppConstants.URL + "agent/work/project/waitConfirmDetail", map, new XutilsHttp.XCallBack() {
+        XutilsHttp.getInstance().gethesder(AppConstants.URL + "agent/work/project/waitDealDetail", map, new XutilsHttp.XCallBack() {
             @Override
             public void onResponse(String result) {
                 Gson gson = new Gson();
@@ -118,7 +116,10 @@ public class WorkReportVerifyActivity extends AppCompatActivity {
         mPeople1Tv.setText(workReportVerifyDetailData.getData().getBroker_name());
         mTelTv.setText(workReportVerifyDetailData.getData().getBroker_tel());
         mProjectTv.setText(workReportVerifyDetailData.getData().getProject_name());
-        mAddressTv.setText(workReportVerifyDetailData.getData().getAbsolute_address());
+        mAddressTv.setText(workReportVerifyDetailData.getData().getProvince_name()+"-"+
+                workReportVerifyDetailData.getData().getCity_name()+"-"+
+                workReportVerifyDetailData.getData().getDistrict_name()+"-"
+                +workReportVerifyDetailData.getData().getAbsolute_address());
         mClientNameTv.setText(workReportVerifyDetailData.getData().getName());
         if (workReportVerifyDetailData.getData().getSex()==1){
             mClientSexTv.setText("男");

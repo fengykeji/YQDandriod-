@@ -27,7 +27,7 @@ public class WorkChengJiaoKeHuActivity extends AppCompatActivity implements View
     private Button         mWork_button_over_verify;
     private Button         mWork_button_over_valid;
     private Button         mWork_button_over_disable;
-    //private Button         mWork_button_over_complain;
+    private Button         mWork_button_over_complain;
     private ViewPager      mWork_viewpager_over_client;
     private List<Fragment> mList;
     WorkChengJiaoKeHuAdapter mWorkChengJiaoKeHuAdapter;
@@ -54,17 +54,18 @@ public class WorkChengJiaoKeHuActivity extends AppCompatActivity implements View
         mWork_button_over_verify = findViewById(R.id.work_button_over_verify);
         mWork_button_over_valid = findViewById(R.id.work_button_over_valid);
         mWork_button_over_disable = findViewById(R.id.work_button_over_disable);
-        //mWork_button_over_complain = findViewById(R.id.work_button_over_complain);
+        mWork_button_over_complain = findViewById(R.id.work_button_over_complain);
         mWork_viewpager_over_client = findViewById(R.id.work_viewpager_over_client);
         mList = new ArrayList<>();
-        mList.add(new WorkReportVerifyFragment());
-        mList.add(new WorkReportVaildFragment());
-        mList.add(new WorkReportDisableFragment());
-        mList.add(new WorkReportComplainFragment());
+        mList.add(new WorkChengjiaoVerifyFragment());
+        mList.add(new WorkChengjiaoVaildFragment());
+        mList.add(new WorkChengjiaoDisableFragment());
+        mList.add(new WorkChengjiaoComplainFragment());
 
         mWorkChengJiaoKeHuAdapter = new WorkChengJiaoKeHuAdapter(getSupportFragmentManager(), mList);
         mWork_viewpager_over_client.setAdapter(mWorkChengJiaoKeHuAdapter);
         mWork_viewpager_over_client.setCurrentItem(0);
+        mWork_viewpager_over_client.setOffscreenPageLimit(4);
     }
 
     /**
@@ -76,7 +77,7 @@ public class WorkChengJiaoKeHuActivity extends AppCompatActivity implements View
         mWork_button_over_verify.setOnClickListener(this);
         mWork_button_over_valid.setOnClickListener(this);
         mWork_button_over_disable.setOnClickListener(this);
-        //mWork_button_over_complain.setOnClickListener(this);
+        mWork_button_over_complain.setOnClickListener(this);
     }
 
     public void onClick(View v) {
@@ -94,9 +95,9 @@ public class WorkChengJiaoKeHuActivity extends AppCompatActivity implements View
             case R.id.work_button_over_disable:
                 mWork_viewpager_over_client.setCurrentItem(2);
                 break;
-            //case R.id.work_button_over_complain:
-            //    mWork_viewpager_over_client.setCurrentItem(3);
-            //    break;
+            case R.id.work_button_over_complain:
+                mWork_viewpager_over_client.setCurrentItem(3);
+                break;
         }
     }
 

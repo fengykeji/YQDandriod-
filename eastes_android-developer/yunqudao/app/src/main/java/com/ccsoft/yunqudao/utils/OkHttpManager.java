@@ -4,6 +4,7 @@ package com.ccsoft.yunqudao.utils;
 import android.os.Handler;
 import android.os.Looper;
 import android.text.TextUtils;
+import android.util.Log;
 
 import com.google.gson.Gson;
 
@@ -62,7 +63,9 @@ public class OkHttpManager {
      * @return
      */
     private Request createRequest(String baseUrl, HttpMethodType methodType, Map<String,String> params){
-        Request.Builder builder = new Request.Builder().url(baseUrl);
+        Request.Builder builder = new Request.Builder().url(baseUrl)
+       .addHeader("ACCESS-TOKEN", SpUtil.getToken())
+                .addHeader("ACCESS-ROLE", "agent");
         if (methodType == HttpMethodType.GET){
             builder.get();
         }else if(methodType == HttpMethodType.POST){

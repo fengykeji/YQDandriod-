@@ -288,7 +288,7 @@
                             android:paddingBottom="10dp"
                             android:paddingLeft="10dp"
                             android:paddingTop="10dp"
-                            android:text="0"
+                            android:text=""
                             android:textSize="15sp"
                             />
 
@@ -347,7 +347,7 @@
                             android:paddingBottom="10dp"
                             android:paddingLeft="10dp"
                             android:paddingTop="10dp"
-                            android:text="0"
+                            android:text=""
                             android:textSize="15sp"
                             />
 

@@ -3,6 +3,7 @@
 
     <!--"type":"付款方式","param":[{"id":46,"param":"一次性付款"},{"id":47,"param":"公积金贷款"},{"id":48,"param":"综合贷款"},{"id":49,"param":"银行按揭贷款"},{"id":50,"param":"分期付款"}]}-->
     <string-array name="付款方式">
+        <item></item>
         <item>一次性付款</item>
         <item>公积金贷款</item>
         <item>综合贷款</item>

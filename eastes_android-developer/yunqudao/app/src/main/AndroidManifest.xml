@@ -148,6 +148,12 @@
         </activity>
         <activity android:name=".ui.work.AddWorkActivity">
         </activity>
+        <activity android:name=".ui.work.WorkDealVerifydetailActivity">
+        </activity>
+        <activity android:name=".ui.work.WorkChengjiaoVailddetailActivity">
+        </activity>
+        <activity android:name=".ui.work.WorkChengjiaoDisableDetailActivity">
+        </activity>
 
 
 

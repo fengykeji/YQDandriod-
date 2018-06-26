@@ -45,6 +45,12 @@ public class AddLabelActivity extends AppCompatActivity implements View.OnClickL
     private LinearLayout ll_addTextLabel,ll_addTextLabel2,ll_addTextLabel3,ll_addTextLabel4,show_label;
     private List<Integer> list = new ArrayList<>();
     private List<String> lists = new ArrayList<>();
+    private String name;
+    private String sex;
+    private String tel;
+    private String birth;
+    private String card_id;
+    private String address;
 
 
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -64,6 +70,7 @@ public class AddLabelActivity extends AppCompatActivity implements View.OnClickL
      * 初始化id
      */
     private void initView() {
+        Submit();
 
         mCustomers_button_back = findViewById(R.id.customers_button_back);
         mCustomers_button_commit = findViewById(R.id.customers_button_commit);
@@ -197,8 +204,31 @@ public class AddLabelActivity extends AppCompatActivity implements View.OnClickL
                 Intent intent = new Intent(this,AddCustomers2Activity.class);
                 intent.putIntegerArrayListExtra("list", (ArrayList<Integer>) list);
                 intent.putStringArrayListExtra("lists", (ArrayList<String>) lists);
+                intent.putExtra("name",name);
+                intent.putExtra("sex",sex);
+                intent.putExtra("tel",tel);
+                intent.putExtra("birth",birth);
+                intent.putExtra("card_id",card_id);
+                intent.putExtra("address",address);
                 startActivity(intent);
                 break;
         }
+    }
+
+    private void Submit() {
+        name = getIntent().getStringExtra("name");
+        sex = getIntent().getStringExtra("sex");
+        if (sex == null) {
+            sex = "";
+        } else if (sex.equals(2)) {
+            sex = "女";
+        } else if (sex.equals(1)) {
+            sex = "男";
+        }
+        tel = getIntent().getStringExtra("tel");
+
+        birth = getIntent().getStringExtra("birth");
+        card_id = getIntent().getStringExtra("card_id");
+        address = getIntent().getStringExtra("address");
     }
 }
