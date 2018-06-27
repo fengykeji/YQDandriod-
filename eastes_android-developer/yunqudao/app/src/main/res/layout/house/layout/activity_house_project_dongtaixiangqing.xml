@@ -4,6 +4,9 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     >
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -27,6 +30,7 @@
             android:textSize="20sp"
             />
     </RelativeLayout>
+    </LinearLayout>
     <ImageView
         android:layout_width="match_parent"
         android:layout_height="3dp"
@@ -35,6 +39,7 @@
     </ImageView>
 
     <LinearLayout
+        android:visibility="gone"
         android:id="@+id/house_item_linearlayout_项目动态2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -116,6 +121,13 @@
         </LinearLayout>
 
     </LinearLayout>
+
+    <WebView
+        android:id="@+id/webview"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+    </WebView>
 
 
 </LinearLayout>

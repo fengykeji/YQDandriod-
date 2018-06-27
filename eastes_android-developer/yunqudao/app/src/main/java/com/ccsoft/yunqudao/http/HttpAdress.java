@@ -33,6 +33,16 @@ public class HttpAdress {
     public static String HOUSTANALYSE = AppConstants.URL+"user/houseType/analyse?";
     /*项目规则*/
     public static String HOUSEGETRULENEW = AppConstants.URL+"user/project/getRuleNew?project_id=3&agent_id=18";
+    /*项目楼盘信息*/
+    public static String BUILDINFO = AppConstants.URL+"user/project/buildInfo";
+    /*项目动态列表*/
+    public static String DYNAMICLIST = AppConstants.URL+"user/dynamic/list";
+    /*关注*/
+    public static String focusProject = AppConstants.URL+"agent/personal/focusProject";
+    /*取消关注*/
+    public static String cancelFocusProject = AppConstants.URL+"agent/personal/cancelFocusProject";
+
+
     /*快速报备*/
     public static String ADDANDRECOMMEND = AppConstants.URL+"project/client/addAndRecommend";
     /*增加跟进信息*/

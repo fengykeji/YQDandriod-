@@ -6,6 +6,7 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -44,6 +45,12 @@ public class ClientFollowFragment extends Fragment implements View.OnClickListen
         return fragment;
     }
 
+    @Override
+    public void onStart() {
+        super.onStart();
+        initData();
+    }
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -61,6 +68,7 @@ public class ClientFollowFragment extends Fragment implements View.OnClickListen
      * 初始化id
      */
     private void initView() {
+        id = getActivity().getIntent().getIntExtra("client_id",0);
 
         this.mCustomers_button_add_follow = mView.findViewById(R.id.customers_button_add_follow);
         this.mCustomers_client_recyclerview = mView.findViewById(R.id.customers_client_recyclerview);
@@ -106,6 +114,7 @@ public class ClientFollowFragment extends Fragment implements View.OnClickListen
             case R.id.customers_button_add_follow:
                 Intent intent = new Intent(getContext(),AddGenJinJiLuActivity.class);
                 intent.putExtra("client_id",getActivity().getIntent().getIntExtra("client_id",0));
+                intent.putExtra("name",getActivity().getIntent().getStringExtra("name"));
                 startActivity(intent);
 //                AddGenJinJiLuActivity.start(getActivity());
         }

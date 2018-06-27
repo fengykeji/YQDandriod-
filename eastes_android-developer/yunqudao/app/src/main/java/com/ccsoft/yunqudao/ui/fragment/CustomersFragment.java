@@ -136,6 +136,7 @@ public class CustomersFragment extends Fragment implements View.OnClickListener,
 //                CustomersXiangQingActivity.start(getActivity(), viewModel.getClient_id());//拿id查数据
                 Intent intent = new Intent(getContext(),CustomersXiangQingActivity.class);
                 intent.putExtra("client_id",viewModel.getClient_id());
+                intent.putExtra("name",viewModel.getName());
                 startActivity(intent);
             }
         });

@@ -66,6 +66,8 @@ public class AddGenJinJiLuActivity extends AppCompatActivity implements View.OnC
     private String mString2;
     private String comment;
     private int follow_type1;
+    private TextView tv_kehumingcheng,tv_genjingren;
+    private String name;
 
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -105,6 +107,8 @@ public class AddGenJinJiLuActivity extends AppCompatActivity implements View.OnC
         tv_showseekbar2 = findViewById(R.id.tv_showseekbar2);
         customers_spinner_付款方式 = findViewById(R.id.customers_spinner_付款方式);
         et_comment = findViewById(R.id.et_comment);
+        tv_kehumingcheng = findViewById(R.id.tv_kehumingcheng);
+        tv_genjingren = findViewById(R.id.tv_genjingren);
 
         adapter = ArrayAdapter.createFromResource(this,R.array.付款方式,
                 android.R.layout.simple_spinner_item);
@@ -112,6 +116,9 @@ public class AddGenJinJiLuActivity extends AppCompatActivity implements View.OnC
         customers_spinner_付款方式.setOnItemSelectedListener(this );
 
         mClienID = getIntent().getIntExtra("client_id",0);
+        name = getIntent().getStringExtra("name");
+
+        tv_kehumingcheng.setText(name);
 
     }
 
@@ -227,11 +234,10 @@ public class AddGenJinJiLuActivity extends AppCompatActivity implements View.OnC
                                 StringModel model = JsonUtil.jsonToEntity(s,StringModel.class);
                                 if(model.getCode()==200){
                                     Toast.makeText(AddGenJinJiLuActivity.this,"提交了跟进记录",Toast.LENGTH_SHORT).show();
+                                    finish();
                                 }
                             }
                         });
-
-                    finish();
                 break;
             case R.id.customers_follw_time:
                 showBirthdayPicker(mCustomers_text_barthday.getText().toString());

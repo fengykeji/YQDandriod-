@@ -8,7 +8,7 @@ public class HouseDetailBean {
     /**
      * code : 200
      * msg : 查询成功
-     * data : {"project_basic_info":{"project_id":3,"project_name":"大唐公馆","absolute_address":"月球","sale_state":"待售","average_price":9000,"project_tags":"56,57,58","developer_name":"云算公馆","total_float_url":"upload/project/img/1524463483_23.png","total_float_url_phone":"upload/project/img/06.jpg","longitude":103.86763,"latitude":30.78698349,"yunsuan_url":"47.106.39.169:2798","yunsuan_id":13,"property_type":["别墅"]},"dynamic":{"first":[],"count":0},"house_type":[],"project_img":{"url":[]},"build_info":{"handing_room_time":"暂无数据","open_time":"暂无数据","open_way":"暂无数据"},"focus":{"num":2,"is_focus":0},"butter_tel":"18628850789"}
+     * data : {"project_basic_info":{"project_id":1,"project_name":"云算2","absolute_address":"成都郫县菁蓉大禹东路123号","sale_state":"待售","average_price":70000,"project_tags":"56,57,58","developer_name":"云算公馆","total_float_url":"http://120.27.21.136:2798/upload/agent/headimg/1523850012_10.jpg","total_float_url_phone":"upload/agent/headimg/1526565231_31.jpg","longitude":103.86763,"latitude":30.78698349,"yunsuan_url":"39.108.60.120:10009","yunsuan_id":13,"property_type":["商铺","别墅"]},"dynamic":{"first":{"dynamic_id":2,"title":"测试标题","create_time":"2018-03-26 00:00:00","update_time":"2018-03-26 14:42:59","img_url":"","content":"测试内容","state":1},"count":5},"house_type":[{"id":1,"house_type_name":"S型洋房独栋","house_type":"3室2厅2卫","sale_state":"待售","img_url":"upload/project/img/1524539204_37.png","property_area_min":100,"property_area_max":200},{"id":2,"house_type_name":"A型别墅","house_type":"1室1厅2卫","sale_state":"在售","img_url":"upload/agent/headimg/1523850012_10.jpg","property_area_min":100,"property_area_max":200},{"id":3,"house_type_name":"B型公寓","house_type":"1室1厅1卫","sale_state":"售罄","img_url":"upload/project/img/1524539204_37.png","property_area_min":200,"property_area_max":2520},{"id":4,"house_type_name":"C型公寓","house_type":"3室2厅2卫","sale_state":"待售","img_url":"upload/agent/headimg/1523850012_10.jpg","property_area_min":100,"property_area_max":788},{"id":5,"house_type_name":"D型公寓","house_type":"1室1厅2卫","sale_state":"待售","img_url":"upload/project/img/1524539204_37.png","property_area_min":355,"property_area_max":600},{"id":6,"house_type_name":"E型公寓","house_type":"1室1厅1卫","sale_state":"待售","img_url":"upload/agent/headimg/1523850012_10.jpg","property_area_min":200,"property_area_max":200}],"project_img":{"url":[{"img_url":"upload/agent/headimg/1523850012_10.jpg"},{"img_url":"upload/agent/headimg/1523850012_10.jpg"},{"img_url":"upload/project/img/1524463483_23.png"},{"img_url":"upload/project/img/1524463483_23.png"},{"img_url":"upload/project/img/1524463483_23.png"},{"img_url":"upload/agent/headimg/1523850012_10.jpg"},{"img_url":"upload/project/img/1524463483_23.png"}]},"build_info":{"handing_room_time":"2018-05-08","open_time":"2018-05-08","open_way":"网上开盘"},"focus":{"num":7,"is_focus":0},"butter_tel":"15082245102"}
      */
 
     private int code;
@@ -41,13 +41,13 @@ public class HouseDetailBean {
 
     public static class DataBean {
         /**
-         * project_basic_info : {"project_id":3,"project_name":"大唐公馆","absolute_address":"月球","sale_state":"待售","average_price":9000,"project_tags":"56,57,58","developer_name":"云算公馆","total_float_url":"upload/project/img/1524463483_23.png","total_float_url_phone":"upload/project/img/06.jpg","longitude":103.86763,"latitude":30.78698349,"yunsuan_url":"47.106.39.169:2798","yunsuan_id":13,"property_type":["别墅"]}
-         * dynamic : {"first":[],"count":0}
-         * house_type : []
-         * project_img : {"url":[]}
-         * build_info : {"handing_room_time":"暂无数据","open_time":"暂无数据","open_way":"暂无数据"}
-         * focus : {"num":2,"is_focus":0}
-         * butter_tel : 18628850789
+         * project_basic_info : {"project_id":1,"project_name":"云算2","absolute_address":"成都郫县菁蓉大禹东路123号","sale_state":"待售","average_price":70000,"project_tags":"56,57,58","developer_name":"云算公馆","total_float_url":"http://120.27.21.136:2798/upload/agent/headimg/1523850012_10.jpg","total_float_url_phone":"upload/agent/headimg/1526565231_31.jpg","longitude":103.86763,"latitude":30.78698349,"yunsuan_url":"39.108.60.120:10009","yunsuan_id":13,"property_type":["商铺","别墅"]}
+         * dynamic : {"first":{"dynamic_id":2,"title":"测试标题","create_time":"2018-03-26 00:00:00","update_time":"2018-03-26 14:42:59","img_url":"","content":"测试内容","state":1},"count":5}
+         * house_type : [{"id":1,"house_type_name":"S型洋房独栋","house_type":"3室2厅2卫","sale_state":"待售","img_url":"upload/project/img/1524539204_37.png","property_area_min":100,"property_area_max":200},{"id":2,"house_type_name":"A型别墅","house_type":"1室1厅2卫","sale_state":"在售","img_url":"upload/agent/headimg/1523850012_10.jpg","property_area_min":100,"property_area_max":200},{"id":3,"house_type_name":"B型公寓","house_type":"1室1厅1卫","sale_state":"售罄","img_url":"upload/project/img/1524539204_37.png","property_area_min":200,"property_area_max":2520},{"id":4,"house_type_name":"C型公寓","house_type":"3室2厅2卫","sale_state":"待售","img_url":"upload/agent/headimg/1523850012_10.jpg","property_area_min":100,"property_area_max":788},{"id":5,"house_type_name":"D型公寓","house_type":"1室1厅2卫","sale_state":"待售","img_url":"upload/project/img/1524539204_37.png","property_area_min":355,"property_area_max":600},{"id":6,"house_type_name":"E型公寓","house_type":"1室1厅1卫","sale_state":"待售","img_url":"upload/agent/headimg/1523850012_10.jpg","property_area_min":200,"property_area_max":200}]
+         * project_img : {"url":[{"img_url":"upload/agent/headimg/1523850012_10.jpg"},{"img_url":"upload/agent/headimg/1523850012_10.jpg"},{"img_url":"upload/project/img/1524463483_23.png"},{"img_url":"upload/project/img/1524463483_23.png"},{"img_url":"upload/project/img/1524463483_23.png"},{"img_url":"upload/agent/headimg/1523850012_10.jpg"},{"img_url":"upload/project/img/1524463483_23.png"}]}
+         * build_info : {"handing_room_time":"2018-05-08","open_time":"2018-05-08","open_way":"网上开盘"}
+         * focus : {"num":7,"is_focus":0}
+         * butter_tel : 15082245102
          */
 
         private ProjectBasicInfoBean project_basic_info;
@@ -56,7 +56,7 @@ public class HouseDetailBean {
         private BuildInfoBean build_info;
         private FocusBean focus;
         private String butter_tel;
-        private List<?> house_type;
+        private List<HouseTypeBean> house_type;
 
         public ProjectBasicInfoBean getProject_basic_info() {
             return project_basic_info;
@@ -106,30 +106,30 @@ public class HouseDetailBean {
             this.butter_tel = butter_tel;
         }
 
-        public List<?> getHouse_type() {
+        public List<HouseTypeBean> getHouse_type() {
             return house_type;
         }
 
-        public void setHouse_type(List<?> house_type) {
+        public void setHouse_type(List<HouseTypeBean> house_type) {
             this.house_type = house_type;
         }
 
         public static class ProjectBasicInfoBean {
             /**
-             * project_id : 3
-             * project_name : 大唐公馆
-             * absolute_address : 月球
+             * project_id : 1
+             * project_name : 云算2
+             * absolute_address : 成都郫县菁蓉大禹东路123号
              * sale_state : 待售
-             * average_price : 9000
+             * average_price : 70000
              * project_tags : 56,57,58
              * developer_name : 云算公馆
-             * total_float_url : upload/project/img/1524463483_23.png
-             * total_float_url_phone : upload/project/img/06.jpg
+             * total_float_url : http://120.27.21.136:2798/upload/agent/headimg/1523850012_10.jpg
+             * total_float_url_phone : upload/agent/headimg/1526565231_31.jpg
              * longitude : 103.86763
              * latitude : 30.78698349
-             * yunsuan_url : 47.106.39.169:2798
+             * yunsuan_url : 39.108.60.120:10009
              * yunsuan_id : 13
-             * property_type : ["别墅"]
+             * property_type : ["商铺","别墅"]
              */
 
             private int project_id;
@@ -262,12 +262,20 @@ public class HouseDetailBean {
 
         public static class DynamicBean {
             /**
-             * first : []
-             * count : 0
+             * first : {"dynamic_id":2,"title":"测试标题","create_time":"2018-03-26 00:00:00","update_time":"2018-03-26 14:42:59","img_url":"","content":"测试内容","state":1}
+             * count : 5
              */
 
+            private FirstBean first;
             private int count;
-            private List<?> first;
+
+            public FirstBean getFirst() {
+                return first;
+            }
+
+            public void setFirst(FirstBean first) {
+                this.first = first;
+            }
 
             public int getCount() {
                 return count;
@@ -277,32 +285,116 @@ public class HouseDetailBean {
                 this.count = count;
             }
 
-            public List<?> getFirst() {
-                return first;
-            }
+            public static class FirstBean {
+                /**
+                 * dynamic_id : 2
+                 * title : 测试标题
+                 * create_time : 2018-03-26 00:00:00
+                 * update_time : 2018-03-26 14:42:59
+                 * img_url :
+                 * content : 测试内容
+                 * state : 1
+                 */
 
-            public void setFirst(List<?> first) {
-                this.first = first;
+                private int dynamic_id;
+                private String title;
+                private String create_time;
+                private String update_time;
+                private String img_url;
+                private String content;
+                private int state;
+
+                public int getDynamic_id() {
+                    return dynamic_id;
+                }
+
+                public void setDynamic_id(int dynamic_id) {
+                    this.dynamic_id = dynamic_id;
+                }
+
+                public String getTitle() {
+                    return title;
+                }
+
+                public void setTitle(String title) {
+                    this.title = title;
+                }
+
+                public String getCreate_time() {
+                    return create_time;
+                }
+
+                public void setCreate_time(String create_time) {
+                    this.create_time = create_time;
+                }
+
+                public String getUpdate_time() {
+                    return update_time;
+                }
+
+                public void setUpdate_time(String update_time) {
+                    this.update_time = update_time;
+                }
+
+                public String getImg_url() {
+                    return img_url;
+                }
+
+                public void setImg_url(String img_url) {
+                    this.img_url = img_url;
+                }
+
+                public String getContent() {
+                    return content;
+                }
+
+                public void setContent(String content) {
+                    this.content = content;
+                }
+
+                public int getState() {
+                    return state;
+                }
+
+                public void setState(int state) {
+                    this.state = state;
+                }
             }
         }
 
         public static class ProjectImgBean {
-            private List<?> url;
+            private List<UrlBean> url;
 
-            public List<?> getUrl() {
+            public List<UrlBean> getUrl() {
                 return url;
             }
 
-            public void setUrl(List<?> url) {
+            public void setUrl(List<UrlBean> url) {
                 this.url = url;
+            }
+
+            public static class UrlBean {
+                /**
+                 * img_url : upload/agent/headimg/1523850012_10.jpg
+                 */
+
+                private String img_url;
+
+                public String getImg_url() {
+                    return img_url;
+                }
+
+                public void setImg_url(String img_url) {
+                    this.img_url = img_url;
+                }
             }
         }
 
         public static class BuildInfoBean {
             /**
-             * handing_room_time : 暂无数据
-             * open_time : 暂无数据
-             * open_way : 暂无数据
+             * handing_room_time : 2018-05-08
+             * open_time : 2018-05-08
+             * open_way : 网上开盘
              */
 
             private String handing_room_time;
@@ -336,7 +428,7 @@ public class HouseDetailBean {
 
         public static class FocusBean {
             /**
-             * num : 2
+             * num : 7
              * is_focus : 0
              */
 
@@ -357,6 +449,82 @@ public class HouseDetailBean {
 
             public void setIs_focus(int is_focus) {
                 this.is_focus = is_focus;
+            }
+        }
+
+        public static class HouseTypeBean {
+            /**
+             * id : 1
+             * house_type_name : S型洋房独栋
+             * house_type : 3室2厅2卫
+             * sale_state : 待售
+             * img_url : upload/project/img/1524539204_37.png
+             * property_area_min : 100
+             * property_area_max : 200
+             */
+
+            private int id;
+            private String house_type_name;
+            private String house_type;
+            private String sale_state;
+            private String img_url;
+            private int property_area_min;
+            private int property_area_max;
+
+            public int getId() {
+                return id;
+            }
+
+            public void setId(int id) {
+                this.id = id;
+            }
+
+            public String getHouse_type_name() {
+                return house_type_name;
+            }
+
+            public void setHouse_type_name(String house_type_name) {
+                this.house_type_name = house_type_name;
+            }
+
+            public String getHouse_type() {
+                return house_type;
+            }
+
+            public void setHouse_type(String house_type) {
+                this.house_type = house_type;
+            }
+
+            public String getSale_state() {
+                return sale_state;
+            }
+
+            public void setSale_state(String sale_state) {
+                this.sale_state = sale_state;
+            }
+
+            public String getImg_url() {
+                return img_url;
+            }
+
+            public void setImg_url(String img_url) {
+                this.img_url = img_url;
+            }
+
+            public int getProperty_area_min() {
+                return property_area_min;
+            }
+
+            public void setProperty_area_min(int property_area_min) {
+                this.property_area_min = property_area_min;
+            }
+
+            public int getProperty_area_max() {
+                return property_area_max;
+            }
+
+            public void setProperty_area_max(int property_area_max) {
+                this.property_area_max = property_area_max;
             }
         }
     }

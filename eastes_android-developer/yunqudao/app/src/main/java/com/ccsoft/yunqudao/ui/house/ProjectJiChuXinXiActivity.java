@@ -5,10 +5,27 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageButton;
+import android.widget.LinearLayout;
+import android.widget.TextView;
+
 import com.ccsoft.yunqudao.R;
+import com.ccsoft.yunqudao.bean.BuildInfoBean;
+import com.ccsoft.yunqudao.bean.HouseListBean;
+import com.ccsoft.yunqudao.http.HttpAdress;
 import com.ccsoft.yunqudao.utils.ActivityManager;
+import com.ccsoft.yunqudao.utils.BaseCallBack;
+import com.ccsoft.yunqudao.utils.OkHttpManager;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
+
+import java.lang.reflect.Type;
+import java.net.MalformedURLException;
+
+import okhttp3.Call;
+import okhttp3.Response;
 
 /**
  * @author: Pein
@@ -18,6 +35,14 @@ import com.ccsoft.yunqudao.utils.ActivityManager;
 public class ProjectJiChuXinXiActivity extends AppCompatActivity implements View.OnClickListener {
 
     private ImageButton mHouse_button_返回;
+    private int project_id;
+    private BuildInfoBean infoBean;
+    private TextView tv_project_name,tv_sale_state,tv_kaifashang,tv_absolute_address,
+            tv_sheji,tv_property_area,tv_shoulouchu,tv_jianzuleixing,tv_average_price,
+            tv_price_area,tv_area,tv_zhuangxiubiaozhun,tv_jianzumianzhi,tv_rongjilv,
+            tv_lvhualv,tv_huihuanum,tv_huihuachehua,tv_wuyeleixing,tv_wuyegongsi,
+            tv_wuyefei,tv_gongnuanfangshi,tv_gongshuifangshi,tv_gongdianfangshi;
+    private LinearLayout ll_yushou,ll_fazhengtime;
 
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -25,6 +50,8 @@ public class ProjectJiChuXinXiActivity extends AppCompatActivity implements View
         setContentView(R.layout.activity_house_project_loupanxinxi);
         initView();
         initListener();
+        initData();
+
     }
 
     public static void start(Context context) {
@@ -38,6 +65,34 @@ public class ProjectJiChuXinXiActivity extends AppCompatActivity implements View
          * 初始化
          */
         mHouse_button_返回 = findViewById(R.id.house_button_返回);
+        tv_project_name = findViewById(R.id.tv_project_name);
+        tv_sale_state = findViewById(R.id.tv_sale_state);
+        tv_kaifashang = findViewById(R.id.tv_kaifashang);
+        tv_absolute_address = findViewById(R.id.tv_absolute_address);
+        tv_sheji = findViewById(R.id.tv_sheji);
+        tv_property_area = findViewById(R.id.tv_property_area);
+        tv_shoulouchu = findViewById(R.id.tv_shoulouchu);
+        tv_jianzuleixing = findViewById(R.id.tv_jianzuleixing);
+        tv_average_price = findViewById(R.id.tv_average_price);
+        tv_price_area = findViewById(R.id.tv_price_area);
+        tv_area = findViewById(R.id.tv_area);
+        tv_zhuangxiubiaozhun = findViewById(R.id.tv_zhuangxiubiaozhun);
+        tv_jianzumianzhi = findViewById(R.id.tv_jianzumianzhi);
+        tv_rongjilv = findViewById(R.id.tv_rongjilv);
+        tv_lvhualv = findViewById(R.id.tv_lvhualv);
+        tv_huihuanum = findViewById(R.id.tv_huihuanum);
+        tv_huihuachehua = findViewById(R.id.tv_huihuachehua);
+        tv_wuyeleixing = findViewById(R.id.tv_wuyeleixing);
+        tv_wuyegongsi = findViewById(R.id.tv_wuyegongsi);
+        tv_wuyefei = findViewById(R.id.tv_wuyefei);
+        tv_gongnuanfangshi = findViewById(R.id.tv_gongnuanfangshi);
+        tv_gongshuifangshi = findViewById(R.id.tv_gongshuifangshi);
+        tv_gongdianfangshi = findViewById(R.id.tv_gongdianfangshi);
+        ll_yushou = findViewById(R.id.ll_yushou);
+        ll_fazhengtime = findViewById(R.id.ll_fazhengtime);
+
+        project_id = getIntent().getIntExtra("project_id",0);
+
     }
 
     private void initListener() {
@@ -50,10 +105,75 @@ public class ProjectJiChuXinXiActivity extends AppCompatActivity implements View
 
     public void onClick(View v) {
         switch (v.getId()) {
-            case R.id.me_button_返回:
+            case R.id.house_button_返回:
                 finish();
                 break;
         }
+    }
+
+    private void initData(){
+        OkHttpManager.getInstance().get(HttpAdress.BUILDINFO + "?project_id=" + project_id,
+                new BaseCallBack() {
+                    @Override
+                    public void onSuccess(Call call, Response response, Object obj) throws MalformedURLException {
+                        Type type = new TypeToken<BuildInfoBean>() {}.getType();
+                        infoBean = new Gson().fromJson(obj.toString(),type);
+                        if(infoBean.getCode()==200&&infoBean.getData()!=null){
+                            tv_project_name.setText(infoBean.getData().getProject_name());
+                            tv_sale_state.setText(infoBean.getData().getSale_state());
+                            tv_kaifashang.setText(infoBean.getData().getDeveloper_name());
+                            tv_absolute_address.setText(infoBean.getData().getProvince_name()+"-"+
+                            infoBean.getData().getCity_name()+"-"+infoBean.getData().getDistrict_name());
+                            tv_sheji.setText(infoBean.getData().getDecoration_company());
+                            tv_property_area.setText(infoBean.getData().getAbsolute_address());
+                            tv_shoulouchu.setText(infoBean.getData().getSale_address());
+                            tv_jianzuleixing.setText(infoBean.getData().getBuild_type());
+                            tv_average_price.setText(infoBean.getData().getAverage_price()+"/m2");
+                            tv_price_area.setText(infoBean.getData().getMin_price()+"万"+"-"+
+                            infoBean.getData().getMax_price()+"万");
+                            tv_area.setText(infoBean.getData().getFloor_space()+"m2");
+                            tv_zhuangxiubiaozhun.setText(infoBean.getData().getDecoration_standard());
+                            tv_jianzumianzhi.setText(infoBean.getData().getCovered_area()+"m2");
+                            tv_rongjilv.setText(infoBean.getData().getPlot_retio()+"");
+                            tv_lvhualv.setText(infoBean.getData().getGreening_rate()+"5");
+                            tv_huihuanum.setText(infoBean.getData().getHouseholds_num()+"");
+                            tv_huihuachehua.setText(infoBean.getData().getParking_num()+"");
+                            if (infoBean.getData().getProperty() != null) {
+                                String need_tags = null;
+                                for (int i = 0; i < infoBean.getData().getProperty().size(); i++) {
+                                    String id = infoBean.getData().getProperty().get(i);
+                                    if (i == 0) {
+                                        need_tags = String.valueOf(infoBean.getData().getProperty().get(i));
+                                    } else {
+                                        need_tags = need_tags.concat("," + String.valueOf(id));
+                                    }
+                                }
+                                tv_wuyeleixing.setText(need_tags);
+                            }
+                            tv_wuyegongsi.setText(infoBean.getData().getProperty_company_name());
+                            tv_wuyefei.setText(infoBean.getData().getProperty_cost()+"元/m2/yue");
+                            tv_gongnuanfangshi.setText(infoBean.getData().getHeat_supply());
+                            tv_gongshuifangshi.setText(infoBean.getData().getWater_supply());
+                            tv_gongdianfangshi.setText(infoBean.getData().getPower_supply());
+
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(Call call, Exception e) {
+
+                    }
+
+                    @Override
+                    public void onError(Response response, int errorCode) {
+
+                    }
+
+                    @Override
+                    public void onRequestBefore() {
+
+                    }
+                });
     }
 }
 

@@ -23,7 +23,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
-            android:text="项目基础信息"
+            android:text="楼盘详情"
             android:textColor="@android:color/black"
             android:textSize="20sp"
             />
@@ -71,6 +71,7 @@
                         />
 
                     <TextView
+                        android:id="@+id/tv_project_name"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="7.5"
@@ -102,6 +103,7 @@
                         />
 
                     <TextView
+                        android:id="@+id/tv_sale_state"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="7.5"
@@ -133,6 +135,7 @@
                         />
 
                     <TextView
+                        android:id="@+id/tv_kaifashang"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="7.5"
@@ -164,6 +167,7 @@
                         />
 
                     <TextView
+                        android:id="@+id/tv_absolute_address"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="7.5"
@@ -195,6 +199,7 @@
                         />
 
                     <TextView
+                        android:id="@+id/tv_sheji"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="7.5"
@@ -226,6 +231,7 @@
                         />
 
                     <TextView
+                        android:id="@+id/tv_property_area"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="7.5"
@@ -257,6 +263,7 @@
                         />
 
                     <TextView
+                        android:id="@+id/tv_shoulouchu"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="7.5"
@@ -295,6 +302,7 @@
                         />
 
                     <TextView
+                        android:id="@+id/tv_jianzuleixing"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="7.5"
@@ -326,6 +334,7 @@
                         />
 
                     <TextView
+                        android:id="@+id/tv_average_price"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="7.5"
@@ -357,6 +366,7 @@
                         />
 
                     <TextView
+                        android:id="@+id/tv_price_area"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="7.5"
@@ -388,6 +398,7 @@
                         />
 
                     <TextView
+                        android:id="@+id/tv_area"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="7.5"
@@ -419,6 +430,7 @@
                         />
 
                     <TextView
+                        android:id="@+id/tv_zhuangxiubiaozhun"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="7.5"
@@ -450,6 +462,7 @@
                         />
 
                     <TextView
+                        android:id="@+id/tv_jianzumianzhi"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="7.5"
@@ -481,6 +494,7 @@
                         />
 
                     <TextView
+                        android:id="@+id/tv_rongjilv"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="7.5"
@@ -511,6 +525,7 @@
                         />
 
                     <TextView
+                        android:id="@+id/tv_lvhualv"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="7.5"
@@ -541,6 +556,7 @@
                         />
 
                     <TextView
+                        android:id="@+id/tv_huihuanum"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="7.5"
@@ -571,6 +587,7 @@
                         />
 
                     <TextView
+                        android:id="@+id/tv_huihuachehua"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="7.5"
@@ -611,6 +628,7 @@
                         />
 
                     <TextView
+                        android:id="@+id/tv_wuyeleixing"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="7.5"
@@ -642,6 +660,7 @@
                         />
 
                     <TextView
+                        android:id="@+id/tv_wuyegongsi"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="7.5"
@@ -673,6 +692,7 @@
                         />
 
                     <TextView
+                        android:id="@+id/tv_wuyefei"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="7.5"
@@ -704,6 +724,7 @@
                         />
 
                     <TextView
+                        android:id="@+id/tv_gongnuanfangshi"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="7.5"
@@ -735,6 +756,7 @@
                         />
 
                     <TextView
+                        android:id="@+id/tv_gongshuifangshi"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="7.5"
@@ -766,6 +788,7 @@
                         />
 
                     <TextView
+                        android:id="@+id/tv_gongdianfangshi"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="7.5"
@@ -793,29 +816,29 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
+                android:orientation="horizontal"
                 >
 
                 <LinearLayout
-                    android:layout_width="match_parent"
+                    android:id="@+id/ll_yushou"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:paddingBottom="10dp"
                     android:paddingTop="10dp"
                     android:weightSum="10"
+                    android:orientation="vertical"
                     >
                     <TextView
-                        android:layout_width="0dp"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_weight="2.5"
                         android:text="预售许可证："
                         android:textSize="16sp"
                         />
 
                     <TextView
-                        android:layout_width="0dp"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_weight="7.5"
-                        android:text="成房预售中心城区字第2365号"
+                        android:text="成房预售中心"
                         android:textColor="@color/chunhei"
                         android:textSize="16sp"
                         />
@@ -825,42 +848,43 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:src="@drawable/ic_line"
+                    android:visibility="gone"
                     />
 
                 <LinearLayout
+                    android:id="@+id/ll_fazhengtime"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:paddingBottom="10dp"
                     android:paddingTop="10dp"
                     android:weightSum="10"
+                    android:orientation="vertical"
                     >
                     <TextView
-                        android:layout_width="0dp"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_weight="2.5"
                         android:text="发证时间："
                         android:textSize="16sp"
                         />
 
                     <TextView
-                        android:layout_width="0dp"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_weight="7.5"
                         android:text="2017-12-12"
                         android:textColor="@color/chunhei"
                         android:textSize="16sp"
                         />
                 </LinearLayout>
 
-                <ImageView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:src="@drawable/ic_line"
-                    />
+
 
 
             </LinearLayout>
-
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_line"
+                />
 
         </LinearLayout>
     </ScrollView>

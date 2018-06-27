@@ -6,9 +6,11 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+import android.webkit.WebView;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import com.ccsoft.yunqudao.R;
+import com.ccsoft.yunqudao.data.AppConstants;
 import com.ccsoft.yunqudao.utils.ActivityManager;
 
 /**
@@ -20,6 +22,8 @@ public class ProjectDongTaiXiangQingActivity extends AppCompatActivity implement
 
     private ImageButton mHouse_button_返回;
     private LinearLayout    mHouse_button_linearlayout_项目图册;
+    private WebView webView;
+    private String loadUrl;
 
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -39,9 +43,12 @@ public class ProjectDongTaiXiangQingActivity extends AppCompatActivity implement
      * 初始化id
      */
     private void initView() {
-
+        webView = findViewById(R.id.webview);
         mHouse_button_返回 = findViewById(R.id.house_button_返回);
         mHouse_button_linearlayout_项目图册 = findViewById(R.id.house_button_linearlayout_项目图册);
+
+        loadUrl = getIntent().getStringExtra("url");
+        webView.loadUrl(AppConstants.URL+loadUrl);
 
     }
 

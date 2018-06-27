@@ -169,7 +169,6 @@ public class AddCustomers2Activity extends AppCompatActivity implements View.OnC
                     need_tags = String.valueOf(Idlist.get(i));
                 } else {
                     need_tags = need_tags.concat("," + String.valueOf(id));
-                    Log.e("needsssss", need_tags);
                 }
             }
         }
