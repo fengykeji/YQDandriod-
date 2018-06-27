@@ -4,4 +4,11 @@
     <!--* {"id":82,"param":"精装"}]},-->
 
 
+    <string-array name="申诉类型">
+        <item>""</item>
+        <item>申诉类型1</item>
+        <item>申诉类型2</item>
+        <item>申诉类型3</item>
+    </string-array>
+
 </resources>

@@ -105,8 +105,8 @@
                     >
                     <TextView
                         android:id="@+id/date_day"
-                        android:layout_width="240px"
-                        android:layout_height="240px"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
                         android:background="@color/juse"
                         android:gravity="center"
                         android:padding="10dp"
@@ -122,8 +122,8 @@
                         />
                     <TextView
                         android:id="@+id/date_hour"
-                        android:layout_width="240px"
-                        android:layout_height="240px"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
                         android:background="@color/juse"
                         android:gravity="center"
                         android:padding="10dp"
@@ -139,8 +139,8 @@
                         />
                     <TextView
                         android:id="@+id/date_minute"
-                        android:layout_width="240px"
-                        android:layout_height="240px"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
                         android:background="@color/juse"
                         android:gravity="center"
                         android:padding="10dp"
@@ -156,8 +156,8 @@
                         />
                     <TextView
                         android:id="@+id/date_seconds"
-                        android:layout_width="240px"
-                        android:layout_height="240px"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
                         android:background="@color/juse"
                         android:gravity="center"
                         android:padding="10dp"

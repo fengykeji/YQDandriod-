@@ -63,24 +63,28 @@
             >
 
             <TextView
+                android:id="@+id/tv_shensuleixing"
                 android:layout_weight="4"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginRight="10dp"
                 android:paddingBottom="10dp"
                 android:paddingTop="10dp"
-                android:text="佣金未到账"
+                android:text=""
                 android:textColor="@color/chunhei"
                 android:textSize="15sp"
                 android:gravity="center"
+                android:visibility="gone"
                 />
             <Spinner
-                android:layout_weight="1"
+                android:id="@+id/sp_shensuleixing"
+                android:layout_weight="5"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:dropDownVerticalOffset="35dp"
                 android:dropDownWidth="1080px"
-                android:entries="@array/需求类型"
+                android:entries="@array/申诉类型"
+                android:visibility="visible"
                 >
             </Spinner>
         </LinearLayout>
@@ -109,6 +113,7 @@
 
 
         <EditText
+            android:id="@+id/et_comment"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@android:color/transparent"

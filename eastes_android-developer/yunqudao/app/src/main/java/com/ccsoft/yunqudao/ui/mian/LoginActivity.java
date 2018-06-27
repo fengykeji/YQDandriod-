@@ -110,6 +110,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                 break;
             case R.id.me_button_repassword:
                 ForgetResetPassWordActivity.start(this);
+                break;
             case R.id.me_button_QQ:
                 Toast.makeText(this, "你点击了QQ登录", Toast.LENGTH_SHORT).show();
                 break;

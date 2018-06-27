@@ -80,11 +80,11 @@ class MyViewHolder extends RecyclerView.ViewHolder{
 
     public MyViewHolder(View itemView) {
         super(itemView);
-        im_house_list = itemView.findViewById(R.id.im_house_list);
-        tv_place = itemView.findViewById(R.id.tv_place);
-        tv_mingci = itemView.findViewById(R.id.tv_mingci);
-        tv_keywords = itemView.findViewById(R.id.tv_keywords);
-        tv_keywords2 = itemView.findViewById(R.id.tv_keywords2);
-        tv_sale_state = itemView.findViewById(R.id.tv_sale_state);
+//        im_house_list = itemView.findViewById(R.id.im_house_list);
+//        tv_place = itemView.findViewById(R.id.tv_place);
+//        tv_mingci = itemView.findViewById(R.id.tv_mingci);
+//        tv_keywords = itemView.findViewById(R.id.tv_keywords);
+//        tv_keywords2 = itemView.findViewById(R.id.tv_keywords2);
+//        tv_sale_state = itemView.findViewById(R.id.tv_sale_state);
     }
 }

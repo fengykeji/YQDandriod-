@@ -16,7 +16,9 @@ import android.widget.Toast;
 import com.ccsoft.yunqudao.R;
 import com.ccsoft.yunqudao.adapter.HouseList_RecyclerViewAdapter;
 import com.ccsoft.yunqudao.bean.HouseListBean;
+import com.ccsoft.yunqudao.data.base.BaseRecyclerAdapter;
 import com.ccsoft.yunqudao.http.HttpAdress;
+import com.ccsoft.yunqudao.ui.adapter.HouseListAdapter;
 import com.ccsoft.yunqudao.ui.house.ProjectXiangQingActivity;
 import com.ccsoft.yunqudao.utils.BaseCallBack;
 import com.ccsoft.yunqudao.utils.OkHttpManager;
@@ -26,6 +28,7 @@ import com.google.gson.reflect.TypeToken;
 
 import java.lang.reflect.Type;
 import java.net.MalformedURLException;
+import java.util.ArrayList;
 import java.util.List;
 
 import okhttp3.Call;
@@ -46,9 +49,9 @@ public class HouseFragment extends Fragment implements View.OnClickListener ,Hou
     private RecyclerView   recyclerView;
     private String area = "510100";
     private HouseListBean houseListBeans ;
-    private HouseList_RecyclerViewAdapter adapter;
+    private HouseListAdapter adapter;
     private OkHttpManager okHttpManager = OkHttpManager.getInstance();
-    private List list;
+    private List<HouseListBean.DataBean> list = new ArrayList<>();
 
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         /**
@@ -94,11 +97,20 @@ public class HouseFragment extends Fragment implements View.OnClickListener ,Hou
                 Type type = new TypeToken<HouseListBean>() {}.getType();
                 houseListBeans = new Gson().fromJson(obj.toString(),type);
 
+                Log.e("cccc",houseListBeans.getData().toString());
+
                 list = houseListBeans.getData();
                 recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-                adapter = new HouseList_RecyclerViewAdapter(getContext(), list);
+                adapter = new HouseListAdapter(getContext(),R.layout.house_list_activity, list);
                 recyclerView.setAdapter(adapter);
-                adapter.setOnItemClickListener( HouseFragment.this);
+                adapter.setOnItemClickListner(new BaseRecyclerAdapter.OnItemClickListner() {
+                    @Override
+                    public void onItemClickListner(View v, int position) {
+                        Intent intent = new Intent(getContext(),ProjectXiangQingActivity.class);
+                        intent.putExtra("project_id",houseListBeans.getData().get(position).getProject_id());
+                        startActivity(intent);
+                    }
+                });
             }
 
             @Override
@@ -121,8 +133,6 @@ public class HouseFragment extends Fragment implements View.OnClickListener ,Hou
 
     @Override
     public void setItemClick(View view, int position) {
-        Intent intent = new Intent(getContext(),ProjectXiangQingActivity.class);
-        intent.putExtra("project_id",houseListBeans.getData().get(position).getProject_id());
-        startActivity(intent);
+
     }
 }

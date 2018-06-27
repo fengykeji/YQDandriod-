@@ -237,8 +237,8 @@ public class AddCustomers2Activity extends AppCompatActivity implements View.OnC
                 startActivity(intent1);
                 break;
             case R.id.need_text_address:
-                Log.e("ssssss","点击率");
-//                pvOptions.show();
+
+//
                 selectAddress();
                 break;
             case R.id.customers_button_commit:

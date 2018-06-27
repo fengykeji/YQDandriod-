@@ -28,7 +28,7 @@ public class HttpAdress {
     /*房源展示列表*/
     public static String HOUSELIST = AppConstants.URL+"user/project/list?city=510700";
     /*房源项目详情*/
-    public static String HOUSEDETAIL = AppConstants.URL+"user/project/detail?project_id=3&agent_id=18";
+    public static String HOUSEDETAIL = AppConstants.URL+"user/project/detail";
     /*项目分析*/
     public static String HOUSTANALYSE = AppConstants.URL+"user/houseType/analyse?";
     /*项目规则*/
@@ -58,5 +58,11 @@ public class HttpAdress {
     public static String APPEALDETAIL = AppConstants.URL+"agent/work/broker/appealDetail";
     /*信息统计*/
     public static String COUNT = AppConstants.URL+"agent/work/broker/count";
+    /*申诉*/
+    public static String SHENSU = AppConstants.URL+"agent/client/appeal";
+    /*取消申诉*/
+    public static String CANCEL = AppConstants.URL+"agent/client/appealCancel";
+    /*重新推荐*/
+    public static String RECOMMEND = AppConstants.URL+"agent/client/recommend";
 
 }

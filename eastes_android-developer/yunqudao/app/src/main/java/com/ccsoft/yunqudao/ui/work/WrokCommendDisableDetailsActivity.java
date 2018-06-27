@@ -1,28 +1,44 @@
 package com.ccsoft.yunqudao.ui.work;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
+
 import com.ccsoft.yunqudao.R;
 import com.ccsoft.yunqudao.data.AppConstants;
 import com.ccsoft.yunqudao.data.model.response.WorkCommendDisableData;
+import com.ccsoft.yunqudao.http.HttpAdress;
 import com.ccsoft.yunqudao.http.XutilsHttp;
+import com.ccsoft.yunqudao.model.StringModel;
 import com.ccsoft.yunqudao.utils.ActivityManager;
+import com.ccsoft.yunqudao.utils.JsonUtil;
 import com.google.gson.Gson;
+import com.lzy.okhttputils.OkHttpUtils;
+import com.lzy.okhttputils.callback.StringCallback;
+
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
+
+import okhttp3.Call;
+import okhttp3.Response;
 
 /**
  * author lzx
  * Created on 2018/5/28.
  */
 
-public class WrokCommendDisableDetailsActivity extends AppCompatActivity {
+public class WrokCommendDisableDetailsActivity extends AppCompatActivity implements View.OnClickListener{
 
     private TextView mDisableType;
     private TextView mDisableDescribe;
@@ -39,6 +55,8 @@ public class WrokCommendDisableDetailsActivity extends AppCompatActivity {
     private TextView  work_commend_client_tel;
     private int       id;
     private ImageView work_button_back;
+    private Button tv_shensu,tv_retuijian;
+    private int project_id,client_need_id,client_id;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -64,6 +82,8 @@ public class WrokCommendDisableDetailsActivity extends AppCompatActivity {
         work_commend_client_sex = findViewById(R.id.work_commend_client_sex);
         work_commend_client_tel = findViewById(R.id.work_commend_client_tel);
         work_commend_client_name = findViewById(R.id.work_commend_client_name);
+        tv_shensu = findViewById(R.id.tv_shensu);
+        tv_retuijian = findViewById(R.id.tv_retuijian);
         work_button_back = findViewById(R.id.work_button_back);
         work_button_back.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -71,6 +91,8 @@ public class WrokCommendDisableDetailsActivity extends AppCompatActivity {
                 finish();
             }
         });
+        tv_shensu.setOnClickListener(this);
+        tv_retuijian.setOnClickListener(this);
     }
 
     private void initData() {
@@ -92,6 +114,10 @@ public class WrokCommendDisableDetailsActivity extends AppCompatActivity {
     }
 
     private void setInfo(WorkCommendDisableData workCommendDisableData) {
+
+        project_id = workCommendDisableData.getData().getProject_id();
+        client_need_id = workCommendDisableData.getData().getClient_need_id();
+        client_id = workCommendDisableData.getData().getClient_info_id();
 
         mDisableType.setText(workCommendDisableData.getData().getDisabled_state());
         mDisableDescribe.setText(workCommendDisableData.getData().getDisabled_reason());
@@ -119,4 +145,60 @@ public class WrokCommendDisableDetailsActivity extends AppCompatActivity {
         }
         work_commend_client_tel.setText(workCommendDisableData.getData().getTel());
     }
+
+    @Override
+    public void onClick(View view) {
+        switch (view.getId()){
+            case R.id.tv_shensu:
+                Intent intent = new Intent(this,WorkComplainActivity.class);
+                intent.putExtra("poject_client_id",id);
+                startActivity(intent);
+                break;
+            case R.id.tv_retuijian:
+                OkHttpUtils.post(HttpAdress.RECOMMEND)
+                        .tag(this)
+                        .params("project_id",project_id)
+                        .params("client_need_id",client_need_id)
+                        .params("client_id",client_id)
+                        .execute(new StringCallback() {
+                            @Override
+                            public void onSuccess(String s, Call call, Response response) {
+                                Date date = new Date();
+                                String dateString = date.toLocaleString();
+
+                                StringModel model = JsonUtil.jsonToEntity(s, StringModel.class);
+                                if (model.getCode() == 200) {
+                                    AlertDialog.Builder builder = new AlertDialog.Builder(WrokCommendDisableDetailsActivity.this);
+                                    builder.setTitle("推荐成功");
+                                    builder.setMessage("推荐编号:"+mNumTv+"\n客户:"+work_commend_client_name
+                                    +"\n项目名字:"+work_commend_project+"\n项目地址:"+work_commend_project_address
+                                    +"\n失效时间:"+mDisableTime);
+                                    builder.setNegativeButton("确定", new DialogInterface.OnClickListener() {
+                                        @Override
+                                        public void onClick(DialogInterface dialogInterface, int i) {
+
+                                        }
+                                    });
+                                }
+                                if(model.getCode()==400){
+                                    AlertDialog.Builder builder = new AlertDialog.Builder(WrokCommendDisableDetailsActivity.this);
+                                    builder.setTitle("推荐失败");
+                                    builder.setMessage(model.getMsg()+"\n时间:"+dateString);
+
+                                    builder.setNegativeButton("返回", new DialogInterface.OnClickListener() {
+                                        @Override
+                                        public void onClick(DialogInterface dialog, int which) {
+
+                                        }
+                                    });
+                                    AlertDialog dialog = builder.create();
+                                    dialog.show();
+                                }
+                            }
+                        });
+                break;
+        }
+    }
+
+
 }

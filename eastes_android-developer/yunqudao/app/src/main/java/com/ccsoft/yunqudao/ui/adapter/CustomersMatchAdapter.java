@@ -23,21 +23,21 @@ public class CustomersMatchAdapter extends BaseRecyclerAdapter<PipeiBean.DataBea
         holder.setText(R.id.tv_state_change_time,bean.getState_change_time());
         TextView textView= (TextView) holder.getView(R.id.tv_disabled_state);
         if(bean.getDisabled_state()==0){
-           textView.setText("无效");
+           textView.setText("有效");
         }else {
-            textView.setText("有效");
+            textView.setText("无效");
 //            textView.setTextColor();
         }
         ImageView imageView = (ImageView) holder.getView(R.id.im_current_state);
-        if(bean.getState_change_time().equals(1)){
+        if(bean.getCurrent_state()==1){
             imageView.setImageResource(R.drawable.ic_push_1);
-        }else if(bean.getState_change_time().equals(2)){
+        }else if(bean.getCurrent_state()==2){
             imageView.setImageResource(R.drawable.ic_push_2);
-        }else if(bean.getState_change_time().equals(3)){
+        }else if(bean.getCurrent_state()==3){
             imageView.setImageResource(R.drawable.ic_push_3);
-        }else if(bean.getState_change_time().equals(4)){
+        }else if(bean.getCurrent_state()==4){
             imageView.setImageResource(R.drawable.ic_push_4);
-        }else if(bean.getState_change_time().equals(5)){
+        }else if(bean.getCurrent_state()==5){
             imageView.setImageResource(R.drawable.ic_push_5);
         }
 

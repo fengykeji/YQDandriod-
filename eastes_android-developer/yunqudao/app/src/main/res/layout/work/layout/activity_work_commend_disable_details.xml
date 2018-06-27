@@ -418,6 +418,7 @@
             android:weightSum="10"
             >
             <Button
+                android:id="@+id/tv_shensu"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="4"
@@ -426,6 +427,7 @@
                 android:textColor="@color/chunbai"
                 />
             <Button
+                android:id="@+id/tv_retuijian"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="6"

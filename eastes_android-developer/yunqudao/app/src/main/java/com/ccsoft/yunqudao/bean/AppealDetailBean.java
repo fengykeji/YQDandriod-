@@ -93,11 +93,31 @@ public class AppealDetailBean {
         private String property_advicer_wish;
         private String butter_name;
         private String butter_tel;
+
+        public String getConfirm_name() {
+            return confirm_name;
+        }
+
+        public String getConfirm_tel() {
+            return confirm_tel;
+        }
+
+        public void setConfirm_name(String confirm_name) {
+
+            this.confirm_name = confirm_name;
+        }
+
+        public void setConfirm_tel(String confirm_tel) {
+            this.confirm_tel = confirm_tel;
+        }
+
         private String broker_name;
         private String broker_tel;
         private String province_name;
         private String city_name;
         private String district_name;
+        private String confirm_name;
+        private String confirm_tel;
         private List<ProcessBean> process;
 
         public int getClient_id() {

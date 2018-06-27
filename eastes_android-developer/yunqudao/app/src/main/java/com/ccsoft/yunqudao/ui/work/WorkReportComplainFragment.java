@@ -64,6 +64,11 @@ public class WorkReportComplainFragment extends Fragment implements View.OnClick
     private SwipeRefreshLayout mSwipRefresh;
     private WorkComplainAdapter adapter;
 
+    @Override
+    public void onStart() {
+        super.onStart();
+        initData();
+    }
 
     @Nullable
     @Override

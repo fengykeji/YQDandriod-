@@ -38,6 +38,15 @@ public class HouseListBean {
         this.data = data;
     }
 
+    @Override
+    public String toString() {
+        return "HouseListBean{" +
+                "code=" + code +
+                ", msg='" + msg + '\'' +
+                ", data=" + data +
+                '}';
+    }
+
     public static class DataBean {
         /**
          * project_id : 9

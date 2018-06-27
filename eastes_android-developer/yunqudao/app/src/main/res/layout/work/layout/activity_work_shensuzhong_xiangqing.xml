@@ -836,7 +836,7 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="到访确认人信息"
+                            android:text="到访信息"
                             android:textColor="@color/chunhei"
                             android:textSize="16sp"
                             />
@@ -868,7 +868,7 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="到访确认人："
+                            android:text="客户姓名："
                             android:textColor="@color/chunhei"
                             android:textSize="15sp"
                             />
@@ -914,6 +914,29 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:text="到访人数："
+                            android:textColor="@color/chunhei"
+                            android:textSize="15sp"
+                            />
+                        <TextView
+                            android:id="@+id/tv_daofangrenshu"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="1"
+                            android:textColor="@color/chunhei"
+                            android:textSize="15sp"
+                            />
+                    </LinearLayout>
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal"
+                        android:paddingBottom="10dp"
+                        >
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
                             android:text="到访时间："
                             android:textColor="@color/chunhei"
                             android:textSize="15sp"
@@ -923,6 +946,75 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="2017-12-12 12：12:12"
+                            android:textColor="@color/chunhei"
+                            android:textSize="15sp"
+                            />
+                    </LinearLayout>
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal"
+                        android:paddingBottom="10dp"
+                        >
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="置业顾问："
+                            android:textColor="@color/chunhei"
+                            android:textSize="15sp"
+                            />
+                        <TextView
+                            android:id="@+id/tv_zhiyeguwen"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="李超"
+                            android:textColor="@color/chunhei"
+                            android:textSize="15sp"
+                            />
+                    </LinearLayout>
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal"
+                        android:paddingBottom="10dp"
+                        >
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="到访确认人："
+                            android:textColor="@color/chunhei"
+                            android:textSize="15sp"
+                            />
+                        <TextView
+                            android:id="@+id/tv_daofangsurepeople"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="问假期"
+                            android:textColor="@color/chunhei"
+                            android:textSize="15sp"
+                            />
+                    </LinearLayout>
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal"
+                        android:paddingBottom="10dp"
+                        >
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="确认人电话："
+                            android:textColor="@color/chunhei"
+                            android:textSize="15sp"
+                            />
+                        <TextView
+                            android:id="@+id/tv_daofangsurenum"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="13435890677"
                             android:textColor="@color/chunhei"
                             android:textSize="15sp"
                             />

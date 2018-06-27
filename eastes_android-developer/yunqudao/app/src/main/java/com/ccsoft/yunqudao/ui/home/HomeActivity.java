@@ -61,7 +61,7 @@ public class HomeActivity extends AppCompatActivity implements BottomNavigationB
 
     private void initView() {
         //mMessageFragment = new MessageFragment();
-//        mHouseFragment = new HouseFragment();
+        mHouseFragment = new HouseFragment();
         mCustomersFragment = new CustomersFragment();
         mWorkFragment = new WorkFragment();
         mMeFragment = new MeFragment();
@@ -96,7 +96,7 @@ public class HomeActivity extends AppCompatActivity implements BottomNavigationB
          */
 
         //mBottomNavigationBar.addItem(new BottomNavigationItem(R.drawable.ic_message_selected, "消息").setActiveColorResource(R.color.qianlan).setInactiveIconResource(R.drawable.ic_message));
-//        mBottomNavigationBar.addItem(new BottomNavigationItem(R.drawable.ic_housing_selected, "房源").setActiveColorResource(R.color.qianlan).setInactiveIconResource(R.drawable.ic_housing));
+        mBottomNavigationBar.addItem(new BottomNavigationItem(R.drawable.ic_housing_selected, "房源").setActiveColorResource(R.color.qianlan).setInactiveIconResource(R.drawable.ic_housing));
         mBottomNavigationBar.addItem(new BottomNavigationItem(R.drawable.ic_customers_selected, "客源").setActiveColorResource(R.color.qianlan).setInactiveIconResource(R.drawable.ic_customers));
         mBottomNavigationBar.addItem(new BottomNavigationItem(R.drawable.ic_work_selected, "工作").setActiveColorResource(R.color.qianlan).setInactiveIconResource(R.drawable.ic_work2));
         mBottomNavigationBar.addItem(new BottomNavigationItem(R.drawable.ic_me_selected, "我的").setActiveColorResource(R.color.qianlan).setInactiveIconResource(R.drawable.ic_me));
@@ -110,16 +110,16 @@ public class HomeActivity extends AppCompatActivity implements BottomNavigationB
             //case 0:
             //    switchFragment(mMessageFragment);
             //    break;
-//            case 0:
-//                switchFragment(mHouseFragment);
-//                break;
             case 0:
-                switchFragment(mCustomersFragment);
+                switchFragment(mHouseFragment);
                 break;
             case 1:
-                switchFragment(mWorkFragment);
+                switchFragment(mCustomersFragment);
                 break;
             case 2:
+                switchFragment(mWorkFragment);
+                break;
+            case 3:
                 switchFragment(mMeFragment);
                 break;
         }

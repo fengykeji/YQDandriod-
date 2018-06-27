@@ -144,6 +144,14 @@ public class WorkCommendValidDetailActivity extends AppCompatActivity {
                         ImageView image = view.findViewById(R.id.image);
                         tv_name.setText(processBean.process_name);
                         tv_time.setText(processBean.time);
+
+                        LinearLayout layout = view.findViewById(R.id.ll_addImageView);
+                        if (i == data.process.size() - 2) {
+                            ImageView imageView = new ImageView(WorkCommendValidDetailActivity.this);
+                            imageView.setImageResource(R.drawable.progressbar);
+                            layout.removeAllViews();
+                            layout.addView(imageView);
+                        }
                         if(i==data.process.size()-1){
                             image.setVisibility(View.INVISIBLE);
                         }

@@ -141,10 +141,20 @@ public class WorkReportValidDeatilActivity extends AppCompatActivity {
                         TextView tv_name = view.findViewById(R.id.tv_name);
                         TextView tv_time = view.findViewById(R.id.tv_time);
                         ImageView image = view.findViewById(R.id.image);
+//                        ImageView image1 = view.findViewById(R.id.image1);
                         tv_name.setText(processBean.process_name);
                         tv_time.setText(processBean.time);
+
+                        LinearLayout layout = view.findViewById(R.id.ll_addImageView);
+                        if (i == data.process.size() - 2) {
+                            ImageView imageView = new ImageView(WorkReportValidDeatilActivity.this);
+                            imageView.setImageResource(R.drawable.progressbar);
+                            layout.removeAllViews();
+                            layout.addView(imageView);
+                        }
                         if(i==data.process.size()-1){
                             image.setVisibility(View.INVISIBLE);
+//                            image1.setVisibility(View.INVISIBLE);
                         }
 
                         ll_progress.addView(view);

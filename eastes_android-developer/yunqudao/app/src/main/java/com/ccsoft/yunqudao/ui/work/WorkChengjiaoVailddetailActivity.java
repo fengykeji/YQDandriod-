@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.ImageView;
@@ -170,12 +171,13 @@ public class WorkChengjiaoVailddetailActivity extends AppCompatActivity{
 
         Map<String, String> map = new HashMap<>();
         map.put("client_id", String.valueOf(id));
-        XutilsHttp.getInstance().gethesder(AppConstants.URL + "agent/work/project/waitDealDetail", map, new XutilsHttp.XCallBack() {
+        XutilsHttp.getInstance().gethesder(AppConstants.URL + "agent/work/project/dealDetail", map, new XutilsHttp.XCallBack() {
             @Override
             public void onResponse(String result) {
                 ll_chengjiaoxinxi.setVisibility(View.VISIBLE);
                 Gson gson = new Gson();
                 WorkDealedDetailBean data = gson.fromJson(result, WorkDealedDetailBean.class);
+
                 if (data != null) {
                     work_commend_number.setText(String.valueOf(data.getData().getClient_id()));
                     work_commend_time.setText(data.getData().getCreate_time());
@@ -187,20 +189,24 @@ public class WorkChengjiaoVailddetailActivity extends AppCompatActivity{
                     work_commend_client_tel.setText(data.getData().getBroker_tel());
                     work_commend_project_address.setText(data.getData().getProvince_name() + "-" + data.getData().getCity_name() + "-" + data.getData().getDistrict_name());
                     work_commend_headcount.setText(data.getData().getVisit_num() + "");
+
+
                     work_commend_client_name2.setText(data.getData().getConfirm_name());
                     work_commend_client_tel2.setText(data.getData().getConfirm_tel());
                     work_commend_counselor.setText(data.getData().getProperty_advicer_wish());
                     work_commend_verify_people.setText(data.getData().getButter_name());
                     work_commend_verify_people_tel.setText(data.getData().getButter_tel());
+
                     tv_work_housenum.setText(data.getData().getHouse_info());
                     tv_work_totalprice.setText(data.getData().getTotal_money()+"元");
                     tv_work_area.setText(data.getData().getInner_area()+"m2");
                     tv_work_dealstata.setText(data.getData().getCurrent_state());
                     tv_work_dealtime.setText(data.getData().getUpdate_time());
+                    work_commend_time2.setText(data.getData().getVisit_time());
                     if(data.getData().getProcess()==null){
                         return;
                     }else {
-                        work_commend_time2.setText(data.getData().getProcess().get(1).getTime());
+
 
                         for (int i = 0; i < data.getData().getProcess().size(); i++) {
                             WorkDealedDetailBean.DataBean.ProcessBean processBean = data.getData().getProcess().get(i);
@@ -211,12 +217,22 @@ public class WorkChengjiaoVailddetailActivity extends AppCompatActivity{
                             ImageView image = view.findViewById(R.id.image);
                             tv_name.setText(processBean.getProcess_name());
                             tv_time.setText(processBean.getTime());
+                            LinearLayout layout = view.findViewById(R.id.ll_addImageView);
+                            if (i == data.getData().getProcess().size() - 2) {
+                                ImageView imageView = new ImageView(WorkChengjiaoVailddetailActivity.this);
+                                imageView.setImageResource(R.drawable.progressbar);
+                                layout.removeAllViews();
+                                layout.addView(imageView);
+                            }
                             if (i == data.getData().getProcess().size() - 1) {
                                 image.setVisibility(View.INVISIBLE);
                             }
 
                             ll_progress.addView(view);
                         }
+
+
+
                     }
                 }
             }

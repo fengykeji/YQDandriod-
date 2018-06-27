@@ -42,6 +42,12 @@ public class WorkChengjiaoComplainFragment extends Fragment implements View.OnCl
     private WorkComplainAdapter adapter;
 
 
+    @Override
+    public void onStart() {
+        super.onStart();
+        initData();
+    }
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -80,6 +86,12 @@ public class WorkChengjiaoComplainFragment extends Fragment implements View.OnCl
                 startActivity(intent);
             }
         });
+        mSwipRefresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                initData();
+            }
+        });
     }
 
     @Override
@@ -92,7 +104,7 @@ public class WorkChengjiaoComplainFragment extends Fragment implements View.OnCl
     int curPage;
     int totalPage;
     private void loadNextData(){
-        OkHttpUtils.get(HttpAdress.value_project)
+        OkHttpUtils.get(HttpAdress.DEALAPPEALAINLIST)
                 .tag(getActivity())
                 .params("page", curPage)
                 .execute(new StringCallback() {
@@ -109,8 +121,8 @@ public class WorkChengjiaoComplainFragment extends Fragment implements View.OnCl
                         }
                         if (code == 200 && data != null) {
                             curPage++;
-                            RecordValidData brokerWaitConfirmData = JsonUtil.jsonToEntity(data, RecordValidData.class);
-//                                dataList.addAll(brokerWaitConfirmData.data);
+                            AppealBean bean = JsonUtil.jsonToEntity(s,AppealBean.class);
+                                datalist.addAll(bean.getData().getData());
                             adapter.notifyDataSetChanged();
                         }
 

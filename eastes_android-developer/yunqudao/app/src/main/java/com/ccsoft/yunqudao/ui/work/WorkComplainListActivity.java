@@ -21,7 +21,10 @@ import com.ccsoft.yunqudao.data.AppConstants;
 import com.ccsoft.yunqudao.data.model.response.ValueDetailData;
 import com.ccsoft.yunqudao.data.model.response.WorkReportDisableDetailsData;
 import com.ccsoft.yunqudao.http.HttpAdress;
+import com.ccsoft.yunqudao.http.MyStringCallBack;
 import com.ccsoft.yunqudao.http.XutilsHttp;
+import com.ccsoft.yunqudao.model.StringModel;
+import com.ccsoft.yunqudao.ui.customers.AddCustomers2Activity;
 import com.ccsoft.yunqudao.utils.ActivityManager;
 import com.ccsoft.yunqudao.utils.BaseCallBack;
 import com.ccsoft.yunqudao.utils.JsonUtil;
@@ -59,7 +62,7 @@ public class WorkComplainListActivity extends AppCompatActivity implements View.
             work_commend_number, work_commend_time, work_commend_people, work_commend_tel,
             work_commend_project, work_commend_project_address, work_commend_client_name,
             work_commend_client_sex, work_commend_client_tel, tv_daofangperson, tv_daofangnum,
-            tv_daofangtime;
+            tv_daofangtime,tv_daofangrenshu,tv_zhiyeguwen,tv_daofangsurepeople,tv_daofangsurenum;
     private String appeal_id;
     private AppealDetailBean bean;
     private LinearLayout ll_progress,ll_gone,ll_chengjiaoxingxi;
@@ -105,6 +108,10 @@ public class WorkComplainListActivity extends AppCompatActivity implements View.
         tv_daofangperson = findViewById(R.id.tv_daofangperson);
         tv_daofangnum = findViewById(R.id.tv_daofangnum);
         tv_daofangtime = findViewById(R.id.tv_daofangtime);
+        tv_daofangrenshu = findViewById(R.id.tv_daofangrenshu);
+        tv_zhiyeguwen = findViewById(R.id.tv_zhiyeguwen);
+        tv_daofangsurepeople = findViewById(R.id.tv_daofangsurepeople);
+        tv_daofangsurenum = findViewById(R.id.tv_daofangsurenum);
         ll_progress = findViewById(R.id.ll_progress);
         ll_gone = findViewById(R.id.ll_gone);
         ll_chengjiaoxingxi = findViewById(R.id.ll_chengjiaoxinxi);
@@ -115,7 +122,7 @@ public class WorkComplainListActivity extends AppCompatActivity implements View.
             ll_gone.setVisibility(View.GONE);
         }
         if(gone.equals("show")){
-            ll_chengjiaoxingxi.setVisibility(View.VISIBLE);
+            ll_chengjiaoxingxi.setVisibility(View.GONE);
         }
 
     }
@@ -135,9 +142,25 @@ public class WorkComplainListActivity extends AppCompatActivity implements View.
                 finish();
                 break;
             case R.id.work_button_cancel:
-                Toast.makeText(this, "点击了申诉", Toast.LENGTH_SHORT).show();
-                finish();
+
+                OkHttpUtils.post(HttpAdress.CANCEL)
+                        .tag(this)
+                        .params("appeal_id",appeal_id)
+                        .execute(new MyStringCallBack() {
+                            @Override
+                            public void onSuccess(String s, Call call, Response response) {
+                                StringModel model = JsonUtil.jsonToEntity(s, StringModel.class);
+                                if (model.getCode() == 200) {
+                                    Toast.makeText(WorkComplainListActivity.this, ":取消申诉成功", Toast.LENGTH_SHORT).show();
+                                    finish();
+                                }
+                                Log.e("ccccccc",model.getMsg());
+                            }
+                        });
+
+
                 break;
+
         }
     }
     private void ininData(){
@@ -194,11 +217,22 @@ public class WorkComplainListActivity extends AppCompatActivity implements View.
                     +bean.getData().getCity_name()+"-"+bean.getData().getDistrict_name()
                     +"-"+bean.getData().getAbsolute_address());
                     work_commend_client_name.setText(bean.getData().getName());
-                    work_commend_client_sex.setText(bean.getData().getSex()== 1 ? "男" : "女");
+                    if (bean.getData().getSex() == 0) {
+                        work_commend_client_sex.setText("");
+                    }
+                    else if(bean.getData().getSex() == 1){
+                        work_commend_client_sex.setText("男");
+                    }else if(bean.getData().getSex() == 2){
+                        work_commend_client_sex.setText("女");
+                    }
                     work_commend_client_tel.setText(bean.getData().getTel());
-                    tv_daofangperson.setText(bean.getData().getButter_name());
-                    tv_daofangnum.setText(bean.getData().getButter_tel());
+                    tv_daofangperson.setText(bean.getData().getConfirm_name());
+                    tv_daofangnum.setText(bean.getData().getConfirm_tel());
                     tv_daofangtime.setText(bean.getData().getVisit_time());
+                    tv_daofangrenshu.setText(bean.getData().getVisit_num()+"");
+                    tv_zhiyeguwen.setText(bean.getData().getProperty_advicer_wish());
+                    tv_daofangsurepeople.setText(bean.getData().getButter_name());
+                    tv_daofangsurenum.setText(bean.getData().getButter_tel());
 
                     for (int i=0;i<bean.getData().getProcess().size();i++) {
                         AppealDetailBean.DataBean.ProcessBean processBean = bean.getData().getProcess().get(i);
@@ -207,10 +241,20 @@ public class WorkComplainListActivity extends AppCompatActivity implements View.
                         TextView tv_name = view.findViewById(R.id.tv_name);
                         TextView tv_time = view.findViewById(R.id.tv_time);
                         ImageView image = view.findViewById(R.id.image);
+//                        ImageView image1 = view.findViewById(R.id.image1);
                         tv_name.setText(processBean.getProcess_name());
                         tv_time.setText(processBean.getTime());
+
+                        LinearLayout layout = view.findViewById(R.id.ll_addImageView);
+                        if (i == bean.getData().getProcess().size() - 2) {
+                            ImageView imageView = new ImageView(WorkComplainListActivity.this);
+                            imageView.setImageResource(R.drawable.progressbar);
+                            layout.removeAllViews();
+                            layout.addView(imageView);
+                        }
                         if (i == bean.getData().getProcess().size() - 1) {
                             image.setVisibility(View.INVISIBLE);
+//                            image1.setVisibility(View.INVISIBLE);
                         }
 
                         ll_progress.addView(view);

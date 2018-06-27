@@ -29,13 +29,21 @@ import com.ccsoft.yunqudao.data.AppConstants;
 import com.ccsoft.yunqudao.http.HttpAdress;
 import com.ccsoft.yunqudao.utils.BaseCallBack;
 import com.ccsoft.yunqudao.utils.ImageUtil;
+import com.ccsoft.yunqudao.utils.JsonUtil;
 import com.ccsoft.yunqudao.utils.OkHttpManager;
+import com.ccsoft.yunqudao.utils.SpUtil;
 import com.facebook.drawee.view.SimpleDraweeView;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
+import com.lzy.okhttputils.OkHttpUtils;
+import com.lzy.okhttputils.callback.StringCallback;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.lang.reflect.Type;
 import java.net.MalformedURLException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicBoolean;
 
@@ -82,6 +90,7 @@ public class ProjectXiangQingFragment extends Fragment implements View.OnClickLi
     private SpeedHourAdapter speedHourAdapter=null;
     private List list;
 //    private SpeedHourEntity entity=null;
+    private int agent_id;
 
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
@@ -144,6 +153,8 @@ public class ProjectXiangQingFragment extends Fragment implements View.OnClickLi
          * 接受上个页面传过来的值
          */
         project_id = getActivity().getIntent().getIntExtra("project_id",0);
+        agent_id = SpUtil.getInt("agent_id",0);
+        Log.e("ccccc",agent_id+"");
     }
 
     private void initListener() {
@@ -242,28 +253,30 @@ public class ProjectXiangQingFragment extends Fragment implements View.OnClickLi
     }
 
     private void loadProjectDetail(){
-        okHttpManager.get(HttpAdress.HOUSEDETAIL , new BaseCallBack() {
+
+        okHttpManager.get(HttpAdress.HOUSEDETAIL+"?project_id="+project_id+"&agent_id="+agent_id , new BaseCallBack() {
             @Override
             public void onSuccess(Call call, Response response, Object obj) throws MalformedURLException {
                 Type type = new TypeToken<HouseDetailBean>() {}.getType();
                 houseDetailBean = new Gson().fromJson(obj.toString(),type);
                 Log.e("houseDetailBean",houseDetailBean.getMsg());
 
-                list =  houseDetailBean.getData().getHouse_type();
+                if(houseDetailBean.getCode()==200&&houseDetailBean.getData()!=null) {
+                    list = houseDetailBean.getData().getHouse_type();
 
-                ImageUtil.load(Uri.parse(AppConstants.URL+houseDetailBean.getData().getProject_basic_info().getTotal_float_url_phone()),  mHouse_imageview_项目图册,540,275);
-                tv_project_name.setText(houseDetailBean.getData().getProject_basic_info().getProject_name());
-                tv_sale_state.setText(houseDetailBean.getData().getProject_basic_info().getSale_state());
-                tv_num.setText(houseDetailBean.getData().getFocus().getNum()+"");
-                tv_handing_room_time.setText(houseDetailBean.getData().getBuild_info().getHanding_room_time());
-                tv_average_price.setText(houseDetailBean.getData().getProject_basic_info().getAverage_price()+"");
-                tv_absolute_address.setText(houseDetailBean.getData().getProject_basic_info().getAbsolute_address());
-                content_tv6.setText(houseDetailBean.getData().getProject_basic_info().getDeveloper_name());
-                content_tv7.setText(houseDetailBean.getData().getBuild_info().getOpen_time());
-                content_tv8.setText(houseDetailBean.getData().getBuild_info().getHanding_room_time());
+                    ImageUtil.load(Uri.parse(AppConstants.URL + houseDetailBean.getData().getProject_basic_info().getTotal_float_url_phone()), mHouse_imageview_项目图册, 540, 275);
+                    tv_project_name.setText(houseDetailBean.getData().getProject_basic_info().getProject_name());
+                    tv_sale_state.setText(houseDetailBean.getData().getProject_basic_info().getSale_state());
+                    tv_num.setText(houseDetailBean.getData().getFocus().getNum() + "");
+                    tv_handing_room_time.setText(houseDetailBean.getData().getBuild_info().getHanding_room_time());
+                    tv_average_price.setText(houseDetailBean.getData().getProject_basic_info().getAverage_price() + "");
+                    tv_absolute_address.setText(houseDetailBean.getData().getProject_basic_info().getAbsolute_address());
+                    content_tv6.setText(houseDetailBean.getData().getProject_basic_info().getDeveloper_name());
+                    content_tv7.setText(houseDetailBean.getData().getBuild_info().getOpen_time());
+                    content_tv8.setText(houseDetailBean.getData().getBuild_info().getHanding_room_time());
 
-                mHouse_imageview_楼栋信息.setImageURI(Uri.parse(houseDetailBean.getData().getProject_basic_info().getTotal_float_url()));
-
+                    mHouse_imageview_楼栋信息.setImageURI(Uri.parse(houseDetailBean.getData().getProject_basic_info().getTotal_float_url()));
+                }
 
             }
 
@@ -282,6 +295,8 @@ public class ProjectXiangQingFragment extends Fragment implements View.OnClickLi
 
             }
         });
+
+
     }
 
     private void initAdapter() {
