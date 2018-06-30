@@ -6,16 +6,26 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.TextView;
 import com.ccsoft.yunqudao.R;
 import com.ccsoft.yunqudao.data.api.ApiSubscriber;
 import com.ccsoft.yunqudao.data.model.response.ConfirmDetailData;
+import com.ccsoft.yunqudao.http.HttpAdress;
 import com.ccsoft.yunqudao.manager.ClientManager;
 import com.ccsoft.yunqudao.rx.RxSchedulers;
 import com.ccsoft.yunqudao.utils.ActivityManager;
 import com.ccsoft.yunqudao.utils.DataUtils;
+import com.lzy.okhttputils.OkHttpUtils;
+import com.lzy.okhttputils.callback.StringCallback;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import okhttp3.Call;
+import okhttp3.Response;
 
 /**
  * desc   :
@@ -45,6 +55,7 @@ public class WorkCommendVerifyDetailActivity extends AppCompatActivity {
         setContentView(R.layout.activity_work_commend_verify_details);
         initView();
         initData();
+        timeOver();
     }
 
     public static void start(Context context, int id) {
@@ -127,13 +138,15 @@ public class WorkCommendVerifyDetailActivity extends AppCompatActivity {
 */
 
     int finishTime;
+    String time;
     Handler handler = new Handler();
 
     Runnable runnable = new Runnable() {
         @Override
         public void run() {
-            String time = DataUtils.getTime(finishTime);
+             time= DataUtils.getTime(finishTime);
             String[] times = time.split("-");
+
             date_day.setText(times[0]);
             date_hour.setText(times[1]);
             date_minute.setText(times[2]);
@@ -141,4 +154,29 @@ public class WorkCommendVerifyDetailActivity extends AppCompatActivity {
             handler.postDelayed(runnable,1000);
         }
     };
+
+    private void timeOver(){
+
+        if(finishTime==0){
+            OkHttpUtils.get(HttpAdress.flushDate)
+                    .tag(this)
+                    .execute(new StringCallback() {
+                        @Override
+                        public void onSuccess(String s, Call call, Response response) {
+                            int code = 0;
+                            String data = null;
+                            try {
+                                JSONObject jsonObject = new JSONObject(s);
+                                code = jsonObject.getInt("code");
+                                data = jsonObject.getString("data");
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                            }
+                            if (code == 200 && data != null) {
+                                finish();
+                            }
+                        }
+                    });
+        }
+    }
 }

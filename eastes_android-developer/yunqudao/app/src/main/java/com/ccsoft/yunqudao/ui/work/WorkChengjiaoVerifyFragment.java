@@ -55,6 +55,13 @@ public class WorkChengjiaoVerifyFragment extends Fragment implements View.OnClic
     private SwipeRefreshLayout mSwipRefresh;
     private WorkDealBean dealBean;
 
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        initData();
+    }
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {

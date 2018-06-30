@@ -2,8 +2,8 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    >
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical">
 
 
     <LinearLayout
@@ -57,13 +57,21 @@
             >
             <FrameLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="100dp"
                 >
 
-                <ImageView
+                <android.support.v4.view.ViewPager
+                    android:id="@+id/viewPager"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                </android.support.v4.view.ViewPager>
+
+                <android.support.design.widget.TabLayout
+                    android:layout_gravity="bottom"
+                    android:id="@+id/tl_tablaout"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:src="@drawable/ic_launcher_background"
                     />
 
                 <LinearLayout
@@ -73,6 +81,7 @@
                     android:gravity="center"
                     android:orientation="horizontal"
                     android:weightSum="6"
+                    android:visibility="gone"
                     >
 
                     <LinearLayout
@@ -94,6 +103,7 @@
                             android:text="平面图"
                             android:background="@color/qianhui"
                             android:textSize="13sp"
+                            android:visibility="gone"
                             />
                     </LinearLayout>
                     <LinearLayout
@@ -109,6 +119,7 @@
                             android:text="效果图"
                             android:background="@color/qianhui"
                             android:textSize="13sp"
+                            android:visibility="gone"
                             />
                     </LinearLayout>
                     <LinearLayout
@@ -124,6 +135,7 @@
                             android:text="3D图"
                             android:background="@color/qianhui"
                             android:textSize="13sp"
+                            android:visibility="gone"
                             />
                     </LinearLayout>
                     <LinearLayout
@@ -139,6 +151,7 @@
                             android:text="实景图"
                             android:background="@color/qianhui"
                             android:textSize="13sp"
+                            android:visibility="gone"
                             />
                     </LinearLayout>
                     <LinearLayout
@@ -147,6 +160,8 @@
                         android:layout_weight="1"
                         >
                     </LinearLayout>
+
+
                 </LinearLayout>
 
 
@@ -160,6 +175,7 @@
                 android:padding="10dp"
                 >
                 <TextView
+                    android:id="@+id/tv_house_type_name"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="A型"
@@ -182,6 +198,7 @@
                         android:textSize="15sp"
                         />
                     <TextView
+                        android:id="@+id/tv_property_area"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="95㎡-100㎡"
@@ -194,6 +211,7 @@
                     android:layout_height="wrap_content"
                     android:gravity="center_vertical"
                     android:orientation="horizontal"
+                    android:visibility="gone"
                     >
 
                     <TextView
@@ -226,6 +244,7 @@
                     android:textSize="15sp"
                     />
                 <TextView
+                    android:id="@+id/tv_sell_point"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:maxLines="100"
@@ -258,9 +277,19 @@
                     />
                 </LinearLayout>
 
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/re_huxing"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_centerVertical="true"
+                    android:scrollbars="none">
+
+                </android.support.v7.widget.RecyclerView>
+
                 <!--测试数据-->
 
                 <LinearLayout
+                    android:visibility="gone"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:orientation="vertical"

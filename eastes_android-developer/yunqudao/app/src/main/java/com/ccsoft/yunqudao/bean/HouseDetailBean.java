@@ -1,8 +1,9 @@
 package com.ccsoft.yunqudao.bean;
 
+import java.io.Serializable;
 import java.util.List;
 
-public class HouseDetailBean {
+public class HouseDetailBean implements Serializable{
 
 
     /**
@@ -39,7 +40,7 @@ public class HouseDetailBean {
         this.data = data;
     }
 
-    public static class DataBean {
+    public static class DataBean implements Serializable{
         /**
          * project_basic_info : {"project_id":1,"project_name":"云算2","absolute_address":"成都郫县菁蓉大禹东路123号","sale_state":"待售","average_price":70000,"project_tags":"56,57,58","developer_name":"云算公馆","total_float_url":"http://120.27.21.136:2798/upload/agent/headimg/1523850012_10.jpg","total_float_url_phone":"upload/agent/headimg/1526565231_31.jpg","longitude":103.86763,"latitude":30.78698349,"yunsuan_url":"39.108.60.120:10009","yunsuan_id":13,"property_type":["商铺","别墅"]}
          * dynamic : {"first":{"dynamic_id":2,"title":"测试标题","create_time":"2018-03-26 00:00:00","update_time":"2018-03-26 14:42:59","img_url":"","content":"测试内容","state":1},"count":5}
@@ -452,7 +453,7 @@ public class HouseDetailBean {
             }
         }
 
-        public static class HouseTypeBean {
+        public static class HouseTypeBean implements Serializable{
             /**
              * id : 1
              * house_type_name : S型洋房独栋

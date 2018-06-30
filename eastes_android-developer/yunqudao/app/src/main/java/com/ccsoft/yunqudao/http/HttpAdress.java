@@ -41,6 +41,12 @@ public class HttpAdress {
     public static String focusProject = AppConstants.URL+"agent/personal/focusProject";
     /*取消关注*/
     public static String cancelFocusProject = AppConstants.URL+"agent/personal/cancelFocusProject";
+    /*户型具体信息*/
+    public static String houseTypedetail = AppConstants.URL+"user/houseType/detail";
+    /*匹配客户*/
+    public static String matchingproject = AppConstants.URL+"agent/matching/project";
+    /*相册图片*/
+    public static String imgget = AppConstants.URL+"user/img/get";
 
 
     /*快速报备*/
@@ -74,5 +80,7 @@ public class HttpAdress {
     public static String CANCEL = AppConstants.URL+"agent/client/appealCancel";
     /*重新推荐*/
     public static String RECOMMEND = AppConstants.URL+"agent/client/recommend";
+    /*确认失效*/
+    public static String flushDate = AppConstants.URL+"agent/work/flushDate";
 
 }

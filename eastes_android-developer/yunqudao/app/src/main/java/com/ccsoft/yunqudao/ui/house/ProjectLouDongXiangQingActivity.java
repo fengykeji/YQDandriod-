@@ -6,6 +6,8 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+import android.webkit.WebView;
+import android.webkit.WebViewClient;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import com.ccsoft.yunqudao.R;
@@ -20,6 +22,7 @@ public class ProjectLouDongXiangQingActivity extends AppCompatActivity implement
 
     private ImageButton mHouse_button_返回;
     private ImageView   mHouse_imageview_楼栋详情;
+    private WebView webView;
 
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -41,6 +44,12 @@ public class ProjectLouDongXiangQingActivity extends AppCompatActivity implement
 
         mHouse_button_返回 = findViewById(R.id.house_button_返回);
         mHouse_imageview_楼栋详情 = findViewById(R.id.house_imageview_楼栋详情);
+        webView = findViewById(R.id.wv_webview);
+
+        webView.getSettings().setJavaScriptEnabled(true);
+        webView.setWebViewClient(new WebViewClient());
+        webView.loadUrl("http://120.27.21.136:2798/360/test4/index.html");
+
     }
 
     /**

@@ -59,6 +59,12 @@ public class WorkReportVerifyFragment extends Fragment implements View.OnClickLi
     private List<RecordAffirmBaseData.DataBean> dataList = new ArrayList<>();
     private SwipeRefreshLayout mSwipRefresh;
 
+    @Override
+    public void onStart() {
+        super.onStart();
+        initData();
+    }
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {

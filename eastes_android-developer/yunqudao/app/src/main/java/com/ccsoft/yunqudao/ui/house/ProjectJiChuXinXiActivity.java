@@ -155,6 +155,17 @@ public class ProjectJiChuXinXiActivity extends AppCompatActivity implements View
                             tv_gongnuanfangshi.setText(infoBean.getData().getHeat_supply());
                             tv_gongshuifangshi.setText(infoBean.getData().getWater_supply());
                             tv_gongdianfangshi.setText(infoBean.getData().getPower_supply());
+                            if(infoBean.getData().getSale_permit().size()!=0){
+                                for (BuildInfoBean.DataBean.SalePermitBean salePermitBean : infoBean.getData().getSale_permit()) {
+                                    TextView textView = new TextView(ProjectJiChuXinXiActivity.this);
+                                    TextView textView2 = new TextView(ProjectJiChuXinXiActivity.this);
+                                    textView.setText(salePermitBean.getSale_permit());
+                                    textView2.setText(salePermitBean.getPermit_time());
+                                    ll_yushou.addView(textView);
+                                    ll_fazhengtime.addView(textView2);
+
+                                }
+                            }
 
                         }
                     }

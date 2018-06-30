@@ -48,6 +48,12 @@ public class WorkRecommendVerifyFragment extends Fragment implements View.OnClic
     private SwipeRefreshLayout mSwipRefresh;
     private List<BrokerWaitConfirmData.WaitConfirmData> dataList = new ArrayList<>();
 
+    @Override
+    public void onStart() {
+        super.onStart();
+        initData();
+    }
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {

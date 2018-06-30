@@ -12,12 +12,22 @@ import android.widget.TextView;
 import com.ccsoft.yunqudao.R;
 import com.ccsoft.yunqudao.data.AppConstants;
 import com.ccsoft.yunqudao.data.model.response.WorkReportVerifyDetailData;
+import com.ccsoft.yunqudao.http.HttpAdress;
 import com.ccsoft.yunqudao.http.XutilsHttp;
 import com.ccsoft.yunqudao.utils.ActivityManager;
 import com.ccsoft.yunqudao.utils.DataUtils;
 import com.google.gson.Gson;
+import com.lzy.okhttputils.OkHttpUtils;
+import com.lzy.okhttputils.callback.StringCallback;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.util.HashMap;
 import java.util.Map;
+
+import okhttp3.Call;
+import okhttp3.Response;
 
 /**
  * author lzx
@@ -60,6 +70,7 @@ public class WorkReportVerifyActivity extends AppCompatActivity {
         id = intent.getIntExtra("id", 0);
         Log.d("1111111------->", "id:" + id);
         initData();
+        timeOver();
     }
 
     private void initView() {
@@ -156,4 +167,28 @@ public class WorkReportVerifyActivity extends AppCompatActivity {
             handler.postDelayed(runnable,1000);
         }
     };
+
+    private void timeOver(){
+        if(finishTime==0){
+            OkHttpUtils.get(HttpAdress.flushDate)
+                    .tag(this)
+                    .execute(new StringCallback() {
+                        @Override
+                        public void onSuccess(String s, Call call, Response response) {
+                            int code = 0;
+                            String data = null;
+                            try {
+                                JSONObject jsonObject = new JSONObject(s);
+                                code = jsonObject.getInt("code");
+                                data = jsonObject.getString("data");
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                            }
+                            if (code == 200 && data != null) {
+                                finish();
+                            }
+                        }
+                    });
+        }
+    }
 }

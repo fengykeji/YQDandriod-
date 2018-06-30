@@ -2,6 +2,8 @@ package com.ccsoft.yunqudao.ui.house;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -23,10 +25,16 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.baidu.mapapi.SDKInitializer;
+import com.baidu.mapapi.map.BaiduMap;
+import com.baidu.mapapi.map.MapView;
 import com.ccsoft.yunqudao.R;
 import com.ccsoft.yunqudao.adapter.HouseHuXing_RecyclerViewAdapter;
+import com.ccsoft.yunqudao.adapter.Speed2HourAdapter;
 import com.ccsoft.yunqudao.adapter.SpeedHourAdapter;
+import com.ccsoft.yunqudao.adapter.TestAdapter;
 import com.ccsoft.yunqudao.bean.HouseDetailBean;
+import com.ccsoft.yunqudao.bean.ProjectPiPeiKeHuBean;
 import com.ccsoft.yunqudao.data.AppConstants;
 import com.ccsoft.yunqudao.http.HttpAdress;
 import com.ccsoft.yunqudao.model.StringModel;
@@ -42,12 +50,16 @@ import com.google.gson.JsonObject;
 import com.google.gson.reflect.TypeToken;
 import com.lzy.okhttputils.OkHttpUtils;
 import com.lzy.okhttputils.callback.StringCallback;
+import com.squareup.picasso.Picasso;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.Serializable;
 import java.lang.reflect.Type;
 import java.net.MalformedURLException;
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicBoolean;
@@ -68,7 +80,7 @@ public class ProjectXiangQingFragment extends Fragment implements View.OnClickLi
     private ImageView              mHouse_imageview_项目图册;
     private Button              mHouse_button_查看全部楼盘信息;
     private Button              mHouse_button_查看全部项目动态;
-    private ImageView                mHouse_imageview_楼栋信息;
+    private ImageView               mHouse_imageview_楼栋信息;
     private Button              mHouse_button_查看全部户型信息;
     private ViewPager                mHouse_viewpager_户型信息;
     private Button                   mHouse_button_教育;
@@ -83,8 +95,9 @@ public class ProjectXiangQingFragment extends Fragment implements View.OnClickLi
     private Button                   mHouse_button_推荐3;
     private TextView tv_project_name,tv_sale_state,tv_num,tv_handing_room_time,tv_average_price,
             tv_absolute_address,content_tv6,content_tv7,content_tv8,content_tv9,content_tv10,content_tv11,
-            content_tv12,content_tv13,tv_loupanxiangqing;
-    private LinearLayout ll_dongtaixiangqing;
+            content_tv12,content_tv13,tv_loupanxiangqing,tv_shuzi;
+    private LinearLayout ll_dongtaixiangqing,ll_pipeikehu1,ll_pipeikehu2;
+    private ViewPager viewPager;
     private ImageButton button;
     private int project_id;
     private OkHttpManager okHttpManager = OkHttpManager.getInstance();
@@ -95,18 +108,24 @@ public class ProjectXiangQingFragment extends Fragment implements View.OnClickLi
     protected View contentView;
     protected AtomicBoolean isPreparingData;
     private SpeedHourAdapter speedHourAdapter=null;
+    private TestAdapter madapter;
     private List list;
 //    private SpeedHourEntity entity=null;
     private int agent_id;
     private HouseDetailBean.DataBean bean;
 
+    private List<HouseDetailBean.DataBean.HouseTypeBean> dataList = new ArrayList<>();
+
+    private MapView mMapView;
+    private BaiduMap mBaiduMap;
+
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        SDKInitializer.initialize(getContext().getApplicationContext());
 
         mView = inflater.inflate(R.layout.fragment_house_xiangmuxiangqing_xiangmu, container, false);
         initView();
         initData();
         initListener();
-        initAdapter();
         setData();
         return mView;
     }
@@ -115,7 +134,8 @@ public class ProjectXiangQingFragment extends Fragment implements View.OnClickLi
         /**
          * 初始化id
          */
-        mHouse_imageview_项目图册 = mView.findViewById(R.id.house_imageview_项目图册);
+//        mHouse_imageview_项目图册 = mView.findViewById(R.id.house_imageview_项目图册);
+        viewPager = mView.findViewById(R.id.viewPager);
         mHouse_button_查看全部楼盘信息 = mView.findViewById(R.id.house_button_查看全部楼盘信息);
         mHouse_button_查看全部项目动态 = mView.findViewById(R.id.house_button_查看全部项目动态);
         mHouse_imageview_楼栋信息 = mView.findViewById(R.id.house_imageview_楼栋信息);
@@ -151,8 +171,14 @@ public class ProjectXiangQingFragment extends Fragment implements View.OnClickLi
         content_tv13 = mView.findViewById(R.id.content_tv13);
         tv_loupanxiangqing = mView.findViewById(R.id.tv_loupanxiangqing);
         ll_dongtaixiangqing = mView.findViewById(R.id.ll_dongtaixiangqing);
+        ll_pipeikehu1 = mView.findViewById(R.id.ll_pipeikehu1);
+        ll_pipeikehu2 = mView.findViewById(R.id.ll_pipeikehu2);
+        tv_shuzi = mView.findViewById(R.id.tv_shuzi);
 
         recyclerView = mView.findViewById(R.id.re_huxing);
+
+        mMapView =  mView.findViewById(R.id.mmap);
+        mBaiduMap = mMapView.getMap();
 
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(mContext);
         linearLayoutManager.setOrientation(LinearLayoutManager.HORIZONTAL);
@@ -173,7 +199,7 @@ public class ProjectXiangQingFragment extends Fragment implements View.OnClickLi
         /**
          * 初始化监听器
          */
-        this.mHouse_imageview_项目图册.setOnClickListener(this);
+        this.viewPager.setOnClickListener(this);
         this.mHouse_button_查看全部楼盘信息.setOnClickListener(this);
         this.mHouse_button_查看全部项目动态.setOnClickListener(this);
         this.mHouse_imageview_楼栋信息.setOnClickListener(this);
@@ -199,7 +225,7 @@ public class ProjectXiangQingFragment extends Fragment implements View.OnClickLi
     public void onClick(View v) {
 
         switch (v.getId()) {
-            case R.id.house_imageview_项目图册:
+            case R.id.viewPager:
                 ProjectXiangCeActivity.start(getActivity());
                 break;
             case R.id.house_button_查看全部楼盘信息:
@@ -257,7 +283,6 @@ public class ProjectXiangQingFragment extends Fragment implements View.OnClickLi
                 startActivity(intent);
                 break;
             case R.id.im_dianzan:
-                Log.e("cccc",bean.getFocus().getIs_focus()+"");
                 if(bean.getFocus().getIs_focus()==0) {
                     OkHttpUtils.get(HttpAdress.focusProject)
                             .tag(getActivity())
@@ -265,7 +290,6 @@ public class ProjectXiangQingFragment extends Fragment implements View.OnClickLi
                             .execute(new StringCallback() {
                                 @Override
                                 public void onSuccess(String s, Call call, Response response) {
-                                    Log.e("ccccw","点击了");
                                     StringModel model = JsonUtil.jsonToEntity(s, StringModel.class);
                                     if (model.getCode() == 200) {
                                         Toast.makeText(getContext(), "关注成功", Toast.LENGTH_SHORT).show();
@@ -282,7 +306,6 @@ public class ProjectXiangQingFragment extends Fragment implements View.OnClickLi
                             .execute(new StringCallback() {
                                 @Override
                                 public void onSuccess(String s, Call call, Response response) {
-                                    Log.e("ccccs","点击了");
                                     StringModel model = JsonUtil.jsonToEntity(s, StringModel.class);
                                     if (model.getCode() == 200) {
                                         Toast.makeText(getContext(), "取消关注成功", Toast.LENGTH_SHORT).show();
@@ -335,6 +358,8 @@ public class ProjectXiangQingFragment extends Fragment implements View.OnClickLi
                             GsonBuilder builder = new GsonBuilder();
                             Gson gson = builder.create();
                              bean = gson.fromJson(data,HouseDetailBean.DataBean.class);
+                             dataList = bean.getHouse_type();
+                            initAdapter();
 
 //                            ImageUtil.load(Uri.parse(AppConstants.URL + bean.getProject_basic_info().getTotal_float_url_phone()), mHouse_imageview_项目图册, 540, 275);
                             tv_project_name.setText(bean.getProject_basic_info().getProject_name());
@@ -355,13 +380,42 @@ public class ProjectXiangQingFragment extends Fragment implements View.OnClickLi
                             }else {
                                 button.setImageResource(R.drawable.ic_focus_2);
                             }
+                            Picasso.with(getContext())
+                                    .load(AppConstants.URL+bean.getProject_basic_info().getTotal_float_url_phone())
+                                    .into(mHouse_imageview_楼栋信息);
+
+                            List<HouseDetailBean.DataBean.ProjectImgBean.UrlBean> Imgurl = bean.getProject_img().getUrl();
+                            madapter = new TestAdapter(getContext(),Imgurl,project_id);
+                            viewPager.setAdapter(madapter);
+                            madapter.change(Imgurl);
+                            viewPager.setOnPageChangeListener(new OnPageChangeListener() {
+                                @Override
+                                public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+
+                                }
+
+                                @Override
+                                public void onPageSelected(int position) {
+                                    tv_shuzi.setText(position+1+"/"+Imgurl.size());
+                                }
+
+                                @Override
+                                public void onPageScrollStateChanged(int state) {
+
+                                }
+                            });
+
+
+
                         }
                     }
                 });
+//        getPiPeiKeHu();
     }
 
+
     private void initAdapter() {
-        speedHourAdapter=new SpeedHourAdapter(getContext());
+        speedHourAdapter=new SpeedHourAdapter(getContext(),dataList);
         recyclerView.setAdapter(speedHourAdapter);
 
 
@@ -371,6 +425,13 @@ public class ProjectXiangQingFragment extends Fragment implements View.OnClickLi
             @Override
             public void onItemClick(View view, int position) {
 
+
+                Intent intent = new Intent(getContext(),ProjectHuXingXiangQingActivity.class);
+                Bundle bundle = new Bundle();
+                bundle.putSerializable("list", (Serializable) dataList);
+                intent.putExtra("id",dataList.get(position).getId());
+                intent.putExtras(bundle);
+                startActivity(intent);
             }
         });
     }
@@ -384,6 +445,33 @@ public class ProjectXiangQingFragment extends Fragment implements View.OnClickLi
                 startActivity(intent2);
             }
         });
+    }
+
+
+
+    private void getPiPeiKeHu(){
+
+        OkHttpUtils.get(HttpAdress.matchingproject)
+                .tag(getActivity())
+                .params("project_id",project_id)
+                .execute(new StringCallback() {
+                    @Override
+                    public void onSuccess(String s, Call call, Response response) {
+                        int code = 0;
+                        String data = null;
+                        try {
+                            JSONObject jsonObject = new JSONObject(s);
+                            code = jsonObject.getInt("code");
+                            data = jsonObject.getString("data");
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                        if(code == 200&& data!=null){
+                             ProjectPiPeiKeHuBean piPeiKeHuBean = JsonUtil.jsonToEntity(s,ProjectPiPeiKeHuBean.class);
+                             Log.e("cccc",piPeiKeHuBean.getMsg());
+                        }
+                    }
+                });
     }
 }
 

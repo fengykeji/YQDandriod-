@@ -12,7 +12,9 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.ccsoft.yunqudao.R;
 import com.ccsoft.yunqudao.bean.HouseDetailBean;
+import com.ccsoft.yunqudao.data.AppConstants;
 import com.ccsoft.yunqudao.ui.house.SpeedHourEntity;
+import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
@@ -21,16 +23,17 @@ import butterknife.ButterKnife;
 
 public class SpeedHourAdapter extends RecyclerView.Adapter<SpeedHourHolder> {
 
-    private List<HouseDetailBean.DataBean> specailList;
+    private List<HouseDetailBean.DataBean.HouseTypeBean> specailList;
     private LayoutInflater mInflater;
     private Context mContext=null;
 
-    public SpeedHourAdapter(Context context) {
+    public SpeedHourAdapter(Context context , List<HouseDetailBean.DataBean.HouseTypeBean> specailList) {
         this.mContext=context;
+        this.specailList = specailList;
         mInflater = LayoutInflater.from(context);
     }
 
-    public void setList(List<HouseDetailBean.DataBean> list) {
+    public void setList(List<HouseDetailBean.DataBean.HouseTypeBean> list) {
         this.specailList = list;
         notifyDataSetChanged();
     }
@@ -58,12 +61,16 @@ public class SpeedHourAdapter extends RecyclerView.Adapter<SpeedHourHolder> {
     public void onBindViewHolder(final SpeedHourHolder holder, final int position) {
 //        HouseDetailBean.DataBean bean = specailList.get(position);
 //        if (bean != null) {
-            holder.speedImage.setScaleType(ImageView.ScaleType.FIT_XY);
+        Picasso.with(mContext)
+                .load(AppConstants.URL+specailList.get(position).getImg_url())
+                .error(R.drawable.ic_launcher_background)
+                .into(holder.speedImage);
+
 //            Glide.with(mContext).load(specailList.get(position).getProject_basic_info().getTotal_float_url()).into(holder.speedImage);
-            holder.speedName.setText("A型");
-            holder.speedArea.setText("102m²");
-            holder.speedtype.setText("3室1厅");
-            holder.speedsale.setText("在售");
+            holder.speedName.setText(specailList.get(position).getHouse_type_name());
+            holder.speedArea.setText(specailList.get(position).getProperty_area_min()+"m2");
+            holder.speedtype.setText(specailList.get(position).getHouse_type());
+            holder.speedsale.setText(specailList.get(position).getSale_state());
 //        }
 
         holder.speedView.setOnClickListener(new View.OnClickListener() {
@@ -78,9 +85,9 @@ public class SpeedHourAdapter extends RecyclerView.Adapter<SpeedHourHolder> {
 
     @Override
     public int getItemCount() {
-        if (specailList!=null)
-        return specailList.size();
-        return 5;
+
+            return specailList.size();
+
     }
 }
 
@@ -93,12 +100,13 @@ class SpeedHourHolder extends RecyclerView.ViewHolder {
     ImageView speedImage;
     @BindView(R.id.tv_house_type_name)
     TextView speedName;
-    @BindView(R.id.tv_property_area)
+    @BindView(R.id.tv_area)
     TextView speedArea;
     @BindView(R.id.tv_house_type)
     TextView speedtype;
     @BindView(R.id.tv_sale_state1)
     TextView speedsale;
+
 
     public SpeedHourHolder(View itemView) {
         super(itemView);

@@ -28,6 +28,10 @@ import com.ccsoft.yunqudao.utils.OkHttpManager;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.lzy.okhttputils.OkHttpUtils;
+import com.lzy.okhttputils.callback.StringCallback;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.lang.reflect.Type;
 import java.net.MalformedURLException;
@@ -175,6 +179,26 @@ public class WorkFragment extends Fragment implements View.OnClickListener{
 
             }
         });
+
+        OkHttpUtils.get(HttpAdress.flushDate)
+                .tag(this)
+                .execute(new StringCallback() {
+                    @Override
+                    public void onSuccess(String s, Call call, Response response) {
+                        int code = 0;
+                        String data = null;
+                        try {
+                            JSONObject jsonObject = new JSONObject(s);
+                            code = jsonObject.getInt("code");
+                            data = jsonObject.getString("data");
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                        if (code == 200 && data != null) {
+
+                        }
+                    }
+                });
 
 
     }
