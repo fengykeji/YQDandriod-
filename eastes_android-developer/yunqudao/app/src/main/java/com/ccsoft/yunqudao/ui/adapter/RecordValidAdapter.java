@@ -27,7 +27,7 @@ public class RecordValidAdapter extends BaseRecyclerAdapter<RecordValidData.Data
     }
 
     @Override
-    protected void convert(BaseViewHolder holder, RecordValidData.DataBean bean) {
+    protected void convert(BaseViewHolder holder, RecordValidData.DataBean bean,int position) {
         holder.setText(R.id.name_tv,bean.name);
         holder.setText(R.id.num_tv,String.valueOf(bean.client_id));
         holder.setText(R.id.place_tv,bean.project_name);

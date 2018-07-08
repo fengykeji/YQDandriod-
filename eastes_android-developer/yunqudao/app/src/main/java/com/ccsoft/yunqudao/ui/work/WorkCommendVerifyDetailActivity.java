@@ -55,7 +55,7 @@ public class WorkCommendVerifyDetailActivity extends AppCompatActivity {
         setContentView(R.layout.activity_work_commend_verify_details);
         initView();
         initData();
-        timeOver();
+
     }
 
     public static void start(Context context, int id) {
@@ -116,6 +116,9 @@ public class WorkCommendVerifyDetailActivity extends AppCompatActivity {
                     finishTime = data.timeLimit;
                     handler.post(runnable);
 
+
+
+
                 }
             }
 
@@ -139,13 +142,16 @@ public class WorkCommendVerifyDetailActivity extends AppCompatActivity {
 
     int finishTime;
     String time;
+    String[] times;
     Handler handler = new Handler();
 
     Runnable runnable = new Runnable() {
         @Override
         public void run() {
              time= DataUtils.getTime(finishTime);
-            String[] times = time.split("-");
+
+overtime();
+            times = time.split("-");
 
             date_day.setText(times[0]);
             date_hour.setText(times[1]);
@@ -155,28 +161,29 @@ public class WorkCommendVerifyDetailActivity extends AppCompatActivity {
         }
     };
 
-    private void timeOver(){
-
-        if(finishTime==0){
-            OkHttpUtils.get(HttpAdress.flushDate)
-                    .tag(this)
-                    .execute(new StringCallback() {
-                        @Override
-                        public void onSuccess(String s, Call call, Response response) {
-                            int code = 0;
-                            String data = null;
-                            try {
-                                JSONObject jsonObject = new JSONObject(s);
-                                code = jsonObject.getInt("code");
-                                data = jsonObject.getString("data");
-                            } catch (JSONException e) {
-                                e.printStackTrace();
-                            }
-                            if (code == 200 && data != null) {
-                                finish();
-                            }
+private void overtime(){
+    if(time.equals("0-0-0-0")){
+        OkHttpUtils.get(HttpAdress.flushDate)
+                .tag(this)
+                .execute(new StringCallback() {
+                    @Override
+                    public void onSuccess(String s, Call call, Response response) {
+                        int code = 0;
+                        String data = null;
+                        try {
+                            JSONObject jsonObject = new JSONObject(s);
+                            code = jsonObject.getInt("code");
+                            data = jsonObject.getString("data");
+                        } catch (JSONException e) {
+                            e.printStackTrace();
                         }
-                    });
-        }
+                        if (code == 200 && data != null) {
+                            finish();
+                        }
+                    }
+                });
     }
+}
+
+
 }

@@ -39,6 +39,8 @@ import com.lljjcoder.citypickerview.widget.CityPicker;
 import com.lzy.okhttputils.OkHttpUtils;
 
 import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 
 
 import java.util.ArrayList;
@@ -53,7 +55,7 @@ import okhttp3.Response;
  * @data: 2018/5/4 0004
  */
 
-public class AddCustomers2Activity extends AppCompatActivity implements View.OnClickListener, SeekBar.OnSeekBarChangeListener, AdapterView.OnItemSelectedListener {
+public class AddCustomers2Activity extends AppCompatActivity implements View.OnClickListener, SeekBar.OnSeekBarChangeListener {
 
     /**
      * 添加客户2 id
@@ -87,28 +89,71 @@ public class AddCustomers2Activity extends AppCompatActivity implements View.OnC
     private String address;
     private ArrayAdapter adapter1, adapter2, adapter3, adapter4, adapter5, adapter6, adapter7, adapter8;
     private int house_type;
-    private int floor_min;
-    private int floor_max;
+    private String floor_min;
+    private String floor_max;
     private int decorate;
     private int buy_purpose;
     private int pay_type;
-    private int intent;
-    private int urgency;
+    private int price;
+    private int area;
+    private String intent;
+    private String urgency;
     private String comment;
     private List<String> list = new ArrayList<>();
     private Date date;
     private int property_type;
+    private int card_type = 17;
     private ArrayList<Integer> Idlist = new ArrayList<>();
     private String need_tags = "";
 //    private OptionsPickerView pvOptions ;
     private ArrayList<ArrayList<String>> options2Items = new ArrayList<>();
 
 
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void doThis(IntentServiceResult intentServiceResult) {
+        Idlist = intentServiceResult.getList();
+        list = intentServiceResult.getLists();
+
+        if (Idlist != null) {
+            for (int i = 0; i < Idlist.size(); i++) {
+                int id = Idlist.get(i);
+                if (i == 0) {
+                    need_tags = String.valueOf(Idlist.get(i));
+                } else {
+                    need_tags = need_tags.concat("," + String.valueOf(id));
+                }
+            }
+        }
+
+        LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+        layoutParams.leftMargin =10;
+        if (list != null) {
+//            list = getIntent().getStringArrayListExtra("lists");
+            for (int i = 0; i < list.size(); i++) {
+                TextView textView = new TextView(AddCustomers2Activity.this);
+                textView.setText(list.get(i));
+                textView.setBackgroundResource(R.drawable.shape_addlabel);
+                textView.setPadding(14, 14, 14, 14);
+                textView.setTextSize(19);
+                ll_showlabel.addView(textView, layoutParams);
+                tv_showlabel.setVisibility(View.GONE);
+            }
+        }
+
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        EventBus.getDefault().unregister(this);
+    }
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         ActivityManager.getInstance().addActivity(this);
         setContentView(R.layout.activity_customers_add_customers2);
+        EventBus.getDefault().register(this);
         initView();
         initListener();
         initData();
@@ -160,18 +205,9 @@ public class AddCustomers2Activity extends AppCompatActivity implements View.OnC
 
         Submit();
 
-        Idlist = getIntent().getIntegerArrayListExtra("list");
+//        Idlist = getIntent().getIntegerArrayListExtra("list");
 
-        if (Idlist != null) {
-            for (int i = 0; i < Idlist.size(); i++) {
-                int id = Idlist.get(i);
-                if (i == 0) {
-                    need_tags = String.valueOf(Idlist.get(i));
-                } else {
-                    need_tags = need_tags.concat("," + String.valueOf(id));
-                }
-            }
-        }
+
 
 
 
@@ -197,20 +233,8 @@ public class AddCustomers2Activity extends AppCompatActivity implements View.OnC
         mNeed_text_address.setOnClickListener(this);
 
 
-        LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-        layoutParams.leftMargin = 6;
-        if (getIntent().getParcelableArrayListExtra("lists") != null) {
-            list = getIntent().getStringArrayListExtra("lists");
-            for (int i = 0; i < list.size(); i++) {
-                TextView textView = new TextView(AddCustomers2Activity.this);
-                textView.setText(list.get(i));
-                textView.setBackgroundResource(R.drawable.shape_addlabel);
-                textView.setPadding(14, 14, 14, 14);
-                textView.setTextSize(19);
-                ll_showlabel.addView(textView, layoutParams);
-                tv_showlabel.setVisibility(View.GONE);
-            }
-        }
+
+
     }
 
     private void initData() {
@@ -233,11 +257,11 @@ public class AddCustomers2Activity extends AppCompatActivity implements View.OnC
                 intent1.putExtra("birth",birth);
                 intent1.putExtra("card_id",card_id);
                 intent1.putExtra("address",address);
+
                 startActivity(intent1);
                 break;
             case R.id.need_text_address:
 
-//
                 selectAddress();
                 break;
             case R.id.customers_button_commit:
@@ -257,11 +281,33 @@ public class AddCustomers2Activity extends AppCompatActivity implements View.OnC
                     property_type = 63;
                 }
                 if (mString3 == null) {
-                    mString3 = "";
+                    price = 0;
+                }else if(mString3.equals("50")){
+                    price = 91;
+                }else if(mString3.equals("50-80")){
+                    price = 92;
+                }else if(mString3.equals("80-120")){
+                    price = 93;
+                }else if(mString3.equals("120-200")){
+                    price = 94;
+                }else if(mString3.equals("200")){
+                    price = 95;
                 }
+
                 if (mString4 == null) {
-                    mString4 = "";
+                    area = 0;
+                }else if(mString4.equals("50")){
+                    area=96;
+                }else if(mString4.equals("50-90")){
+                    area=97;
+                }else if(mString4.equals("90-130")){
+                    area=98;
+                }else if(mString4.equals("130-150")){
+                    area=99;
+                }else if(mString4.equals("150")){
+                    area=100;
                 }
+
                 if (mString5 == null) {
                     house_type = 0;
                 } else if (mString5.equals("3室2厅2卫")) {
@@ -271,15 +317,15 @@ public class AddCustomers2Activity extends AppCompatActivity implements View.OnC
                 } else if (mString5.equals("1室1厅1卫")) {
                     house_type = 106;
                 }
-                if (et_floor_min.getText().toString().equals("")) {
-                    floor_min = 0;
+                if (et_floor_min.getText()==null) {
+                    floor_min = "";
                 } else {
-                    floor_min = Integer.parseInt(et_floor_min.getText().toString());
+                    floor_min = et_floor_min.getText().toString();
                 }
-                if (et_floor_max.getText().toString().equals("")) {
-                    floor_max = 0;
+                if (et_floor_max.getText()==null) {
+                    floor_max = "";
                 } else {
-                    floor_max = Integer.parseInt(et_floor_max.getText().toString());
+                    floor_max = et_floor_max.getText().toString();
                 }
                 if (mString6 == null) {
                     decorate = 0;
@@ -302,38 +348,40 @@ public class AddCustomers2Activity extends AppCompatActivity implements View.OnC
                 }
                 if (mString8 == null) {
                     pay_type = 0;
-                } else {
-                    MainActivity.savePeizhi().getData().get_$13().getParam();
-                    for (int i = 0; i < MainActivity.savePeizhi().getData().get_$13().getParam().size(); i++) {
-                        if (mString8.equals(MainActivity.savePeizhi().getData().get_$13().getParam().get(0))) {
+                } else if (mString8.equals("一次性付款")) {
                             pay_type = 46;
-                        } else if (mString8.equals(MainActivity.savePeizhi().getData().get_$13().getParam().get(1))) {
+                        } else if (mString8.equals("公积金贷款")){
                             pay_type = 47;
-                        } else if (mString8.equals(MainActivity.savePeizhi().getData().get_$13().getParam().get(2))) {
+                        } else if (mString8.equals("综合贷款")) {
                             pay_type = 48;
-                        } else if (mString8.equals(MainActivity.savePeizhi().getData().get_$13().getParam().get(3))) {
+                        } else if (mString8.equals("银行按揭贷款")) {
                             pay_type = 49;
-                        } else if (mString8.equals(MainActivity.savePeizhi().getData().get_$13().getParam().get(4))) {
+                        } else if (mString8.equals("分期付款")) {
                             pay_type = 50;
                         }
-                    }
-                }
-                if (mCustomers_text_seekbar1.getText().toString().equals("")) {
-                    intent = 0;
+
+                if (mCustomers_text_seekbar1.getText()==null) {
+                    intent = "";
                 } else {
-                    intent = Integer.parseInt(mCustomers_text_seekbar1.getText().toString());
+                    intent = mCustomers_text_seekbar1.getText().toString();
                 }
-                if (mCustomers_text_seekbar2.getText().toString().equals("")) {
-                    urgency = 0;
+                if (mCustomers_text_seekbar2.getText()==null) {
+                    urgency = "";
                 } else {
-                    urgency = Integer.parseInt(mCustomers_text_seekbar2.getText().toString());
+                    urgency = mCustomers_text_seekbar2.getText().toString();
                 }
 
-                if (et_comment.getText().toString() == null) {
+                if (et_comment.getText() == null) {
                     comment = "";
                 } else {
                     comment = et_comment.getText().toString();
                 }
+
+                Log.e("cccccw",name+"name "+sex+"sex  "+tel+"tel  "+birth+"bir  "+
+                card_id+"card  "+address+"address  "+property_type+"pro  "+price+"m3  "+
+                area+"m4  "+house_type+" house "+floor_min+"min  "+floor_max+"max  "+
+                decorate+"dec  "+buy_purpose+"buy  "+pay_type+"pay  "+intent+"int  "+
+                urgency+"urg  "+need_tags+"need "+comment+"comment ");
 
 
                 OkHttpUtils.post(HttpAdress.addClientAndNeed)
@@ -342,11 +390,12 @@ public class AddCustomers2Activity extends AppCompatActivity implements View.OnC
                         .params("sex", sex)
                         .params("tel", tel)
                         .params("birth", birth)
+                        .params("card_type",card_type)
                         .params("card_id", card_id)
                         .params("address", address)
                         .params("property_type", property_type)
-                        .params("total_price", mString3)
-                        .params("area", mString4)
+                        .params("total_price", price)
+                        .params("area", area)
                         .params("house_type", house_type)
                         .params("floor_min", floor_min)
                         .params("floor_max", floor_max)
@@ -373,6 +422,7 @@ public class AddCustomers2Activity extends AppCompatActivity implements View.OnC
 
                 EventBus.getDefault().post(new MessageEvent("finish"));
                 Intent intent = new Intent(AddCustomers2Activity.this, HomeActivity.class);
+                intent.putExtra("fid",2);
                 startActivity(intent);
 //                CustomersFragment.start(getBaseContext());
 
@@ -432,51 +482,6 @@ public class AddCustomers2Activity extends AppCompatActivity implements View.OnC
 
     }
 
-    @Override
-    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-
-        switch (view.getId()) {
-//            case R.id.spinner_address:
-//            mString1 = (String) mSpinner_address.getSelectedItem();
-//            mNeed_text_address.setText(mString1);
-//            break;
-            case R.id.spinner_property_type:
-                mString2 = (String) adapter2.getItem(position);
-//        mNeed_text_property_type.setText(mString2);
-                break;
-            case R.id.spinner_total_price:
-                mString3 = (String) adapter3.getItem(position);
-//        mNeed_text_total_price.setText(mString3);
-                break;
-            case R.id.spinner_area:
-                mString4 = (String) adapter4.getItem(position);
-//        mNeed_text_area.setText(mString4);
-                break;
-            case R.id.spinner_house_type:
-                mString5 = (String) adapter5.getItem(position);
-//        mNeed_text_house_type.setText(mString5);
-                break;
-            case R.id.spinner_decorated:
-                mString6 = (String) adapter6.getItem(position);
-//        mNeed_text_decorated.setText(mString6);
-                break;
-            case R.id.spinner_buy_type:
-                mString7 = (String) adapter7.getItem(position);
-//        mNeed_text_buy_type.setText(mString7);
-                break;
-            case R.id.spinner_pay_type:
-                mString8 = (String) adapter8.getItem(position);
-                break;
-        }
-//        mNeed_text_pay_type.setText(mString8);
-
-
-    }
-
-    @Override
-    public void onNothingSelected(AdapterView<?> parent) {
-
-    }
 
     private void Submit() {
         name = getIntent().getStringExtra("name");
@@ -499,40 +504,93 @@ public class AddCustomers2Activity extends AppCompatActivity implements View.OnC
      * 设置spinner适配器监听
      */
     private void setSpinnerAdapter() {
-        adapter2 = ArrayAdapter.createFromResource(this, R.array.物业类型,
-                android.R.layout.simple_spinner_item);
-        mSpinner_property_type.setAdapter(adapter2);
-        mSpinner_property_type.setOnItemSelectedListener(this);
 
-        adapter3 = ArrayAdapter.createFromResource(this, R.array.总价,
-                android.R.layout.simple_spinner_item);
-        mSpinner_total_price.setAdapter(adapter3);
-        mSpinner_total_price.setOnItemSelectedListener(this);
 
-        adapter4 = ArrayAdapter.createFromResource(this, R.array.面积,
-                android.R.layout.simple_spinner_item);
-        mSpinner_area.setAdapter(adapter4);
-        mSpinner_area.setOnItemSelectedListener(this);
+        mSpinner_property_type.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                String[] data = getResources().getStringArray(R.array.物业类型);
+                mString2 = data[i];
+            }
 
-        adapter5 = ArrayAdapter.createFromResource(this, R.array.户型,
-                android.R.layout.simple_spinner_item);
-        mSpinner_house_type.setAdapter(adapter5);
-        mSpinner_house_type.setOnItemSelectedListener(this);
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
 
-        adapter6 = ArrayAdapter.createFromResource(this, R.array.装修类型,
-                android.R.layout.simple_spinner_item);
-        mSpinner_decorated.setAdapter(adapter6);
-        mSpinner_decorated.setOnItemSelectedListener(this);
+            }
+        });
+        mSpinner_total_price.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                String[] data = getResources().getStringArray(R.array.总价);
+                mString3 = data[i];
+            }
 
-        adapter7 = ArrayAdapter.createFromResource(this, R.array.置业目的,
-                android.R.layout.simple_spinner_item);
-        mSpinner_buy_type.setAdapter(adapter7);
-        mSpinner_buy_type.setOnItemSelectedListener(this);
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
 
-        adapter8 = ArrayAdapter.createFromResource(this, R.array.付款方式,
-                android.R.layout.simple_spinner_item);
-        mSpinner_pay_type.setAdapter(adapter8);
-        mSpinner_pay_type.setOnItemSelectedListener(this);
+            }
+        });
+
+        mSpinner_area.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                String[] data = getResources().getStringArray(R.array.面积);
+                mString4 = data[i];
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
+            }
+        });
+        mSpinner_house_type.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                String[] data = getResources().getStringArray(R.array.户型);
+                mString5 = data[i];
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
+            }
+        });
+        mSpinner_decorated.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                String[] data = getResources().getStringArray(R.array.装修类型);
+                mString6 = data[i];
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
+            }
+        });
+        mSpinner_buy_type.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                String[] data = getResources().getStringArray(R.array.置业目的);
+                mString7 = data[i];
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
+            }
+        });
+        mSpinner_pay_type.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                String[] data = getResources().getStringArray(R.array.付款方式);
+                mString8 = data[i];
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
+            }
+        });
     }
 
 

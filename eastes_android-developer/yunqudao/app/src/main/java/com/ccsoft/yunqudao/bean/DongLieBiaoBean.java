@@ -182,6 +182,17 @@ public class DongLieBiaoBean {
             private String content;
             private int state;
 
+            public void setUrl(String url) {
+                this.url = url;
+            }
+
+            public String getUrl() {
+
+                return url;
+            }
+
+            private String url;
+
             public int getDynamic_id() {
                 return dynamic_id;
             }

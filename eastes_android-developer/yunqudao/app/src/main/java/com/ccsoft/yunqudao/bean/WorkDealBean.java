@@ -192,6 +192,15 @@ public class WorkDealBean {
             private String allot_time;
             private String create_time;
             private String timsLimit;
+            private String state_change_time;
+
+            public String getState_change_time() {
+                return state_change_time;
+            }
+
+            public void setState_change_time(String state_change_time) {
+                this.state_change_time = state_change_time;
+            }
 
             public int getClient_id() {
                 return client_id;

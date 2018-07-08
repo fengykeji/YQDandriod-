@@ -66,7 +66,7 @@ public class QuickRecommendAdapter extends BaseRecyclerAdapter<QuickRecommendVie
 
 
     @Override
-    protected void convert(BaseViewHolder holder, QuickRecommendViewModel bean) {
+    protected void convert(BaseViewHolder holder, QuickRecommendViewModel bean,int position) {
 
 
         holder.setImageResource(R.id.icon_iv, AppConstants.URL + bean.img_url);

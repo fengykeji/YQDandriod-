@@ -11,20 +11,31 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.ccsoft.yunqudao.R;
 import com.ccsoft.yunqudao.adapter.HouseList_RecyclerViewAdapter;
+import com.ccsoft.yunqudao.bean.CustomersGetInfoBean;
 import com.ccsoft.yunqudao.bean.HouseListBean;
 import com.ccsoft.yunqudao.data.base.BaseRecyclerAdapter;
 import com.ccsoft.yunqudao.http.HttpAdress;
 import com.ccsoft.yunqudao.ui.adapter.HouseListAdapter;
+import com.ccsoft.yunqudao.ui.customers.CustomersXiangQingActivity;
+import com.ccsoft.yunqudao.ui.customers.OpenCityActivity;
+import com.ccsoft.yunqudao.ui.house.ProjectCityChooseActivity;
 import com.ccsoft.yunqudao.ui.house.ProjectXiangQingActivity;
 import com.ccsoft.yunqudao.utils.BaseCallBack;
+import com.ccsoft.yunqudao.utils.JsonUtil;
 import com.ccsoft.yunqudao.utils.OkHttpManager;
 import com.facebook.drawee.backends.pipeline.Fresco;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
+import com.lzy.okhttputils.OkHttpUtils;
+import com.lzy.okhttputils.callback.StringCallback;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.lang.reflect.Type;
 import java.net.MalformedURLException;
@@ -33,6 +44,8 @@ import java.util.List;
 
 import okhttp3.Call;
 import okhttp3.Response;
+
+import static android.app.Activity.RESULT_OK;
 
 /**
  * @author: Pein
@@ -46,12 +59,14 @@ public class HouseFragment extends Fragment implements View.OnClickListener ,Hou
     private View           mView;
     private HouseFragment mHouseFragment;
     private RelativeLayout mHouse_button_relativelayout搜索;
+    private TextView house_text_城市;
     private RecyclerView   recyclerView;
     private String area = "510100";
     private HouseListBean houseListBeans ;
     private HouseListAdapter adapter;
     private OkHttpManager okHttpManager = OkHttpManager.getInstance();
     private List<HouseListBean.DataBean> list = new ArrayList<>();
+    private String city_name = "成都",city_code = 510100+"";
 
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         /**
@@ -73,11 +88,19 @@ public class HouseFragment extends Fragment implements View.OnClickListener ,Hou
          */
         this.mHouse_button_relativelayout搜索 = mView.findViewById(R.id.house_button_relativelayout搜索);
         recyclerView = mView.findViewById(R.id.house_recyclerview_list);
+        house_text_城市 = mView.findViewById(R.id.house_text_城市);
+
+        if( getActivity().getIntent().getStringExtra("city_name")!=null) {
+            city_name = getActivity().getIntent().getStringExtra("city_name");
+            city_code = getActivity().getIntent().getStringExtra("city_code");
+        }
+        house_text_城市.setText(city_name);
     }
 
     private void initListener() {
 
         this.mHouse_button_relativelayout搜索.setOnClickListener(this);
+        house_text_城市.setOnClickListener(this);
     }
 
     @Override
@@ -86,18 +109,22 @@ public class HouseFragment extends Fragment implements View.OnClickListener ,Hou
             case R.id.house_button_relativelayout搜索:
                 Toast.makeText(getActivity(), "你点击了搜索", Toast.LENGTH_SHORT).show();
                 break;
+            case R.id.house_text_城市:
+                Intent intent = new Intent(getContext(), OpenCityActivity.class);
+                intent.putExtra("id",1);
+                startActivity(intent);
+                break;
         }
     }
 
     private void loadFangyuanList(){
-        OkHttpManager.getInstance().get(HttpAdress.HOUSELIST, new BaseCallBack() {
+        OkHttpManager.getInstance().get(HttpAdress.HOUSELIST+"?city="+city_code, new BaseCallBack() {
             @Override
             public void onSuccess(Call call, Response response, Object obj) throws MalformedURLException {
 
                 Type type = new TypeToken<HouseListBean>() {}.getType();
                 houseListBeans = new Gson().fromJson(obj.toString(),type);
 
-                Log.e("cccc",houseListBeans.getData().toString());
 
                 list = houseListBeans.getData();
                 recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
@@ -129,10 +156,12 @@ public class HouseFragment extends Fragment implements View.OnClickListener ,Hou
             }
         });
 
+
     }
 
     @Override
     public void setItemClick(View view, int position) {
 
     }
+
 }

@@ -159,7 +159,8 @@ public class WorkFragment extends Fragment implements View.OnClickListener{
                 Type type = new TypeToken<WorkBean>() {}.getType();
                 workBean = new Gson().fromJson(obj.toString(),type);
 
-                mWork_list_count_deal.setText("累计成交"+workBean.getData().getDeal().getTotal()+",");
+
+                mWork_list_count_deal.setText("累计笔数"+workBean.getData().getDeal().getTotal()+",");
                 mWork_list_value_deal.setText("有效"+workBean.getData().getDeal().getValue()+",");
                 mWork_list_disabled_deal.setText("无效"+workBean.getData().getDeal().getDisabled());
             }

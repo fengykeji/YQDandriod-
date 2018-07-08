@@ -9,6 +9,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
@@ -16,6 +17,7 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 import com.ccsoft.yunqudao.R;
+import com.ccsoft.yunqudao.bean.CustomersGetInfoBean;
 import com.ccsoft.yunqudao.data.AppConstants;
 import com.ccsoft.yunqudao.data.model.response.ClientPrivateData;
 import com.ccsoft.yunqudao.data.model.response.ResultData;
@@ -30,6 +32,7 @@ import com.ccsoft.yunqudao.utils.wheelview.TimePickerView;
 import com.lzy.okhttputils.OkHttpUtils;
 import com.lzy.okhttputils.callback.StringCallback;
 
+import java.io.Serializable;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
@@ -51,14 +54,14 @@ public class ResetClientBasicActivity extends AppCompatActivity implements View.
     private EditText          mCustomers_edittext_tel;
     private EditText          mCustomers_edittext_card_id;
     private EditText          mCustomers_edittext_address1;
-    private ImageButton       mCustomers_button_back;
+    private ImageButton       mCustomers_button_back,mCustomers_button_birthday;
     private Button            mButton_next;
     private String            mTelnumber1;
     private String            mName;
     private String            mSex;
     private int               type;
     private int                mClient_id;
-    private ClientPrivateData mClientPrivateData;
+    private CustomersGetInfoBean mClientPrivateData;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -69,22 +72,25 @@ public class ResetClientBasicActivity extends AppCompatActivity implements View.
         initListener();
     }
 
-    public static void start(Context context, ClientPrivateData mClientPrivateData) {
+    public static void start(Context context, CustomersGetInfoBean mClientPrivateData) {
 
         Intent intent = new Intent(context, ResetClientBasicActivity.class);
         Bundle bundle = new Bundle();
-        bundle.putSerializable("clientbasic", mClientPrivateData);
+        bundle.putSerializable("clientbasic",  mClientPrivateData);
         intent.putExtra("data", bundle);
         context.startActivity(intent);
     }
 
-    private void getArgument() {
-        Bundle data = getIntent().getBundleExtra("data");
-        mClientPrivateData = (ClientPrivateData) data.getSerializable("clientbasic");
-    }
+//    private void getArgument() {
+//        Bundle data = getIntent().getBundleExtra("data");
+//        mClientPrivateData = (CustomersGetInfoBean) data.getSerializable("clientbasic");
+//    }
 
     private void initView() {
-        getArgument();
+
+//        getArgument();
+        Bundle bundle = getIntent().getExtras();
+        mClientPrivateData = (CustomersGetInfoBean) bundle.get("bean");
         mCustomers_button_back = findViewById(R.id.customers_button_back);
         mCustomers_edittext_name = findViewById(R.id.customers_edittext_name);
         mCustomers_spinner_sex = findViewById(R.id.customers_spinner_sex);
@@ -93,27 +99,42 @@ public class ResetClientBasicActivity extends AppCompatActivity implements View.
         mCustomers_edittext_card_id = findViewById(R.id.customers_edittext_card_id);
         mCustomers_edittext_address1 = findViewById(R.id.customers_edittext_address1);
         mButton_next = findViewById(R.id.button_next);
+        mCustomers_button_birthday = findViewById(R.id.customers_button_birthday);
 
         if (mClientPrivateData != null) {
-            mCustomers_edittext_name.setText(mClientPrivateData.basic.name);
-            mCustomers_text_birthday.setText(mClientPrivateData.basic.birth);
-            mCustomers_edittext_tel.setText(mClientPrivateData.basic.tel);
-            mCustomers_edittext_card_id.setText(mClientPrivateData.basic.card_id);
-            mCustomers_edittext_address1.setText(mClientPrivateData.basic.address);
-            mClient_id = mClientPrivateData.basic.client_id;
+            mCustomers_edittext_name.setText(mClientPrivateData.getData().getBasic().getName());
+            mCustomers_text_birthday.setText(mClientPrivateData.getData().getBasic().getBirth());
+            mCustomers_edittext_tel.setText(mClientPrivateData.getData().getBasic().getTel());
+            mCustomers_edittext_card_id.setText(mClientPrivateData.getData().getBasic().getCard_id());
+            mCustomers_edittext_address1.setText(mClientPrivateData.getData().getBasic().getAddress());
+            mClient_id = mClientPrivateData.getData().getBasic().getClient_id();
             mSex = mCustomers_spinner_sex.getSelectedItem().toString();
-            if (mSex.equals("男")) {
-                type = 1;
-            }
-            else {
-                type = 2;
-            }
+            mCustomers_spinner_sex.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                @Override
+                public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                    String[] languages = getResources().getStringArray(R.array.性别);
+                    mSex = languages[i];
+                    if (mSex.equals("男")) {
+                        type = 1;
+                    }
+                    else {
+                        type = 2;
+                    }
+                }
+
+                @Override
+                public void onNothingSelected(AdapterView<?> adapterView) {
+
+                }
+            });
         }
     }
 
     private void initListener() {
         mCustomers_button_back.setOnClickListener(this);
         mButton_next.setOnClickListener(this);
+        mCustomers_button_birthday.setOnClickListener(this);
+
     }
 
     @Override
@@ -148,9 +169,9 @@ public class ResetClientBasicActivity extends AppCompatActivity implements View.
                         .tag(this)
                         .params("client_id",String.valueOf(mClient_id))
                         .params("name", mName)
-                        .params("sex", String.valueOf(type))
+                        .params("sex",String.valueOf(type))
                         .params("tel", mCustomers_edittext_tel.getText().toString())
-//                        .params("birth", mCustomers_text_birthday.getText().toString())
+                        .params("birth", mCustomers_text_birthday.getText().toString())
                         .params("card_id", mCustomers_edittext_card_id.getText().toString())
                         .params("address", mCustomers_edittext_address1.getText().toString())
                         .execute(new StringCallback() {

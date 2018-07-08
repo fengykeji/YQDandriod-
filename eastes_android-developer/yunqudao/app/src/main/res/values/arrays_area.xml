@@ -3,6 +3,7 @@
     <!--* "26":{"type":"面积","param":[{"id":96,"param":"50"},-->
     <!--* {"id":97,"param":"50-90"},{"id":98,"param":"90-130"},{"id":99,"param":"130-150"},{"id":100,"param":"150"}]},-->
     <string-array name="面积">
+        <item></item>
         <item>50</item>
         <item>50-90</item>
         <item>90-130</item>

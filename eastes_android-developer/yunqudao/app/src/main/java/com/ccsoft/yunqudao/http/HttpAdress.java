@@ -26,13 +26,13 @@ public class HttpAdress {
     public static String disabled_project = AppConstants.URL+"agent/work/project/disabled";
 
     /*房源展示列表*/
-    public static String HOUSELIST = AppConstants.URL+"user/project/list?city=510700";
+    public static String HOUSELIST = AppConstants.URL+"user/project/list";
     /*房源项目详情*/
     public static String HOUSEDETAIL = AppConstants.URL+"user/project/detail";
     /*项目分析*/
-    public static String HOUSTANALYSE = AppConstants.URL+"user/houseType/analyse?";
+    public static String HOUSTANALYSE = AppConstants.URL+"user/houseType/analyse";
     /*项目规则*/
-    public static String HOUSEGETRULENEW = AppConstants.URL+"user/project/getRuleNew?project_id=3&agent_id=18";
+    public static String HOUSEGETRULENEW = AppConstants.URL+"user/project/getRuleNew";
     /*项目楼盘信息*/
     public static String BUILDINFO = AppConstants.URL+"user/project/buildInfo";
     /*项目动态列表*/
@@ -47,6 +47,10 @@ public class HttpAdress {
     public static String matchingproject = AppConstants.URL+"agent/matching/project";
     /*相册图片*/
     public static String imgget = AppConstants.URL+"user/img/get";
+    /*开放城市*/
+    public static String cityChoose = AppConstants.URL+"user/project/openCity";
+    /*客服信息*/
+    public static String getInfo = AppConstants.URL+"agent/client/getInfo";
 
 
     /*快速报备*/
@@ -72,8 +76,10 @@ public class HttpAdress {
     public static String DEALAPPEALAINLIST = AppConstants.URL+"agent/work/project/dealAppealList";
     /*申诉详情列表*/
     public static String APPEALDETAIL = AppConstants.URL+"agent/work/broker/appealDetail";
-    /*信息统计*/
+    /*经纪人信息统计*/
     public static String COUNT = AppConstants.URL+"agent/work/broker/count";
+    /*对接人信息统计*/
+
     /*申诉*/
     public static String SHENSU = AppConstants.URL+"agent/client/appeal";
     /*取消申诉*/
@@ -82,5 +88,19 @@ public class HttpAdress {
     public static String RECOMMEND = AppConstants.URL+"agent/client/recommend";
     /*确认失效*/
     public static String flushDate = AppConstants.URL+"agent/work/flushDate";
+
+
+    /*我的公司认证*/
+    public static String getAuthInfo = AppConstants.URL+"agent/personal/getAuthInfo";
+    /*公司列表*/
+    public static String getCompanyList = AppConstants.URL+"agent/personal/getCompanyList";
+    /*提交认证*/
+    public static String addAuthInfo = AppConstants.URL+"agent/personal/addAuthInfo";
+    /*未接佣金*/
+    public static String unPayList = AppConstants.URL+"agent/personal/unPayList";
+    /*已结佣金*/
+    public static String isPayList = AppConstants.URL+"agent/personal/isPayList";
+    /*佣金概况*/
+    public static String brokerInfo = AppConstants.URL+"agent/personal/brokerInfo";
 
 }

@@ -185,7 +185,11 @@ public class WorkChengjiaoVailddetailActivity extends AppCompatActivity{
                     work_commend_tel.setText(data.getData().getBroker_tel());
                     work_commend_project.setText(data.getData().getProject_name());
                     work_commend_client_name.setText(data.getData().getName());
-                    work_commend_client_sex.setText(data.getData().getSex() == 1 ? "男" : "女");
+                    if(data.getData().getSex() == 1){
+                        work_commend_client_sex.setText("男");
+                    }else if(data.getData().getSex() == 2){
+                        work_commend_client_sex.setText("女");
+                    }
                     work_commend_client_tel.setText(data.getData().getBroker_tel());
                     work_commend_project_address.setText(data.getData().getProvince_name() + "-" + data.getData().getCity_name() + "-" + data.getData().getDistrict_name());
                     work_commend_headcount.setText(data.getData().getVisit_num() + "");

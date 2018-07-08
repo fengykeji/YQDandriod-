@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.ImageView;
@@ -119,7 +120,13 @@ public class WorkCommendValidDetailActivity extends AppCompatActivity {
                     work_commend_tel.setText(data.broker_tel);
                     work_commend_project.setText(data.project_name);
                     work_commend_client_name.setText(data.name);
-                    work_commend_client_sex.setText(data.sex == 1 ? "男" : "女");
+
+                    if(data.sex == 1){
+                        work_commend_client_sex.setText("男");
+                    }else if(data.sex == 2){
+                        work_commend_client_sex.setText("女");
+                    }
+
                     work_commend_client_tel.setText(data.broker_tel);
                     work_commend_project_address.setText(data.province_name + " " + data.city_name + " " + data.district_name+" "+data.absolute_address);
 

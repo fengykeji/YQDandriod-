@@ -72,8 +72,9 @@ public class AddWorkActivity extends AppCompatActivity implements View.OnClickLi
     private String mName;
     private String mSex;
     private int    type;
-    String name ;
+    private String name ;
     int project_id;
+    private String mCustomers_tel,mCustomers_id,mCustomers_barthday,mCustomers_address;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -114,6 +115,20 @@ public class AddWorkActivity extends AppCompatActivity implements View.OnClickLi
         else {
             type = 2;
         }
+
+
+            mName = getIntent().getStringExtra("name");
+            mCustomers_tel = getIntent().getStringExtra("tel");
+            mCustomers_id = getIntent().getStringExtra("id");
+            mCustomers_barthday = getIntent().getStringExtra("barthday");
+            mCustomers_address  = getIntent().getStringExtra("address");
+
+        mCustomers_edittext_name.setText(mName);
+        mCustomers_edittext_tel.setText(mCustomers_tel);
+        mCustomers_edittext_card_id.setText(mCustomers_id);
+        mCustomers_text_barthday.setText(mCustomers_barthday);
+        mCustomers_edittext_address.setText(mCustomers_address);
+
         setProjectName();
     }
 
@@ -139,6 +154,12 @@ public class AddWorkActivity extends AppCompatActivity implements View.OnClickLi
 
             case R.id.button_next:
                 mName = mCustomers_edittext_name.getText().toString();
+                mCustomers_tel = mCustomers_edittext_tel.getText().toString();
+                mCustomers_id=mCustomers_edittext_card_id.getText().toString();
+                mCustomers_barthday = mCustomers_text_barthday.getText().toString();
+                mCustomers_address = mCustomers_edittext_address.getText().toString();
+
+
                 if (TextUtils.isEmpty(mCustomers_edittext_name.getText())) {
                     Toast.makeText(this, "请输入姓名", Toast.LENGTH_SHORT).show();
                     return;
@@ -165,10 +186,10 @@ public class AddWorkActivity extends AppCompatActivity implements View.OnClickLi
                         .tag(this)
                         .params("name", mName)
                         .params("sex", String.valueOf(type))
-                        .params("tel", mCustomers_edittext_tel.getText().toString())
-                        .params("card_id",mCustomers_edittext_card_id.getText().toString())
-                        .params("birth", mCustomers_text_barthday.getText().toString())
-                        .params("address",mCustomers_edittext_address.getText().toString())
+                        .params("tel", mCustomers_tel)
+                        .params("card_id",mCustomers_id)
+                        .params("birth", mCustomers_barthday)
+                        .params("address",mCustomers_address)
                         .params("project_id",project_id)
                         .execute(new MyStringCallBack() {
                             @Override
@@ -179,10 +200,11 @@ public class AddWorkActivity extends AppCompatActivity implements View.OnClickLi
                                 if(model.code==200){
                                     Toast.makeText(AddWorkActivity.this, ":快速报备成功", Toast.LENGTH_SHORT).show();
                                     sendBroadcast(new Intent(AppConstants.REFRESH_CUSTOM_LIST));
-//                                    AddCustomers2Activity.start(AddWorkActivity.this);
-                                    finish();
+//
+                                    Intent intent = new Intent(AddWorkActivity.this,WorkRecommendActivity.class);
+                                    startActivity(intent);
                                 }
-                                Toast.makeText(AddWorkActivity.this,"报备失败",Toast.LENGTH_SHORT).show();
+                                Toast.makeText(AddWorkActivity.this,model.msg,Toast.LENGTH_SHORT).show();
                             }
                         });
 
@@ -193,9 +215,18 @@ public class AddWorkActivity extends AppCompatActivity implements View.OnClickLi
                 break;
 
             case R.id.customers_edittext_projectName:
+                mName = mCustomers_edittext_name.getText().toString();
+                mCustomers_tel = mCustomers_edittext_tel.getText().toString();
+                mCustomers_id=mCustomers_edittext_card_id.getText().toString();
+                mCustomers_barthday = mCustomers_text_barthday.getText().toString();
+                mCustomers_address = mCustomers_edittext_address.getText().toString();
                 Intent intent = new Intent(this,QuickRecommendActivity.class);
+                intent.putExtra("name",mCustomers_edittext_name.getText().toString());
+                intent.putExtra("tel",mCustomers_edittext_tel.getText().toString());
+                intent.putExtra("id",mCustomers_edittext_card_id.getText().toString());
+                intent.putExtra("barthday", mCustomers_text_barthday.getText().toString());
+                intent.putExtra("address", mCustomers_edittext_address.getText().toString());
                 startActivity(intent);
-
                 break;
         }
     }
@@ -205,12 +236,15 @@ public class AddWorkActivity extends AppCompatActivity implements View.OnClickLi
      */
 
     private void setProjectName(){
+
         name = getIntent().getStringExtra("project_name");
         project_id = getIntent().getIntExtra("project_id",0);
-        customers_edittext_projectName.setText(name+"");
         if(name==null){
             customers_edittext_projectName.setText("");
+        }else {
+            customers_edittext_projectName.setText(name + "");
         }
+
 
     }
 

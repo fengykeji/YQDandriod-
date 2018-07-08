@@ -1,10 +1,12 @@
 package com.ccsoft.yunqudao.ui.customers;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.widget.SwipeRefreshLayout;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -30,6 +32,7 @@ import com.ccsoft.yunqudao.model.ClientListModel;
 import com.ccsoft.yunqudao.ui.adapter.QuickRecommendAdapter;
 import com.ccsoft.yunqudao.ui.listener.EndlessRecyclerOnScrollListener;
 import com.ccsoft.yunqudao.ui.work.AddWorkActivity;
+import com.ccsoft.yunqudao.ui.work.WrokCommendDisableDetailsActivity;
 import com.ccsoft.yunqudao.utils.ActivityManager;
 import com.ccsoft.yunqudao.utils.BaseCallBack;
 import com.ccsoft.yunqudao.utils.JsonUtil;
@@ -78,6 +81,8 @@ public class QuickRecommendActivity extends AppCompatActivity implements View.On
     private int                   mClienId;
     private SwipeRefreshLayout mSwipRefresh;
     private QuickRecommendBean quickRecommendBean;
+    private String  mName,mCustomers_tel,mCustomers_id,mCustomers_barthday,mCustomers_address;
+
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -111,6 +116,14 @@ public class QuickRecommendActivity extends AppCompatActivity implements View.On
         mQuick_recommend_list.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
         mAdapter = new QuickRecommendAdapter(this,R.layout.item_activity_house_type2, dataList);
         mQuick_recommend_list.setAdapter(mAdapter);
+
+        mName = getIntent().getStringExtra("name");
+        mCustomers_tel = getIntent().getStringExtra("tel");
+        mCustomers_id = getIntent().getStringExtra("id");
+        mCustomers_barthday = getIntent().getStringExtra("barthday");
+        mCustomers_address  = getIntent().getStringExtra("address");
+
+
     }
 
     private void getArgment() {
@@ -146,10 +159,31 @@ public class QuickRecommendActivity extends AppCompatActivity implements View.On
                                 Gson gson = new Gson();
                                 ResultData resultData = gson.fromJson(result, ResultData.class);
                                 if (resultData.code == 200) {
-                                    Toast.makeText(getApplicationContext(), "推荐成功", Toast.LENGTH_SHORT).show();
-                                    finish();
+                                    AlertDialog.Builder builder = new AlertDialog.Builder(QuickRecommendActivity.this);
+                                    builder.setTitle("推荐成功");
+                                    builder.setMessage(resultData.msg);
+                                    builder.setNegativeButton("确定", new DialogInterface.OnClickListener() {
+                                        @Override
+                                        public void onClick(DialogInterface dialogInterface, int i) {
+                                            finish();
+                                        }
+                                    });
+                                    AlertDialog dialog = builder.create();
+                                    dialog.show();
+
+
                                 } else {
-                                    Toast.makeText(getApplicationContext(), resultData.msg, Toast.LENGTH_SHORT).show();
+                                    AlertDialog.Builder builder = new AlertDialog.Builder(QuickRecommendActivity.this);
+                                    builder.setTitle("推荐失败");
+                                    builder.setMessage(resultData.msg);
+                                    builder.setNegativeButton("确定", new DialogInterface.OnClickListener() {
+                                        @Override
+                                        public void onClick(DialogInterface dialogInterface, int i) {
+
+                                        }
+                                    });
+                                    AlertDialog dialog = builder.create();
+                                    dialog.show();
                                 }
                             }
 
@@ -159,9 +193,15 @@ public class QuickRecommendActivity extends AppCompatActivity implements View.On
                             }
                         });
                     }else if(id==0&&mClienId==0) {
-                        Intent intent = new Intent(getApplicationContext(),AddWorkActivity.class);
+                        Intent intent = new Intent(QuickRecommendActivity.this,AddWorkActivity.class);
                         intent.putExtra("project_name",dataList.get(position).project_name);
                         intent.putExtra("project_id",dataList.get(position).project_id);
+
+                        intent.putExtra("name",mName);
+                        intent.putExtra("tel",mCustomers_tel);
+                        intent.putExtra("id",mCustomers_id);
+                        intent.putExtra("barthday",mCustomers_barthday);
+                        intent.putExtra("address",mCustomers_address);
                         startActivity(intent);
                     }
             }

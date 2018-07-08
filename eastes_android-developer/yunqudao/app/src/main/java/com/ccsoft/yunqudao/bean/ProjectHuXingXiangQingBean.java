@@ -1,8 +1,9 @@
 package com.ccsoft.yunqudao.bean;
 
+import java.io.Serializable;
 import java.util.List;
 
-public class ProjectHuXingXiangQingBean{
+public class ProjectHuXingXiangQingBean implements Serializable{
 
 
     /**
@@ -39,7 +40,7 @@ public class ProjectHuXingXiangQingBean{
         this.data = data;
     }
 
-    public static class DataBean {
+    public static class DataBean implements Serializable{
         /**
          * baseInfo : {"id":1,"property_area_min":100,"property_area_max":200,"sell_point":"毫无卖点","house_type_name":"S型洋房独栋"}
          * imgInfo : [{"type":"户型图","list":[]},{"type":"3D图","list":[{"img_id":4,"img_url":"upload/project/img/1524539204_37.png","img_describe":"asdasdasdasdsa","update_time":"2018-04-26 19:19:22","img_type":52},{"img_id":5,"img_url":"upload/agent/headimg/1523850012_10.jpg","img_describe":"asdasdasda","update_time":"2018-05-02 11:00:02","img_type":52}]},{"type":"效果图","list":[{"img_id":6,"img_url":"upload/project/img/1524539204_37.png","img_describe":"ewrewrewwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww","update_time":"2018-04-26 19:19:24","img_type":53},{"img_id":1,"img_url":"upload/agent/headimg/1523850012_10.jpg","img_describe":"www","update_time":"2018-04-24 16:06:36","img_type":53}]},{"type":"平面图","list":[{"img_id":2,"img_url":"upload/project/img/1524539204_37.png","img_describe":"sadsadsadas","update_time":"2018-04-24 16:45:04","img_type":54}]},{"type":"实景图","list":[{"img_id":3,"img_url":"upload/agent/headimg/1523850012_10.jpg","img_describe":"asdasdasda","update_time":"2018-04-28 18:49:10","img_type":55}]}]
@@ -64,7 +65,7 @@ public class ProjectHuXingXiangQingBean{
             this.imgInfo = imgInfo;
         }
 
-        public static class BaseInfoBean {
+        public static class BaseInfoBean implements Serializable{
             /**
              * id : 1
              * property_area_min : 100
@@ -120,7 +121,7 @@ public class ProjectHuXingXiangQingBean{
             }
         }
 
-        public static class ImgInfoBean {
+        public static class ImgInfoBean implements Serializable{
             /**
              * type : 户型图
              * list : []
@@ -145,7 +146,7 @@ public class ProjectHuXingXiangQingBean{
                 this.list = list;
             }
 
-            public static class listbean {
+            public static class listbean implements Serializable{
                 private int img_id;
                 private String img_url;
                 private String img_describe;

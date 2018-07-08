@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,9 +13,13 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 import com.ccsoft.yunqudao.R;
+import com.ccsoft.yunqudao.bean.GongSiRenZhengBean;
 import com.ccsoft.yunqudao.http.HttpAdress;
 import com.ccsoft.yunqudao.model.PersonCenterModel;
+import com.ccsoft.yunqudao.ui.me.GongSiRenZheng1Activity;
 import com.ccsoft.yunqudao.ui.me.GongSiRenZhengActivity;
+import com.ccsoft.yunqudao.ui.me.GongSiRenZhengWanActivity;
+import com.ccsoft.yunqudao.ui.me.GongSiRenZhengZhongActivity;
 import com.ccsoft.yunqudao.ui.me.GongZuoJingLiActivity;
 import com.ccsoft.yunqudao.ui.me.WoDeGuanZhuActivity;
 import com.ccsoft.yunqudao.ui.me.WoDeYongJinActivity;
@@ -24,6 +29,9 @@ import com.ccsoft.yunqudao.ui.me.PactActivity;
 import com.ccsoft.yunqudao.utils.JsonUtil;
 import com.lzy.okhttputils.OkHttpUtils;
 import com.lzy.okhttputils.callback.StringCallback;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import okhttp3.Call;
 import okhttp3.Response;
@@ -113,7 +121,49 @@ public class MeFragment extends Fragment implements View.OnClickListener {
 
                 break;
             case R.id.me_item_linearlayout_company:
-                GongSiRenZhengActivity.start(getActivity());
+//                GongSiRenZhengActivity.start(getActivity());
+                OkHttpUtils.get(HttpAdress.getAuthInfo)
+                        .tag(this)
+                        .execute(new StringCallback() {
+                            @Override
+                            public void onSuccess(String s, Call call, Response response) {
+                                int code = 0;
+                                String data =null;
+                                Object data1 = null;
+                                try {
+                                    JSONObject jsonObject = new JSONObject(s);
+                                    code = jsonObject.getInt("code");
+                                    data = jsonObject.getString("data");
+                                    data1 = jsonObject.getJSONObject("data");
+                                } catch (JSONException e) {
+                                    e.printStackTrace();
+                                }
+
+                                if (code == 200) {
+
+                                    if ( data1==null) {
+                                        Intent intent = new Intent(getContext(), GongSiRenZheng1Activity.class);
+                                        startActivity(intent);
+                                    } else  {
+                                        GongSiRenZhengBean bean = JsonUtil.jsonToEntity(s, GongSiRenZhengBean.class);
+                                        if (bean.getData().getState().equals("认证中")) {
+                                            Intent intent = new Intent(getContext(), GongSiRenZhengZhongActivity.class);
+                                            intent.putExtra("id", bean.getData().getId());
+                                            startActivity(intent);
+
+                                        } else if (bean.getData().getState().equals("认证通过")) {
+
+                                            Intent intent = new Intent(getContext(), GongSiRenZhengWanActivity.class);
+                                            intent.putExtra("id", bean.getData().getId());
+                                            startActivity(intent);
+
+                                        }
+
+                                    }
+                                }
+                            }
+                        });
+
                 break;
             case R.id.me_item_linearlayout_work_list:
                 GongZuoJingLiActivity.start(getActivity());

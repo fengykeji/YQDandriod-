@@ -7,17 +7,21 @@ import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.LinearLayout;
 import android.widget.SeekBar;
 import android.widget.Spinner;
+import android.widget.SpinnerAdapter;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.ccsoft.yunqudao.R;
+import com.ccsoft.yunqudao.bean.PeizhiBean;
 import com.ccsoft.yunqudao.data.AppConstants;
 import com.ccsoft.yunqudao.http.HttpAdress;
 import com.ccsoft.yunqudao.http.MyStringCallBack;
@@ -28,15 +32,24 @@ import com.ccsoft.yunqudao.utils.JsonUtil;
 import com.ccsoft.yunqudao.utils.LogUtil;
 import com.lzy.okhttputils.OkHttpUtils;
 
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
+
+import java.util.ArrayList;
+import java.util.List;
+
 import okhttp3.Call;
 import okhttp3.Response;
+
+import static com.ccsoft.yunqudao.ui.mian.MainActivity.savePeizhi;
 
 /**
  * @author: Pein
  * @data: 2018/5/28 0028
  */
 
-public class ResetClientNeedActivity extends AppCompatActivity implements View.OnClickListener, SeekBar.OnSeekBarChangeListener,AdapterView.OnItemSelectedListener {
+public class ResetClientNeedActivity extends AppCompatActivity implements View.OnClickListener, SeekBar.OnSeekBarChangeListener {
 
     private TextView    mCustomers_text_seekbar1;
     private TextView    mCustomers_text_seekbar2;
@@ -46,7 +59,7 @@ public class ResetClientNeedActivity extends AppCompatActivity implements View.O
     private Button      mCustomers_button_commit;
     private ImageButton mCustomers_button_add;
     private Spinner     mSpinner_address, mSpinner_property_type, mSpinner_total_price, mSpinner_area, mSpinner_house_type, mSpinner_decorated, mSpinner_buy_type, mSpinner_pay_type;
-    private TextView mNeed_text_address, mNeed_text_property_type, mNeed_text_total_price, mNeed_text_area, mNeed_text_house_type, mNeed_text_decorated, mNeed_text_buy_type, mNeed_text_pay_type;
+    private TextView mNeed_text_address, tv_showlabel,mNeed_text_property_type, mNeed_text_total_price, mNeed_text_area, mNeed_text_house_type, mNeed_text_decorated, mNeed_text_buy_type, mNeed_text_pay_type;
     private EditText et_floor_min,et_floor_max,et_comment;
     private String mString1;
     private String mString2;
@@ -57,22 +70,75 @@ public class ResetClientNeedActivity extends AppCompatActivity implements View.O
     private String mString7;
     private String mString8;
     private int house_type;
-    private int floor_min ;
-    private int floor_max ;
+    private String floor_min;
+    private String floor_max;
     private int decorate;
     private int buy_purpose;
     private int pay_type;
-    private int intent;
-    private int urgency;
+    private int price;
+    private int area;
+    private String intent;
+    private String urgency;
     private String comment;
     private ArrayAdapter adapter1,adapter2,adapter3,adapter4,adapter5,adapter6,adapter7,adapter8 ;
     private String need_id;
     private int property_type;
+    private ArrayList<Integer> Idlist = new ArrayList<>();
+    private List<String> list = new ArrayList<>();
+    private String need_tags = "";
+    private LinearLayout ll_showlabel;
+    private int propertyType = 0;//住宅类型
+    private int totalPrice   = 0;//总价类型
+    private int foor_min = 0;
+    private int foor_max = 0;
+    private int intents = 0;
+
+
+
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void doThis(IntentServiceResult intentServiceResult) {
+        Idlist = intentServiceResult.getList();
+        list = intentServiceResult.getLists();
+
+        if (Idlist != null) {
+            for (int i = 0; i < Idlist.size(); i++) {
+                int id = Idlist.get(i);
+                if (i == 0) {
+                    need_tags = String.valueOf(Idlist.get(i));
+                } else {
+                    need_tags = need_tags.concat("," + String.valueOf(id));
+                }
+            }
+        }
+
+        LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+        layoutParams.leftMargin = 6;
+        if (list != null) {
+            for (int i = 0; i < list.size(); i++) {
+                TextView textView = new TextView(ResetClientNeedActivity.this);
+                textView.setText(list.get(i));
+                textView.setBackgroundResource(R.drawable.shape_addlabel);
+                textView.setPadding(14, 14, 14, 14);
+                textView.setTextSize(19);
+                ll_showlabel.addView(textView, layoutParams);
+                tv_showlabel.setVisibility(View.GONE);
+            }
+        }
+
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        EventBus.getDefault().unregister(this);
+    }
 
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         ActivityManager.getInstance().addActivity(this);
         setContentView(R.layout.activity_customers_add_customers2);
+        EventBus.getDefault().register(this);
         initView();
         initListener();
     }
@@ -102,8 +168,8 @@ public class ResetClientNeedActivity extends AppCompatActivity implements View.O
         et_floor_min = findViewById(R.id.tv_floor_min);
         et_floor_max = findViewById(R.id.tv_floor_max);
         et_comment = findViewById(R.id.ed_comment);
-//        tv_showlabel = findViewById(R.id.tv_showlabel);
-//        ll_showlabel = findViewById(R.id.ll_showlabel);
+        tv_showlabel = findViewById(R.id.tv_showlabel);
+        ll_showlabel = findViewById(R.id.ll_showlabel);
 //        mNeed_text_property_type = findViewById(R.id.need_text_property_type);
 //        mNeed_text_total_price = findViewById(R.id.need_text_total_price);
 //        mNeed_text_area = findViewById(R.id.need_text_area);
@@ -121,7 +187,51 @@ public class ResetClientNeedActivity extends AppCompatActivity implements View.O
         mString8 = (String) mSpinner_pay_type.getSelectedItem();
 
         need_id = getIntent().getStringExtra("need_id");
+        property_type = getIntent().getIntExtra("propertyType",0);
+        totalPrice = getIntent().getIntExtra("totalPrice",0);
+        area = getIntent().getIntExtra("area",0);
+        decorate = getIntent().getIntExtra("decorate",0);
+        buy_purpose = getIntent().getIntExtra("buy_purpose",0);
+        pay_type = getIntent().getIntExtra("pay_type",0);
+        house_type = getIntent().getIntExtra("houseType",0);
+        need_tags = getIntent().getStringExtra("need_tags");
+        foor_min = getIntent().getIntExtra("foor_min",0);
+        foor_max = getIntent().getIntExtra("foor_max",0);
+        intents = getIntent().getIntExtra("intents",0);
+        urgency = String.valueOf(getIntent().getIntExtra("urgency",0));
+        comment = getIntent().getStringExtra("comment");
 
+
+        et_floor_min.setText(foor_min+"");
+        et_floor_max.setText(foor_max+"");
+        et_comment.setText(comment+"");
+        mCustomers_text_seekbar1.setText(intents+"");
+        mCustomers_text_seekbar2.setText(urgency+"");
+
+
+
+        if(need_tags!=null){
+            String[] b = need_tags.split(",");
+            PeizhiBean peizhiBean = savePeizhi();
+            for (PeizhiBean.DataBean._$15Bean.ParamBeanXXXXXXXXXXXXXX bean : peizhiBean.getData().get_$15().getParam()) {
+                for (String s : b) {
+                    if(bean.getId()==Integer.parseInt(s)) {
+                        LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+                        layoutParams.leftMargin = 6;
+                                TextView textView = new TextView(ResetClientNeedActivity.this);
+                                textView.setText(bean.getParam());
+                                textView.setBackgroundResource(R.drawable.shape_addlabel);
+                                textView.setPadding(14, 14, 14, 14);
+                                textView.setTextSize(19);
+                                ll_showlabel.addView(textView, layoutParams);
+                                tv_showlabel.setVisibility(View.GONE);
+
+                    }
+                }
+            }
+        }
+
+        setSpinnerData();
         setSpinnerAdapter();
     }
 
@@ -152,118 +262,133 @@ public class ResetClientNeedActivity extends AppCompatActivity implements View.O
                 break;
             case R.id.customers_button_commit:
 
-                if(mString2 == null){
-                    mString2 = "";
-                }else if(mString2.equals("住宅")){
+                if (mString2 == null) {
+                    property_type = 0;
+                } else if (mString2.equals("住宅")) {
                     property_type = 59;
-                }
-                else if(mString2.equals("公寓")){
+                } else if (mString2.equals("公寓")) {
                     property_type = 60;
-                }
-                else if(mString2.equals("别墅")){
+                } else if (mString2.equals("别墅")) {
                     property_type = 61;
-                }
-                else if(mString2.equals("商铺")){
+                } else if (mString2.equals("商铺")) {
                     property_type = 62;
-                }
-                else if(mString2.equals("写字楼")){
+                } else if (mString2.equals("写字楼")) {
                     property_type = 63;
                 }
-                if(mString3 == null){
-                    mString3 = "";
-                }
-                if(mString4 == null){
-                    mString4 = "";
-                }
-                if(mString5 == null){
-                    house_type=0;
-                }else if(mString5.equals("3室2厅2卫")){
-                    house_type=32;
-                }else if(mString5.equals("1室1厅2卫")){
-                    house_type=33;
-                }else if(mString5.equals("1室1厅1卫")){
-                    house_type=106;
-                }
-                if(et_floor_min.getText().toString().equals("")){
-                    floor_min = 0;
-                }else {
-                    floor_min = Integer.parseInt(et_floor_min.getText().toString());
-                }
-                if(et_floor_max.getText().toString().equals("")){
-                    floor_max = 0;
-                }else {
-                    floor_max = Integer.parseInt(et_floor_max.getText().toString());
-                }
-                if(mString6 == null){
-                    decorate=0;
-                }else if(mString6.equals("毛坯")){
-                    decorate = 80;
-                }else if(mString6.equals("简装")){
-                    decorate = 81;
-                }else if(mString6.equals("精装")){
-                    decorate = 82;
-                }
-                if(mString7 == null){
-                    buy_purpose=0;
-                }if(mString7.equals("投资")){
-                buy_purpose = 43;
-            }else if(mString7.equals("自住")){
-                buy_purpose = 44;
-            }else if(mString7.equals("投资兼自住")){
-                buy_purpose = 45;
-            }
-                if(mString8 == null){
-                    pay_type = 0 ;
-                }else {
-                    MainActivity.savePeizhi().getData().get_$13().getParam();
-                    for(int i=0;i<MainActivity.savePeizhi().getData().get_$13().getParam().size();i++){
-                        if(mString8.equals(MainActivity.savePeizhi().getData().get_$13().getParam().get(0))){
-                            pay_type = 46;
-                        }else if(mString8.equals(MainActivity.savePeizhi().getData().get_$13().getParam().get(1))){
-                            pay_type =47;
-                        }
-                        else if(mString8.equals(MainActivity.savePeizhi().getData().get_$13().getParam().get(2))){
-                            pay_type = 48;
-                        }else if(mString8.equals(MainActivity.savePeizhi().getData().get_$13().getParam().get(3))){
-                            pay_type = 49;
-                        }else if(mString8.equals(MainActivity.savePeizhi().getData().get_$13().getParam().get(4))){
-                            pay_type = 50;
-                        }
-                    }
-                }
-                if(mCustomers_text_seekbar1.getText().toString().equals("")){
-                    intent = 0;
-                }else {
-                    intent = Integer.parseInt(mCustomers_text_seekbar1.getText().toString());
-                }
-                if(mCustomers_text_seekbar2.getText().toString().equals("")){
-                    urgency = 0;
-                }else {
-                    urgency = Integer.parseInt(mCustomers_text_seekbar2.getText().toString());
+                if (mString3 == null) {
+                    price = 0;
+                }else if(mString3.equals("50")){
+                    price = 91;
+                }else if(mString3.equals("50-80")){
+                    price = 92;
+                }else if(mString3.equals("80-120")){
+                    price = 93;
+                }else if(mString3.equals("120-200")){
+                    price = 94;
+                }else if(mString3.equals("200")){
+                    price = 95;
                 }
 
-                if(et_comment.getText().toString()==null){
+                if (mString4 == null) {
+                    area = 0;
+                }else if(mString4.equals("50")){
+                    area=96;
+                }else if(mString4.equals("50-90")){
+                    area=97;
+                }else if(mString4.equals("90-130")){
+                    area=98;
+                }else if(mString4.equals("130-150")){
+                    area=99;
+                }else if(mString4.equals("150")){
+                    area=100;
+                }
+
+                if (mString5 == null) {
+                    house_type = 0;
+                } else if (mString5.equals("3室2厅2卫")) {
+                    house_type = 32;
+                } else if (mString5.equals("1室1厅2卫")) {
+                    house_type = 33;
+                } else if (mString5.equals("1室1厅1卫")) {
+                    house_type = 106;
+                }
+                if (et_floor_min.getText()==null) {
+                    floor_min = "";
+                } else {
+                    floor_min = et_floor_min.getText().toString();
+                }
+                if (et_floor_max.getText()==null) {
+                    floor_max = "";
+                } else {
+                    floor_max = et_floor_max.getText().toString();
+                }
+                if (mString6 == null) {
+                    decorate = 0;
+                } else if (mString6.equals("毛坯")) {
+                    decorate = 80;
+                } else if (mString6.equals("简装")) {
+                    decorate = 81;
+                } else if (mString6.equals("精装")) {
+                    decorate = 82;
+                }
+                if (mString7 == null) {
+                    buy_purpose = 0;
+                }
+                if (mString7.equals("投资")) {
+                    buy_purpose = 43;
+                } else if (mString7.equals("自住")) {
+                    buy_purpose = 44;
+                } else if (mString7.equals("投资兼自住")) {
+                    buy_purpose = 45;
+                }
+                if (mString8 == null) {
+                    pay_type = 0;
+                } else if (mString8.equals("一次性付款")) {
+                    pay_type = 46;
+                } else if (mString8.equals("公积金贷款")){
+                    pay_type = 47;
+                } else if (mString8.equals("综合贷款")) {
+                    pay_type = 48;
+                } else if (mString8.equals("银行按揭贷款")) {
+                    pay_type = 49;
+                } else if (mString8.equals("分期付款")) {
+                    pay_type = 50;
+                }
+
+                if (mCustomers_text_seekbar1.getText()==null) {
+                    intent = "";
+                } else {
+                    intent = mCustomers_text_seekbar1.getText().toString();
+                }
+                if (mCustomers_text_seekbar2.getText()==null) {
+                    urgency = "";
+                } else {
+                    urgency = mCustomers_text_seekbar2.getText().toString();
+                }
+
+                if (et_comment.getText() == null) {
                     comment = "";
-                }else {
+                } else {
                     comment = et_comment.getText().toString();
                 }
+
 
                 OkHttpUtils.post(HttpAdress.UPDATANEED)
                         .tag(this)
                         .params("need_id",need_id)
-                        .params("property_type",property_type)
-                        .params("total_price",mString3)
-                        .params("area",mString4)
-                        .params("house_type",house_type)
-                        .params("floor_min",floor_min)
-                        .params("floor_max",floor_max)
-                        .params("decorate",decorate)
-                        .params("buy_purpose",buy_purpose)
-                        .params("pay_type",pay_type)
-                        .params("intent",intent)
-                        .params("urgency",urgency)
-//                        .params("need_tags",)
-                        .params("comment",comment)
+                        .params("property_type", property_type)
+                        .params("total_price", price)
+                        .params("area", area)
+                        .params("house_type", house_type)
+                        .params("floor_min", floor_min)
+                        .params("floor_max", floor_max)
+                        .params("decorate", decorate)
+                        .params("buy_purpose", buy_purpose)
+                        .params("pay_type", pay_type)
+                        .params("intent", intent)
+                        .params("urgency", urgency)
+                        .params("need_tags", need_tags)
+                        .params("comment", comment)
                         .execute(new MyStringCallBack() {
                             @Override
                             public void onSuccess(String s, Call call, Response response) {
@@ -277,18 +402,31 @@ public class ResetClientNeedActivity extends AppCompatActivity implements View.O
 
                             }
                         });
-                finish();
                 break;
         }
     }
 
-    /**
-     * 滑动中
-     *
-     * @param seekBar
-     * @param progress
-     * @param fromUser
-     */
+    public  void setSpinnerItemSelectedByValue(Spinner spinner,String value) {
+        SpinnerAdapter apsAdapter = spinner.getAdapter(); //得到SpinnerAdapter对象
+        int k = apsAdapter.getCount();
+        for (int i = 0; i < k; i++) {
+            if (value.equals(apsAdapter.getItem(i).toString())) {
+//                spinner.setSelection(i,true);// 默认选中项
+                spinner.setSelection(i);// 默认选中项
+
+                break;
+            }
+        }
+    }
+
+
+            /**
+             * 滑动中
+             *
+             * @param seekBar
+             * @param progress
+             * @param fromUser
+             */
     @Override
     public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
 
@@ -328,109 +466,143 @@ public class ResetClientNeedActivity extends AppCompatActivity implements View.O
 
     }
 
-    @Override
-    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
 
-//        mString1 = (String) mSpinner_address.getSelectedItem();
-//        mNeed_text_address.setText(mString1);
-//
-//        mString2 = (String) mSpinner_property_type.getSelectedItem();
-//        mNeed_text_property_type.setText(mString2);
-//
-//        mString3 = (String) mSpinner_total_price.getSelectedItem();
-//
-//        mNeed_text_total_price.setText(mString3);
-//        mString4 = (String) mSpinner_area.getSelectedItem();
-//        mNeed_text_area.setText(mString4);
-//
-//        mString5 = (String) mSpinner_decorated.getSelectedItem();
-//        mNeed_text_house_type.setText(mString5);
-//
-//        mString6 = (String) mSpinner_buy_type.getSelectedItem();
-//        mNeed_text_decorated.setText(mString6);
-//
-//        mString7 = (String) mSpinner_pay_type.getSelectedItem();
-//        mNeed_text_buy_type.setText(mString7);
-//
-//        mString8 = (String) mSpinner_pay_type.getSelectedItem();
-//        mNeed_text_pay_type.setText(mString8);
-
-        switch (view.getId()) {
-//            case R.id.spinner_address:
-//                mString1 = (String) mSpinner_address.getSelectedItem();
-//                mNeed_text_address.setText(mString1);
-//                break;
-            case R.id.spinner_property_type:
-                mString2 = (String) adapter2.getItem(position);
-//        mNeed_text_property_type.setText(mString2);
-                break;
-            case R.id.spinner_total_price:
-                mString3 = (String) adapter3.getItem(position);
-//        mNeed_text_total_price.setText(mString3);
-                break;
-            case R.id.spinner_area:
-                mString4 = (String) adapter4.getItem(position);
-//        mNeed_text_area.setText(mString4);
-                break;
-            case R.id.spinner_house_type:
-                mString5 = (String) adapter5.getItem(position);
-//        mNeed_text_house_type.setText(mString5);
-                break;
-            case R.id.spinner_decorated:
-                mString6 = (String) adapter6.getItem(position);
-//        mNeed_text_decorated.setText(mString6);
-                break;
-            case R.id.spinner_buy_type:
-                mString7 = (String) adapter7.getItem(position);
-//        mNeed_text_buy_type.setText(mString7);
-                break;
-            case R.id.spinner_pay_type:
-                mString8 = (String) adapter8.getItem(position);
-                break;
-        }
-    }
-    @Override
-    public void onNothingSelected(AdapterView<?> parent) {
-
-    }
 
     /**
      * 设置spinner适配器监听
      */
     private void setSpinnerAdapter(){
-        adapter2 = ArrayAdapter.createFromResource(this,R.array.物业类型,
-                android.R.layout.simple_spinner_item);
-        mSpinner_property_type.setAdapter(adapter2);
-        mSpinner_property_type.setOnItemSelectedListener(this );
+        mSpinner_property_type.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                String[] data = getResources().getStringArray(R.array.物业类型);
+                mString2 = data[i];
+            }
 
-        adapter3 = ArrayAdapter.createFromResource(this,R.array.总价,
-                android.R.layout.simple_spinner_item);
-        mSpinner_total_price.setAdapter(adapter3);
-        mSpinner_total_price.setOnItemSelectedListener(this);
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
 
-        adapter4 = ArrayAdapter.createFromResource(this,R.array.面积,
-                android.R.layout.simple_spinner_item);
-        mSpinner_area.setAdapter(adapter4);
-        mSpinner_area.setOnItemSelectedListener(this);
+            }
+        });
+        mSpinner_total_price.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                String[] data = getResources().getStringArray(R.array.总价);
+                mString3 = data[i];
+            }
 
-        adapter5 = ArrayAdapter.createFromResource(this,R.array.户型,
-                android.R.layout.simple_spinner_item);
-        mSpinner_house_type.setAdapter(adapter5);
-        mSpinner_house_type.setOnItemSelectedListener(this);
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
 
-        adapter6 = ArrayAdapter.createFromResource(this,R.array.装修类型,
-                android.R.layout.simple_spinner_item);
-        mSpinner_decorated.setAdapter(adapter6);
-        mSpinner_decorated.setOnItemSelectedListener(this);
+            }
+        });
 
-        adapter7 = ArrayAdapter.createFromResource(this,R.array.置业目的,
-                android.R.layout.simple_spinner_item);
-        mSpinner_buy_type.setAdapter(adapter7);
-        mSpinner_buy_type.setOnItemSelectedListener(this);
+        mSpinner_area.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                String[] data = getResources().getStringArray(R.array.面积);
+                mString4 = data[i];
+            }
 
-        adapter8 = ArrayAdapter.createFromResource(this,R.array.付款方式,
-                android.R.layout.simple_spinner_item);
-        mSpinner_pay_type.setAdapter(adapter8);
-        mSpinner_pay_type.setOnItemSelectedListener(this);
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
+            }
+        });
+        mSpinner_house_type.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                String[] data = getResources().getStringArray(R.array.户型);
+                mString5 = data[i];
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
+            }
+        });
+        mSpinner_decorated.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                String[] data = getResources().getStringArray(R.array.装修类型);
+                mString6 = data[i];
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
+            }
+        });
+        mSpinner_buy_type.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                String[] data = getResources().getStringArray(R.array.置业目的);
+                mString7 = data[i];
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
+            }
+        });
+        mSpinner_pay_type.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                String[] data = getResources().getStringArray(R.array.付款方式);
+                mString8 = data[i];
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
+            }
+        });
     }
+
+    private void setSpinnerData(){
+        PeizhiBean peizhiBean = savePeizhi();
+        for (PeizhiBean.DataBean._$16Bean.ParamBeanXXXXXXXXXXXXXXX bean1 : peizhiBean.getData().get_$16().getParam()) {
+            if (bean1.getId() == property_type) {
+                setSpinnerItemSelectedByValue(mSpinner_property_type,bean1.getParam());
+            }
+        }
+
+        for (PeizhiBean.DataBean._$25Bean.ParamBeanXXXXXXXXXXXXXXXXXXXXXXX bean1 : peizhiBean.getData().get_$25().getParam()) {
+            if (bean1.getId() == totalPrice) {
+                setSpinnerItemSelectedByValue(mSpinner_total_price,bean1.getParam());
+            }
+        }
+
+        for (PeizhiBean.DataBean._$26Bean.ParamBeanXXXXXXXXXXXXXXXXXXXXXXXXX bean1 : peizhiBean.getData().get_$26().getParam()) {
+            if (bean1.getId() == area) {
+                setSpinnerItemSelectedByValue(mSpinner_area,bean1.getParam());
+            }
+        }
+
+        for (PeizhiBean.DataBean._$21Bean.ParamBeanXXXXXXXXXXXXXXXXXXXX bean1 : peizhiBean.getData().get_$21().getParam()) {
+            if (bean1.getId() == decorate) {
+                setSpinnerItemSelectedByValue(mSpinner_decorated,bean1.getParam());
+            }
+        }
+
+        for (PeizhiBean.DataBean._$9Bean.ParamBeanXXXXXXXX bean1 : peizhiBean.getData().get_$9().getParam()) {
+            if (bean1.getId() == house_type) {
+                setSpinnerItemSelectedByValue( mSpinner_house_type,bean1.getParam());
+            }
+        }
+
+        for (PeizhiBean.DataBean._$12Bean.ParamBeanXXXXXXXXXXX bean1 : peizhiBean.getData().get_$12().getParam()) {
+            if (bean1.getId() == buy_purpose) {
+                setSpinnerItemSelectedByValue( mSpinner_buy_type,bean1.getParam());
+            }
+        }
+
+        for (PeizhiBean.DataBean._$13Bean.ParamBeanXXXXXXXXXXXX bean1 : peizhiBean.getData().get_$13().getParam()) {
+            if (bean1.getId() == pay_type) {
+                setSpinnerItemSelectedByValue( mSpinner_pay_type,bean1.getParam());
+            }
+        }
+    }
+
+
 }

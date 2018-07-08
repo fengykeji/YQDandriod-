@@ -20,6 +20,7 @@ import com.ccsoft.yunqudao.data.model.response.ClientPrivateData;
 import com.ccsoft.yunqudao.data.model.response.OpenCityData;
 import com.ccsoft.yunqudao.http.XutilsHttp;
 import com.ccsoft.yunqudao.ui.adapter.OpenCityAdapter;
+import com.ccsoft.yunqudao.ui.home.HomeActivity;
 import com.ccsoft.yunqudao.utils.ActivityManager;
 import com.ccsoft.yunqudao.utils.indexbar.CubeIndexBar;
 import com.ccsoft.yunqudao.utils.indexbar.SuspensionDecoration;
@@ -97,10 +98,20 @@ public class OpenCityActivity extends AppCompatActivity implements View.OnClickL
         mSureTv.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent();
-                intent.putExtra("city",city_code );
-                setResult(RESULT_OK, intent);
-                finish();
+
+                if(getIntent().getIntExtra("id",0)==1){
+                    Intent intent = new Intent(OpenCityActivity.this, HomeActivity.class);
+                    intent.putExtra("city_code", city_code);
+                    intent.putExtra("city_name", city_name);
+                    intent.putExtra("fid",1);
+                    startActivity(intent);
+                }else {
+                    Intent intent = new Intent();
+                    intent.putExtra("city", city_code);
+                    intent.putExtra("city_name", city_name);
+                    setResult(RESULT_OK, intent);
+                    finish();
+                }
             }
         });
         mOpenCityAdapter.setOnItemClickListener(new BaseRecyclerViewAdapter.OnItemClickListener() {

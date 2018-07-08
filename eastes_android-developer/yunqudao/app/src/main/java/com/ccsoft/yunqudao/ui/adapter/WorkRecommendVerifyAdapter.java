@@ -25,7 +25,7 @@ public class WorkRecommendVerifyAdapter extends BaseRecyclerAdapter<BrokerWaitCo
         super(context, layoutId, data);
     }
     @Override
-    protected void convert(BaseViewHolder holder, BrokerWaitConfirmData.WaitConfirmData bean) {
+    protected void convert(BaseViewHolder holder, BrokerWaitConfirmData.WaitConfirmData bean,int position) {
         holder.setText(R.id.name,bean.name);
         holder.setText(R.id.recommend_num,String.valueOf(bean.client_id));
         holder.setText(R.id.recommend_name,bean.project_name);

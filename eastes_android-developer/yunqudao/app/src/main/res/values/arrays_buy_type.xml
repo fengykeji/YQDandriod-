@@ -2,6 +2,7 @@
 <resources>
     <!--* 12 : {"type":"置业目的","param":[{"id":43,"param":"投资"},{"id":44,"param":"自住"},{"id":45,"param":"投资兼自住"}]}-->
     <string-array name="置业目的">
+        <item></item>
         <item>投资</item>
         <item>自住</item>
         <item>投资兼自住</item>

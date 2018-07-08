@@ -24,7 +24,7 @@ public class AddLabelAdapter extends BaseRecyclerAdapter<PeizhiBean.DataBean._$1
 
 
     @Override
-    protected void convert(BaseViewHolder holder, PeizhiBean.DataBean._$15Bean.ParamBeanXXXXXXXXXXXXXX bean) {
+    protected void convert(BaseViewHolder holder, PeizhiBean.DataBean._$15Bean.ParamBeanXXXXXXXXXXXXXX bean,int position) {
         holder.setText(R.id.tv_need_tags,bean.getParam());
     }
 }

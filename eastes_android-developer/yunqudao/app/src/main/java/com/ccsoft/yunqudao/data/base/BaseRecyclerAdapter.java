@@ -119,7 +119,7 @@ public abstract class BaseRecyclerAdapter<T> extends RecyclerView.Adapter<Recycl
             }
             if (holder instanceof BaseViewHolder) {
                 ((BaseViewHolder) holder).setmPosition(position);
-                convert(((BaseViewHolder) holder), data.get(position));
+                convert(((BaseViewHolder) holder), data.get(position), position);
             }
         }else{
             if (position == data.size()+1) {
@@ -130,7 +130,7 @@ public abstract class BaseRecyclerAdapter<T> extends RecyclerView.Adapter<Recycl
             }
             if (holder instanceof BaseViewHolder) {
                 ((BaseViewHolder) holder).setmPosition(position-1);
-                convert(((BaseViewHolder) holder), data.get(position-1));
+                convert(((BaseViewHolder) holder), data.get(position-1), position);
             }
         }
 
@@ -157,7 +157,7 @@ public abstract class BaseRecyclerAdapter<T> extends RecyclerView.Adapter<Recycl
 
     }
 
-    protected abstract void convert(BaseViewHolder holder, T bean);
+    protected abstract void convert(BaseViewHolder holder, T bean ,int position);
 
     @Override
     public int getItemCount() {

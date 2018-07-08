@@ -25,7 +25,7 @@ public class PipeiliebiaoAdapter extends BaseRecyclerAdapter<PipeiBean.DataBean.
 
 
     @Override
-    protected void convert(BaseViewHolder holder, PipeiBean.DataBean.ListBean bean) {
+    protected void convert(BaseViewHolder holder, PipeiBean.DataBean.ListBean bean ,int position) {
         holder.setText(R.id.content_tv1,"匹配度："+bean.getSort());
 
         holder.setImageResource(R.id.icon_iv, AppConstants.URL + bean.getImg_url());

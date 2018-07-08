@@ -5,8 +5,10 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.webkit.WebView;
+import android.webkit.WebViewClient;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import com.ccsoft.yunqudao.R;
@@ -48,6 +50,9 @@ public class ProjectDongTaiXiangQingActivity extends AppCompatActivity implement
         mHouse_button_linearlayout_项目图册 = findViewById(R.id.house_button_linearlayout_项目图册);
 
         loadUrl = getIntent().getStringExtra("url");
+        webView.getSettings().setJavaScriptEnabled(true);
+        webView.setWebViewClient(new WebViewClient());
+
         webView.loadUrl(AppConstants.URL+loadUrl);
 
     }

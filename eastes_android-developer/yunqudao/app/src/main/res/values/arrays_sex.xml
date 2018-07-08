@@ -2,6 +2,7 @@
 <resources>
 
     <string-array name="性别">
+        <item>""</item>
 
         <item>男</item>
         <item>女</item>

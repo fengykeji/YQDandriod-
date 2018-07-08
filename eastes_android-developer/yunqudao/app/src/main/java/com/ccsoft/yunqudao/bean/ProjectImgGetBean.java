@@ -1,5 +1,6 @@
 package com.ccsoft.yunqudao.bean;
 
+import java.io.Serializable;
 import java.util.List;
 
 public class ProjectImgGetBean {
@@ -38,7 +39,7 @@ public class ProjectImgGetBean {
         this.data = data;
     }
 
-    public static class DataBeanX {
+    public static class DataBeanX implements Serializable{
         /**
          * name : 3D图
          * data : [{"img_id":6,"img_url":"upload/agent/headimg/1523850012_10.jpg","create_time":"2018-04-20 16:49:55","comment":"奥术大师多所","sort":1},{"img_id":7,"img_url":"upload/project/img/1524463483_23.png","create_time":"2018-04-23 10:24:55","comment":"ASD","sort":2}]

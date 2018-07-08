@@ -4,6 +4,7 @@
     <!--* {"id":93,"param":"80-120"},{"id":94,"param":"120-200"},{"id":95,"param":"200"}]},-->
 
     <string-array name="总价">
+        <item></item>
         <item>50</item>
         <item>50-80</item>
         <item>80-120</item>

@@ -70,11 +70,11 @@ public class WorkReportVerifyActivity extends AppCompatActivity {
         id = intent.getIntExtra("id", 0);
         Log.d("1111111------->", "id:" + id);
         initData();
-        timeOver();
+
     }
 
     private void initView() {
-        mNumTv = findViewById(R.id.num_tv);
+//        mNumTv = findViewById(R.id.num_tv);
         mTime_Tv = findViewById(R.id.work_commend_time);
         mPeople1Tv = findViewById(R.id.work_commend_people);
         mTelTv = findViewById(R.id.work_commend_tel);
@@ -124,7 +124,7 @@ public class WorkReportVerifyActivity extends AppCompatActivity {
     }
 
     private void setInfo(WorkReportVerifyDetailData workReportVerifyDetailData) {
-        mNumTv.setText(workReportVerifyDetailData.getData().getName());
+//        mNumTv.setText(workReportVerifyDetailData.getData().getName());
         mTime_Tv.setText(workReportVerifyDetailData.getData().getCreate_time());
         mPeople1Tv.setText(workReportVerifyDetailData.getData().getBroker_name());
         mTelTv.setText(workReportVerifyDetailData.getData().getBroker_tel());
@@ -150,16 +150,20 @@ public class WorkReportVerifyActivity extends AppCompatActivity {
 
         finishTime = workReportVerifyDetailData.getData().getTimeLimit();
         handler.post(runnable);
+
+
     }
 
     int finishTime;
+    String time;
     Handler handler = new Handler();
 
     Runnable runnable = new Runnable() {
         @Override
         public void run() {
-            String time = DataUtils.getTime(finishTime);
+             time = DataUtils.getTime(finishTime);
             String[] times = time.split("-");
+            timeOver();
             date_day.setText(times[0]);
             date_hour.setText(times[1]);
             date_minute.setText(times[2]);
@@ -169,7 +173,7 @@ public class WorkReportVerifyActivity extends AppCompatActivity {
     };
 
     private void timeOver(){
-        if(finishTime==0){
+        if(time.equals("0-0-0-0")){
             OkHttpUtils.get(HttpAdress.flushDate)
                     .tag(this)
                     .execute(new StringCallback() {

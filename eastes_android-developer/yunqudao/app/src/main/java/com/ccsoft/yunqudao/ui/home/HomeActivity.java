@@ -39,6 +39,7 @@ public class HomeActivity extends AppCompatActivity implements BottomNavigationB
     private WorkFragment        mWorkFragment;
     private Fragment            mFragment;//当前显示的Fragment
     private long firstTime = 0;//记录用户首次点击返回键的时间
+    private int fid;
 
     public HomeActivity() {}
     public static void start(Context context) {
@@ -51,27 +52,41 @@ public class HomeActivity extends AppCompatActivity implements BottomNavigationB
         super.onCreate(savedInstanceState);
         ActivityManager.getInstance().addActivity(this);
         setContentView(R.layout.activity_main);
+        initView();
         ButterKnife.bind(this);
         //底部导航栏
         setBottomNavigationBar();
         //setBottomNavigationBar的选中事件
         mBottomNavigationBar.setTabSelectedListener(this);
-        initView();
+
     }
 
     private void initView() {
-        //mMessageFragment = new MessageFragment();
+         fid= getIntent().getIntExtra("fid",0);
+        mMessageFragment = new MessageFragment();
         mHouseFragment = new HouseFragment();
         mCustomersFragment = new CustomersFragment();
         mWorkFragment = new WorkFragment();
         mMeFragment = new MeFragment();
 
         mFragmentTransaction = getSupportFragmentManager().beginTransaction();
-        mFragmentTransaction.replace(R.id.frameLayout,mCustomersFragment)
-        //mFragmentTransaction.replace(R.id.frameLayout, mMessageFragment)
-                   .commit();
-        //mFragment = mMessageFragment;
-        mFragment = mCustomersFragment;
+//        mFragmentTransaction.replace(R.id.frameLayout,mCustomersFragment)
+        if(fid == 1){
+            mFragmentTransaction.replace(R.id.frameLayout, mHouseFragment)
+                    .commit();
+            mFragment = mHouseFragment;
+
+        }else if(fid == 2){
+            mFragmentTransaction.replace(R.id.frameLayout, mCustomersFragment)
+                    .commit();
+            mFragment = mCustomersFragment;
+        }
+        else {
+            mFragmentTransaction.replace(R.id.frameLayout, mMessageFragment)
+                    .commit();
+            mFragment = mMessageFragment;
+        }
+//        mFragment = mCustomersFragment;
     }
 
     private void setBottomNavigationBar() {
@@ -95,31 +110,39 @@ public class HomeActivity extends AppCompatActivity implements BottomNavigationB
          * 添加导航按钮
          */
 
-        //mBottomNavigationBar.addItem(new BottomNavigationItem(R.drawable.ic_message_selected, "消息").setActiveColorResource(R.color.qianlan).setInactiveIconResource(R.drawable.ic_message));
+        mBottomNavigationBar.addItem(new BottomNavigationItem(R.drawable.ic_message_selected, "消息").setActiveColorResource(R.color.qianlan).setInactiveIconResource(R.drawable.ic_message));
         mBottomNavigationBar.addItem(new BottomNavigationItem(R.drawable.ic_housing_selected, "房源").setActiveColorResource(R.color.qianlan).setInactiveIconResource(R.drawable.ic_housing));
         mBottomNavigationBar.addItem(new BottomNavigationItem(R.drawable.ic_customers_selected, "客源").setActiveColorResource(R.color.qianlan).setInactiveIconResource(R.drawable.ic_customers));
         mBottomNavigationBar.addItem(new BottomNavigationItem(R.drawable.ic_work_selected, "工作").setActiveColorResource(R.color.qianlan).setInactiveIconResource(R.drawable.ic_work2));
         mBottomNavigationBar.addItem(new BottomNavigationItem(R.drawable.ic_me_selected, "我的").setActiveColorResource(R.color.qianlan).setInactiveIconResource(R.drawable.ic_me));
-        mBottomNavigationBar.setFirstSelectedPosition(0);
+        mBottomNavigationBar.setInActiveColor(R.color.huxing);
+        if(fid==1){
+            mBottomNavigationBar.setFirstSelectedPosition(1);
+        }else if(fid == 2){
+            mBottomNavigationBar.setFirstSelectedPosition(2);
+
+        } else {
+            mBottomNavigationBar.setFirstSelectedPosition(0);
+        }
         mBottomNavigationBar.initialise();
     }
 
     @Override
     public void onTabSelected(int position) {
         switch (position){
-            //case 0:
-            //    switchFragment(mMessageFragment);
-            //    break;
             case 0:
-                switchFragment(mHouseFragment);
+                switchFragment(mMessageFragment);
                 break;
             case 1:
-                switchFragment(mCustomersFragment);
+                switchFragment(mHouseFragment);
                 break;
             case 2:
-                switchFragment(mWorkFragment);
+                switchFragment(mCustomersFragment);
                 break;
             case 3:
+                switchFragment(mWorkFragment);
+                break;
+            case 4:
                 switchFragment(mMeFragment);
                 break;
         }

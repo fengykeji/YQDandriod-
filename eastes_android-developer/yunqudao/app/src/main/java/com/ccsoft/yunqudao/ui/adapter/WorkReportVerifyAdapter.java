@@ -28,7 +28,7 @@ public class WorkReportVerifyAdapter extends BaseRecyclerAdapter<RecordAffirmBas
 
 
     @Override
-    protected void convert(BaseViewHolder holder, RecordAffirmBaseData.DataBean bean) {
+    protected void convert(BaseViewHolder holder, RecordAffirmBaseData.DataBean bean,int position) {
         holder.setText(R.id.name_tv,bean.name);
         holder.setText(R.id.num_tv,String.valueOf(bean.client_id));
         holder.setText(R.id.place_tv,bean.project_name);

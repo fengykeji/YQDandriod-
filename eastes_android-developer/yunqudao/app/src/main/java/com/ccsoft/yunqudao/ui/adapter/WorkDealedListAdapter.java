@@ -15,7 +15,7 @@ public class WorkDealedListAdapter extends BaseRecyclerAdapter<WorkDealedBean.Da
     }
 
     @Override
-    protected void convert(BaseViewHolder holder, WorkDealedBean.DataBeanX.DataBean bean) {
+    protected void convert(BaseViewHolder holder, WorkDealedBean.DataBeanX.DataBean bean,int position) {
         holder.setText(R.id.name_tv,bean.getName());
         holder.setText(R.id.num_tv,String.valueOf(bean.getClient_id()));
         holder.setText(R.id.place_tv,bean.getProject_name());

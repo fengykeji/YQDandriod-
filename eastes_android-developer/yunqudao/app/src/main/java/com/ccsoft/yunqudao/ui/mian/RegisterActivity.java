@@ -26,6 +26,7 @@ import com.ccsoft.yunqudao.model.StringModel;
 import com.ccsoft.yunqudao.rx.RxSchedulers;
 import com.ccsoft.yunqudao.ui.me.PactActivity;
 import com.ccsoft.yunqudao.utils.ActivityManager;
+import com.ccsoft.yunqudao.utils.InputUtil;
 import com.ccsoft.yunqudao.utils.JsonUtil;
 import com.ccsoft.yunqudao.utils.LogUtil;
 import com.lzy.okhttputils.OkHttpUtils;
@@ -117,6 +118,10 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
 
                 if (TextUtils.isEmpty(account)) {
                     Toast.makeText(this, "手机号不能为空", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                if (!InputUtil.isMobileLegal(account)) {
+                    Toast.makeText(this, "请输入正确的手机号1", Toast.LENGTH_SHORT).show();
                     return;
                 }
                 if (!isMoble(account)) {
@@ -244,7 +249,6 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
                             Toast.makeText(RegisterActivity.this,"注册成功",Toast.LENGTH_LONG).show();
                             finish();
                         }
-                        Log.e("sssa",model.getMsg());
                         Toast.makeText(RegisterActivity.this,model.getMsg(),Toast.LENGTH_SHORT).show();
                     }
                 });

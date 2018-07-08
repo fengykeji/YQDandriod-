@@ -1,5 +1,7 @@
 package com.ccsoft.yunqudao.bean;
 
+import com.google.gson.annotations.SerializedName;
+
 import java.io.Serializable;
 import java.util.List;
 
@@ -9,7 +11,7 @@ public class HouseDetailBean implements Serializable{
     /**
      * code : 200
      * msg : 查询成功
-     * data : {"project_basic_info":{"project_id":1,"project_name":"云算2","absolute_address":"成都郫县菁蓉大禹东路123号","sale_state":"待售","average_price":70000,"project_tags":"56,57,58","developer_name":"云算公馆","total_float_url":"http://120.27.21.136:2798/upload/agent/headimg/1523850012_10.jpg","total_float_url_phone":"upload/agent/headimg/1526565231_31.jpg","longitude":103.86763,"latitude":30.78698349,"yunsuan_url":"39.108.60.120:10009","yunsuan_id":13,"property_type":["商铺","别墅"]},"dynamic":{"first":{"dynamic_id":2,"title":"测试标题","create_time":"2018-03-26 00:00:00","update_time":"2018-03-26 14:42:59","img_url":"","content":"测试内容","state":1},"count":5},"house_type":[{"id":1,"house_type_name":"S型洋房独栋","house_type":"3室2厅2卫","sale_state":"待售","img_url":"upload/project/img/1524539204_37.png","property_area_min":100,"property_area_max":200},{"id":2,"house_type_name":"A型别墅","house_type":"1室1厅2卫","sale_state":"在售","img_url":"upload/agent/headimg/1523850012_10.jpg","property_area_min":100,"property_area_max":200},{"id":3,"house_type_name":"B型公寓","house_type":"1室1厅1卫","sale_state":"售罄","img_url":"upload/project/img/1524539204_37.png","property_area_min":200,"property_area_max":2520},{"id":4,"house_type_name":"C型公寓","house_type":"3室2厅2卫","sale_state":"待售","img_url":"upload/agent/headimg/1523850012_10.jpg","property_area_min":100,"property_area_max":788},{"id":5,"house_type_name":"D型公寓","house_type":"1室1厅2卫","sale_state":"待售","img_url":"upload/project/img/1524539204_37.png","property_area_min":355,"property_area_max":600},{"id":6,"house_type_name":"E型公寓","house_type":"1室1厅1卫","sale_state":"待售","img_url":"upload/agent/headimg/1523850012_10.jpg","property_area_min":200,"property_area_max":200}],"project_img":{"url":[{"img_url":"upload/agent/headimg/1523850012_10.jpg"},{"img_url":"upload/agent/headimg/1523850012_10.jpg"},{"img_url":"upload/project/img/1524463483_23.png"},{"img_url":"upload/project/img/1524463483_23.png"},{"img_url":"upload/project/img/1524463483_23.png"},{"img_url":"upload/agent/headimg/1523850012_10.jpg"},{"img_url":"upload/project/img/1524463483_23.png"}]},"build_info":{"handing_room_time":"2018-05-08","open_time":"2018-05-08","open_way":"网上开盘"},"focus":{"num":7,"is_focus":0},"butter_tel":"15082245102"}
+     * data : {"project_basic_info":{"project_id":1,"project_name":"翡翠滨江","absolute_address":"四川省绵阳市三台县涪滨路","sale_state":"待售","average_price":6000,"project_tags":"145,146","developer_name":"三台县鸿州房地产开发有限公司","total_float_url":"upload/project/img/1529910374_21.jpg","total_float_url_phone":"upload/project/img/1529914691_58.jpg","longitude":105.11082458,"latitude":31.10180855,"yunsuan_url":"","yunsuan_id":0,"property_type":["住宅","公寓"]},"dynamic":{"first":{"dynamic_id":31,"title":"232","create_time":"2018-07-03 10:07:06","update_time":"2018-07-03 10:07:06","abstract":"4324334","url":"upload/project/dynamic/31.html"},"count":5},"house_type":[{"id":26,"house_type_name":"A型户型","house_type":"3室2厅2卫","sale_state":"待售","img_url":"upload/project/img/1530676746_46.jpg","property_area_min":214,"property_area_max":412},{"id":3,"house_type_name":"B型公寓","house_type":"1室1厅1卫","sale_state":"售罄","img_url":"upload/project/img/hx.jpg","property_area_min":200,"property_area_max":2520},{"id":2,"house_type_name":"C型别墅","house_type":"3室2厅2卫","sale_state":"在售","img_url":"upload/project/img/hx.jpg","property_area_min":200,"property_area_max":300},{"id":52,"house_type_name":"D户型","house_type":"3室2厅1卫","sale_state":"待售","img_url":"","property_area_min":200,"property_area_max":300},{"id":27,"house_type_name":"E型房","house_type":"3室2厅1卫","sale_state":"待售","img_url":null,"property_area_min":80,"property_area_max":120},{"id":50,"house_type_name":"G型别墅","house_type":"3室2厅2卫","sale_state":"待售","img_url":null,"property_area_min":100,"property_area_max":200}],"project_img":{"url":[{"img_url":"upload/aio/2018-06-07/1528381828811087.jpg"},{"img_url":"upload/project/img/1530584382_96.jpeg"},{"img_url":"upload/project/img/1528186024_84.jpg"},{"img_url":"upload/project/img/1530502259_71.jpeg"},{"img_url":"upload/project/img/1528186052_58.jpg"},{"img_url":"upload/project/img/1528273888_94.jpg"},{"img_url":"upload/project/img/1530261030_88.jpg"},{"img_url":"upload/aio/2018-06-07/1528381810302274.jpg"},{"img_url":"upload/project/img/1530521842_13.jpg"},{"img_url":"upload/project/img/1530697677_75.png"}]},"build_info":{"handing_room_time":"2018-06-03","open_time":"2018-06-02","open_way":"线下开盘"},"focus":{"num":8,"is_focus":0},"butter_tel":"15983804767"}
      */
 
     private int code;
@@ -42,13 +44,13 @@ public class HouseDetailBean implements Serializable{
 
     public static class DataBean implements Serializable{
         /**
-         * project_basic_info : {"project_id":1,"project_name":"云算2","absolute_address":"成都郫县菁蓉大禹东路123号","sale_state":"待售","average_price":70000,"project_tags":"56,57,58","developer_name":"云算公馆","total_float_url":"http://120.27.21.136:2798/upload/agent/headimg/1523850012_10.jpg","total_float_url_phone":"upload/agent/headimg/1526565231_31.jpg","longitude":103.86763,"latitude":30.78698349,"yunsuan_url":"39.108.60.120:10009","yunsuan_id":13,"property_type":["商铺","别墅"]}
-         * dynamic : {"first":{"dynamic_id":2,"title":"测试标题","create_time":"2018-03-26 00:00:00","update_time":"2018-03-26 14:42:59","img_url":"","content":"测试内容","state":1},"count":5}
-         * house_type : [{"id":1,"house_type_name":"S型洋房独栋","house_type":"3室2厅2卫","sale_state":"待售","img_url":"upload/project/img/1524539204_37.png","property_area_min":100,"property_area_max":200},{"id":2,"house_type_name":"A型别墅","house_type":"1室1厅2卫","sale_state":"在售","img_url":"upload/agent/headimg/1523850012_10.jpg","property_area_min":100,"property_area_max":200},{"id":3,"house_type_name":"B型公寓","house_type":"1室1厅1卫","sale_state":"售罄","img_url":"upload/project/img/1524539204_37.png","property_area_min":200,"property_area_max":2520},{"id":4,"house_type_name":"C型公寓","house_type":"3室2厅2卫","sale_state":"待售","img_url":"upload/agent/headimg/1523850012_10.jpg","property_area_min":100,"property_area_max":788},{"id":5,"house_type_name":"D型公寓","house_type":"1室1厅2卫","sale_state":"待售","img_url":"upload/project/img/1524539204_37.png","property_area_min":355,"property_area_max":600},{"id":6,"house_type_name":"E型公寓","house_type":"1室1厅1卫","sale_state":"待售","img_url":"upload/agent/headimg/1523850012_10.jpg","property_area_min":200,"property_area_max":200}]
-         * project_img : {"url":[{"img_url":"upload/agent/headimg/1523850012_10.jpg"},{"img_url":"upload/agent/headimg/1523850012_10.jpg"},{"img_url":"upload/project/img/1524463483_23.png"},{"img_url":"upload/project/img/1524463483_23.png"},{"img_url":"upload/project/img/1524463483_23.png"},{"img_url":"upload/agent/headimg/1523850012_10.jpg"},{"img_url":"upload/project/img/1524463483_23.png"}]}
-         * build_info : {"handing_room_time":"2018-05-08","open_time":"2018-05-08","open_way":"网上开盘"}
-         * focus : {"num":7,"is_focus":0}
-         * butter_tel : 15082245102
+         * project_basic_info : {"project_id":1,"project_name":"翡翠滨江","absolute_address":"四川省绵阳市三台县涪滨路","sale_state":"待售","average_price":6000,"project_tags":"145,146","developer_name":"三台县鸿州房地产开发有限公司","total_float_url":"upload/project/img/1529910374_21.jpg","total_float_url_phone":"upload/project/img/1529914691_58.jpg","longitude":105.11082458,"latitude":31.10180855,"yunsuan_url":"","yunsuan_id":0,"property_type":["住宅","公寓"]}
+         * dynamic : {"first":{"dynamic_id":31,"title":"232","create_time":"2018-07-03 10:07:06","update_time":"2018-07-03 10:07:06","abstract":"4324334","url":"upload/project/dynamic/31.html"},"count":5}
+         * house_type : [{"id":26,"house_type_name":"A型户型","house_type":"3室2厅2卫","sale_state":"待售","img_url":"upload/project/img/1530676746_46.jpg","property_area_min":214,"property_area_max":412},{"id":3,"house_type_name":"B型公寓","house_type":"1室1厅1卫","sale_state":"售罄","img_url":"upload/project/img/hx.jpg","property_area_min":200,"property_area_max":2520},{"id":2,"house_type_name":"C型别墅","house_type":"3室2厅2卫","sale_state":"在售","img_url":"upload/project/img/hx.jpg","property_area_min":200,"property_area_max":300},{"id":52,"house_type_name":"D户型","house_type":"3室2厅1卫","sale_state":"待售","img_url":"","property_area_min":200,"property_area_max":300},{"id":27,"house_type_name":"E型房","house_type":"3室2厅1卫","sale_state":"待售","img_url":null,"property_area_min":80,"property_area_max":120},{"id":50,"house_type_name":"G型别墅","house_type":"3室2厅2卫","sale_state":"待售","img_url":null,"property_area_min":100,"property_area_max":200}]
+         * project_img : {"url":[{"img_url":"upload/aio/2018-06-07/1528381828811087.jpg"},{"img_url":"upload/project/img/1530584382_96.jpeg"},{"img_url":"upload/project/img/1528186024_84.jpg"},{"img_url":"upload/project/img/1530502259_71.jpeg"},{"img_url":"upload/project/img/1528186052_58.jpg"},{"img_url":"upload/project/img/1528273888_94.jpg"},{"img_url":"upload/project/img/1530261030_88.jpg"},{"img_url":"upload/aio/2018-06-07/1528381810302274.jpg"},{"img_url":"upload/project/img/1530521842_13.jpg"},{"img_url":"upload/project/img/1530697677_75.png"}]}
+         * build_info : {"handing_room_time":"2018-06-03","open_time":"2018-06-02","open_way":"线下开盘"}
+         * focus : {"num":8,"is_focus":0}
+         * butter_tel : 15983804767
          */
 
         private ProjectBasicInfoBean project_basic_info;
@@ -115,22 +117,22 @@ public class HouseDetailBean implements Serializable{
             this.house_type = house_type;
         }
 
-        public static class ProjectBasicInfoBean {
+        public static class ProjectBasicInfoBean implements Serializable{
             /**
              * project_id : 1
-             * project_name : 云算2
-             * absolute_address : 成都郫县菁蓉大禹东路123号
+             * project_name : 翡翠滨江
+             * absolute_address : 四川省绵阳市三台县涪滨路
              * sale_state : 待售
-             * average_price : 70000
-             * project_tags : 56,57,58
-             * developer_name : 云算公馆
-             * total_float_url : http://120.27.21.136:2798/upload/agent/headimg/1523850012_10.jpg
-             * total_float_url_phone : upload/agent/headimg/1526565231_31.jpg
-             * longitude : 103.86763
-             * latitude : 30.78698349
-             * yunsuan_url : 39.108.60.120:10009
-             * yunsuan_id : 13
-             * property_type : ["商铺","别墅"]
+             * average_price : 6000
+             * project_tags : 145,146
+             * developer_name : 三台县鸿州房地产开发有限公司
+             * total_float_url : upload/project/img/1529910374_21.jpg
+             * total_float_url_phone : upload/project/img/1529914691_58.jpg
+             * longitude : 105.11082458
+             * latitude : 31.10180855
+             * yunsuan_url :
+             * yunsuan_id : 0
+             * property_type : ["住宅","公寓"]
              */
 
             private int project_id;
@@ -261,9 +263,9 @@ public class HouseDetailBean implements Serializable{
             }
         }
 
-        public static class DynamicBean {
+        public static class DynamicBean implements Serializable{
             /**
-             * first : {"dynamic_id":2,"title":"测试标题","create_time":"2018-03-26 00:00:00","update_time":"2018-03-26 14:42:59","img_url":"","content":"测试内容","state":1}
+             * first : {"dynamic_id":31,"title":"232","create_time":"2018-07-03 10:07:06","update_time":"2018-07-03 10:07:06","abstract":"4324334","url":"upload/project/dynamic/31.html"}
              * count : 5
              */
 
@@ -286,24 +288,31 @@ public class HouseDetailBean implements Serializable{
                 this.count = count;
             }
 
-            public static class FirstBean {
+            public static class FirstBean implements Serializable{
                 /**
-                 * dynamic_id : 2
-                 * title : 测试标题
-                 * create_time : 2018-03-26 00:00:00
-                 * update_time : 2018-03-26 14:42:59
-                 * img_url :
-                 * content : 测试内容
-                 * state : 1
+                 * dynamic_id : 31
+                 * title : 232
+                 * create_time : 2018-07-03 10:07:06
+                 * update_time : 2018-07-03 10:07:06
+                 * abstract : 4324334
+                 * url : upload/project/dynamic/31.html
                  */
 
                 private int dynamic_id;
                 private String title;
                 private String create_time;
                 private String update_time;
-                private String img_url;
-                private String content;
-                private int state;
+                private String url;
+                private String abstracts;
+
+                public void setAbstracts(String abstracts) {
+                    this.abstracts = abstracts;
+                }
+
+                public String getAbstracts() {
+
+                    return abstracts;
+                }
 
                 public int getDynamic_id() {
                     return dynamic_id;
@@ -337,33 +346,18 @@ public class HouseDetailBean implements Serializable{
                     this.update_time = update_time;
                 }
 
-                public String getImg_url() {
-                    return img_url;
+
+                public String getUrl() {
+                    return url;
                 }
 
-                public void setImg_url(String img_url) {
-                    this.img_url = img_url;
-                }
-
-                public String getContent() {
-                    return content;
-                }
-
-                public void setContent(String content) {
-                    this.content = content;
-                }
-
-                public int getState() {
-                    return state;
-                }
-
-                public void setState(int state) {
-                    this.state = state;
+                public void setUrl(String url) {
+                    this.url = url;
                 }
             }
         }
 
-        public static class ProjectImgBean {
+        public static class ProjectImgBean implements Serializable{
             private List<UrlBean> url;
 
             public List<UrlBean> getUrl() {
@@ -374,9 +368,9 @@ public class HouseDetailBean implements Serializable{
                 this.url = url;
             }
 
-            public static class UrlBean {
+            public static class UrlBean implements Serializable{
                 /**
-                 * img_url : upload/agent/headimg/1523850012_10.jpg
+                 * img_url : upload/aio/2018-06-07/1528381828811087.jpg
                  */
 
                 private String img_url;
@@ -391,11 +385,11 @@ public class HouseDetailBean implements Serializable{
             }
         }
 
-        public static class BuildInfoBean {
+        public static class BuildInfoBean implements Serializable{
             /**
-             * handing_room_time : 2018-05-08
-             * open_time : 2018-05-08
-             * open_way : 网上开盘
+             * handing_room_time : 2018-06-03
+             * open_time : 2018-06-02
+             * open_way : 线下开盘
              */
 
             private String handing_room_time;
@@ -427,9 +421,9 @@ public class HouseDetailBean implements Serializable{
             }
         }
 
-        public static class FocusBean {
+        public static class FocusBean implements Serializable{
             /**
-             * num : 7
+             * num : 8
              * is_focus : 0
              */
 
@@ -455,13 +449,13 @@ public class HouseDetailBean implements Serializable{
 
         public static class HouseTypeBean implements Serializable{
             /**
-             * id : 1
-             * house_type_name : S型洋房独栋
+             * id : 26
+             * house_type_name : A型户型
              * house_type : 3室2厅2卫
              * sale_state : 待售
-             * img_url : upload/project/img/1524539204_37.png
-             * property_area_min : 100
-             * property_area_max : 200
+             * img_url : upload/project/img/1530676746_46.jpg
+             * property_area_min : 214
+             * property_area_max : 412
              */
 
             private int id;

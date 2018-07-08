@@ -15,11 +15,11 @@ public class WorkChengjiaoDisableListAdapter extends BaseRecyclerAdapter<WorkDea
     }
 
     @Override
-    protected void convert(BaseViewHolder holder, WorkDealBean.DataBeanX.DataBean bean) {
+    protected void convert(BaseViewHolder holder, WorkDealBean.DataBeanX.DataBean bean,int position) {
         holder.setText(R.id.name_tv,bean.getName());
         holder.setText(R.id.num_tv,String.valueOf(bean.getClient_id()));
         holder.setText(R.id.place_tv,bean.getProject_name());
         holder.setText(R.id.start_date_tv,bean.getCreate_time()+"");
-        holder.setText(R.id.end_date_tv,bean.getTimsLimit()+"");
+        holder.setText(R.id.end_date_tv,bean.getState_change_time()+"");
     }
 }

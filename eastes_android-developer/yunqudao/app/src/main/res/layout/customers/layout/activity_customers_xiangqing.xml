@@ -96,14 +96,16 @@
                             />
                     </LinearLayout>
 
-                    <ImageButton
+                    <TextView
                         android:id="@+id/customers_button_resetclientbasic"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignParentRight="true"
                         android:layout_centerVertical="true"
                         android:background="@android:color/transparent"
-                        android:src="@drawable/ic_eidt"
+                        android:text="编辑"
+                        android:textColor="@color/liji_material_blue_500"
+
                         />
                 </RelativeLayout>
 

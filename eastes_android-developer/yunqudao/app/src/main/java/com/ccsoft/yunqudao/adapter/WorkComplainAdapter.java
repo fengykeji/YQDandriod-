@@ -18,7 +18,7 @@ public class WorkComplainAdapter extends BaseRecyclerAdapter<AppealBean.DataBean
     }
 
     @Override
-    protected void convert(BaseViewHolder holder, AppealBean.DataBeanX.DataBean bean) {
+    protected void convert(BaseViewHolder holder, AppealBean.DataBeanX.DataBean bean,int position) {
         holder.setText(R.id.name_tv,bean.getName());
         holder.setText(R.id.num_tv,bean.getProject_client_id()+"");
         holder.setText(R.id.place_tv,bean.getProject_name());

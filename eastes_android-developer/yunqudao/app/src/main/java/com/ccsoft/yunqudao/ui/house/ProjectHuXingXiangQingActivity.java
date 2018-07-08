@@ -128,8 +128,8 @@ public class ProjectHuXingXiangQingActivity extends AppCompatActivity implements
 
                 Intent intent = new Intent(ProjectHuXingXiangQingActivity.this,ProjectHuXingXiangQingActivity.class);
                 Bundle bundle = new Bundle();
-                bundle.putSerializable("list", (Serializable) dataList2);
-                intent.putExtra("id",dataList2.get(position).getId());
+                bundle.putSerializable("list", (Serializable) dataList);
+                intent.putExtra("id",dataList.get(position).getId());
                 intent.putExtras(bundle);
                 startActivity(intent);
             }

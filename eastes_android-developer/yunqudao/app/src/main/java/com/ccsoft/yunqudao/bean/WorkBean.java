@@ -2,10 +2,11 @@ package com.ccsoft.yunqudao.bean;
 
 public class WorkBean {
 
+
     /**
      * code : 200
      * msg : 查询成功
-     * data : {"recommend":{"value":6,"total":8,"disabled":1},"preparation":{"value":1,"total":6,"disabled":5},"deal":{"value":1,"total":1,"disabled":0}}
+     * data : {"recommend":{"value":5,"total":18,"disabled":13},"preparation":{"disabled":1,"count":5,"value":4},"deal":{"total":4,"disabled":1,"value":3}}
      */
 
     private int code;
@@ -38,9 +39,9 @@ public class WorkBean {
 
     public static class DataBean {
         /**
-         * recommend : {"value":6,"total":8,"disabled":1}
-         * preparation : {"value":1,"total":6,"disabled":5}
-         * deal : {"value":1,"total":1,"disabled":0}
+         * recommend : {"value":5,"total":18,"disabled":13}
+         * preparation : {"disabled":1,"count":5,"value":4}
+         * deal : {"total":4,"disabled":1,"value":3}
          */
 
         private RecommendBean recommend;
@@ -73,9 +74,9 @@ public class WorkBean {
 
         public static class RecommendBean {
             /**
-             * value : 6
-             * total : 8
-             * disabled : 1
+             * value : 5
+             * total : 18
+             * disabled : 13
              */
 
             private int value;
@@ -109,30 +110,14 @@ public class WorkBean {
 
         public static class PreparationBean {
             /**
-             * value : 1
-             * total : 6
-             * disabled : 5
+             * disabled : 1
+             * count : 5
+             * value : 4
              */
 
-            private int value;
-            private int total;
             private int disabled;
-
-            public int getValue() {
-                return value;
-            }
-
-            public void setValue(int value) {
-                this.value = value;
-            }
-
-            public int getTotal() {
-                return total;
-            }
-
-            public void setTotal(int total) {
-                this.total = total;
-            }
+            private int count;
+            private int value;
 
             public int getDisabled() {
                 return disabled;
@@ -140,27 +125,35 @@ public class WorkBean {
 
             public void setDisabled(int disabled) {
                 this.disabled = disabled;
+            }
+
+            public int getCount() {
+                return count;
+            }
+
+            public void setCount(int count) {
+                this.count = count;
+            }
+
+            public int getValue() {
+                return value;
+            }
+
+            public void setValue(int value) {
+                this.value = value;
             }
         }
 
         public static class DealBean {
             /**
-             * value : 1
-             * total : 1
-             * disabled : 0
+             * total : 4
+             * disabled : 1
+             * value : 3
              */
 
-            private int value;
             private int total;
             private int disabled;
-
-            public int getValue() {
-                return value;
-            }
-
-            public void setValue(int value) {
-                this.value = value;
-            }
+            private int value;
 
             public int getTotal() {
                 return total;
@@ -176,6 +169,14 @@ public class WorkBean {
 
             public void setDisabled(int disabled) {
                 this.disabled = disabled;
+            }
+
+            public int getValue() {
+                return value;
+            }
+
+            public void setValue(int value) {
+                this.value = value;
             }
         }
     }

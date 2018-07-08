@@ -50,15 +50,15 @@ public class Test3Adapter extends PagerAdapter {
 
         ImageView iv = new ImageView(mContext);
             Picasso.with(mContext).load(AppConstants.URL+mPaths.get(position).getImg_url())
-                    .error(R.drawable.ic_launcher_background)
+                    .error(R.drawable.default_3)
                     .into(iv);//载入bitmap
 
         iv.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(mContext,ProjectXiangCeActivity.class);
-                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                mContext.startActivity(intent);
+//                Intent intent = new Intent(mContext,ProjectXiangCeActivity.class);
+//                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+//                mContext.startActivity(intent);
             }
         });
         ((ViewPager)container).addView(iv, 0);

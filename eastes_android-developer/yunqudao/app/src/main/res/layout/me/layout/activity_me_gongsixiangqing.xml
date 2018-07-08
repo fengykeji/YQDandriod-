@@ -12,8 +12,9 @@
         android:padding="20dp"
         >
         <ImageButton
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:id="@+id/im_back"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
             android:layout_centerVertical="true"
             android:background="@android:color/transparent"
             android:src="@drawable/ic_leftarrow"
@@ -31,6 +32,7 @@
 
 
     <LinearLayout
+
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
@@ -38,6 +40,57 @@
         >
 
         <LinearLayout
+            android:padding="10dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+            <ImageView
+                android:id="@+id/im_photo"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/default_3"/>
+
+            <LinearLayout
+                android:padding="10dp"
+                android:orientation="vertical"
+                android:layout_marginLeft="10dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <TextView
+                    android:id="@+id/tv_company"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="四川运算科技"
+                    android:textSize="15sp"/>
+                <TextView
+                    android:id="@+id/tv_content"
+                    android:textSize="15sp"
+                    android:text="内容"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+                <RelativeLayout
+                    android:layout_marginTop="30dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                    <TextView
+                        android:id="@+id/tv_lianxi"
+                        android:text="联系方式："
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+                    <TextView
+                        android:id="@+id/tv_fuzheren"
+                        android:text="负责人："
+                        android:layout_alignParentRight="true"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+                </RelativeLayout>
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:visibility="gone"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
@@ -185,6 +238,7 @@
                 android:background="@drawable/shape_case"
                 >
                 <TextView
+                    android:id="@+id/tv_jianjie"
                     android:text="使用DialogFragment来管理对话框，当旋转屏幕和按下后退键时可以更好的管理其声明周期，
                     它和Fragment有着基本一致的声明周期。且DialogFragment也允许开发者把Dialog作为内嵌的组件进行重用，
                     类似Fragment（可以在大屏幕和小屏幕显示出不同的效果）。上面会通过例子展示这些好处~
@@ -210,6 +264,7 @@
         >
 
         <Button
+            android:id="@+id/bt_sure"
             android:text="选择该公司"
             android:textSize="15sp"
             android:textColor="@color/chunbai"

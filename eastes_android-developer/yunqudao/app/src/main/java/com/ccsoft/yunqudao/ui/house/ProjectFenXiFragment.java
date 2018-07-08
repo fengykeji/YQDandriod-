@@ -34,6 +34,7 @@ public class ProjectFenXiFragment extends Fragment {
     private ProjectFenXiFragment mProjectFenXiFragment;
     private TextView content_tv6,content_tv7,content_tv8,content_tv9;
     private HouseAnalyseBean houseAnalyseBean;
+    private int project_id;
 
     @Nullable
     @Override
@@ -51,17 +52,19 @@ public class ProjectFenXiFragment extends Fragment {
         content_tv7 = mView.findViewById(R.id.content_tv7);
         content_tv8 = mView.findViewById(R.id.content_tv8);
         content_tv9 = mView.findViewById(R.id.content_tv9);
+
+        project_id = getActivity().getIntent().getIntExtra("project_id",0);
     }
     private void initListener(){
 
     }
     private void loadHouseAnalyse(){
-        OkHttpManager.getInstance().get(HttpAdress.HOUSTANALYSE + "project_id=" + 3, new BaseCallBack() {
+        OkHttpManager.getInstance().get(HttpAdress.HOUSTANALYSE + "?project_id=" + project_id, new BaseCallBack() {
             @Override
             public void onSuccess(Call call, Response response, Object obj) throws MalformedURLException {
                 Type type = new TypeToken<HouseAnalyseBean>() {}.getType();
                 houseAnalyseBean = new Gson().fromJson(obj.toString(),type);
-                Log.e("houseAnalyseBean",houseAnalyseBean.getMsg());
+
 
                 if(houseAnalyseBean.getMsg()!=null&&houseAnalyseBean.getCode()==200) {
                     content_tv6.setText(houseAnalyseBean.getData().getAdvantage());

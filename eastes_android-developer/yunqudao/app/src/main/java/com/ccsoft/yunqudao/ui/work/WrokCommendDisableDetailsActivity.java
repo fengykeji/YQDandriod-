@@ -179,6 +179,8 @@ public class WrokCommendDisableDetailsActivity extends AppCompatActivity impleme
 
                                         }
                                     });
+                                    AlertDialog dialog = builder.create();
+                                    dialog.show();
                                 }
                                 if(model.getCode()==400){
                                     AlertDialog.Builder builder = new AlertDialog.Builder(WrokCommendDisableDetailsActivity.this);

@@ -27,6 +27,7 @@ import java.io.Serializable;
 import java.lang.reflect.Type;
 import java.net.MalformedURLException;
 import java.util.ArrayList;
+import java.util.List;
 
 import okhttp3.Call;
 import okhttp3.Response;
@@ -97,11 +98,15 @@ public class ProjectXiangCeActivity extends AppCompatActivity implements View.On
                     ArrayList<Fragment> fragments = new ArrayList<>();
                     ArrayList<String> mTitles = new ArrayList<>();
                     Bundle bundle = new Bundle();
+                    ArrayList<ProjectImgGetBean.DataBeanX> list =new ArrayList<>();
+
 
                     for (ProjectImgGetBean.DataBeanX dataBeanX : bean.getData()) {
                         ProjectXiangCeFragment fragment = new ProjectXiangCeFragment();
                         fragments.add(fragment);
-                        bundle.putSerializable("list", (Serializable)dataBeanX.getData());
+                        list.add(dataBeanX);
+                        bundle.putSerializable("list", (Serializable) list);
+                        bundle.putSerializable("lists", (Serializable) dataBeanX.getData());
                         fragment.setArguments(bundle);
                         mTitles.add(dataBeanX.getName());
                     }
@@ -109,6 +114,22 @@ public class ProjectXiangCeActivity extends AppCompatActivity implements View.On
                     MyFragmentPagerAdapter fragmentPagerAdapter = new MyFragmentPagerAdapter(getSupportFragmentManager(),  fragments,  mTitles);
                     mHouse_viewpager_图册.setAdapter(fragmentPagerAdapter);
                     tabLayout.setupWithViewPager(mHouse_viewpager_图册);
+                    mHouse_viewpager_图册.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+                        @Override
+                        public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+
+                        }
+
+                        @Override
+                        public void onPageSelected(int position) {
+
+                        }
+                        @Override
+                        public void onPageScrollStateChanged(int state) {
+
+                        }
+                    });
+
                 }
 
             }

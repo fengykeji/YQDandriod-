@@ -18,7 +18,7 @@ public class CustomersMatchAdapter extends BaseRecyclerAdapter<PipeiBean.DataBea
     }
 
     @Override
-    protected void convert(BaseViewHolder holder, PipeiBean.DataBean.RecommendProjectBean bean) {
+    protected void convert(BaseViewHolder holder, PipeiBean.DataBean.RecommendProjectBean bean ,int position) {
         holder.setText(R.id.tv_project_name,bean.getProject_name());
         holder.setText(R.id.tv_state_change_time,bean.getState_change_time());
         TextView textView= (TextView) holder.getView(R.id.tv_disabled_state);

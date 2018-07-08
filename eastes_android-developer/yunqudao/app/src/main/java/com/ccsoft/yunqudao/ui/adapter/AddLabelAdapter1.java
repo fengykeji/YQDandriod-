@@ -14,7 +14,7 @@ public class AddLabelAdapter1 extends BaseRecyclerAdapter<String>{
     }
 
     @Override
-    protected void convert(BaseViewHolder holder, String bean) {
+    protected void convert(BaseViewHolder holder, String bean,int position) {
         holder.setText(R.id.tv_need_tags,bean);
     }
 }

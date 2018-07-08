@@ -72,7 +72,7 @@
                     android:layout_height="wrap_content"
                     android:text="个人资料"
                     android:textColor="@color/chunhei"
-                    android:textSize="18sp"
+                    android:textSize="15sp"
                     />
             </LinearLayout>
 
@@ -137,7 +137,7 @@
                     android:layout_height="wrap_content"
                     android:text="公司认证"
                     android:textColor="@color/chunhei"
-                    android:textSize="18sp"
+                    android:textSize="15sp"
                     />
             </LinearLayout>
 
@@ -218,7 +218,7 @@
                     android:layout_height="wrap_content"
                     android:text="工作经历"
                     android:textColor="@color/chunhei"
-                    android:textSize="18sp"
+                    android:textSize="15sp"
                     />
             </LinearLayout>
 
@@ -283,7 +283,7 @@
                     android:layout_height="wrap_content"
                     android:text="我的佣金"
                     android:textColor="@color/chunhei"
-                    android:textSize="18sp"
+                    android:textSize="15sp"
                     />
             </LinearLayout>
 
@@ -348,7 +348,7 @@
                     android:layout_height="wrap_content"
                     android:text="我的关注"
                     android:textColor="@color/chunhei"
-                    android:textSize="18sp"
+                    android:textSize="15sp"
                     />
             </LinearLayout>
 
@@ -413,7 +413,7 @@
                     android:layout_height="wrap_content"
                     android:text="意见反馈"
                     android:textColor="@color/chunhei"
-                    android:textSize="18sp"
+                    android:textSize="15sp"
                     />
             </LinearLayout>
 
@@ -478,7 +478,7 @@
                     android:layout_height="wrap_content"
                     android:text="关于云算"
                     android:textColor="@color/chunhei"
-                    android:textSize="18sp"
+                    android:textSize="15sp"
                     />
             </LinearLayout>
 

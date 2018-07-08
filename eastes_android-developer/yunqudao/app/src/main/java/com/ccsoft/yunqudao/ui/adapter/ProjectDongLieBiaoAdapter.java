@@ -16,7 +16,7 @@ public class ProjectDongLieBiaoAdapter extends BaseRecyclerAdapter<DongLieBiaoBe
     }
 
     @Override
-    protected void convert(BaseViewHolder holder, DongLieBiaoBean.DataBeanX.DataBean bean) {
+    protected void convert(BaseViewHolder holder, DongLieBiaoBean.DataBeanX.DataBean bean,int position) {
         holder.setText(R.id.tv_title,bean.getTitle());
         holder.setText(R.id.tv_time,bean.getCreate_time());
         holder.setText(R.id.tv_content,bean.getContent());

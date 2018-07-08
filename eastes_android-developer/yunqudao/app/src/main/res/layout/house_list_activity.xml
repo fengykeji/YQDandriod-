@@ -18,8 +18,8 @@
             >
             <ImageView
                 android:id="@+id/icon_iv"
-                android:layout_width="100dp"
-                android:layout_height="100dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
                 android:src="@drawable/ic_launcher_background"
                 />
@@ -148,6 +148,7 @@
                         android:layout_marginRight="15dp"
                         android:text=""
                         android:textSize="14sp"
+                        android:textColor="@color/juse"
                         />
                 </LinearLayout>
                 <LinearLayout

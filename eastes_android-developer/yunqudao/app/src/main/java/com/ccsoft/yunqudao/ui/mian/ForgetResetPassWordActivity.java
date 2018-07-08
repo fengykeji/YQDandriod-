@@ -7,6 +7,7 @@ import android.os.Handler;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -18,10 +19,14 @@ import com.ccsoft.yunqudao.http.HttpAdress;
 import com.ccsoft.yunqudao.http.XutilsHttp;
 import com.ccsoft.yunqudao.model.StringModel;
 import com.ccsoft.yunqudao.utils.ActivityManager;
+import com.ccsoft.yunqudao.utils.BaseCallBack;
+import com.ccsoft.yunqudao.utils.InputUtil;
 import com.ccsoft.yunqudao.utils.JsonUtil;
+import com.ccsoft.yunqudao.utils.OkHttpManager;
 import com.lzy.okhttputils.OkHttpUtils;
 import com.lzy.okhttputils.callback.StringCallback;
 
+import java.net.MalformedURLException;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -104,6 +109,10 @@ public class ForgetResetPassWordActivity extends AppCompatActivity implements Vi
                     Toast.makeText(this, "请输入正确的手机号", Toast.LENGTH_SHORT).show();
                     return;
                 }
+                if (!InputUtil.isMobileLegal(account)) {
+                    Toast.makeText(this, "请输入正确的手机号1", Toast.LENGTH_SHORT).show();
+                    return;
+                }
                 if (TextUtils.isEmpty(captcha)) {
                     Toast.makeText(this, "验证码不能为空", Toast.LENGTH_SHORT).show();
                     return;
@@ -135,7 +144,7 @@ public class ForgetResetPassWordActivity extends AppCompatActivity implements Vi
 
                 forgetpassword(account, password, againpassword, captcha);
 
-                LoginActivity.start(this);
+
 
                 break;
         }
@@ -189,24 +198,26 @@ public class ForgetResetPassWordActivity extends AppCompatActivity implements Vi
 
     private void forgetpassword(String account, String password, String againpassword, String captcha) {
 
-        Map<String, String> params = new HashMap<>();
-        params.put("tel",account);
-        params.put("password",password);
-        params.put("password_verify",againpassword);
-        params.put("captcha",captcha);
 
-        XutilsHttp.getInstance().post(AppConstants.URL + "user/resetPassword", params, new XutilsHttp.XCallBack() {
-            @Override
-            public void onResponse(String result) {
-                Toast.makeText(ForgetResetPassWordActivity.this,"修改密码成功",Toast.LENGTH_LONG).show();
-                finish();
-            }
+        OkHttpUtils.post(AppConstants.URL+"user/resetPassword")
+                .tag(this)
+                .params("tel", account)
+                .params("password", password)
+                .params("password_verify", againpassword)
+                .params("captcha", captcha)
+                .execute(new StringCallback() {
+                    @Override
+                    public void onSuccess(String s, Call call, Response response) {
+                        StringModel model = JsonUtil.jsonToEntity(s,StringModel.class);
 
-            @Override
-            public void error(String message) {
-                Toast.makeText(ForgetResetPassWordActivity.this, "修改失败:" + message, Toast.LENGTH_SHORT).show();
-            }
-        });
+                        if(model.getCode()==200){
+                            Toast.makeText(ForgetResetPassWordActivity.this,"修改成功",Toast.LENGTH_LONG).show();
+                            LoginActivity.start(ForgetResetPassWordActivity.this);
+                        }else {
+                            Toast.makeText(ForgetResetPassWordActivity.this, "修改失败", Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                });
     }
 
     private static boolean isMoble(String telnumber) {

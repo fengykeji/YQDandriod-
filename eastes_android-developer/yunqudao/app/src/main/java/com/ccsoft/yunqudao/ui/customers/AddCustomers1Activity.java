@@ -9,11 +9,13 @@ import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
+import android.widget.SpinnerAdapter;
 import android.widget.TextView;
 import android.widget.Toast;
 import com.ccsoft.yunqudao.data.AppConstants;
@@ -30,6 +32,7 @@ import com.ccsoft.yunqudao.utils.IDCardCheckUtil;
 import com.ccsoft.yunqudao.utils.InputUtil;
 import com.ccsoft.yunqudao.utils.JsonUtil;
 import com.ccsoft.yunqudao.utils.wheelview.TimePickerView;
+import com.lljjcoder.citypickerview.widget.CityPicker;
 import com.lzy.okhttputils.OkHttpUtils;
 
 import java.text.ParseException;
@@ -49,7 +52,7 @@ import okhttp3.Response;
  * @data: 2018/5/4 0004
  */
 
-public class AddCustomers1Activity extends AppCompatActivity implements View.OnClickListener {
+public class AddCustomers1Activity extends AppCompatActivity implements View.OnClickListener,AdapterView.OnItemSelectedListener {
     /**
      * 添加客户1 id
      *
@@ -58,7 +61,7 @@ public class AddCustomers1Activity extends AppCompatActivity implements View.OnC
     private ImageButton  mCustomers_button_back;
     private EditText     mCustomers_edittext_name;
     private Spinner      mCustomers_spinner_sex;
-    private TextView     mCustomers_text_barthday;
+    private TextView     mCustomers_text_barthday,mNeed_text_address2;
     private ImageButton  mCustomers_button_birthday;
     private LinearLayout mCustomers_linearlayout_tel;
     private TextView     mCustomers_edittext_tel;
@@ -92,11 +95,13 @@ public class AddCustomers1Activity extends AppCompatActivity implements View.OnC
         /**
          * 初始化id
          */
+
         mCustomers_button_back = findViewById(R.id.customers_button_back);
         mCustomers_edittext_name = findViewById(R.id.customers_edittext_name);
         mCustomers_spinner_sex = findViewById(R.id.customers_spinner_sex);
         mCustomers_text_barthday = findViewById(R.id.customers_text_birthday);
         mCustomers_button_birthday = findViewById(R.id.customers_button_birthday);
+        mNeed_text_address2 = findViewById(R.id.customers_edittext_address2);
 
         mCustomers_linearlayout_tel = findViewById(R.id.customers_linearlayout_tel);
         mCustomers_edittext_tel = findViewById(R.id.customers_edittext_tel);
@@ -105,13 +110,28 @@ public class AddCustomers1Activity extends AppCompatActivity implements View.OnC
         mCustomers_edittext_address = findViewById(R.id.customers_edittext_address1);
         mButton_next = findViewById(R.id.button_next);
         mSex = mCustomers_spinner_sex.getSelectedItem().toString();
-        Log.e("spinner1",mSex);
-        if (mSex.equals("男")) {
-            type = 1;
-        }
-        else {
-            type = 2;
-        }
+        mCustomers_spinner_sex.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                String[] languages = getResources().getStringArray(R.array.性别);
+                mSex = languages[i];
+                if (mSex.equals("男")) {
+                    type = 1;
+                }
+                else if(mSex.equals("女")){
+                    type = 2;
+                }else if(mSex.equals("")){
+                    type =0;
+                }
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
+            }
+        });
+
+
     }
 
     private void initListener() {
@@ -123,6 +143,7 @@ public class AddCustomers1Activity extends AppCompatActivity implements View.OnC
 
         mButton_next.setOnClickListener(this);
         mCustomers_button_birthday.setOnClickListener(this);
+        mNeed_text_address2.setOnClickListener(this);
     }
 
     @Override
@@ -173,6 +194,7 @@ public class AddCustomers1Activity extends AppCompatActivity implements View.OnC
             }
                 intent.putExtra("address",mCustomers_edittext_address.getText().toString());
             startActivity(intent);
+            finish();
 
 //                OkHttpUtils.post(HttpAdress.addClientAndNeed)
 //                        .tag(this)
@@ -200,6 +222,9 @@ public class AddCustomers1Activity extends AppCompatActivity implements View.OnC
             case R.id.customers_button_birthday:
                 showBirthdayPicker(mCustomers_text_barthday.getText().toString());
                 break;
+                case R.id.customers_edittext_address2:
+                    selectAddress();
+                    break;
         }
     }
 
@@ -265,5 +290,53 @@ public class AddCustomers1Activity extends AppCompatActivity implements View.OnC
     protected void onDestroy() {
         super.onDestroy();
         EventBus.getDefault().unregister(this);
+    }
+
+    private void selectAddress() {
+        CityPicker cityPicker = new CityPicker.Builder(this)
+                .textSize(14)
+                .title("地址选择")
+                .titleBackgroundColor("#FFFFFF")
+//                .titleTextColor("#696969")
+                .confirTextColor("#696969")
+                .cancelTextColor("#696969")
+                .province("四川省")
+                .city("成都市")
+                .district("金牛区")
+                .textColor(Color.parseColor("#000000"))
+                .provinceCyclic(true)
+                .cityCyclic(false)
+                .districtCyclic(false)
+                .visibleItemsCount(7)
+                .itemPadding(15)
+                .onlyShowProvinceAndCity(false)
+                .build();
+        cityPicker.show();
+        //监听方法，获取选择结果
+        cityPicker.setOnCityItemClickListener(new CityPicker.OnCityItemClickListener() {
+            @Override
+            public void onSelected(String... citySelected) {
+                //省份
+                String province = citySelected[0];
+                //城市
+                String city = citySelected[1];
+                //区县（如果设定了两级联动，那么该项返回空）
+                String district = citySelected[2];
+                //邮编
+                String code = citySelected[3];
+                //为TextView赋值
+                mNeed_text_address2.setText(province.trim()+ city.trim()+ district.trim());
+            }
+        });
+    }
+
+    @Override
+    public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+
+    }
+
+    @Override
+    public void onNothingSelected(AdapterView<?> adapterView) {
+
     }
 }

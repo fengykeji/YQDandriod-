@@ -8,6 +8,7 @@ import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -28,6 +29,10 @@ import java.util.List;
 public class WorkRecommendActivity extends AppCompatActivity implements View.OnClickListener{
 
     private ImageButton mWork_button_back,work_button_add_recommend;
+    private ViewPager mViewPager;
+    private int fid;
+
+
 
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -46,8 +51,9 @@ public class WorkRecommendActivity extends AppCompatActivity implements View.OnC
      * 初始化id,把fm添加到list集合里
      */
     private void initView() {
+        fid = getIntent().getIntExtra("fid",0);
         mWork_button_back = findViewById(R.id.work_button_back);
-        ViewPager mViewPager = findViewById(R.id.forward_view_pager);
+        mViewPager = findViewById(R.id.forward_view_pager);
         TabLayout mTabLayout = findViewById(R.id.forward_tab_layout);
         work_button_add_recommend = findViewById(R.id.work_button_add_recommend);
         List<Fragment> fragments = new ArrayList<>();
@@ -58,7 +64,12 @@ public class WorkRecommendActivity extends AppCompatActivity implements View.OnC
         SelectContactsPagerAdapter adapter = new SelectContactsPagerAdapter(fragments, this.getSupportFragmentManager(), this);
         mViewPager.setAdapter(adapter);
         mTabLayout.setupWithViewPager(mViewPager);
-        mViewPager.setCurrentItem(0);
+        if(fid==2) {
+            mViewPager.setCurrentItem(2);
+        }else {
+            mViewPager.setCurrentItem(0);
+        }
+
         mViewPager.setOffscreenPageLimit(4);
     }
 

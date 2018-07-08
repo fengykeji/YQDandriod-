@@ -41,7 +41,7 @@ public class WorkRecommendDisableAdapter extends BaseRecyclerAdapter<BrrokerDisa
     }
 
     @Override
-    protected void convert(BaseViewHolder holder, BrrokerDisabledData.DisabledData bean) {
+    protected void convert(BaseViewHolder holder, BrrokerDisabledData.DisabledData bean,int position) {
 
         holder.setText(R.id.name,bean.name);
         holder.setText(R.id.recommend_num,String.valueOf(bean.client_id));

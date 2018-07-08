@@ -25,7 +25,7 @@ public class CustomersRecyclerAdapter extends BaseRecyclerAdapter<ClientListMode
     }
 
     @Override
-    protected void convert(BaseViewHolder holder, ClientListModel.Data bean) {
+    protected void convert(BaseViewHolder holder, ClientListModel.Data bean,int position) {
         TextView mCustomers_text_姓名 = (TextView) holder.getView(R.id.customers_text_姓名);
         ImageView mCustomers_image_性别 = (ImageView) holder.getView(R.id.customers_image_性别);
         TextView mCustomers_text_意向总价 = (TextView) holder.getView(R.id.customers_text_意向总价);
@@ -85,7 +85,12 @@ public class CustomersRecyclerAdapter extends BaseRecyclerAdapter<ClientListMode
         }
 
         mCustomers_text_姓名.setText(bean.getName());
-        mCustomers_image_性别.setImageResource(bean.getSex() == 1 ? R.drawable.ic_man : R.drawable.ic_girl);
+        if(bean.getSex() == 1){
+            mCustomers_image_性别.setImageResource(R.drawable.ic_man);
+        }else if(bean.getSex()==2){
+            mCustomers_image_性别.setImageResource(R.drawable.ic_girl);
+        }
+
         mCustomers_text_联系电话.setText(String.valueOf(bean.getTel()));
         mCustomers_text_购买意向度.setText(String.valueOf(bean.getIntent()) + "%");
 //        mCustomers_text_意向区域.setText(bean.);

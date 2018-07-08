@@ -14,19 +14,36 @@ import android.view.View;
 import android.widget.ImageButton;
 import android.widget.TextView;
 import com.ccsoft.yunqudao.R;
+import com.ccsoft.yunqudao.bean.CustomersGetInfoBean;
+import com.ccsoft.yunqudao.bean.HouseListBean;
 import com.ccsoft.yunqudao.data.api.ApiSubscriber;
 import com.ccsoft.yunqudao.data.model.response.ClientPrivateData;
+import com.ccsoft.yunqudao.http.HttpAdress;
 import com.ccsoft.yunqudao.manager.ClientManager;
 import com.ccsoft.yunqudao.rx.RxSchedulers;
 import com.ccsoft.yunqudao.ui.adapter.CustomersXiangQingPagerAdapter;
 import com.ccsoft.yunqudao.ui.adapter.ViewPagerAdapter;
 import com.ccsoft.yunqudao.ui.view.ViewPagerForScrollView;
 import com.ccsoft.yunqudao.utils.ActivityManager;
+import com.ccsoft.yunqudao.utils.BaseCallBack;
+import com.ccsoft.yunqudao.utils.JsonUtil;
 import com.ccsoft.yunqudao.utils.LogUtil;
+import com.ccsoft.yunqudao.utils.OkHttpManager;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
+import com.lzy.okhttputils.OkHttpUtils;
+import com.lzy.okhttputils.callback.StringCallback;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.lang.reflect.Type;
+import java.net.MalformedURLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import okhttp3.Call;
+import okhttp3.Response;
 import rx.Subscriber;
 
 /**
@@ -59,10 +76,18 @@ public class CustomersXiangQingActivity extends AppCompatActivity implements Vie
     private ViewPagerAdapter               mViewPagerAdapter;
     private TabLayout                      mCustomers_TabLayout;
     private ArrayList<Fragment>            fragments;
-    private ImageButton mCustomers_button_resetclientbasic;
-    private List<ClientPrivateData.NeedInfoBean> need_info = new ArrayList<>();
+    private TextView mCustomers_button_resetclientbasic;
+//    private List<ClientPrivateData.NeedInfoBean> need_info = new ArrayList<>();
+    private CustomersGetInfoBean bean;
     private int need_id;
     private int needId;
+
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        initData();
+    }
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -115,27 +140,61 @@ public class CustomersXiangQingActivity extends AppCompatActivity implements Vie
      */
 
     private void initData() {
-        ClientManager.getInstance().getClientInfo(mClienID).compose(RxSchedulers.<ClientPrivateData>io_main())
-                .subscribe(new ApiSubscriber<ClientPrivateData>(this) {
+//        ClientManager.getInstance().getClientInfo(mClienID).compose(RxSchedulers.<ClientPrivateData>io_main())
+//                .subscribe(new ApiSubscriber<ClientPrivateData>(this) {
+//            @Override
+//            protected void _onNext(ClientPrivateData clientPrivateData) {
+//                Log.i("hcc------->", "--------------" + clientPrivateData.toString());
+//                mClientPrivateData = clientPrivateData; //在这已经复制了
+//                need_info = clientPrivateData.need_info;
+//                addFragments();
+//                Log.i("hcc------->", "--------------2" + mClientPrivateData.toString());
+//                mCustomers_button_quick_recommend.setOnClickListener(CustomersXiangQingActivity.this);
+//
+//            }
+//
+//            @Override
+//            protected void _onError(String message) {
+//
+//            }
+//
+//            @Override
+//            protected void _onCompleted() {
+//
+//            }
+//        });
+
+
+
+
+
+        OkHttpManager.getInstance().get(HttpAdress.getInfo + "?client_id=" + mClienID, new BaseCallBack() {
             @Override
-            protected void _onNext(ClientPrivateData clientPrivateData) {
-                Log.i("hcc------->", "--------------" + clientPrivateData.toString());
-                setData(clientPrivateData);
-                mClientPrivateData = clientPrivateData; //在这已经复制了
-                need_info = clientPrivateData.need_info;
-                addFragments();
-                Log.i("hcc------->", "--------------2" + mClientPrivateData.toString());
-                mCustomers_button_quick_recommend.setOnClickListener(CustomersXiangQingActivity.this);
+            public void onSuccess(Call call, Response response, Object obj) throws MalformedURLException {
+                Type type = new TypeToken<CustomersGetInfoBean>() {}.getType();
+
+                bean = new Gson().fromJson(obj.toString(),type);
+
+
+                if(bean.getCode()==200&&bean.getData()!=null) {
+                    setData(bean);
+                    addFragments();
+                    mCustomers_button_quick_recommend.setOnClickListener(CustomersXiangQingActivity.this);
+                }
+            }
+
+            @Override
+            public void onFailure(Call call, Exception e) {
 
             }
 
             @Override
-            protected void _onError(String message) {
+            public void onError(Response response, int errorCode) {
 
             }
 
             @Override
-            protected void _onCompleted() {
+            public void onRequestBefore() {
 
             }
         });
@@ -151,7 +210,7 @@ public class CustomersXiangQingActivity extends AppCompatActivity implements Vie
     private void addFragments() {
         //int page = mCustomers_viewpager_xiangqing.getCurrentItem();
         fragments = new ArrayList<>();
-        fragments.add(XuQiuXingXiFragment.newInstance(mClientPrivateData.need_info.get(0)));//初始化fragment  把这个Model传过去 到Fragment取里面的数据就好
+        fragments.add(XuQiuXingXiFragment.newInstance());//初始化fragment  把这个Model传过去 到Fragment取里面的数据就好
         fragments.add(ClientFollowFragment.newInstance(mClienID));
         fragments.add(PiPeiXinXiFragment.newInstance());
         ViewPagerAdapter adapter = new ViewPagerAdapter(fragments, getSupportFragmentManager(), this);
@@ -164,20 +223,20 @@ public class CustomersXiangQingActivity extends AppCompatActivity implements Vie
     /**
      * 数据绑定
      */
-    private void setData(ClientPrivateData mClientPrivateData) {
-        if (mClientPrivateData.basic != null) {
-            mCustomers_text_name.setText(mClientPrivateData.basic.name);
-            if (mClientPrivateData.basic.sex ==0 ) {
+    private void setData(CustomersGetInfoBean mClientPrivateData) {
+        if (mClientPrivateData.getData().getBasic() != null) {
+            mCustomers_text_name.setText(mClientPrivateData.getData().getBasic().getName());
+            if (mClientPrivateData.getData().getBasic().getSex() ==0 ) {
                 mCustomers_text_sex.setText("");
             }
             else {
-                mCustomers_text_sex.setText(mClientPrivateData.basic.sex ==1 ? "男" : "女");
+                mCustomers_text_sex.setText(mClientPrivateData.getData().getBasic().getSex() ==1 ? "男" : "女");
             }
-            mCustomers_text_birthday.setText(TextUtils.isEmpty(mClientPrivateData.basic.birth) ? "" : mClientPrivateData.basic.birth);
-            mCustomers_text_tel.setText(TextUtils.isEmpty(mClientPrivateData.basic.tel) ? "" : mClientPrivateData.basic.tel);
+            mCustomers_text_birthday.setText(TextUtils.isEmpty(mClientPrivateData.getData().getBasic().getBirth()) ? "" : mClientPrivateData.getData().getBasic().getBirth());
+            mCustomers_text_tel.setText(TextUtils.isEmpty(mClientPrivateData.getData().getBasic().getTel()) ? "" : mClientPrivateData.getData().getBasic().getTel());
             mCustomers_text_card_type.setText("身份证");
-            mCustomers_text_card_id.setText(TextUtils.isEmpty(mClientPrivateData.basic.card_id) ? "" : mClientPrivateData.basic.card_id);
-            mCustomers_text_address.setText(TextUtils.isEmpty(mClientPrivateData.basic.address) ? "" : mClientPrivateData.basic.address);
+            mCustomers_text_card_id.setText(TextUtils.isEmpty(mClientPrivateData.getData().getBasic().getCard_id()) ? "" : mClientPrivateData.getData().getBasic().getCard_id());
+            mCustomers_text_address.setText(TextUtils.isEmpty(mClientPrivateData.getData().getBasic().getAddress()) ? "" : mClientPrivateData.getData().getBasic().getAddress());
         }
     }
 
@@ -216,8 +275,14 @@ public class CustomersXiangQingActivity extends AppCompatActivity implements Vie
                 startActivity(intent);
                 break;
             case R.id.customers_button_resetclientbasic:
-                ResetClientBasicActivity.start(this,mClientPrivateData);
-                finish();
+
+                Bundle bundle = new Bundle();
+                bundle.putSerializable("bean",bean);
+
+                Intent intent1 = new Intent(this,ResetClientBasicActivity.class);
+                intent1.putExtras(bundle);
+                startActivity(intent1);
+
                 break;
         }
     }
@@ -226,7 +291,7 @@ public class CustomersXiangQingActivity extends AppCompatActivity implements Vie
      * 拿到needId
      */
     private void getInfo(){
-        needId = need_info.get(0).need_id;
+        needId = bean.getData().getNeed_info().get(0).getNeed_id();
     }
 
     @Override

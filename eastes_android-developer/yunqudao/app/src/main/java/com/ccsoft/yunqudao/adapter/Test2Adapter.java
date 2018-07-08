@@ -57,9 +57,9 @@ public class Test2Adapter extends PagerAdapter {
         iv.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(mContext,ProjectXiangCeActivity.class);
-                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                mContext.startActivity(intent);
+//                Intent intent = new Intent(mContext,ProjectXiangCeActivity.class);
+//                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+//                mContext.startActivity(intent);
             }
         });
         ((ViewPager)container).addView(iv, 0);

@@ -25,6 +25,8 @@ import com.ccsoft.yunqudao.ui.adapter.AddLabelAdapter1;
 import com.ccsoft.yunqudao.ui.mian.MainActivity;
 import com.ccsoft.yunqudao.utils.ActivityManager;
 
+import org.greenrobot.eventbus.EventBus;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -43,7 +45,7 @@ public class AddLabelActivity extends AppCompatActivity implements View.OnClickL
     private List<PeizhiBean.DataBean._$15Bean.ParamBeanXXXXXXXXXXXXXX> dataList = new ArrayList<>();
     private String param;
     private LinearLayout ll_addTextLabel,ll_addTextLabel2,ll_addTextLabel3,ll_addTextLabel4,show_label;
-    private List<Integer> list = new ArrayList<>();
+    private ArrayList<Integer> list = new ArrayList<>();
     private List<String> lists = new ArrayList<>();
     private String name;
     private String sex;
@@ -52,7 +54,11 @@ public class AddLabelActivity extends AppCompatActivity implements View.OnClickL
     private String card_id;
     private String address;
 
-
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        EventBus.getDefault().unregister(this);
+    }
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         ActivityManager.getInstance().addActivity(this);
@@ -201,16 +207,19 @@ public class AddLabelActivity extends AppCompatActivity implements View.OnClickL
                 finish();
                 break;
             case R.id.customers_button_commit:
-                Intent intent = new Intent(this,AddCustomers2Activity.class);
-                intent.putIntegerArrayListExtra("list", (ArrayList<Integer>) list);
-                intent.putStringArrayListExtra("lists", (ArrayList<String>) lists);
-                intent.putExtra("name",name);
-                intent.putExtra("sex",sex);
-                intent.putExtra("tel",tel);
-                intent.putExtra("birth",birth);
-                intent.putExtra("card_id",card_id);
-                intent.putExtra("address",address);
-                startActivity(intent);
+
+                EventBus.getDefault().post(new IntentServiceResult(list,lists));
+//                Intent intent = new Intent(this,AddCustomers2Activity.class);
+//                intent.putIntegerArrayListExtra("list", (ArrayList<Integer>) list);
+//                intent.putStringArrayListExtra("lists", (ArrayList<String>) lists);
+//                intent.putExtra("name",name);
+//                intent.putExtra("sex",sex);
+//                intent.putExtra("tel",tel);
+//                intent.putExtra("birth",birth);
+//                intent.putExtra("card_id",card_id);
+//                intent.putExtra("address",address);
+//                startActivity(intent);
+                finish();
                 break;
         }
     }

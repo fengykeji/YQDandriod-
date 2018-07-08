@@ -28,7 +28,7 @@ public class WorkRecommendValidAdapter extends BaseRecyclerAdapter<BrrokerValueD
 
 
     @Override
-    protected void convert(BaseViewHolder holder, BrrokerValueData.ValueData bean) {
+    protected void convert(BaseViewHolder holder, BrrokerValueData.ValueData bean,int position) {
         holder.setText(R.id.name,bean.name);
         holder.setText(R.id.recommend_num,String.valueOf(bean.client_id));
         holder.setText(R.id.recommend_name,bean.project_name);

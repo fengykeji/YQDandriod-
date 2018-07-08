@@ -39,6 +39,7 @@
                 android:dropDownVerticalOffset="35dp"
                 android:dropDownWidth="1080px"
                 android:entries="@array/需求类型"
+                android:visibility="gone"
                 >
             </Spinner>
         </LinearLayout>
