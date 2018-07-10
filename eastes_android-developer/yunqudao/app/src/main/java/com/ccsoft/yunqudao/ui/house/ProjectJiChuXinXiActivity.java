@@ -151,7 +151,7 @@ public class ProjectJiChuXinXiActivity extends AppCompatActivity implements View
                                 tv_wuyeleixing.setText(need_tags);
                             }
                             tv_wuyegongsi.setText(infoBean.getData().getProperty_company_name());
-                            tv_wuyefei.setText(infoBean.getData().getProperty_cost()+"元/m2/yue");
+                            tv_wuyefei.setText(infoBean.getData().getProperty_cost()+"元/m2/元");
                             tv_gongnuanfangshi.setText(infoBean.getData().getHeat_supply());
                             tv_gongshuifangshi.setText(infoBean.getData().getWater_supply());
                             tv_gongdianfangshi.setText(infoBean.getData().getPower_supply());

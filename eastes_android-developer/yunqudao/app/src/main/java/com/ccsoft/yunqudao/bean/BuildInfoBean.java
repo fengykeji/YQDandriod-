@@ -82,16 +82,16 @@ public class BuildInfoBean {
         private String sale_address;
         private String absolute_address;
         private String build_type;
-        private int average_price;
-        private int min_price;
-        private int max_price;
+        private float average_price;
+        private float min_price;
+        private float max_price;
         private double floor_space;
         private String decoration_standard;
         private double covered_area;
         private double plot_retio;
-        private int greening_rate;
-        private int households_num;
-        private int parking_num;
+        private float greening_rate;
+        private float households_num;
+        private float parking_num;
         private String property_company_name;
         private double property_cost;
         private String heat_supply;
@@ -183,7 +183,7 @@ public class BuildInfoBean {
             this.build_type = build_type;
         }
 
-        public int getAverage_price() {
+        public float getAverage_price() {
             return average_price;
         }
 
@@ -191,7 +191,7 @@ public class BuildInfoBean {
             this.average_price = average_price;
         }
 
-        public int getMin_price() {
+        public float getMin_price() {
             return min_price;
         }
 
@@ -199,7 +199,7 @@ public class BuildInfoBean {
             this.min_price = min_price;
         }
 
-        public int getMax_price() {
+        public float getMax_price() {
             return max_price;
         }
 
@@ -239,7 +239,7 @@ public class BuildInfoBean {
             this.plot_retio = plot_retio;
         }
 
-        public int getGreening_rate() {
+        public float getGreening_rate() {
             return greening_rate;
         }
 
@@ -247,7 +247,7 @@ public class BuildInfoBean {
             this.greening_rate = greening_rate;
         }
 
-        public int getHouseholds_num() {
+        public float getHouseholds_num() {
             return households_num;
         }
 
@@ -255,7 +255,7 @@ public class BuildInfoBean {
             this.households_num = households_num;
         }
 
-        public int getParking_num() {
+        public float getParking_num() {
             return parking_num;
         }
 

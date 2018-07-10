@@ -17,6 +17,8 @@ import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
+import uk.co.senab.photoview.PhotoView;
+
 public class Test3Adapter extends PagerAdapter {
     private List<ProjectImgGetBean.DataBeanX.DataBean> mPaths;
 
@@ -48,7 +50,8 @@ public class Test3Adapter extends PagerAdapter {
     @Override
     public Object instantiateItem (ViewGroup container, int position) {
 
-        ImageView iv = new ImageView(mContext);
+        PhotoView iv = new PhotoView(mContext);
+        iv.setEnabled(true);
             Picasso.with(mContext).load(AppConstants.URL+mPaths.get(position).getImg_url())
                     .error(R.drawable.default_3)
                     .into(iv);//载入bitmap

@@ -12,7 +12,10 @@ import android.widget.TextView;
 
 import com.ccsoft.yunqudao.R;
 import com.ccsoft.yunqudao.adapter.Test3Adapter;
+import com.ccsoft.yunqudao.bean.MessageEvent;
 import com.ccsoft.yunqudao.bean.ProjectImgGetBean;
+
+import org.greenrobot.eventbus.EventBus;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -35,16 +38,15 @@ public class ProjectXiangCeFragment extends Fragment{
 
         Bundle bundle = this.getArguments();
         ArrayList<ProjectImgGetBean.DataBeanX> list = (ArrayList<ProjectImgGetBean.DataBeanX>) bundle.getSerializable("list");
-        ArrayList<ProjectImgGetBean.DataBeanX.DataBean> dataList = (ArrayList<ProjectImgGetBean.DataBeanX.DataBean>) bundle.getSerializable("lists");
+//        ArrayList<ProjectImgGetBean.DataBeanX.DataBean> dataList = (ArrayList<ProjectImgGetBean.DataBeanX.DataBean>) bundle.getSerializable("lists");
 
-        madapter = new Test3Adapter(getContext(),dataList);
+        for (ProjectImgGetBean.DataBeanX dataBeanX : list) {
+           mlist.addAll(dataBeanX.getData()) ;
+        }
+        madapter = new Test3Adapter(getContext(),mlist);
 
         im_viewPager = view.findViewById(R.id.im_viewPager);
-        mHouse_text_效果图 = view.findViewById(R.id.house_text_效果图);
-        mHouse_text_全部图 = view.findViewById(R.id.house_text_全部图);
-        int s = list.get(0).getData().size()-1;
-        mHouse_text_效果图.setText(list.get(0).getName()+1+"/"+
-                s);
+
         im_viewPager.setAdapter(madapter);
         im_viewPager.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
@@ -55,11 +57,7 @@ public class ProjectXiangCeFragment extends Fragment{
             @Override
             public void onPageSelected(int position) {
 
-
-                position = position+1;
-                    mHouse_text_效果图.setText(list.get(0).getName()+position+"/"+
-                    s);
-
+                EventBus.getDefault().post(new EvenBusSendPosition(position+1+""));
 
             }
 

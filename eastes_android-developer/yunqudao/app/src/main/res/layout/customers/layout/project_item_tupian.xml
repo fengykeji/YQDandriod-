@@ -7,7 +7,7 @@
     <android.support.v4.view.ViewPager
         android:id="@+id/im_viewPager"
         android:layout_width="match_parent"
-        android:layout_height="200dp">
+        android:layout_height="wrap_content">
 
     </android.support.v4.view.ViewPager>
 
@@ -19,6 +19,7 @@
         >
 
         <TextView
+            android:visibility="gone"
             android:id="@+id/house_text_效果图"
             android:text="效果图1/10"
             android:textSize="18sp"
@@ -28,6 +29,7 @@
 
             />
         <TextView
+            android:visibility="gone"
             android:id="@+id/house_text_全部图"
             android:text="全部1/10"
             android:textSize="18sp"

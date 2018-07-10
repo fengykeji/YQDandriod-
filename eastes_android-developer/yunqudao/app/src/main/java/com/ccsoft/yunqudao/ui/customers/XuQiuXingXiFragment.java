@@ -212,7 +212,11 @@ public class XuQiuXingXiFragment extends Fragment implements View.OnClickListene
             decorate = data.getDecorate();
             buy_purpose = data.getBuy_purpose();
             pay_type = data.getPay_type();
-             houseType = Integer.parseInt(data.getHouse_type());
+            if(data.getHouse_type().equals("")){
+                house_type = 0;
+            }else {
+                houseType = Integer.parseInt(data.getHouse_type());
+            }
              need_tags = data.getNeed_tags();
             LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
             layoutParams.setMargins(10,3,10,3);

@@ -5,6 +5,8 @@
     android:orientation="vertical"
     >
 
+
+
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -39,6 +41,54 @@
 
 
     </LinearLayout>
+
+        <android.support.v4.widget.DrawerLayout
+            android:layout_gravity="right"
+            android:layout_width="200dp"
+            android:layout_height="match_parent"
+            android:id="@+id/drawerLayout"
+            >
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+        <TextView
+            android:id="@+id/tv_showdrawer"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:text="展开"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        </RelativeLayout>
+
+           <RelativeLayout
+               android:id="@+id/rlRight"
+               android:layout_gravity="right"
+               android:layout_width="200dp"
+               android:layout_height="match_parent">
+
+           <android.support.v7.widget.RecyclerView
+               android:layout_centerVertical="true"
+               android:layout_marginLeft="80dp"
+               android:id="@+id/re_loudong"
+               android:layout_width="match_parent"
+               android:layout_height="wrap_content">
+
+           </android.support.v7.widget.RecyclerView>
+               <ImageButton
+                   android:id="@+id/im_closedrawer"
+                   android:visibility="visible"
+                   android:layout_centerVertical="true"
+                   android:layout_width="wrap_content"
+                   android:layout_height="wrap_content"
+                   android:src="@drawable/progressbar"/>
+
+
+           </RelativeLayout>
+
+        </android.support.v4.widget.DrawerLayout>
+
     </FrameLayout>
+
+
 
 </LinearLayout>

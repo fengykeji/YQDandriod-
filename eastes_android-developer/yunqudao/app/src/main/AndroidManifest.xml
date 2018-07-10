@@ -132,6 +132,8 @@
         </activity>
         <activity android:name=".ui.house.ProjectCityChooseActivity">
         </activity>
+        <activity android:name=".ui.house.ProjectDanYuanActivity"
+            android:theme="@style/dialogstyle"></activity>
 
 
         <!--客源模块-->

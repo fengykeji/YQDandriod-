@@ -74,6 +74,7 @@
         android:layout_height="wrap_content"
         android:orientation="vertical"
         android:padding="10dp"
+        android:visibility="gone"
         >
 
 
@@ -319,6 +320,7 @@
         android:layout_height="wrap_content"
         android:orientation="vertical"
         android:padding="10dp"
+        android:visibility="gone"
         >
 
 
@@ -564,6 +566,7 @@
         android:layout_height="wrap_content"
         android:orientation="vertical"
         android:padding="10dp"
+        android:visibility="gone"
         >
 
 

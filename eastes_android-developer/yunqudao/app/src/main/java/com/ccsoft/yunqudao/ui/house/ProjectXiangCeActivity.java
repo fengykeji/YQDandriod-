@@ -3,6 +3,7 @@ package com.ccsoft.yunqudao.ui.house;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.annotation.Nullable;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
@@ -15,6 +16,7 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 import com.ccsoft.yunqudao.R;
 import com.ccsoft.yunqudao.adapter.MyFragmentPagerAdapter;
+import com.ccsoft.yunqudao.bean.MessageEvent;
 import com.ccsoft.yunqudao.bean.ProjectImgGetBean;
 import com.ccsoft.yunqudao.http.HttpAdress;
 import com.ccsoft.yunqudao.utils.ActivityManager;
@@ -22,6 +24,10 @@ import com.ccsoft.yunqudao.utils.BaseCallBack;
 import com.ccsoft.yunqudao.utils.OkHttpManager;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
+
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 
 import java.io.Serializable;
 import java.lang.reflect.Type;
@@ -52,11 +58,32 @@ public class ProjectXiangCeActivity extends AppCompatActivity implements View.On
     private TabLayout tabLayout;
     private int project_id;
     private ProjectImgGetBean bean;
+    private String num;
+    private int postion1 = 0;
+    private int ss = 0;
+    private ArrayList<ProjectImgGetBean.DataBeanX> list;
+
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        // 注销订阅者
+        EventBus.getDefault().unregister(this);
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onMessageEvent(EvenBusSendPosition event) {
+        num = event.getMessage();
+        mHouse_text_效果图.setText(list.get(postion1).getName()+":"+num+"/"+list.get(postion1).getData().size());
+        mHouse_text_全部图.setText("全部图:"+num+"/"+ss);
+
+    }
 
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         ActivityManager.getInstance().addActivity(this);
         setContentView(R.layout.activity_house_loupanxiangce);
+        EventBus.getDefault().register(this);
         initView();
         initData();
         initListener();
@@ -98,19 +125,22 @@ public class ProjectXiangCeActivity extends AppCompatActivity implements View.On
                     ArrayList<Fragment> fragments = new ArrayList<>();
                     ArrayList<String> mTitles = new ArrayList<>();
                     Bundle bundle = new Bundle();
-                    ArrayList<ProjectImgGetBean.DataBeanX> list =new ArrayList<>();
+                     list =new ArrayList<>();
 
 
                     for (ProjectImgGetBean.DataBeanX dataBeanX : bean.getData()) {
                         ProjectXiangCeFragment fragment = new ProjectXiangCeFragment();
                         fragments.add(fragment);
                         list.add(dataBeanX);
-                        bundle.putSerializable("list", (Serializable) list);
-                        bundle.putSerializable("lists", (Serializable) dataBeanX.getData());
                         fragment.setArguments(bundle);
                         mTitles.add(dataBeanX.getName());
+                        ss+=dataBeanX.getData().size();
                     }
+                    bundle.putSerializable("list", (Serializable) list);
+//                    bundle.putSerializable("lists", (Serializable) dataBeanX.getData());
 
+                    mHouse_text_效果图.setText(list.get(0).getName()+"1/"+list.get(0).getData().size());
+                    mHouse_text_全部图.setText("全部图:1/"+ss);
                     MyFragmentPagerAdapter fragmentPagerAdapter = new MyFragmentPagerAdapter(getSupportFragmentManager(),  fragments,  mTitles);
                     mHouse_viewpager_图册.setAdapter(fragmentPagerAdapter);
                     tabLayout.setupWithViewPager(mHouse_viewpager_图册);
@@ -122,6 +152,7 @@ public class ProjectXiangCeActivity extends AppCompatActivity implements View.On
 
                         @Override
                         public void onPageSelected(int position) {
+                            postion1 = position;
 
                         }
                         @Override

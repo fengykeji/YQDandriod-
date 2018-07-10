@@ -145,9 +145,9 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="vertical"
-                    android:padding="10dp">
-
-
+                    android:layout_marginBottom="10dp"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp">
 
 
 
@@ -157,7 +157,6 @@
                         android:layout_height="wrap_content"
                         android:layout_centerVertical="true"
                         android:layout_marginBottom="10dp"
-                        android:layout_marginLeft="10dp"
                         android:layout_marginRight="10dp"
                         android:orientation="horizontal">
 
@@ -232,6 +231,9 @@
                             android:src="@drawable/ic_residential" />
 
                         <TextView
+                            android:maxEms="10"
+                            android:singleLine="true"
+                            android:ellipsize="end"
                             android:layout_marginLeft="20dp"
                             android:id="@+id/tv_absolute_address"
                             android:layout_width="wrap_content"
@@ -592,6 +594,7 @@
                     android:weightSum="10">
 
                     <Button
+
                         android:id="@+id/house_button_教育"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
@@ -661,6 +664,7 @@
                             android:textSize="18sp" />
 
                         <TextView
+                            android:id="@+id/tv_pipeinum"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="(XX)"
@@ -713,6 +717,7 @@
                                     android:orientation="horizontal">
 
                                     <TextView
+                                        android:id="@+id/tv_name1"
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
                                         android:layout_gravity="center_vertical"
@@ -721,10 +726,11 @@
                                         android:textSize="15sp" />
 
                                     <ImageView
+                                        android:id="@+id/im_sex1"
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
                                         android:layout_gravity="center_vertical"
-                                        android:src="@drawable/ic_man" />
+                                         />
 
                                 </LinearLayout>
 
@@ -744,6 +750,7 @@
                                         android:textSize="13sp" />
 
                                     <TextView
+                                        android:id="@+id/tv_zongjia1"
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
                                         android:text="xx-xx万"
@@ -766,6 +773,7 @@
                                         android:textSize="13sp" />
 
                                     <TextView
+                                        android:id="@+id/tv_huxin1"
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
                                         android:text="x室x厅x卫"
@@ -788,6 +796,7 @@
                                         android:textSize="13sp" />
 
                                     <TextView
+                                        android:id="@+id/tv_quyu1"
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
                                         android:text="xx区-xx大道"
@@ -817,6 +826,7 @@
                                             android:textSize="13sp" />
 
                                         <TextView
+                                            android:id="@+id/tv_intents1"
                                             android:layout_width="wrap_content"
                                             android:layout_height="wrap_content"
                                             android:layout_marginRight="10dp"
@@ -839,6 +849,7 @@
                                             android:textSize="13sp" />
 
                                         <TextView
+                                            android:id="@+id/tv_urgency"
                                             android:layout_width="wrap_content"
                                             android:layout_height="wrap_content"
                                             android:layout_marginRight="10dp"
@@ -872,6 +883,8 @@
                                         android:textSize="13sp" />
 
                                     <TextView
+                                        android:textColor="@color/liji_material_blue_500"
+                                        android:id="@+id/tv_pepeidu"
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
                                         android:text="xx%"
@@ -879,6 +892,7 @@
                                 </LinearLayout>
 
                                 <TextView
+                                    android:id="@+id/tv_telnum1"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:layout_marginBottom="3dp"
@@ -910,7 +924,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="vertical"
-                    android:padding="10dp">
+                    android:padding="10dp"
+                    android:visibility="gone">
 
 
                     <LinearLayout
@@ -934,6 +949,7 @@
                                     android:orientation="horizontal">
 
                                     <TextView
+                                        android:id="@+id/tv_name2"
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
                                         android:layout_gravity="center_vertical"
@@ -942,10 +958,11 @@
                                         android:textSize="15sp" />
 
                                     <ImageView
+                                        android:id="@+id/im_sex2"
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
                                         android:layout_gravity="center_vertical"
-                                        android:src="@drawable/ic_girl" />
+                                         />
 
                                 </LinearLayout>
 
@@ -965,6 +982,8 @@
                                         android:textSize="13sp" />
 
                                     <TextView
+                                        android:id="@+id/tv_zongjia2"
+
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
                                         android:text="xx-xx万"
@@ -987,6 +1006,7 @@
                                         android:textSize="13sp" />
 
                                     <TextView
+                                        android:id="@+id/tv_huxin2"
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
                                         android:text="x室x厅x卫"
@@ -1009,6 +1029,7 @@
                                         android:textSize="13sp" />
 
                                     <TextView
+                                        android:id="@+id/tv_quyu2"
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
                                         android:text="xx区-xx大道"
@@ -1038,6 +1059,7 @@
                                             android:textSize="13sp" />
 
                                         <TextView
+                                            android:id="@+id/tv_intents2"
                                             android:layout_width="wrap_content"
                                             android:layout_height="wrap_content"
                                             android:layout_marginRight="10dp"
@@ -1060,6 +1082,7 @@
                                             android:textSize="13sp" />
 
                                         <TextView
+                                            android:id="@+id/tv_urgency2"
                                             android:layout_width="wrap_content"
                                             android:layout_height="wrap_content"
                                             android:layout_marginRight="10dp"
@@ -1093,6 +1116,8 @@
                                         android:textSize="13sp" />
 
                                     <TextView
+                                        android:id="@+id/tv_pepeidu2"
+                                        android:textColor="@color/liji_material_blue_500"
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
                                         android:text="xx%"
@@ -1100,6 +1125,8 @@
                                 </LinearLayout>
 
                                 <TextView
+                                    android:id="@+id/tv_telnum2"
+
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:layout_marginBottom="3dp"

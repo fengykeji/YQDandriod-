@@ -5,14 +5,21 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
 import com.ccsoft.yunqudao.R;
+import com.ccsoft.yunqudao.bean.ProjectPiPeiKeHuBean;
+import com.ccsoft.yunqudao.ui.adapter.ProjectPiPeiAdapter;
 import com.ccsoft.yunqudao.ui.customers.AddCustomers1Activity;
 import com.ccsoft.yunqudao.utils.ActivityManager;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * @author: Pein
@@ -27,6 +34,9 @@ public class ProjectPiPeiKeHuActivity extends AppCompatActivity implements View.
     private Button         mHouse_button_推荐1;
     private Button         mHouse_button_推荐2;
     private Button         mHouse_button_推荐3;
+    private RecyclerView recyclerView;
+    private ProjectPiPeiAdapter adapter;
+    private List<ProjectPiPeiKeHuBean.DataBean> dataList = new ArrayList<>();
 
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -45,6 +55,8 @@ public class ProjectPiPeiKeHuActivity extends AppCompatActivity implements View.
      * 初始化
      */
     private void initView() {
+        Bundle bundle = getIntent().getExtras();
+        dataList = (List<ProjectPiPeiKeHuBean.DataBean>) bundle.get("list");
 
         mHouse_button_返回 = findViewById(R.id.house_button_返回);
         mHouse_button_relativelayout搜索 = findViewById(R.id.house_button_relativelayout搜索);
@@ -52,6 +64,11 @@ public class ProjectPiPeiKeHuActivity extends AppCompatActivity implements View.
         mHouse_button_推荐1 = findViewById(R.id.house_button_推荐1);
         mHouse_button_推荐2 = findViewById(R.id.house_button_推荐2);
         mHouse_button_推荐3 = findViewById(R.id.house_button_推荐3);
+        recyclerView = findViewById(R.id.recyclerview_rv);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        adapter = new ProjectPiPeiAdapter(this,R.layout.item_project_pipei,dataList);
+        recyclerView.setAdapter(adapter);
+
     }
 
     /**

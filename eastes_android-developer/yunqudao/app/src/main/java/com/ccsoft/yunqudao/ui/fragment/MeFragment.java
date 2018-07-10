@@ -196,6 +196,7 @@ public class MeFragment extends Fragment implements View.OnClickListener {
                         data = model.getData();
                         if(model.getCode()==200){
                             mMe_text_yunsuan_id.setText(model.getData().getAccount());
+
                         }
                     }
                 });

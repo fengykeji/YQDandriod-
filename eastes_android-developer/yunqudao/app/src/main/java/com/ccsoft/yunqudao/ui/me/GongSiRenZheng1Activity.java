@@ -5,6 +5,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.net.Uri;
 import android.os.Build;
@@ -37,6 +38,7 @@ import com.ccsoft.yunqudao.utils.DateUtil;
 import com.ccsoft.yunqudao.utils.ItemsDialogFragment;
 import com.ccsoft.yunqudao.utils.JsonUtil;
 import com.ccsoft.yunqudao.utils.wheelview.TimePickerView;
+import com.lljjcoder.citypickerview.widget.CityPicker;
 import com.lzy.okhttputils.OkHttpUtils;
 import com.lzy.okhttputils.callback.StringCallback;
 
@@ -171,16 +173,19 @@ public class GongSiRenZheng1Activity extends AppCompatActivity implements View.O
 
     public void showItemsDialogFragment() {
         ItemsDialogFragment itemsDialogFragment = new ItemsDialogFragment();
-        String[] items = {"相机", "相册", };
+        String[] items = {"相机", "相册","取消" };
         itemsDialogFragment.show("", items, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 switch (which){
                     case 0:
-                        getPicFromCamera();
+                       checkPermission();
                         break;
                     case 1:
                         getPicFromAlbm();
+                        break;
+                    case 2:
+                        itemsDialogFragment.dismiss();
                         break;
 
                 }
@@ -201,10 +206,14 @@ public class GongSiRenZheng1Activity extends AppCompatActivity implements View.O
             // 调用相机后返回
             case CAMERA_REQUEST_CODE:
                 if (resultCode == RESULT_OK) {
+
                     //用相机返回的照片去调用剪裁也需要对Uri进行处理
                     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
                         Uri contentUri = FileProvider.getUriForFile(GongSiRenZheng1Activity.this, "com.ccsoft.yunqudao.fileProvider", tempFile);
                         cropPhoto(contentUri);//裁剪图片
+
+
+
                     } else {
                         cropPhoto(Uri.fromFile(tempFile));//裁剪图片
                     }
@@ -259,8 +268,6 @@ public class GongSiRenZheng1Activity extends AppCompatActivity implements View.O
         Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
         //判断版本
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {   //如果在Android7.0以上,使用FileProvider获取Uri
-
-
             intent.setFlags(Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
             Uri contentUri = FileProvider.getUriForFile(GongSiRenZheng1Activity.this, "com.ccsoft.yunqudao.fileProvider", tempFile);
             intent.putExtra(MediaStore.EXTRA_OUTPUT, contentUri);
@@ -268,6 +275,7 @@ public class GongSiRenZheng1Activity extends AppCompatActivity implements View.O
             intent.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(tempFile));
         }
         startActivityForResult(intent, CAMERA_REQUEST_CODE);
+
     }
     /**
      * 从相册获取图片
@@ -336,6 +344,7 @@ public class GongSiRenZheng1Activity extends AppCompatActivity implements View.O
         startDate.set(1950, 0, 1);
 
         Calendar endDate = Calendar.getInstance();
+        endDate.set(2050,12,30);
 
         TimePickerView.Builder builder = new TimePickerView.Builder(this, new TimePickerView.OnTimeSelectListener() {
             @Override

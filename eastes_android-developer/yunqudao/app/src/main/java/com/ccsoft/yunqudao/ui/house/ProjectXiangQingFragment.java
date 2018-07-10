@@ -135,6 +135,8 @@ public class ProjectXiangQingFragment extends Fragment implements View.OnClickLi
     private TextView tv_project_name,tv_sale_state,tv_num,tv_handing_room_time,tv_average_price,
             tv_absolute_address,content_tv6,content_tv7,content_tv8,content_tv9,content_tv10,content_tv11,
             content_tv12,content_tv13,tv_loupanxiangqing,tv_shuzi;
+    private TextView tv_name1,tv_name2,tv_zongjia1,tv_zongjia2,tv_huxin1,tv_huxin2,tv_quyu1,tv_quyu2,
+            tv_intents1,tv_intents2,tv_urgency,tv_urgency2,tv_pepeidu,tv_pepeidu2,tv_telnum1,tv_telnum2,tv_pipeinum;
     private LinearLayout ll_dongtaixiangqing,ll_pipeikehu1,ll_pipeikehu2,linearLayout,linearLayout1;
     private ViewPager viewPager;
     private ImageButton button;
@@ -159,6 +161,7 @@ public class ProjectXiangQingFragment extends Fragment implements View.OnClickLi
     private MapView mapView;
     private BaiduMap baiduMap;
     private PoiSearch mPoiSearch;
+    private ProjectPiPeiKeHuBean piPeiKeHuBean;
 
 
     @Override
@@ -240,6 +243,25 @@ public class ProjectXiangQingFragment extends Fragment implements View.OnClickLi
         scrollView = mView.findViewById(R.id.scrollView);
         linearLayout = mView.findViewById(R.id.ll_property);
         linearLayout1 = mView.findViewById(R.id.ll_project_tags);
+        tv_name1 = mView.findViewById(R.id.tv_name1);
+        tv_name2 = mView.findViewById(R.id.tv_name2);
+        tv_zongjia1 = mView.findViewById(R.id.tv_zongjia1);
+        tv_zongjia2 = mView.findViewById(R.id.tv_zongjia2);
+        tv_huxin1 = mView.findViewById(R.id.tv_huxin1);
+        tv_huxin2 = mView.findViewById(R.id.tv_huxin2);
+        tv_quyu1 = mView.findViewById(R.id.tv_quyu1);
+        tv_quyu2 = mView.findViewById(R.id.tv_quyu2);
+        tv_intents1 = mView.findViewById(R.id.tv_intents1);
+        tv_intents2 = mView.findViewById(R.id.tv_intents2);
+        tv_urgency = mView.findViewById(R.id.tv_urgency);
+        tv_urgency2 = mView.findViewById(R.id.tv_urgency2);
+        tv_pepeidu = mView.findViewById(R.id.tv_pepeidu);
+        tv_pepeidu2 = mView.findViewById(R.id.tv_pepeidu2);
+        tv_telnum1 = mView.findViewById(R.id.tv_telnum1);
+        tv_telnum2 = mView.findViewById(R.id.tv_telnum2);
+        tv_pipeinum = mView.findViewById(R.id.tv_pipeinum);
+
+
 
         recyclerView = mView.findViewById(R.id.re_huxing);
 
@@ -319,7 +341,10 @@ public class ProjectXiangQingFragment extends Fragment implements View.OnClickLi
                 startActivity(intent1);
                 break;
             case R.id.house_imageview_楼栋信息:
-                ProjectLouDongXiangQingActivity.start(getActivity());
+//                ProjectLouDongXiangQingActivity.start(getActivity());
+                Intent intent2 = new Intent(getContext(),ProjectLouDongXiangQingActivity.class);
+                intent2.putExtra("project_id",project_id);
+                startActivity(intent2);
                 break;
             case R.id.house_button_查看全部户型信息:
                 ProjectHuXingXiangQingActivity.start(getActivity());
@@ -340,7 +365,13 @@ public class ProjectXiangQingFragment extends Fragment implements View.OnClickLi
                 sreach("餐饮",R.drawable.ic_baiducanyin);
                 break;
             case R.id.house_button_查看更多推荐:
-                ProjectPiPeiKeHuActivity.start(getActivity());
+//                ProjectPiPeiKeHuActivity.start(getActivity());
+                Bundle bundle = new Bundle();
+                bundle.putSerializable("list", (Serializable) piPeiKeHuBean.getData());
+                Intent intent3 = new Intent(getContext(),ProjectPiPeiKeHuActivity.class);
+                intent3.putExtras(bundle);
+                startActivity(intent3);
+
                 break;
             case R.id.house_button_推荐1:
                 Toast.makeText(getActivity(), "你推荐了该户型", Toast.LENGTH_SHORT).show();
@@ -485,6 +516,7 @@ public class ProjectXiangQingFragment extends Fragment implements View.OnClickLi
                             }
                             Picasso.with(getContext())
                                     .load(AppConstants.URL+bean.getProject_basic_info().getTotal_float_url_phone())
+                                    .error(R.drawable.default_2)
                                     .into(mHouse_imageview_楼栋信息);
 
                             List<HouseDetailBean.DataBean.ProjectImgBean.UrlBean> Imgurl = bean.getProject_img().getUrl();
@@ -528,10 +560,11 @@ public class ProjectXiangQingFragment extends Fragment implements View.OnClickLi
                             peizhiBean.getData().get_$15().getParam();
 
                             ImageView imageView;
+                            if(bean.getProject_basic_info().getProperty_type()!=null){
                             if (bean.getProject_basic_info().getProperty_type().size() > 0) {
                                 linearLayout.removeAllViews();
                                 for (int j = 0; j < bean.getProject_basic_info().getProperty_type().size(); j++) {
-                                    if(true) {
+                                    if (true) {
                                         imageView = new ImageView(getContext());
                                         if (bean.getProject_basic_info().getProperty_type().get(j).equals("住宅")) {
                                             imageView.setImageResource(R.drawable.ic_residential2);
@@ -550,6 +583,7 @@ public class ProjectXiangQingFragment extends Fragment implements View.OnClickLi
                                             linearLayout.addView(imageView, layoutParams);
                                         }
                                     }
+                                }
                                 }
                             }
 
@@ -581,7 +615,7 @@ public class ProjectXiangQingFragment extends Fragment implements View.OnClickLi
                         }
                     }
                 });
-//        getPiPeiKeHu();
+        getPiPeiKeHu();
 
     }
 
@@ -639,8 +673,42 @@ public class ProjectXiangQingFragment extends Fragment implements View.OnClickLi
                             e.printStackTrace();
                         }
                         if(code == 200&& data!=null){
-                             ProjectPiPeiKeHuBean piPeiKeHuBean = JsonUtil.jsonToEntity(s,ProjectPiPeiKeHuBean.class);
+                             piPeiKeHuBean = JsonUtil.jsonToEntity(s,ProjectPiPeiKeHuBean.class);
+                             tv_pipeinum.setText("("+piPeiKeHuBean.getData().size()+")");
 
+                             if(piPeiKeHuBean.getData().size()>=1&&piPeiKeHuBean.getData().size()<2){
+
+                                 ll_pipeikehu1.setVisibility(View.VISIBLE);
+                                 tv_name1.setText(piPeiKeHuBean.getData().get(0).getName());
+                                 tv_zongjia1.setText(piPeiKeHuBean.getData().get(0).getPrice()+"万");
+                                 tv_huxin1.setText(piPeiKeHuBean.getData().get(0).getHouse_type());
+                                 tv_quyu1.setText(piPeiKeHuBean.getData().get(0).getRegion().get(0).getProvince_name());
+                                 tv_intents1.setText(piPeiKeHuBean.getData().get(0).getIntent()+"");
+                                 tv_urgency.setText(piPeiKeHuBean.getData().get(0).getUrgency()+"");
+                                 tv_pepeidu.setText(piPeiKeHuBean.getData().get(0).getScore()+"%");
+                                 tv_telnum1.setText(piPeiKeHuBean.getData().get(0).getTel());
+                             }else if(piPeiKeHuBean.getData().size()>=2){
+                                 ll_pipeikehu2.setVisibility(View.VISIBLE);
+                                 ll_pipeikehu1.setVisibility(View.VISIBLE);
+                                 tv_name1.setText(piPeiKeHuBean.getData().get(0).getName());
+                                 tv_zongjia1.setText(piPeiKeHuBean.getData().get(0).getPrice()+"万");
+                                 tv_huxin1.setText(piPeiKeHuBean.getData().get(0).getHouse_type());
+                                 tv_quyu1.setText(piPeiKeHuBean.getData().get(0).getRegion().get(0).getProvince_name());
+                                 tv_intents1.setText(piPeiKeHuBean.getData().get(0).getIntent()+"");
+                                 tv_urgency.setText(piPeiKeHuBean.getData().get(0).getUrgency()+"");
+                                 tv_pepeidu.setText(piPeiKeHuBean.getData().get(0).getScore()+"%");
+                                 tv_telnum1.setText(piPeiKeHuBean.getData().get(0).getTel());
+
+
+                                 tv_name2.setText(piPeiKeHuBean.getData().get(1).getName());
+                                 tv_zongjia2.setText(piPeiKeHuBean.getData().get(1).getPrice()+"万");
+                                 tv_huxin2.setText(piPeiKeHuBean.getData().get(1).getHouse_type());
+                                 tv_quyu2.setText(piPeiKeHuBean.getData().get(1).getRegion().get(0).getProvince_name());
+                                 tv_intents2.setText(piPeiKeHuBean.getData().get(1).getIntent()+"");
+                                 tv_urgency2.setText(piPeiKeHuBean.getData().get(1).getUrgency()+"");
+                                 tv_pepeidu2.setText(piPeiKeHuBean.getData().get(1).getScore()+"%");
+                                 tv_telnum2.setText(piPeiKeHuBean.getData().get(1).getTel());
+                             }
                         }
                     }
                 });

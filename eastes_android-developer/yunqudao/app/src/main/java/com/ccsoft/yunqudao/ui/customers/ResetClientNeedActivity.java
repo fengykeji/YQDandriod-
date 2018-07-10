@@ -215,17 +215,19 @@ public class ResetClientNeedActivity extends AppCompatActivity implements View.O
             PeizhiBean peizhiBean = savePeizhi();
             for (PeizhiBean.DataBean._$15Bean.ParamBeanXXXXXXXXXXXXXX bean : peizhiBean.getData().get_$15().getParam()) {
                 for (String s : b) {
-                    if(bean.getId()==Integer.parseInt(s)) {
-                        LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-                        layoutParams.leftMargin = 6;
-                                TextView textView = new TextView(ResetClientNeedActivity.this);
-                                textView.setText(bean.getParam());
-                                textView.setBackgroundResource(R.drawable.shape_addlabel);
-                                textView.setPadding(14, 14, 14, 14);
-                                textView.setTextSize(19);
-                                ll_showlabel.addView(textView, layoutParams);
-                                tv_showlabel.setVisibility(View.GONE);
+                    if(!s.equals("")) {
+                        if (bean.getId() == Integer.parseInt(s)) {
+                            LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+                            layoutParams.leftMargin = 6;
+                            TextView textView = new TextView(ResetClientNeedActivity.this);
+                            textView.setText(bean.getParam());
+                            textView.setBackgroundResource(R.drawable.shape_addlabel);
+                            textView.setPadding(14, 14, 14, 14);
+                            textView.setTextSize(19);
+                            ll_showlabel.addView(textView, layoutParams);
+                            tv_showlabel.setVisibility(View.GONE);
 
+                        }
                     }
                 }
             }

@@ -21,4 +21,6 @@
     <color name="primary">#4393f9</color>   <!-- 主色 -->
     <color name="huxing">#565656</color>
     <color name="sale">#1b98ff</color>
+    <color name="saled">#f47564</color>
+    <color name="yiding">#ffd79a</color>
 </resources>

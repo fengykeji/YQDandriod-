@@ -78,7 +78,6 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="云算号"
-                            android:textColor="@color/chunhei"
                             android:textSize="17sp"
                             />
 
@@ -95,6 +94,8 @@
                                 android:layout_centerVertical="true"
                                 android:text="123456789"
                                 android:textSize="16sp"
+                                android:textColor="@color/chunhei"
+
                                 />
 
                         </RelativeLayout>
@@ -138,7 +139,6 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="我的二维码"
-                        android:textColor="@color/chunhei"
                         android:textSize="17sp"
                         />
 
@@ -152,6 +152,7 @@
                             android:layout_alignParentRight="true"
                             android:layout_centerVertical="true"
                             android:src="@drawable/ic_rightarrow2"
+
                             />
 
                     </RelativeLayout>
@@ -190,7 +191,6 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="姓名"
-                        android:textColor="@color/chunhei"
                         android:textSize="17sp"
                         />
 
@@ -204,6 +204,7 @@
                             android:layout_alignParentRight="true"
                             android:layout_centerVertical="true"
                             android:gravity="center_vertical"
+
                             >
 
                             <TextView
@@ -213,6 +214,8 @@
                                 android:layout_marginRight="10dp"
                                 android:text="张三"
                                 android:textSize="17sp"
+                                android:textColor="@color/chunhei"
+
                                 />
 
                             <ImageView
@@ -259,7 +262,6 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="电话号码"
-                        android:textColor="@color/chunhei"
                         android:textSize="17sp"
                         />
 
@@ -282,6 +284,8 @@
                                 android:layout_marginRight="10dp"
                                 android:text="13999999999"
                                 android:textSize="16sp"
+                                android:textColor="@color/chunhei"
+
                                 />
 
                             <ImageView
@@ -328,7 +332,6 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="性别"
-                        android:textColor="@color/chunhei"
                         android:textSize="17sp"
                         />
 
@@ -351,6 +354,8 @@
                                 android:layout_marginRight="10dp"
                                 android:text="男"
                                 android:textSize="17sp"
+                                android:textColor="@color/chunhei"
+
                                 />
 
                             <ImageView
@@ -397,7 +402,6 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="出生年月"
-                        android:textColor="@color/chunhei"
                         android:textSize="17sp"
                         />
 
@@ -420,6 +424,8 @@
                                 android:layout_marginRight="10dp"
                                 android:text="1999-01-01"
                                 android:textSize="16sp"
+                                android:textColor="@color/chunhei"
+
                                 />
 
                             <ImageView
@@ -468,7 +474,6 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="3"
                         android:text="住址"
-                        android:textColor="@color/chunhei"
                         android:textSize="17sp"
                         />
 
@@ -492,6 +497,8 @@
                                 android:layout_marginRight="10dp"
                                 android:text="成都市-郫都区-大禹东路-102号宜家新城"
                                 android:textSize="15sp"
+                                android:textColor="@color/chunhei"
+
                                 />
 
                             <ImageView
@@ -538,7 +545,6 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="修改密码"
-                        android:textColor="@color/chunhei"
                         android:textSize="17sp"
                         />
 
@@ -560,6 +566,8 @@
                                 android:layout_marginRight="10dp"
                                 android:text="******"
                                 android:textSize="16sp"
+                                android:textColor="@color/chunhei"
+
                                 />
 
                             <ImageView

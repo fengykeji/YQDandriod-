@@ -46,26 +46,31 @@
     <android.support.v4.view.ViewPager
         android:id="@+id/house_viewpager_图册"
         android:layout_width="match_parent"
-        android:layout_height="300dp"
+        android:layout_height="wrap_content"
         >
 
     </android.support.v4.view.ViewPager>
+
+</LinearLayout>
+
     <RelativeLayout
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="50dp"
         android:padding="20dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:visibility="gone"
+        android:visibility="visible"
         >
 
-    <TextView
-        android:id="@+id/house_text_效果图"
-        android:text="效果图1/10"
-        android:textSize="18sp"
-        android:textColor="@color/qianhui"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        <TextView
+            android:id="@+id/house_text_效果图"
+            android:text="效果图1/10"
+            android:textSize="18sp"
+            android:textColor="@color/qianhui"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
 
-        />
+            />
         <TextView
             android:id="@+id/house_text_全部图"
             android:text="全部1/10"
@@ -76,7 +81,6 @@
             android:layout_alignParentRight="true"
             />
     </RelativeLayout>
-</LinearLayout>
 
     <android.support.design.widget.TabLayout
         android:layout_alignParentBottom="true"

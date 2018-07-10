@@ -99,8 +99,7 @@ public class HouseListAdapter extends BaseRecyclerAdapter<HouseListBean.DataBean
         peizhiBean.getData().get_$16().getParam();
         peizhiBean.getData().get_$15().getParam();
 
-
-
+if(bean.getProperty_tags()!=null){
                 if (bean.getProperty_tags().size() > 0) {
                     linearLayout.removeAllViews();
                 for (int j = 0; j < bean.getProperty_tags().size(); j++) {
@@ -118,10 +117,11 @@ public class HouseListAdapter extends BaseRecyclerAdapter<HouseListBean.DataBean
                             } else if (bean.getProperty_tags().get(j) == 62) {
                                 imageView.setImageResource(R.drawable.ic_shops);
                                 linearLayout.addView(imageView, layoutParams);
-                            } else if (bean.getProperty_tags().get(j)== 61) {
+                            } else if (bean.getProperty_tags().get(j) == 61) {
                                 imageView.setImageResource(R.drawable.ic_villa);
                                 linearLayout.addView(imageView, layoutParams);
                             }
+                        }
                 }
             }
         }

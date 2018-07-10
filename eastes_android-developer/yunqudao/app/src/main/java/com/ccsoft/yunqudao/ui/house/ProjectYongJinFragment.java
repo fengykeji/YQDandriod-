@@ -65,8 +65,8 @@ public class ProjectYongJinFragment extends Fragment {
 
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         if(dataList!=null) {
-//            adapter = new ProjectYongjinAdapter(getContext(), R.layout.item_project_yongjin, dataList);
-//            recyclerView.setAdapter(adapter);
+            adapter = new ProjectYongjinAdapter(getContext(), R.layout.item_project_yongjin, dataList);
+            recyclerView.setAdapter(adapter);
         }
     }
 
@@ -94,7 +94,7 @@ public class ProjectYongJinFragment extends Fragment {
                             ProjectGetRuleBean bean = JsonUtil.jsonToEntity(s,ProjectGetRuleBean.class);
                             dataList.clear();
                             dataList.addAll(bean.getData());
-//                            adapter.notifyDataSetChanged();
+                            adapter.notifyDataSetChanged();
                         }
                     }
                 });

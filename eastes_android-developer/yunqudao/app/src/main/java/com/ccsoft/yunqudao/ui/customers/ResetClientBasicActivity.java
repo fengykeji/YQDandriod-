@@ -117,8 +117,10 @@ public class ResetClientBasicActivity extends AppCompatActivity implements View.
                     if (mSex.equals("男")) {
                         type = 1;
                     }
-                    else {
+                    else if(mSex.equals("女")){
                         type = 2;
+                    }else if(mSex.equals("")){
+                        type = 0;
                     }
                 }
 
@@ -165,6 +167,9 @@ public class ResetClientBasicActivity extends AppCompatActivity implements View.
                     Toast.makeText(this, "请输入正确的手机号1", Toast.LENGTH_SHORT).show();
                     return;
                 }
+
+                Log.e("cccccc",type+" "+mClient_id+" "+mName);
+
                 OkHttpUtils.post(HttpAdress.update)
                         .tag(this)
                         .params("client_id",String.valueOf(mClient_id))
@@ -178,11 +183,14 @@ public class ResetClientBasicActivity extends AppCompatActivity implements View.
                             @Override
                             public void onSuccess(String s, Call call, Response response) {
                                 StringModel model = JsonUtil.jsonToEntity(s,StringModel.class);
+
                                 if(model.getCode()==200){
                                     sendBroadcast(new Intent(AppConstants.REFRESH_CUSTOM_LIST));
                                     finish();
                                 }
                                 Toast.makeText(ResetClientBasicActivity.this,model.getMsg(),Toast.LENGTH_SHORT).show();
+
+
                             }
                         });
 

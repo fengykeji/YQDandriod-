@@ -25,6 +25,9 @@ public class HttpAdress {
     public static String value_project = AppConstants.URL+"agent/work/project/value";
     public static String disabled_project = AppConstants.URL+"agent/work/project/disabled";
 
+    /*工作消息列表*/
+    public static String worklist = AppConstants.URL+"agent/message/work/list";
+
     /*房源展示列表*/
     public static String HOUSELIST = AppConstants.URL+"user/project/list";
     /*房源项目详情*/
@@ -51,6 +54,10 @@ public class HttpAdress {
     public static String cityChoose = AppConstants.URL+"user/project/openCity";
     /*客服信息*/
     public static String getInfo = AppConstants.URL+"agent/client/getInfo";
+    /*楼栋信息*/
+    public static String yunsuanbuild = AppConstants.URL+"user/yunsuan/build";
+    /*单元信息*/
+    public static String yunsuanunit = AppConstants.URL+"user/yunsuan/unit";
 
 
     /*快速报备*/
