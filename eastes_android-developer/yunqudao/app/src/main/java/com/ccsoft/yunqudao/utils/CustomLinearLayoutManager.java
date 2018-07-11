@@ -3,6 +3,7 @@ package com.ccsoft.yunqudao.utils;
 
 import android.content.Context;
 import android.support.v7.widget.LinearLayoutManager;
+import android.view.View;
 
 public class CustomLinearLayoutManager extends LinearLayoutManager {
     private boolean isScrollEnabled = true;
@@ -15,9 +16,11 @@ public class CustomLinearLayoutManager extends LinearLayoutManager {
         this.isScrollEnabled = flag;
     }
 
+
     @Override
     public boolean canScrollVertically() {
         //Similarly you can customize "canScrollHorizontally()" for managing horizontal scroll
         return isScrollEnabled && super.canScrollVertically();
     }
+
 }

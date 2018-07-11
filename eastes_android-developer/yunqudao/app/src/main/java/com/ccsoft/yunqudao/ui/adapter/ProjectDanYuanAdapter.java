@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.MotionEvent;
 import android.view.View;
 
 import com.ccsoft.yunqudao.R;
@@ -32,11 +33,26 @@ public class ProjectDanYuanAdapter extends BaseRecyclerAdapter<ProjectDanYuanBea
         linearLayoutManager.setScrollEnabled(false);
         linearLayoutManager.setOrientation(LinearLayoutManager.HORIZONTAL);
         recyclerView.setLayoutManager(linearLayoutManager);
+        recyclerView.setNestedScrollingEnabled(false);
+        recyclerView.setNestedScrollingEnabled(false);
+        recyclerView.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View view, MotionEvent motionEvent) {
+                if (motionEvent.getAction() == MotionEvent.ACTION_UP) {
+                    recyclerView.requestDisallowInterceptTouchEvent(false);
 
+                } else {
+                    recyclerView.requestDisallowInterceptTouchEvent(false);
+
+                }
+
+                return false;
+            }
+        });
 
         adapter = new ProjectDanYuan1Adapter(context,R.layout.item_project_danyuan1,bean.getLIST());
         recyclerView.setAdapter(adapter);
-        recyclerView.setNestedScrollingEnabled(false);
+
 
         adapter.setOnItemClickListner(new OnItemClickListner() {
             @Override

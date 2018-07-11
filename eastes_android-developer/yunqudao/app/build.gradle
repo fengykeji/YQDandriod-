@@ -45,6 +45,8 @@ android {
 
 
 
+
+
 dependencies {
     implementation fileTree(include: ['*.jar'], dir: 'libs')
     implementation 'com.android.support:appcompat-v7:26.0.0-beta1'
@@ -88,6 +90,7 @@ dependencies {
     implementation files('libs/BaiduLBS_Android.jar')
     implementation files('libs/IndoorscapeAlbumPlugin.jar')
     implementation 'com.github.chrisbanes:PhotoView:1.3.0'
+
 }
 repositories {
   flatDir {

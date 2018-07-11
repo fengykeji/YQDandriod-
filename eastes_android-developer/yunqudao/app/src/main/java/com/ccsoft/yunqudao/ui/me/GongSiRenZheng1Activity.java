@@ -193,58 +193,7 @@ public class GongSiRenZheng1Activity extends AppCompatActivity implements View.O
         }, getSupportFragmentManager());
     }
 
-    /**
-     * 回调接口
-     *
-     * @param requestCode
-     * @param resultCode
-     * @param intent
-     */
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent intent) {
-        switch (requestCode) {
-            // 调用相机后返回
-            case CAMERA_REQUEST_CODE:
-                if (resultCode == RESULT_OK) {
 
-                    //用相机返回的照片去调用剪裁也需要对Uri进行处理
-                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-                        Uri contentUri = FileProvider.getUriForFile(GongSiRenZheng1Activity.this, "com.ccsoft.yunqudao.fileProvider", tempFile);
-                        cropPhoto(contentUri);//裁剪图片
-
-
-
-                    } else {
-                        cropPhoto(Uri.fromFile(tempFile));//裁剪图片
-                    }
-                }
-                break;
-            //调用相册后返回
-            case ALBUM_REQUEST_CODE:
-                if (resultCode == RESULT_OK) {
-                    Uri uri = intent.getData();
-                    cropPhoto(uri);//裁剪图片
-                }
-                break;
-            //调用剪裁后返回
-            case CROP_REQUEST_CODE:
-                Bundle bundle = intent.getExtras();
-                if (bundle != null) {
-                    //在这里获得了剪裁后的Bitmap对象，可以用于上传
-                    Bitmap image = bundle.getParcelable("data");
-                    //设置到ImageView上
-                    mImage.setImageBitmap(image);
-                    //也可以进行一些保存、压缩等操作后上传
-//                    String path = saveImage("userHeader", image);
-//                    File file = new File(path);
-                    /*
-                     *上传文件的额操作
-                     */
-                }
-                break;
-        }
-
-    }
 
     private void checkPermission() {
         if (ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
@@ -261,6 +210,9 @@ public class GongSiRenZheng1Activity extends AppCompatActivity implements View.O
     }
 
 
+    /**
+     * 从相机获取图片
+     */
     private void getPicFromCamera() {
         //用于保存调用相机拍照后所生成的文件
         tempFile = new File(Environment.getExternalStorageDirectory().getPath(), System.currentTimeMillis() + ".jpg");
@@ -271,21 +223,20 @@ public class GongSiRenZheng1Activity extends AppCompatActivity implements View.O
             intent.setFlags(Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
             Uri contentUri = FileProvider.getUriForFile(GongSiRenZheng1Activity.this, "com.ccsoft.yunqudao.fileProvider", tempFile);
             intent.putExtra(MediaStore.EXTRA_OUTPUT, contentUri);
+            Log.e("dasd", contentUri.toString());
         } else {    //否则使用Uri.fromFile(file)方法获取Uri
             intent.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(tempFile));
         }
         startActivityForResult(intent, CAMERA_REQUEST_CODE);
-
     }
     /**
      * 从相册获取图片
      */
     private void getPicFromAlbm() {
-        Intent photoPickerIntent = new Intent(Intent.ACTION_PICK, MediaStore.Audio.Media.EXTERNAL_CONTENT_URI);
+        Intent photoPickerIntent = new Intent(Intent.ACTION_PICK);
         photoPickerIntent.setType("image/*");
         startActivityForResult(photoPickerIntent, ALBUM_REQUEST_CODE);
     }
-
     /**
      * 裁剪图片
      */
@@ -302,14 +253,39 @@ public class GongSiRenZheng1Activity extends AppCompatActivity implements View.O
         intent.putExtra("return-data", true);
         startActivityForResult(intent, CROP_REQUEST_CODE);
     }
-
-    /**
-     * 保存图片到本地
-     *
-     * @param name
-     * @param bmp
-     * @return
-     */
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent intent) {
+        switch (requestCode) {
+            case CAMERA_REQUEST_CODE:   //调用相机后返回
+                if (resultCode == RESULT_OK) {
+                    //用相机返回的照片去调用剪裁也需要对Uri进行处理
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+                        Uri contentUri = FileProvider.getUriForFile(GongSiRenZheng1Activity.this, "com.ccsoft.yunqudao.fileProvider", tempFile);
+                        cropPhoto(contentUri);
+                    } else {
+                        cropPhoto(Uri.fromFile(tempFile));
+                    }
+                }
+                break;
+            case ALBUM_REQUEST_CODE:    //调用相册后返回
+                if (resultCode == RESULT_OK) {
+                    Uri uri = intent.getData();
+                    cropPhoto(uri);
+                }
+                break;
+            case CROP_REQUEST_CODE:     //调用剪裁后返回
+                Bundle bundle = intent.getExtras();
+                if (bundle != null) {
+                    //在这里获得了剪裁后的Bitmap对象，可以用于上传
+                    Bitmap image = bundle.getParcelable("data");
+                    //设置到ImageView上
+                    mImage.setImageBitmap(image);
+                    //也可以进行一些保存、压缩等操作后上传
+//                    String path = saveImage("crop", image);
+                }
+                break;
+        }
+    }
     public String saveImage(String name, Bitmap bmp) {
         File appDir = new File(Environment.getExternalStorageDirectory().getPath());
         if (!appDir.exists()) {
@@ -319,7 +295,7 @@ public class GongSiRenZheng1Activity extends AppCompatActivity implements View.O
         File file = new File(appDir, fileName);
         try {
             FileOutputStream fos = new FileOutputStream(file);
-            bmp.compress(Bitmap.CompressFormat.JPEG, 100, fos);
+            bmp.compress(Bitmap.CompressFormat.PNG, 100, fos);
             fos.flush();
             fos.close();
             return file.getAbsolutePath();
@@ -328,6 +304,8 @@ public class GongSiRenZheng1Activity extends AppCompatActivity implements View.O
         }
         return null;
     }
+
+
     /**
      * 显示生日时间选择器
      *

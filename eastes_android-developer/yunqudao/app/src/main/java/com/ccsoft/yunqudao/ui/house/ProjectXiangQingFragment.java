@@ -271,13 +271,16 @@ public class ProjectXiangQingFragment extends Fragment implements View.OnClickLi
 
 
 
-        mapView.setOnTouchListener(new View.OnTouchListener() {
+        View v = mapView.getChildAt(0);
+        v.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
                 if (event.getAction() == MotionEvent.ACTION_UP) {
-                    scrollView.requestDisallowInterceptTouchEvent(true);
-                } else {
                     scrollView.requestDisallowInterceptTouchEvent(false);
+                    viewPager.requestDisallowInterceptTouchEvent(false);
+                } else {
+                    scrollView.requestDisallowInterceptTouchEvent(true);
+                    viewPager.requestDisallowInterceptTouchEvent(true);
                 }
                 return false;
             }
