@@ -594,7 +594,8 @@
                     android:weightSum="10">
 
                     <Button
-
+                        android:background="#d5f2ff"
+                        android:textColor="#01a1e9"
                         android:id="@+id/house_button_教育"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
@@ -602,6 +603,9 @@
                         android:text="教育" />
 
                     <Button
+                        android:layout_marginLeft="5dp"
+                        android:textColor="#51b175"
+                        android:background="#eaf2ed"
                         android:id="@+id/house_button_交通"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
@@ -609,6 +613,9 @@
                         android:text="交通" />
 
                     <Button
+                        android:layout_marginLeft="5dp"
+                        android:background="#d0f3f5"
+                        android:textColor="#4fa6ab"
                         android:id="@+id/house_button_医院"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
@@ -616,6 +623,9 @@
                         android:text="医院" />
 
                     <Button
+                        android:layout_marginLeft="5dp"
+                        android:textColor="#e78800"
+                        android:background="#ffedd3"
                         android:id="@+id/house_button_购物"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
@@ -623,6 +633,9 @@
                         android:text="购物" />
 
                     <Button
+                        android:layout_marginLeft="5dp"
+                        android:background="#ffb99e"
+                        android:textColor="#c84e1f"
                         android:id="@+id/house_button_餐饮"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"

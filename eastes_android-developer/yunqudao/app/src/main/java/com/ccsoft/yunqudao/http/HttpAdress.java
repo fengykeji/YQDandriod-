@@ -58,6 +58,8 @@ public class HttpAdress {
     public static String yunsuanbuild = AppConstants.URL+"user/yunsuan/build";
     /*单元信息*/
     public static String yunsuanunit = AppConstants.URL+"user/yunsuan/unit";
+    /*快速推荐*/
+    public static String fastRecommendList = AppConstants.URL+"agent/matching/fastRecommendList";
 
 
     /*快速报备*/

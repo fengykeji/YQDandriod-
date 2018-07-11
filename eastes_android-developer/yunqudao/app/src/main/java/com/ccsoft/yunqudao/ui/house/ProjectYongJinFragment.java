@@ -43,7 +43,8 @@ public class ProjectYongJinFragment extends Fragment {
     private int project_id;
     private RecyclerView recyclerView;
     private ProjectYongjinAdapter adapter;
-    private ArrayList<ProjectGetRuleBean.DataBean> dataList = new ArrayList<>();
+    private ArrayList<ProjectGetRuleBean.DataBean.PersonBean> dataList = new ArrayList<>();
+    private ArrayList<ProjectGetRuleBean.DataBean> list = new ArrayList<>();
 
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
@@ -65,7 +66,7 @@ public class ProjectYongJinFragment extends Fragment {
 
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         if(dataList!=null) {
-            adapter = new ProjectYongjinAdapter(getContext(), R.layout.item_project_yongjin, dataList);
+            adapter = new ProjectYongjinAdapter(getContext(), R.layout.item_project_yongjin, dataList,list);
             recyclerView.setAdapter(adapter);
         }
     }
@@ -92,8 +93,12 @@ public class ProjectYongJinFragment extends Fragment {
                         }
                         if(code == 200&& data!=null){
                             ProjectGetRuleBean bean = JsonUtil.jsonToEntity(s,ProjectGetRuleBean.class);
-                            dataList.clear();
-                            dataList.addAll(bean.getData());
+                            for (ProjectGetRuleBean.DataBean dataBean : bean.getData()) {
+                                if(dataBean.getPerson()!=null) {
+                                    dataList.addAll(dataBean.getPerson());
+                                }
+                            }
+                            list.addAll(bean.getData());
                             adapter.notifyDataSetChanged();
                         }
                     }

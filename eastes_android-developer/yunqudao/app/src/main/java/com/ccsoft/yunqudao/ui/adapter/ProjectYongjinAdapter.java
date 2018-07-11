@@ -12,58 +12,64 @@ import com.ccsoft.yunqudao.bean.ProjectGetRuleBean;
 import com.ccsoft.yunqudao.data.base.BaseRecyclerAdapter;
 import com.ccsoft.yunqudao.data.base.BaseViewHolder;
 
+import java.util.ArrayList;
 import java.util.List;
 
-public class ProjectYongjinAdapter extends BaseRecyclerAdapter<ProjectGetRuleBean.DataBean>  implements View.OnClickListener{
+public class ProjectYongjinAdapter extends BaseRecyclerAdapter<ProjectGetRuleBean.DataBean.PersonBean>  {
     LinearLayout ll_showguize,ll_gone,ll_gone1;
-    public ProjectYongjinAdapter(Context context, int layoutId, List<ProjectGetRuleBean.DataBean> data) {
+    int expandPosition = -1;
+    private ArrayList<ProjectGetRuleBean.DataBean> list = new ArrayList<>();
+
+
+    public ProjectYongjinAdapter(Context context, int layoutId, List<ProjectGetRuleBean.DataBean.PersonBean> data,
+                                 ArrayList<ProjectGetRuleBean.DataBean> list ) {
         super(context, layoutId, data);
+        this.list = list;
     }
 
     @Override
-    protected void convert(BaseViewHolder holder, ProjectGetRuleBean.DataBean bean ,int position) {
+    protected void convert(BaseViewHolder holder, ProjectGetRuleBean.DataBean.PersonBean bean ,int position) {
 
-        if(bean.getPerson()!=null) {
 
-            for (ProjectGetRuleBean.DataBean.PersonBean personBean : bean.getPerson()) {
-                if (personBean.getAct_end().equals("2037-12-31 23:59:59")) {
-                    holder.setText(R.id.tv_startTime, bean.getBegin_time() + "起");
-                } else {
-                    holder.setText(R.id.tv_startTime, personBean.getAct_start() + "至" +
-                            personBean.getAct_end());
+
+                if (bean.getAct_end().equals("2037-12-31 23:59:59")) {
+                    holder.setText(R.id.tv_startTime, bean.getAct_start()+ "起");
+                } else
+                    {
+                    holder.setText(R.id.tv_startTime, bean.getAct_start() + "至" +
+                            bean.getAct_end());
                 }
-                holder.setText(R.id.tv_jieyong, personBean.getCommission_describe());
-            }
-            ImageButton imageButton = (ImageButton) holder.getView(R.id.ib_showguize);
-            imageButton.setOnClickListener(this);
+                holder.setText(R.id.tv_jieyong, bean.getCommission_describe());
+
+
 
             ll_showguize = (LinearLayout) holder.getView(R.id.ll_showguize);
             ll_gone = (LinearLayout) holder.getView(R.id.ll_gone);
             ll_gone1 = (LinearLayout) holder.getView(R.id.ll_gone2);
-            holder.setText(R.id.tv_yongjinguize, bean.getDescribe());
-            holder.setText(R.id.tv_paiming, "第" + bean.getStandard() + "名");
 
-            if (bean.getStandard() != 1) {
-                ll_gone.setVisibility(View.GONE);
-                ll_gone1.setVisibility(View.GONE);
-            }
+            holder.setText(R.id.tv_yongjinguize, list.get(position).getDescribe());
+            holder.setText(R.id.tv_paiming, "第" + list.get(position).getStandard() + "名");
 
-        }
-
-
-    }
-
-    @Override
-    public void onClick(View view) {
-        switch (view.getId()){
-            case R.id.ib_showguize:
-                Log.e("sssss","s");
-                if(ll_showguize.getVisibility()==View.GONE) {
-                    ll_showguize.setVisibility(View.VISIBLE);
-                }else {
-                    ll_showguize.setVisibility(View.GONE);
+            holder.setVisible(R.id.ll_showguize,position == expandPosition ? View.VISIBLE : View.GONE);
+            holder.setOnclick(R.id.ib_showguize, new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    togglePosition(position);
                 }
-                break;
+            });
+
         }
+
+
+
+
+    public void togglePosition(int position) {
+        if (expandPosition != position) {
+            notifyItemChanged(expandPosition);
+            expandPosition = position;
+        } else {
+            expandPosition = -1;
+        }
+        notifyItemChanged(position);
     }
 }

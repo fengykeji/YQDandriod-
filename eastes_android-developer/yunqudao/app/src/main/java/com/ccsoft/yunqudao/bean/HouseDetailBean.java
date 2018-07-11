@@ -463,8 +463,8 @@ public class HouseDetailBean implements Serializable{
             private String house_type;
             private String sale_state;
             private String img_url;
-            private int property_area_min;
-            private int property_area_max;
+            private float property_area_min;
+            private float property_area_max;
 
             public int getId() {
                 return id;
@@ -506,7 +506,7 @@ public class HouseDetailBean implements Serializable{
                 this.img_url = img_url;
             }
 
-            public int getProperty_area_min() {
+            public float getProperty_area_min() {
                 return property_area_min;
             }
 
@@ -514,7 +514,7 @@ public class HouseDetailBean implements Serializable{
                 this.property_area_min = property_area_min;
             }
 
-            public int getProperty_area_max() {
+            public float getProperty_area_max() {
                 return property_area_max;
             }
 

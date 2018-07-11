@@ -2,12 +2,14 @@ package com.ccsoft.yunqudao.ui.house;
 
 import android.Manifest;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
+import android.provider.Settings;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
@@ -15,6 +17,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v4.view.ViewPager.OnPageChangeListener;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -74,12 +77,16 @@ import com.ccsoft.yunqudao.bean.HouseDetailBean;
 import com.ccsoft.yunqudao.bean.PeizhiBean;
 import com.ccsoft.yunqudao.bean.ProjectPiPeiKeHuBean;
 import com.ccsoft.yunqudao.data.AppConstants;
+import com.ccsoft.yunqudao.data.model.response.ResultData;
 import com.ccsoft.yunqudao.http.HttpAdress;
+import com.ccsoft.yunqudao.http.XutilsHttp;
 import com.ccsoft.yunqudao.model.StringModel;
+import com.ccsoft.yunqudao.ui.customers.QuickRecommendActivity;
 import com.ccsoft.yunqudao.ui.mian.MainActivity;
 import com.ccsoft.yunqudao.utils.BaseCallBack;
 import com.ccsoft.yunqudao.utils.ImageUtil;
 import com.ccsoft.yunqudao.utils.JsonUtil;
+import com.ccsoft.yunqudao.utils.LogUtil;
 import com.ccsoft.yunqudao.utils.OkHttpManager;
 import com.ccsoft.yunqudao.utils.SpUtil;
 import com.facebook.drawee.view.SimpleDraweeView;
@@ -100,7 +107,9 @@ import java.net.MalformedURLException;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.concurrent.atomic.AtomicBoolean;
 
 import butterknife.ButterKnife;
@@ -162,6 +171,10 @@ public class ProjectXiangQingFragment extends Fragment implements View.OnClickLi
     private BaiduMap baiduMap;
     private PoiSearch mPoiSearch;
     private ProjectPiPeiKeHuBean piPeiKeHuBean;
+
+    private int client_need_id0,client_need_id1,client_id0,client_id1;
+    private static final int MY_PERMISSIONS_REQUEST_CALL_PHONE = 1;
+
 
 
     @Override
@@ -371,27 +384,27 @@ public class ProjectXiangQingFragment extends Fragment implements View.OnClickLi
 //                ProjectPiPeiKeHuActivity.start(getActivity());
                 Bundle bundle = new Bundle();
                 bundle.putSerializable("list", (Serializable) piPeiKeHuBean.getData());
+                bundle.putInt("project_id",project_id);
                 Intent intent3 = new Intent(getContext(),ProjectPiPeiKeHuActivity.class);
                 intent3.putExtras(bundle);
                 startActivity(intent3);
 
                 break;
             case R.id.house_button_推荐1:
-                Toast.makeText(getActivity(), "你推荐了该户型", Toast.LENGTH_SHORT).show();
+                getRecommend(project_id,client_need_id0,client_id0);
                 break;
             case R.id.house_button_推荐2:
-                Toast.makeText(getActivity(), "你推荐了该户型", Toast.LENGTH_SHORT).show();
+                getRecommend(project_id,client_need_id1,client_id1);
                 break;
             case R.id.house_button_电话咨询:
-                //String number = mHouse_text_客户联系电话.getText().toString();
-                //Intent intent = new Intent();
-                //intent.setAction(Intent.ACTION_CALL);
-                //intent.setData(Uri.parse("tel:"+number));
-                //startActivity(intent);
-                Toast.makeText(getActivity(), "你拨打了电话", Toast.LENGTH_SHORT).show();
+                getPermiission();
                 break;
             case R.id.house_button_推荐3:
-
+                Bundle bundle1 = new Bundle();
+                bundle1.putInt("project_id",project_id);
+                Intent intent5 = new Intent(getContext(),ProjectPiPeiKeHuActivity.class);
+                intent5.putExtras(bundle1);
+                startActivity(intent5);
                 break;
             case R.id.tv_loupanxiangqing:
                 Intent intent = new Intent(getContext(),ProjectJiChuXinXiActivity.class);
@@ -656,7 +669,9 @@ public class ProjectXiangQingFragment extends Fragment implements View.OnClickLi
         });
     }
 
-
+    /**
+     * 获取匹配客户
+     */
 
     private void getPiPeiKeHu(){
 
@@ -675,45 +690,53 @@ public class ProjectXiangQingFragment extends Fragment implements View.OnClickLi
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
-                        if(code == 200&& data!=null){
-                             piPeiKeHuBean = JsonUtil.jsonToEntity(s,ProjectPiPeiKeHuBean.class);
-                             tv_pipeinum.setText("("+piPeiKeHuBean.getData().size()+")");
-
-                             if(piPeiKeHuBean.getData().size()>=1&&piPeiKeHuBean.getData().size()<2){
-
-                                 ll_pipeikehu1.setVisibility(View.VISIBLE);
-                                 tv_name1.setText(piPeiKeHuBean.getData().get(0).getName());
-                                 tv_zongjia1.setText(piPeiKeHuBean.getData().get(0).getPrice()+"万");
-                                 tv_huxin1.setText(piPeiKeHuBean.getData().get(0).getHouse_type());
-                                 tv_quyu1.setText(piPeiKeHuBean.getData().get(0).getRegion().get(0).getProvince_name());
-                                 tv_intents1.setText(piPeiKeHuBean.getData().get(0).getIntent()+"");
-                                 tv_urgency.setText(piPeiKeHuBean.getData().get(0).getUrgency()+"");
-                                 tv_pepeidu.setText(piPeiKeHuBean.getData().get(0).getScore()+"%");
-                                 tv_telnum1.setText(piPeiKeHuBean.getData().get(0).getTel());
-                             }else if(piPeiKeHuBean.getData().size()>=2){
-                                 ll_pipeikehu2.setVisibility(View.VISIBLE);
-                                 ll_pipeikehu1.setVisibility(View.VISIBLE);
-                                 tv_name1.setText(piPeiKeHuBean.getData().get(0).getName());
-                                 tv_zongjia1.setText(piPeiKeHuBean.getData().get(0).getPrice()+"万");
-                                 tv_huxin1.setText(piPeiKeHuBean.getData().get(0).getHouse_type());
-                                 tv_quyu1.setText(piPeiKeHuBean.getData().get(0).getRegion().get(0).getProvince_name());
-                                 tv_intents1.setText(piPeiKeHuBean.getData().get(0).getIntent()+"");
-                                 tv_urgency.setText(piPeiKeHuBean.getData().get(0).getUrgency()+"");
-                                 tv_pepeidu.setText(piPeiKeHuBean.getData().get(0).getScore()+"%");
-                                 tv_telnum1.setText(piPeiKeHuBean.getData().get(0).getTel());
+                        if (code == 200 && data != null) {
+                            piPeiKeHuBean = JsonUtil.jsonToEntity(s, ProjectPiPeiKeHuBean.class);
+                            tv_pipeinum.setText("(" + piPeiKeHuBean.getData().size() + ")");
 
 
-                                 tv_name2.setText(piPeiKeHuBean.getData().get(1).getName());
-                                 tv_zongjia2.setText(piPeiKeHuBean.getData().get(1).getPrice()+"万");
-                                 tv_huxin2.setText(piPeiKeHuBean.getData().get(1).getHouse_type());
-                                 tv_quyu2.setText(piPeiKeHuBean.getData().get(1).getRegion().get(0).getProvince_name());
-                                 tv_intents2.setText(piPeiKeHuBean.getData().get(1).getIntent()+"");
-                                 tv_urgency2.setText(piPeiKeHuBean.getData().get(1).getUrgency()+"");
-                                 tv_pepeidu2.setText(piPeiKeHuBean.getData().get(1).getScore()+"%");
-                                 tv_telnum2.setText(piPeiKeHuBean.getData().get(1).getTel());
-                             }
+
+                                if (piPeiKeHuBean.getData().size() >= 1 && piPeiKeHuBean.getData().size() < 2) {
+
+                                    ll_pipeikehu1.setVisibility(View.VISIBLE);
+                                    client_need_id0 = piPeiKeHuBean.getData().get(0).getNeed_id();
+                                    client_id0 = piPeiKeHuBean.getData().get(0).getClient_id();
+                                    tv_name1.setText(piPeiKeHuBean.getData().get(0).getName());
+                                    tv_zongjia1.setText(piPeiKeHuBean.getData().get(0).getPrice() + "万");
+                                    tv_huxin1.setText(piPeiKeHuBean.getData().get(0).getHouse_type());
+                                    tv_quyu1.setText(piPeiKeHuBean.getData().get(0).getRegion().get(0).getProvince_name());
+                                    tv_intents1.setText(piPeiKeHuBean.getData().get(0).getIntent() + "");
+                                    tv_urgency.setText(piPeiKeHuBean.getData().get(0).getUrgency() + "");
+                                    tv_pepeidu.setText(piPeiKeHuBean.getData().get(0).getScore() + "%");
+                                    tv_telnum1.setText(piPeiKeHuBean.getData().get(0).getTel());
+                                } else if (piPeiKeHuBean.getData().size() >= 2) {
+                                    ll_pipeikehu2.setVisibility(View.VISIBLE);
+                                    ll_pipeikehu1.setVisibility(View.VISIBLE);
+                                    client_need_id0 = piPeiKeHuBean.getData().get(0).getNeed_id();
+                                    client_need_id1 = piPeiKeHuBean.getData().get(1).getNeed_id();
+                                    client_id0 = piPeiKeHuBean.getData().get(0).getClient_id();
+                                    client_id1 = piPeiKeHuBean.getData().get(1).getClient_id();
+                                    tv_name1.setText(piPeiKeHuBean.getData().get(0).getName());
+                                    tv_zongjia1.setText(piPeiKeHuBean.getData().get(0).getPrice() + "万");
+                                    tv_huxin1.setText(piPeiKeHuBean.getData().get(0).getHouse_type());
+                                    tv_quyu1.setText(piPeiKeHuBean.getData().get(0).getRegion().get(0).getProvince_name());
+                                    tv_intents1.setText(piPeiKeHuBean.getData().get(0).getIntent() + "");
+                                    tv_urgency.setText(piPeiKeHuBean.getData().get(0).getUrgency() + "");
+                                    tv_pepeidu.setText(piPeiKeHuBean.getData().get(0).getScore() + "%");
+                                    tv_telnum1.setText(piPeiKeHuBean.getData().get(0).getTel());
+
+
+                                    tv_name2.setText(piPeiKeHuBean.getData().get(1).getName());
+                                    tv_zongjia2.setText(piPeiKeHuBean.getData().get(1).getPrice() + "万");
+                                    tv_huxin2.setText(piPeiKeHuBean.getData().get(1).getHouse_type());
+                                    tv_quyu2.setText(piPeiKeHuBean.getData().get(1).getRegion().get(0).getProvince_name());
+                                    tv_intents2.setText(piPeiKeHuBean.getData().get(1).getIntent() + "");
+                                    tv_urgency2.setText(piPeiKeHuBean.getData().get(1).getUrgency() + "");
+                                    tv_pepeidu2.setText(piPeiKeHuBean.getData().get(1).getScore() + "%");
+                                    tv_telnum2.setText(piPeiKeHuBean.getData().get(1).getTel());
+                                }
+                            }
                         }
-                    }
                 });
     }
 
@@ -803,6 +826,108 @@ public class ProjectXiangQingFragment extends Fragment implements View.OnClickLi
         mPoiSearch.destroy();
 
     }
+
+    private void getRecommend(int project_id,int id,int mClienId ){
+        Map<String, String> map = new HashMap<>();
+        map.put("project_id", String.valueOf(project_id));
+        map.put("client_need_id", String.valueOf(id));
+        map.put("client_id", String.valueOf(mClienId));
+        XutilsHttp.getInstance().postheader(AppConstants.URL + "agent/client/recommend", map, new XutilsHttp.XCallBack() {
+            @Override
+            public void onResponse(String result) {
+                Gson gson = new Gson();
+                ResultData resultData = gson.fromJson(result, ResultData.class);
+                if (resultData.code == 200) {
+                    AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+                    builder.setTitle("推荐成功");
+                    builder.setMessage(resultData.msg);
+                    builder.setNegativeButton("确定", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialogInterface, int i) {
+
+                        }
+                    });
+                    AlertDialog dialog = builder.create();
+                    dialog.show();
+
+
+                } else {
+                    AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+                    builder.setTitle("推荐失败");
+                    builder.setMessage(resultData.msg);
+                    builder.setNegativeButton("确定", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialogInterface, int i) {
+
+                        }
+                    });
+                    AlertDialog dialog = builder.create();
+                    dialog.show();
+                }
+            }
+
+            @Override
+            public void error(String message) {
+                Log.d("666666------》", message);
+            }
+        });
+    }
+
+    private void getPermiission(){
+        // 检查是否获得了权限（Android6.0运行时权限）
+        if (ContextCompat.checkSelfPermission(getContext(),
+                Manifest.permission.CALL_PHONE) != PackageManager.PERMISSION_GRANTED){
+            // 没有获得授权，申请授权
+            if (ActivityCompat.shouldShowRequestPermissionRationale(getActivity(),
+                    Manifest.permission.CALL_PHONE)) {
+                // 返回值：
+//                          如果app之前请求过该权限,被用户拒绝, 这个方法就会返回true.
+//                          如果用户之前拒绝权限的时候勾选了对话框中”Don’t ask again”的选项,那么这个方法会返回false.
+//                          如果设备策略禁止应用拥有这条权限, 这个方法也返回false.
+                // 弹窗需要解释为何需要该权限，再次请求授权
+                Toast.makeText(getContext(), "请授权！", Toast.LENGTH_LONG).show();
+
+                // 帮跳转到该应用的设置界面，让用户手动授权
+                Intent intent = new Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS);
+                Uri uri = Uri.fromParts("package",getActivity().getPackageName(), null);
+                intent.setData(uri);
+                startActivity(intent);
+            }else{
+                // 不需要解释为何需要该权限，直接请求授权
+                ActivityCompat.requestPermissions(getActivity(),
+                        new String[]{Manifest.permission.CALL_PHONE},
+                        MY_PERMISSIONS_REQUEST_CALL_PHONE);
+            }
+        }else {
+            // 已经获得授权，可以打电话
+
+            AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+            builder.setTitle(bean.getButter_tel());
+            builder.setNegativeButton("取消", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialogInterface, int i) {
+
+                }
+            });
+            builder.setPositiveButton("确定", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialogInterface, int i) {
+
+                    Intent intent4 = new Intent();
+                    intent4.setAction(Intent.ACTION_DIAL);
+                    intent4.setData(Uri.parse("tel:"+bean.getButter_tel()));
+                    startActivity(intent4);
+                }
+            });
+            AlertDialog dialog = builder.create();
+            dialog.show();
+
+        }
+
+
+    }
+
+
 
 }
 

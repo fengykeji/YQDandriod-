@@ -16,6 +16,8 @@ import com.ccsoft.yunqudao.bean.MessageEvent;
 import com.ccsoft.yunqudao.bean.ProjectImgGetBean;
 
 import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -28,17 +30,24 @@ public class ProjectXiangCeFragment extends Fragment{
     private List<String> Imgurl = new ArrayList<>();
     private TextView mHouse_text_效果图;
     private TextView    mHouse_text_全部图;
+    private ArrayList<ProjectImgGetBean.DataBeanX> list = new ArrayList<>();
+    private int position = 0;
+
+
+
 
 
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+
         view = inflater.inflate(R.layout.project_item_tupian, container, false);
 
         Bundle bundle = this.getArguments();
-        ArrayList<ProjectImgGetBean.DataBeanX> list = (ArrayList<ProjectImgGetBean.DataBeanX>) bundle.getSerializable("list");
-//        ArrayList<ProjectImgGetBean.DataBeanX.DataBean> dataList = (ArrayList<ProjectImgGetBean.DataBeanX.DataBean>) bundle.getSerializable("lists");
+
+        list = (ArrayList<ProjectImgGetBean.DataBeanX>) bundle.getSerializable("list");
+//        ArrayList<ProjectImgGetBean.DataBeanX.DataBean> dataList = (ArrayList<ProjectImgGetBean.DataBeanX.DataBean>) bundle.getSerializable("list");
 
         for (ProjectImgGetBean.DataBeanX dataBeanX : list) {
            mlist.addAll(dataBeanX.getData()) ;

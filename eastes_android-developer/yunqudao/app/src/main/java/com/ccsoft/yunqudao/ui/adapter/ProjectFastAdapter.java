@@ -8,6 +8,7 @@ import android.view.View;
 
 import com.ccsoft.yunqudao.R;
 import com.ccsoft.yunqudao.bean.PeizhiBean;
+import com.ccsoft.yunqudao.bean.ProjectFastRecommendListBean;
 import com.ccsoft.yunqudao.bean.ProjectPiPeiKeHuBean;
 import com.ccsoft.yunqudao.data.AppConstants;
 import com.ccsoft.yunqudao.data.base.BaseRecyclerAdapter;
@@ -21,15 +22,15 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class ProjectPiPeiAdapter extends BaseRecyclerAdapter<ProjectPiPeiKeHuBean.DataBean> {
+public class ProjectFastAdapter extends BaseRecyclerAdapter<ProjectFastRecommendListBean.DataBeanX.DataBean> {
     private int project_id;
-    public ProjectPiPeiAdapter(Context context, int layoutId, List<ProjectPiPeiKeHuBean.DataBean> data ,int project_id) {
+    public ProjectFastAdapter(Context context, int layoutId, List<ProjectFastRecommendListBean.DataBeanX.DataBean> data , int project_id) {
         super(context, layoutId, data);
         this.project_id = project_id;
     }
 
     @Override
-    protected void convert(BaseViewHolder holder, ProjectPiPeiKeHuBean.DataBean bean, int position) {
+    protected void convert(BaseViewHolder holder,ProjectFastRecommendListBean.DataBeanX.DataBean  bean, int position) {
         holder.setText(R.id.tv_name1,bean.getName());
         holder.setText(R.id.tv_zongjia1,bean.getPrice()+"万");
         PeizhiBean peizhiBean = MainActivity.savePeizhi();
@@ -41,11 +42,12 @@ public class ProjectPiPeiAdapter extends BaseRecyclerAdapter<ProjectPiPeiKeHuBea
             }
         }
 
-        holder.setText(R.id.tv_quyu1,bean.getRegion().get(0).getProvince_name()+"-"+
-        bean.getRegion().get(0).getCity_name()+"-"+bean.getRegion().get(0).getDistrict_name());
+        if(bean.getRegion().size()>0) {
+            holder.setText(R.id.tv_quyu1, bean.getRegion().get(0).getProvince_name() + "-" +
+                    bean.getRegion().get(0).getCity_name() + "-" + bean.getRegion().get(0).getDistrict_name());
+        }
         holder.setText(R.id.tv_intents1,bean.getIntent()+"");
         holder.setText(R.id.tv_urgency,bean.getUrgency()+"");
-        holder.setText(R.id.tv_pepeidu,bean.getScore()+"%");
         holder.setText(R.id.tv_telnum1,bean.getTel());
         holder.setOnclick(R.id.house_button_推荐1, new View.OnClickListener() {
             @Override

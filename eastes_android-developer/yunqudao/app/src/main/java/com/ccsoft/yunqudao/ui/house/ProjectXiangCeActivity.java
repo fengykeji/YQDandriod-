@@ -77,6 +77,7 @@ public class ProjectXiangCeActivity extends AppCompatActivity implements View.On
         mHouse_text_效果图.setText(list.get(postion1).getName()+":"+num+"/"+list.get(postion1).getData().size());
         mHouse_text_全部图.setText("全部图:"+num+"/"+ss);
 
+
     }
 
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -99,6 +100,7 @@ public class ProjectXiangCeActivity extends AppCompatActivity implements View.On
      */
     private void initView() {
 
+
         mHouse_button_返回 = findViewById(R.id.house_button_返回);
         mHouse_viewpager_图册 = findViewById(R.id.house_viewpager_图册);
         mHouse_text_效果图 = findViewById(R.id.house_text_效果图);
@@ -113,6 +115,7 @@ public class ProjectXiangCeActivity extends AppCompatActivity implements View.On
 
         project_id = getIntent().getIntExtra("project_id",0);
     }
+    Bundle bundle1 = new Bundle();
 
     private void initData(){
         OkHttpManager.getInstance().get(HttpAdress.imgget + "?project_id=" + project_id, new BaseCallBack() {
@@ -124,19 +127,23 @@ public class ProjectXiangCeActivity extends AppCompatActivity implements View.On
 
                     ArrayList<Fragment> fragments = new ArrayList<>();
                     ArrayList<String> mTitles = new ArrayList<>();
-                    Bundle bundle = new Bundle();
+
                      list =new ArrayList<>();
+                    ProjectXiangCeFragment fragment = null;
 
 
                     for (ProjectImgGetBean.DataBeanX dataBeanX : bean.getData()) {
-                        ProjectXiangCeFragment fragment = new ProjectXiangCeFragment();
+                        fragment = new ProjectXiangCeFragment();
                         fragments.add(fragment);
                         list.add(dataBeanX);
-                        fragment.setArguments(bundle);
                         mTitles.add(dataBeanX.getName());
                         ss+=dataBeanX.getData().size();
+                        fragment.setArguments(bundle1);
                     }
-                    bundle.putSerializable("list", (Serializable) list);
+
+
+                    bundle1.putSerializable("list", (Serializable) list);
+
 //                    bundle.putSerializable("lists", (Serializable) dataBeanX.getData());
 
                     mHouse_text_效果图.setText(list.get(0).getName()+"1/"+list.get(0).getData().size());
@@ -144,6 +151,7 @@ public class ProjectXiangCeActivity extends AppCompatActivity implements View.On
                     MyFragmentPagerAdapter fragmentPagerAdapter = new MyFragmentPagerAdapter(getSupportFragmentManager(),  fragments,  mTitles);
                     mHouse_viewpager_图册.setAdapter(fragmentPagerAdapter);
                     tabLayout.setupWithViewPager(mHouse_viewpager_图册);
+
                     mHouse_viewpager_图册.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
                         @Override
                         public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
@@ -153,7 +161,6 @@ public class ProjectXiangCeActivity extends AppCompatActivity implements View.On
                         @Override
                         public void onPageSelected(int position) {
                             postion1 = position;
-
                         }
                         @Override
                         public void onPageScrollStateChanged(int state) {
