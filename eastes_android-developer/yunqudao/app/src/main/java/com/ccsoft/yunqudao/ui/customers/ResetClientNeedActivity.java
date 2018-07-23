@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
@@ -22,19 +23,27 @@ import android.widget.Toast;
 
 import com.ccsoft.yunqudao.R;
 import com.ccsoft.yunqudao.bean.PeizhiBean;
+import com.ccsoft.yunqudao.bean.Province;
 import com.ccsoft.yunqudao.data.AppConstants;
+import com.ccsoft.yunqudao.data.model.response.OpenCityData;
 import com.ccsoft.yunqudao.http.HttpAdress;
 import com.ccsoft.yunqudao.http.MyStringCallBack;
+import com.ccsoft.yunqudao.http.XutilsHttp;
 import com.ccsoft.yunqudao.model.StringModel;
 import com.ccsoft.yunqudao.ui.mian.MainActivity;
 import com.ccsoft.yunqudao.utils.ActivityManager;
+import com.ccsoft.yunqudao.utils.HideIMEUtil;
 import com.ccsoft.yunqudao.utils.JsonUtil;
+import com.ccsoft.yunqudao.utils.LocalJsonResolutionUtils;
 import com.ccsoft.yunqudao.utils.LogUtil;
+import com.google.gson.Gson;
 import com.lzy.okhttputils.OkHttpUtils;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
+import org.jaaksi.pickerview.dataset.OptionDataSet;
+import org.jaaksi.pickerview.picker.OptionPicker;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -49,7 +58,7 @@ import static com.ccsoft.yunqudao.ui.mian.MainActivity.savePeizhi;
  * @data: 2018/5/28 0028
  */
 
-public class ResetClientNeedActivity extends AppCompatActivity implements View.OnClickListener, SeekBar.OnSeekBarChangeListener {
+public class ResetClientNeedActivity extends AppCompatActivity implements View.OnClickListener, SeekBar.OnSeekBarChangeListener ,OptionPicker.OnOptionSelectListener{
 
     private TextView    mCustomers_text_seekbar1;
     private TextView    mCustomers_text_seekbar2;
@@ -92,6 +101,12 @@ public class ResetClientNeedActivity extends AppCompatActivity implements View.O
     private int foor_min = 0;
     private int foor_max = 0;
     private int intents = 0;
+    private String provinceId ="", cityId =""/*= "230"*/, countyId=""/* = "234"*/,region = "";
+    private OptionPicker mPicker;
+    private Province province;
+    private OpenCityData         openCityData;
+    private List<OpenCityData.DataBean> mDataBeans = new ArrayList<>();
+    private String textregion = "";
 
 
 
@@ -120,7 +135,12 @@ public class ResetClientNeedActivity extends AppCompatActivity implements View.O
                 textView.setText(list.get(i));
                 textView.setBackgroundResource(R.drawable.shape_addlabel);
                 textView.setPadding(14, 14, 14, 14);
-                textView.setTextSize(19);
+                textView.setTextSize(14);
+//                int c = getColor(R.color.b)
+                textView.setTextColor(0x7f06004c);
+                textView.setSingleLine();
+                textView.setEllipsize(TextUtils.TruncateAt.valueOf("END"));
+                textView.setMaxEms(4);
                 ll_showlabel.addView(textView, layoutParams);
                 tv_showlabel.setVisibility(View.GONE);
             }
@@ -138,8 +158,10 @@ public class ResetClientNeedActivity extends AppCompatActivity implements View.O
         super.onCreate(savedInstanceState);
         ActivityManager.getInstance().addActivity(this);
         setContentView(R.layout.activity_customers_add_customers2);
+        HideIMEUtil.wrap(this);
         EventBus.getDefault().register(this);
         initView();
+        initData();
         initListener();
     }
 
@@ -187,6 +209,7 @@ public class ResetClientNeedActivity extends AppCompatActivity implements View.O
         mString8 = (String) mSpinner_pay_type.getSelectedItem();
 
         need_id = getIntent().getStringExtra("need_id");
+        textregion = getIntent().getStringExtra("textregion");
         property_type = getIntent().getIntExtra("propertyType",0);
         totalPrice = getIntent().getIntExtra("totalPrice",0);
         area = getIntent().getIntExtra("area",0);
@@ -204,9 +227,14 @@ public class ResetClientNeedActivity extends AppCompatActivity implements View.O
 
         et_floor_min.setText(foor_min+"");
         et_floor_max.setText(foor_max+"");
-        et_comment.setText(comment+"");
+        if(comment.equals("null")){
+            et_comment.setText("");
+        }else {
+            et_comment.setText(comment + "");
+        }
         mCustomers_text_seekbar1.setText(intents+"");
         mCustomers_text_seekbar2.setText(urgency+"");
+        mNeed_text_address.setText(textregion);
 
 
 
@@ -223,7 +251,11 @@ public class ResetClientNeedActivity extends AppCompatActivity implements View.O
                             textView.setText(bean.getParam());
                             textView.setBackgroundResource(R.drawable.shape_addlabel);
                             textView.setPadding(14, 14, 14, 14);
-                            textView.setTextSize(19);
+                            textView.setTextSize(16);
+                            textView.setTextColor(0x7f06004c);
+                            textView.setSingleLine();
+                            textView.setEllipsize(TextUtils.TruncateAt.valueOf("END"));
+                            textView.setMaxEms(4);
                             ll_showlabel.addView(textView, layoutParams);
                             tv_showlabel.setVisibility(View.GONE);
 
@@ -245,6 +277,7 @@ public class ResetClientNeedActivity extends AppCompatActivity implements View.O
         mCustomers_text_seekbar2.setOnClickListener(this);
         mCustomers_seekbar1.setOnSeekBarChangeListener(this);
         mCustomers_seekbar2.setOnSeekBarChangeListener(this);
+        mNeed_text_address.setOnClickListener(this);
     }
 
     public static void start(Context context) {
@@ -368,16 +401,16 @@ public class ResetClientNeedActivity extends AppCompatActivity implements View.O
                     urgency = mCustomers_text_seekbar2.getText().toString();
                 }
 
-                if (et_comment.getText() == null) {
+                if (et_comment.getText() .toString()==null) {
                     comment = "";
                 } else {
                     comment = et_comment.getText().toString();
                 }
 
-
                 OkHttpUtils.post(HttpAdress.UPDATANEED)
                         .tag(this)
                         .params("need_id",need_id)
+                        .params("region",region)
                         .params("property_type", property_type)
                         .params("total_price", price)
                         .params("area", area)
@@ -398,6 +431,9 @@ public class ResetClientNeedActivity extends AppCompatActivity implements View.O
                                 StringModel model = JsonUtil.jsonToEntity(s,StringModel.class);
                                 if(model.getCode()==200){
                                     sendBroadcast(new Intent(AppConstants.REFRESH_CUSTOM_LIST));
+//                                    Intent intent = new Intent(ResetClientNeedActivity.this,CustomersXiangQingActivity.class);
+//                                    intent.putExtra("fid",0);
+//                                    startActivity(intent);
                                     finish();
                                 }
                                 Toast.makeText(ResetClientNeedActivity.this,model.getMsg(),Toast.LENGTH_LONG).show();
@@ -405,9 +441,17 @@ public class ResetClientNeedActivity extends AppCompatActivity implements View.O
                             }
                         });
                 break;
+            case R.id.need_text_address:
+                setCityPickerview();
+                break;
         }
     }
 
+    /**
+     * 条件选择器
+     * @param spinner
+     * @param value
+     */
     public  void setSpinnerItemSelectedByValue(Spinner spinner,String value) {
         SpinnerAdapter apsAdapter = spinner.getAdapter(); //得到SpinnerAdapter对象
         int k = apsAdapter.getCount();
@@ -421,7 +465,87 @@ public class ResetClientNeedActivity extends AppCompatActivity implements View.O
         }
     }
 
+    /**
+     * 获取开放城市数据
+     */
+    private void initData() {
+        XutilsHttp.getInstance().gethesder(AppConstants.URL + "/user/project/openCity", null, new XutilsHttp.XCallBack() {
+            @Override
+            public void onResponse(String result) {
+                Gson gson = new Gson();
+                openCityData = gson.fromJson(result, OpenCityData.class);
+                mDataBeans = openCityData.getData();
 
+            }
+
+            @Override
+            public void error(String message) {
+                Log.i("msg=========", openCityData.getMsg());
+            }
+        });
+    }
+
+
+    /**
+     *  区域选择器
+     */
+    private void setCityPickerview(){
+        String fileName = "region.json";
+        String foodJson = LocalJsonResolutionUtils.getJson(this, fileName);
+        province = LocalJsonResolutionUtils.JsonToObject(foodJson, Province.class);
+
+        mPicker = new OptionPicker.Builder(this, 2, this).create();
+        mPicker.getTopBar().getTitleView().setText("请选择城市");
+        int color = getResources().getColor(R.color.gray);
+        int color1 = getResources().getColor(R.color.liji_material_blue_500);
+        mPicker.getTopBar().getTopBarView().setBackgroundColor(color);
+
+        List<Province.DynamicBean.CityBean> data1 = new ArrayList<>() ;
+        Province.DynamicBean s;
+        for (Province.DynamicBean dynamicBean : province.getDynamic()) {
+            if(dynamicBean.getName().equals("四川省")){
+                s = dynamicBean;
+                for (Province.DynamicBean.CityBean cityBean : s.getCity()) {
+                    for (OpenCityData.DataBean mDataBean : mDataBeans) {
+                        if(cityBean.getCode().equals(mDataBean.getCity_code())){
+                            data1.add(cityBean);
+                        }
+                    }
+                }
+            }
+        }
+
+        mPicker.setDataWithValues(data1);
+        mPicker.setSelectedWithValues( provinceId, cityId, countyId);
+        mPicker.show();
+
+    }
+    @Override
+    public void onOptionSelect(OptionPicker picker, int[] selectedPosition, OptionDataSet[] selectedOptions) {
+        String text = "";
+//        Province.DynamicBean province = (Province.DynamicBean) selectedOptions[0];
+//        provinceId = province.getCode();
+        Province.DynamicBean.CityBean city = (Province.DynamicBean.CityBean) selectedOptions[0];
+        Province.DynamicBean.CityBean.DistrictBean county = (Province.DynamicBean.CityBean.DistrictBean) selectedOptions[1];
+        if (city == null) {
+            cityId = "";
+            countyId = "";
+//            text = province.getName();
+        } else {
+            cityId = city.getCode();
+            if (county == null) {
+                countyId = "";
+                text = city.getName();
+            } else {
+                cityId = city.getCode();
+                countyId = county.getCode();
+                text = "四川省"+"/"+city.getName()+"/"+county.getName();
+            }
+        }
+        region = 510000+"-"+cityId+"-"+countyId;
+        mNeed_text_address.setText(text);
+
+    }
             /**
              * 滑动中
              *

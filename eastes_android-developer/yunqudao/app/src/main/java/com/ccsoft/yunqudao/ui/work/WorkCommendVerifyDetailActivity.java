@@ -18,6 +18,7 @@ import com.ccsoft.yunqudao.manager.ClientManager;
 import com.ccsoft.yunqudao.rx.RxSchedulers;
 import com.ccsoft.yunqudao.utils.ActivityManager;
 import com.ccsoft.yunqudao.utils.DataUtils;
+import com.ccsoft.yunqudao.utils.JsonUtil;
 import com.lzy.okhttputils.OkHttpUtils;
 import com.lzy.okhttputils.callback.StringCallback;
 
@@ -49,9 +50,15 @@ public class WorkCommendVerifyDetailActivity extends AppCompatActivity {
     private TextView date_minute;
     private TextView date_seconds;
 
+    @Override
+    protected void onStart() {
+        super.onStart();
+        initData();
+    }
+
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        ActivityManager.getInstance().addActivity(this);
+//        ActivityManager.getInstance().addActivity(this);
         setContentView(R.layout.activity_work_commend_verify_details);
         initView();
         initData();
@@ -93,45 +100,51 @@ public class WorkCommendVerifyDetailActivity extends AppCompatActivity {
     }
 
     private void initData() {
-        ClientManager.getInstance().getwaitConfirmDetail(id).compose(RxSchedulers.<ConfirmDetailData>io_main()).subscribe(new ApiSubscriber<ConfirmDetailData>(this) {
-            @Override
-            protected void _onNext(ConfirmDetailData data) {
-                if (data != null) {
-                    work_commend_number.setText(String.valueOf(data.client_id));
-                    work_commend_time.setText(data.create_time);
-                    work_commend_people.setText(data.broker_name);
-                    work_commend_tel.setText(data.broker_tel);
-                    work_commend_project.setText(data.project_name);
-                    work_commend_client_name.setText(data.name);
 
-                    if(data.sex == 1){
-                        work_commend_client_sex.setText("男");
-                    }else if(data.sex == 2){
-                        work_commend_client_sex.setText("女");
+
+        OkHttpUtils.get(HttpAdress.workwaitConfirmDetail)
+                .tag(this)
+                .params("client_id",id)
+                .execute(new StringCallback() {
+                    @Override
+                    public void onSuccess(String s, Call call, Response response) {
+                        int code = 0;
+                        String data1 = null;
+                        try {
+                            JSONObject jsonObject = new JSONObject(s);
+                            code = jsonObject.getInt("code");
+                            data1 = jsonObject.getString("data");
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                        if (code == 200 && data1 != null) {
+                            ConfirmDetailData data = JsonUtil.jsonToEntity(data1,ConfirmDetailData.class);
+                            if (data != null) {
+                                work_commend_number.setText(String.valueOf(data.client_id));
+                                work_commend_time.setText(data.create_time);
+                                work_commend_people.setText(data.broker_name);
+                                work_commend_tel.setText(data.broker_tel);
+                                work_commend_project.setText(data.project_name);
+                                work_commend_client_name.setText(data.name);
+
+                                if(data.sex == 1){
+                                    work_commend_client_sex.setText("男");
+                                }else if(data.sex == 2){
+                                    work_commend_client_sex.setText("女");
+                                }
+
+                                work_commend_client_tel.setText(data.tel);
+                                work_commend_project_address.setText(data.province_name + " " + data.city_name + " " + data.district_name+" "+data.absolute_address);
+
+                                finishTime = data.timeLimit;
+                                handler.post(runnable);
+
+                            }
+
+                        }
                     }
+                });
 
-                    work_commend_client_tel.setText(data.tel);
-                    work_commend_project_address.setText(data.province_name + " " + data.city_name + " " + data.district_name+" "+data.absolute_address);
-
-                    finishTime = data.timeLimit;
-                    handler.post(runnable);
-
-
-
-
-                }
-            }
-
-            @Override
-            protected void _onError(String message) {
-
-            }
-
-            @Override
-            protected void _onCompleted() {
-
-            }
-        });
     }
 
 

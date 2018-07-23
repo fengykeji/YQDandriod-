@@ -1,8 +1,9 @@
 package com.ccsoft.yunqudao.bean;
 
+import java.io.Serializable;
 import java.util.List;
 
-public class ProjectLouDongChooseBean {
+public class ProjectLouDongChooseBean implements Serializable{
 
 
     /**
@@ -39,7 +40,7 @@ public class ProjectLouDongChooseBean {
         this.data = data;
     }
 
-    public static class DataBean {
+    public static class DataBean implements Serializable{
         /**
          * LDID : 31
          * LDBM : 5
@@ -128,7 +129,7 @@ public class ProjectLouDongChooseBean {
 
         }
 
-        public static class BuildInfoBean {
+        public static class BuildInfoBean implements Serializable{
             /**
              * build_name : 2栋
              * total_house_num : 1

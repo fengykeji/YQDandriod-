@@ -10,7 +10,7 @@ import com.ccsoft.yunqudao.R;
 import com.ccsoft.yunqudao.data.AppConstants;
 import com.ccsoft.yunqudao.utils.GlideUtil;
 
-import static com.umeng.commonsdk.stateless.UMSLEnvelopeBuild.mContext;
+
 
 
 /**

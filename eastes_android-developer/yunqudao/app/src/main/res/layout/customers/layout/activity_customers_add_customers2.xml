@@ -81,7 +81,7 @@
                     android:orientation="horizontal"
                     android:paddingBottom="20dp"
                     android:weightSum="10"
-                    android:visibility="gone">
+                    android:visibility="visible">
 
                     <TextView
                         android:layout_width="0dp"
@@ -104,7 +104,7 @@
                         <TextView
                             android:id="@+id/need_text_address"
                             android:layout_width="0dp"
-                            android:layout_height="wrap_content"
+                            android:layout_height="match_parent"
                             android:layout_weight="10" />
 
                         <!--<Spinner-->
@@ -124,44 +124,48 @@
 
                 </LinearLayout>
 
-                <!--<LinearLayout-->
-                    <!--android:layout_width="match_parent"-->
-                    <!--android:layout_height="wrap_content"-->
-                    <!--&gt;-->
-                    <!--<TextView-->
-                        <!--android:layout_width="0dp"-->
-                        <!--android:layout_height="wrap_content"-->
-                        <!--android:layout_weight="3"-->
-                        <!--android:padding="10dp"-->
-                        <!--android:text="城市："-->
-                        <!--android:textColor="@color/chunhei"-->
-                        <!--android:textSize="15sp" />-->
+                <LinearLayout
+                    android:paddingBottom="20dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:visibility="gone"
+                    >
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="3"
+                        android:padding="10dp"
+                        android:text="区域："
+                        android:textColor="@color/chunhei"
+                        android:textSize="15sp" />
 
-                    <!--<LinearLayout-->
-                        <!--android:layout_width="0dp"-->
-                        <!--android:layout_height="wrap_content"-->
-                        <!--android:layout_weight="7"-->
-                        <!--android:background="@drawable/shape_case"-->
-                        <!--android:gravity="center_vertical"-->
-                        <!--android:padding="10dp"-->
-                        <!--android:weightSum="10">-->
-                        <!--&lt;!&ndash;<TextView&ndash;&gt;-->
-                        <!--&lt;!&ndash;android:id="@+id/need_text_property_type"&ndash;&gt;-->
-                        <!--&lt;!&ndash;android:layout_weight="8"&ndash;&gt;-->
-                        <!--&lt;!&ndash;android:layout_width="0dp"&ndash;&gt;-->
-                        <!--&lt;!&ndash;android:layout_height="wrap_content"&ndash;&gt;-->
-                        <!--&lt;!&ndash;/>&ndash;&gt;-->
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="7"
+                        android:background="@drawable/shape_case"
+                        android:gravity="center_vertical"
+                        android:padding="10dp"
+                        android:weightSum="10">
+                        <TextView
+                        android:id="@+id/need_text_property_type"
+                        android:layout_weight="10"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        />
 
-                        <!--<Spinner-->
-                            <!--android:id="@+id/spinner_city"-->
-                            <!--android:layout_width="match_parent"-->
-                            <!--android:layout_height="wrap_content"-->
-                            <!--android:dropDownVerticalOffset="35dp"-->
-                            <!--android:dropDownWidth="1080px"-->
-                            <!--android:entries="@array/物业类型" />-->
-                    <!--</LinearLayout>-->
-                <!--</LinearLayout>-->
-                <!--物业类型-->
+                        <Spinner
+                            android:visibility="gone"
+                            android:id="@+id/spinner_city"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:dropDownVerticalOffset="35dp"
+                            android:dropDownWidth="1080px"
+                            android:entries="@array/物业类型" />
+                    </LinearLayout>
+                </LinearLayout>
+
+                物业类型
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -563,6 +567,9 @@
                         android:weightSum="10">
 
                         <TextView
+                            android:maxEms="8"
+                            android:singleLine="true"
+                            android:ellipsize="end"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_weight="3"
@@ -572,7 +579,7 @@
                             android:textColor="@color/chunhei"
                             android:textSize="15sp" />
 
-                        <TextView
+                        <EditText
                             android:id="@+id/customers_text_seekbar1"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
@@ -625,6 +632,9 @@
                         android:weightSum="10">
 
                         <TextView
+                            android:maxEms="2"
+                            android:singleLine="true"
+                            android:ellipsize="end"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_weight="3"
@@ -634,7 +644,7 @@
                             android:textColor="@color/chunhei"
                             android:textSize="15sp" />
 
-                        <TextView
+                        <EditText
                             android:id="@+id/customers_text_seekbar2"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
@@ -759,6 +769,7 @@
 
 
                     <TextView
+                        android:visibility="gone"
                         android:id="@+id/tv_showlabel"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -785,9 +796,10 @@
                 android:orientation="vertical">
 
                 <EditText
+                    android:gravity="top"
                     android:id="@+id/ed_comment"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="120dp"
                     android:background="@android:color/transparent"
                     android:hint="备注..."
                     android:lineSpacingExtra="3dp"

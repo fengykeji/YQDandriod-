@@ -128,12 +128,12 @@ public class ProjectJiChuXinXiActivity extends AppCompatActivity implements View
                             tv_property_area.setText(infoBean.getData().getAbsolute_address());
                             tv_shoulouchu.setText(infoBean.getData().getSale_address());
                             tv_jianzuleixing.setText(infoBean.getData().getBuild_type());
-                            tv_average_price.setText(infoBean.getData().getAverage_price()+"/m2");
+                            tv_average_price.setText(infoBean.getData().getAverage_price()+"/㎡");
                             tv_price_area.setText(infoBean.getData().getMin_price()+"万"+"-"+
                             infoBean.getData().getMax_price()+"万");
-                            tv_area.setText(infoBean.getData().getFloor_space()+"m2");
+                            tv_area.setText(infoBean.getData().getFloor_space()+"㎡");
                             tv_zhuangxiubiaozhun.setText(infoBean.getData().getDecoration_standard());
-                            tv_jianzumianzhi.setText(infoBean.getData().getCovered_area()+"m2");
+                            tv_jianzumianzhi.setText(infoBean.getData().getCovered_area()+"㎡");
                             tv_rongjilv.setText(infoBean.getData().getPlot_retio()+"");
                             tv_lvhualv.setText(infoBean.getData().getGreening_rate()+"5");
                             tv_huihuanum.setText(infoBean.getData().getHouseholds_num()+"");
@@ -151,7 +151,7 @@ public class ProjectJiChuXinXiActivity extends AppCompatActivity implements View
                                 tv_wuyeleixing.setText(need_tags);
                             }
                             tv_wuyegongsi.setText(infoBean.getData().getProperty_company_name());
-                            tv_wuyefei.setText(infoBean.getData().getProperty_cost()+"元/m2/元");
+                            tv_wuyefei.setText(infoBean.getData().getProperty_cost()+"元/㎡/元");
                             tv_gongnuanfangshi.setText(infoBean.getData().getHeat_supply());
                             tv_gongshuifangshi.setText(infoBean.getData().getWater_supply());
                             tv_gongdianfangshi.setText(infoBean.getData().getPower_supply());

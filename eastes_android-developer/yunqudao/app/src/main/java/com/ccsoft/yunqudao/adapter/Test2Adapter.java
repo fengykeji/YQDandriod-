@@ -51,7 +51,8 @@ public class Test2Adapter extends PagerAdapter {
 
         ImageView iv = new ImageView(mContext);
             Picasso.with(mContext).load(AppConstants.URL+mPaths.get(position).getImg_url())
-                    .error(R.drawable.ic_launcher_background)
+                    .fit()
+                    .error(R.drawable.default_3)
                     .into(iv);//载入bitmap
 
         iv.setOnClickListener(new View.OnClickListener() {

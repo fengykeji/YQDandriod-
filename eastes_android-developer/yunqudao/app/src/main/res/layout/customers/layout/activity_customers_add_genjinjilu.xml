@@ -117,6 +117,7 @@
                             android:textSize="15sp"
                             />
                         <ImageButton
+                            android:visibility="gone"
                             android:onClick="onfollow_time"
                             android:id="@+id/customers_follw_time"
                             android:layout_width="0dp"
@@ -145,7 +146,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_weight="1.5"
+                        android:layout_weight="0.5"
                         android:text="跟进人"
                         android:textSize="16sp"
                         />
@@ -153,7 +154,7 @@
                         android:id="@+id/tv_genjingren"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_weight="8.5"
+                        android:layout_weight="8"
                         android:text=""
                         android:textColor="@color/chunhei"
                         android:textSize="16sp"
@@ -290,7 +291,7 @@
                             android:paddingBottom="10dp"
                             android:paddingLeft="10dp"
                             android:paddingTop="10dp"
-                            android:text=""
+                            android:text="0"
                             android:textSize="15sp"
                             />
 
@@ -349,7 +350,7 @@
                             android:paddingBottom="10dp"
                             android:paddingLeft="10dp"
                             android:paddingTop="10dp"
-                            android:text=""
+                            android:text="0"
                             android:textSize="15sp"
                             />
 
@@ -475,6 +476,7 @@
                         android:textSize="15sp"
                         />
                     <RelativeLayout
+                        android:id="@+id/im_customers_nextTime"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="7"
@@ -492,7 +494,8 @@
                             />
 
                         <ImageButton
-                            android:id="@+id/im_customers_nextTime"
+                            android:visibility="gone"
+                            android:id="@+id/im_customers_nextTime1"
                             android:layout_width="wrap_content"
                             android:layout_height="20dp"
                             android:layout_alignParentRight="true"

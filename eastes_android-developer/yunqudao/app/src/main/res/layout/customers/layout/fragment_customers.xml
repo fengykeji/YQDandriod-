@@ -41,7 +41,7 @@
 
             <EditText
                 android:id="@+id/et_search"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
                 android:hint="请输入姓名/手机号"
@@ -87,9 +87,10 @@
                 android:text="需求类型" />
 
             <Spinner
+                android:visibility="gone"
                 android:id="@+id/spinner_need"
                 android:layout_width="0dp"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:dropDownVerticalOffset="35dp"
                 android:dropDownWidth="1080px"
@@ -116,6 +117,7 @@
                 android:text="意向区域" />
 
             <Spinner
+                android:visibility="gone"
                 android:id="@+id/spinner_price"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
@@ -144,6 +146,7 @@
                 android:text="意向度" />
 
             <Spinner
+                android:visibility="gone"
                 android:id="@+id/spinner_intent"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
@@ -172,6 +175,7 @@
                 android:text="紧迫度" />
 
             <Spinner
+                android:visibility="gone"
                 android:id="@+id/spinner_more"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
@@ -190,18 +194,43 @@
         android:layout_height="wrap_content"
         android:background="@drawable/ic_line" />
 
+    
 
-    <android.support.v4.widget.SwipeRefreshLayout
-        android:id="@+id/customers_swiperefreshlayout"
+
+<com.scwang.smartrefresh.layout.SmartRefreshLayout
+    android:id="@+id/customers_swiperefreshlayout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <LinearLayout
+        android:padding="10dp"
+        android:gravity="center"
+        android:orientation="horizontal"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="wrap_content">
+   <ImageView
+       android:id="@+id/yunsuan"
+       android:src="@drawable/animation_refresh"
+       android:layout_width="50dp"
+       android:layout_height="50dp" />
+        <TextView
+            android:layout_marginLeft="10dp"
+            android:text="人算不如云算"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+    </LinearLayout>
+
 
         <android.support.v7.widget.RecyclerView
             android:id="@+id/customers_recyclerview"
             android:layout_width="match_parent"
             android:layout_height="match_parent" />
+    <com.scwang.smartrefresh.layout.footer.ClassicsFooter
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
 
-    </android.support.v4.widget.SwipeRefreshLayout>
+
+</com.scwang.smartrefresh.layout.SmartRefreshLayout>
+
 
 
 </LinearLayout>

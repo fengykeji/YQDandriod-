@@ -24,12 +24,19 @@ import com.ccsoft.yunqudao.adapter.MyFragmentPagerAdapter;
 import com.ccsoft.yunqudao.adapter.SpeedHourAdapter;
 import com.ccsoft.yunqudao.bean.HouseDetailBean;
 import com.ccsoft.yunqudao.bean.ProjectHuXingXiangQingBean;
+import com.ccsoft.yunqudao.bean.ProjectPiPeiKeHuBean;
 import com.ccsoft.yunqudao.http.HttpAdress;
 import com.ccsoft.yunqudao.utils.ActivityManager;
 import com.ccsoft.yunqudao.utils.BaseCallBack;
+import com.ccsoft.yunqudao.utils.JsonUtil;
 import com.ccsoft.yunqudao.utils.OkHttpManager;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
+import com.lzy.okhttputils.OkHttpUtils;
+import com.lzy.okhttputils.callback.StringCallback;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.io.Serializable;
 import java.lang.reflect.Type;
@@ -66,6 +73,9 @@ public class ProjectHuXingXiangQingActivity extends AppCompatActivity implements
     private SpeedHourAdapter speedHourAdapter=null;
     private List<HouseDetailBean.DataBean.HouseTypeBean> dataList = new ArrayList<>();
     private List<HouseDetailBean.DataBean.HouseTypeBean> dataList2 = new ArrayList<>();
+    private int project_id;
+    private TextView content_tv14;
+    private ProjectPiPeiKeHuBean piPeiKeHuBean;
 
 
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -88,6 +98,8 @@ public class ProjectHuXingXiangQingActivity extends AppCompatActivity implements
      */
     private void initView() {
 
+
+
         mHouse_button_返回 = findViewById(R.id.house_button_返回);
         mHouse_button_分享 = findViewById(R.id.house_button_分享);
         mHouse_button_平面图 = findViewById(R.id.house_button_平面图);
@@ -103,7 +115,9 @@ public class ProjectHuXingXiangQingActivity extends AppCompatActivity implements
         tv_sell_point= findViewById(R.id.tv_sell_point);
         viewPager = findViewById(R.id.viewPager);
         tabLayout = findViewById(R.id.tl_tablaout);
+        content_tv14 = findViewById(R.id.content_tv14);
 
+        project_id = getIntent().getIntExtra("project_id",0);
         id = getIntent().getIntExtra("id",0);
         dataList = (List<HouseDetailBean.DataBean.HouseTypeBean>) getIntent().getSerializableExtra("list");
         dataList2 = dataList;
@@ -135,6 +149,7 @@ public class ProjectHuXingXiangQingActivity extends AppCompatActivity implements
             }
         });
 
+        getPiPeiKeHu();
 
     }
 
@@ -252,7 +267,15 @@ public class ProjectHuXingXiangQingActivity extends AppCompatActivity implements
                 break;
 
             case R.id.house_button_查看更多匹配客户:
-                ProjectPiPeiKeHuActivity.start(this);
+//                ProjectPiPeiKeHuActivity.start(this);
+                Bundle bundle = new Bundle();
+                if(piPeiKeHuBean.getData()!=null) {
+                    bundle.putSerializable("list", (Serializable) piPeiKeHuBean.getData());
+                    bundle.putInt("project_id", project_id);
+                    Intent intent3 = new Intent(this, ProjectPiPeiKeHuActivity.class);
+                    intent3.putExtras(bundle);
+                    startActivity(intent3);
+                }
                 break;
 
             case R.id.house_button_推荐1:
@@ -279,5 +302,31 @@ public class ProjectHuXingXiangQingActivity extends AppCompatActivity implements
     public void onPageScrollStateChanged(int state) {
 
     }
+
+    private void getPiPeiKeHu() {
+
+        OkHttpUtils.get(HttpAdress.matchingproject)
+                .tag(this)
+                .params("project_id", project_id)
+                .execute(new StringCallback() {
+                    @Override
+                    public void onSuccess(String s, Call call, Response response) {
+                        int code = 0;
+                        String data = null;
+                        try {
+                            JSONObject jsonObject = new JSONObject(s);
+                            code = jsonObject.getInt("code");
+                            data = jsonObject.getString("data");
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                        if (code == 200 && data != null) {
+                            piPeiKeHuBean = JsonUtil.jsonToEntity(s, ProjectPiPeiKeHuBean.class);
+                            content_tv14.setText("(" + piPeiKeHuBean.getData().size() + ")");
+                        }
+                    }
+                });
+    }
+
 
 }

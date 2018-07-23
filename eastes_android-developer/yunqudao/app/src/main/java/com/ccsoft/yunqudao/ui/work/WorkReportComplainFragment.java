@@ -2,6 +2,7 @@ package com.ccsoft.yunqudao.ui.work;
 
 import android.content.Intent;
 import android.graphics.Color;
+import android.graphics.drawable.AnimationDrawable;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -12,6 +13,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -36,6 +38,9 @@ import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.lzy.okhttputils.OkHttpUtils;
 import com.lzy.okhttputils.callback.StringCallback;
+import com.scwang.smartrefresh.layout.SmartRefreshLayout;
+import com.scwang.smartrefresh.layout.api.RefreshLayout;
+import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -54,15 +59,17 @@ import okhttp3.Response;
  * @data: 2018/5/14 0014
  */
 
-public class WorkReportComplainFragment extends Fragment implements View.OnClickListener {
+public class WorkReportComplainFragment extends Fragment implements View.OnClickListener ,OnRefreshListener {
 
     private View                       mView;
     private WorkReportComplainFragment mWorkReportComplainFragment;
     private RecyclerView               mWork_recyclerview_complain;
     private AppealBean appealBean;
     private List<AppealBean.DataBeanX.DataBean> datalist = new ArrayList<>();
-    private SwipeRefreshLayout mSwipRefresh;
+    private SmartRefreshLayout mSwipRefresh;
     private WorkComplainAdapter adapter;
+    private AnimationDrawable anim;
+    private ImageView yunsuan;
 
     @Override
     public void onStart() {
@@ -88,6 +95,9 @@ public class WorkReportComplainFragment extends Fragment implements View.OnClick
     private void initView() {
         this.mWork_recyclerview_complain = mView.findViewById(R.id.work_recyclerview_complain);
         mSwipRefresh = mView.findViewById(R.id.mSwipRefresh);
+        yunsuan = mView.findViewById(R.id.yunsuan);
+        yunsuan.setImageResource(R.drawable.animation_refresh);
+        anim = (AnimationDrawable) yunsuan.getDrawable();
         mWork_recyclerview_complain.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false));
         adapter = new WorkComplainAdapter(getContext(),R.layout.item_work_complain,datalist);
         mWork_recyclerview_complain.setAdapter(adapter);
@@ -153,37 +163,7 @@ public class WorkReportComplainFragment extends Fragment implements View.OnClick
     }
 
     private void initData(){
-//        OkHttpManager.getInstance().get(HttpAdress.DISABLE, new BaseCallBack() {
-//            @Override
-//            public void onSuccess(Call call, Response response, Object obj) throws MalformedURLException {
-//                Type type = new TypeToken<AppealBean>() {}.getType();
-//                appealBean = new Gson().fromJson(obj.toString(),type);
-//                if(appealBean.getCode()==200&&appealBean.getData()!=null){
-//                    datalist.clear();
-//                    datalist.addAll(appealBean.getData().getData());
-//                    curPage = 2;
-//                    totalPage = appealBean.getData().getLast_page();
-//                    adapter.notifyDataSetChanged();
-//                    mSwipRefresh.setRefreshing(false);
-//                }
-//
-//            }
-//
-//            @Override
-//            public void onFailure(Call call, Exception e) {
-//
-//            }
-//
-//            @Override
-//            public void onError(Response response, int errorCode) {
-//
-//            }
-//
-//            @Override
-//            public void onRequestBefore() {
-//
-//            }
-//        });
+
 
         OkHttpUtils.get(HttpAdress.DISABLE)
                 .tag(this)
@@ -206,7 +186,7 @@ public class WorkReportComplainFragment extends Fragment implements View.OnClick
                             datalist.clear();
                     datalist.addAll(bean.getData().getData());
                     adapter.notifyDataSetChanged();
-                    mSwipRefresh.setRefreshing(false);
+//                    mSwipRefresh.setRefreshing(false);
                         }
                     }
                 });
@@ -231,4 +211,10 @@ public class WorkReportComplainFragment extends Fragment implements View.OnClick
         }
     };
 
+    @Override
+    public void onRefresh(RefreshLayout refreshlayout) {
+        initData();
+        anim.start();
+        mSwipRefresh.finishRefresh(900);
+    }
 }

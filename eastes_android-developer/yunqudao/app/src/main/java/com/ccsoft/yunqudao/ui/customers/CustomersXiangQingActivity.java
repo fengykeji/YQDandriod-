@@ -13,6 +13,8 @@ import android.util.Log;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.TextView;
+import android.widget.Toast;
+
 import com.ccsoft.yunqudao.R;
 import com.ccsoft.yunqudao.bean.CustomersGetInfoBean;
 import com.ccsoft.yunqudao.bean.HouseListBean;
@@ -23,9 +25,12 @@ import com.ccsoft.yunqudao.manager.ClientManager;
 import com.ccsoft.yunqudao.rx.RxSchedulers;
 import com.ccsoft.yunqudao.ui.adapter.CustomersXiangQingPagerAdapter;
 import com.ccsoft.yunqudao.ui.adapter.ViewPagerAdapter;
+import com.ccsoft.yunqudao.ui.home.HomeActivity;
+import com.ccsoft.yunqudao.ui.mian.LoginActivity;
 import com.ccsoft.yunqudao.ui.view.ViewPagerForScrollView;
 import com.ccsoft.yunqudao.utils.ActivityManager;
 import com.ccsoft.yunqudao.utils.BaseCallBack;
+import com.ccsoft.yunqudao.utils.HideIMEUtil;
 import com.ccsoft.yunqudao.utils.JsonUtil;
 import com.ccsoft.yunqudao.utils.LogUtil;
 import com.ccsoft.yunqudao.utils.OkHttpManager;
@@ -81,6 +86,7 @@ public class CustomersXiangQingActivity extends AppCompatActivity implements Vie
     private CustomersGetInfoBean bean;
     private int need_id;
     private int needId;
+    private int fid;
 
 
     @Override
@@ -94,6 +100,8 @@ public class CustomersXiangQingActivity extends AppCompatActivity implements Vie
         super.onCreate(savedInstanceState);
         ActivityManager.getInstance().addActivity(this);
         setContentView(R.layout.activity_customers_xiangqing);
+
+        HideIMEUtil.wrap(this);
         initView();
         initListener();
         initData();
@@ -118,7 +126,7 @@ public class CustomersXiangQingActivity extends AppCompatActivity implements Vie
      * 初始化id,把fm添加到list集合里
      */
     private void initView() {
-        this.getArguments();
+
         mCustomers_button_back = findViewById(R.id.customers_button_back);
         mCustomers_button_quick_recommend = findViewById(R.id.customers_button_quick_recommend);
         mCustomers_text_name = findViewById(R.id.customers_text_name);
@@ -131,7 +139,9 @@ public class CustomersXiangQingActivity extends AppCompatActivity implements Vie
         mCustomers_TabLayout = findViewById(R.id.customers_TabLayout);
         mCustomers_viewpager_xiangqing = findViewById(R.id.customers_viewpager_xiangqing);
         mCustomers_button_resetclientbasic = findViewById(R.id.customers_button_resetclientbasic);
-
+        this.getArguments();
+        fid = getIntent().getIntExtra("fid",0);
+        addFragments();
 
     }
 
@@ -140,46 +150,23 @@ public class CustomersXiangQingActivity extends AppCompatActivity implements Vie
      */
 
     private void initData() {
-//        ClientManager.getInstance().getClientInfo(mClienID).compose(RxSchedulers.<ClientPrivateData>io_main())
-//                .subscribe(new ApiSubscriber<ClientPrivateData>(this) {
-//            @Override
-//            protected void _onNext(ClientPrivateData clientPrivateData) {
-//                Log.i("hcc------->", "--------------" + clientPrivateData.toString());
-//                mClientPrivateData = clientPrivateData; //在这已经复制了
-//                need_info = clientPrivateData.need_info;
-//                addFragments();
-//                Log.i("hcc------->", "--------------2" + mClientPrivateData.toString());
-//                mCustomers_button_quick_recommend.setOnClickListener(CustomersXiangQingActivity.this);
-//
-//            }
-//
-//            @Override
-//            protected void _onError(String message) {
-//
-//            }
-//
-//            @Override
-//            protected void _onCompleted() {
-//
-//            }
-//        });
-
-
-
-
 
         OkHttpManager.getInstance().get(HttpAdress.getInfo + "?client_id=" + mClienID, new BaseCallBack() {
             @Override
             public void onSuccess(Call call, Response response, Object obj) throws MalformedURLException {
                 Type type = new TypeToken<CustomersGetInfoBean>() {}.getType();
-
                 bean = new Gson().fromJson(obj.toString(),type);
 
 
                 if(bean.getCode()==200&&bean.getData()!=null) {
                     setData(bean);
-                    addFragments();
+
                     mCustomers_button_quick_recommend.setOnClickListener(CustomersXiangQingActivity.this);
+                }
+                else if(bean.getCode() == 401){
+                    Intent intent = new Intent(CustomersXiangQingActivity.this, LoginActivity.class);
+                    startActivity(intent);
+                    Toast.makeText(CustomersXiangQingActivity.this,"token失效，请重新登陆",Toast.LENGTH_SHORT).show();
                 }
             }
 
@@ -211,12 +198,20 @@ public class CustomersXiangQingActivity extends AppCompatActivity implements Vie
         //int page = mCustomers_viewpager_xiangqing.getCurrentItem();
         fragments = new ArrayList<>();
         fragments.add(XuQiuXingXiFragment.newInstance());//初始化fragment  把这个Model传过去 到Fragment取里面的数据就好
-        fragments.add(ClientFollowFragment.newInstance(mClienID));
+        fragments.add(ClientFollowFragment.newInstance());
         fragments.add(PiPeiXinXiFragment.newInstance());
         ViewPagerAdapter adapter = new ViewPagerAdapter(fragments, getSupportFragmentManager(), this);
         mCustomers_viewpager_xiangqing.setAdapter(adapter);
         mCustomers_TabLayout.setupWithViewPager(mCustomers_viewpager_xiangqing);
         //mCustomers_viewpager_xiangqing.setCurrentItem(page);
+
+        if(fid == 1){
+            mCustomers_viewpager_xiangqing.setCurrentItem(1);
+        }else if(fid == 2){
+            mCustomers_viewpager_xiangqing.setCurrentItem(2);
+        }else  {
+            mCustomers_viewpager_xiangqing.setCurrentItem(0);
+        }
         mCustomers_viewpager_xiangqing.setOffscreenPageLimit(3);
     }
 
@@ -236,7 +231,14 @@ public class CustomersXiangQingActivity extends AppCompatActivity implements Vie
             mCustomers_text_tel.setText(TextUtils.isEmpty(mClientPrivateData.getData().getBasic().getTel()) ? "" : mClientPrivateData.getData().getBasic().getTel());
             mCustomers_text_card_type.setText("身份证");
             mCustomers_text_card_id.setText(TextUtils.isEmpty(mClientPrivateData.getData().getBasic().getCard_id()) ? "" : mClientPrivateData.getData().getBasic().getCard_id());
-            mCustomers_text_address.setText(TextUtils.isEmpty(mClientPrivateData.getData().getBasic().getAddress()) ? "" : mClientPrivateData.getData().getBasic().getAddress());
+            String address = "";
+            if(mClientPrivateData.getData().getBasic().getProvince_name()!=null&&mClientPrivateData.getData().getBasic().getCity_name()!=null&&
+            mClientPrivateData.getData().getBasic().getDistrict_name()!=null ) {
+                address = mClientPrivateData.getData().getBasic().getProvince_name() + "-"
+                        + mClientPrivateData.getData().getBasic().getCity_name() + "-" + mClientPrivateData.getData().getBasic().getDistrict_name();
+            }
+            mCustomers_text_address.setText(address);
+
         }
     }
 
@@ -263,7 +265,10 @@ public class CustomersXiangQingActivity extends AppCompatActivity implements Vie
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.customers_button_back:
-                finish();
+                Intent intent3 = new Intent(this, HomeActivity.class);
+                intent3.putExtra("fid",2);
+                startActivity(intent3);
+//                finish();
                 break;
             case R.id.customers_button_quick_recommend:
                 getInfo();
@@ -275,14 +280,12 @@ public class CustomersXiangQingActivity extends AppCompatActivity implements Vie
                 startActivity(intent);
                 break;
             case R.id.customers_button_resetclientbasic:
-
                 Bundle bundle = new Bundle();
                 bundle.putSerializable("bean",bean);
 
                 Intent intent1 = new Intent(this,ResetClientBasicActivity.class);
                 intent1.putExtras(bundle);
                 startActivity(intent1);
-
                 break;
         }
     }
@@ -309,10 +312,5 @@ public class CustomersXiangQingActivity extends AppCompatActivity implements Vie
 
     }
 
-    @Override
-    protected void onResume() {
-        super.onResume();
-
-    }
 
 }

@@ -56,11 +56,11 @@
         android:background="@color/chunbai"
         >
 
-        <EditText
+        <TextView
             android:hint="请输入日期"
             android:textSize="15sp"
             android:textColor="@color/chunhei"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/me_edittext_出生年月"
             android:layout_centerVertical="true"
@@ -68,6 +68,7 @@
             />
 
         <ImageButton
+            android:visibility="gone"
             android:id="@+id/me_button_时间选择器"
             android:src="@drawable/ic_downarrow2"
             android:layout_width="30dp"

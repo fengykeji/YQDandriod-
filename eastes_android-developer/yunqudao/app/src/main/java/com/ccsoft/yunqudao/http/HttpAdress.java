@@ -24,9 +24,25 @@ public class HttpAdress {
     public static String waitConfirm_project = AppConstants.URL+"agent/work/project/waitConfirm";
     public static String value_project = AppConstants.URL+"agent/work/project/value";
     public static String disabled_project = AppConstants.URL+"agent/work/project/disabled";
+    /*获取区域*/
+    public static String getDistrictList = AppConstants.URL+"getDistrictList";
 
     /*工作消息列表*/
     public static String worklist = AppConstants.URL+"agent/message/work/list";
+    /*消息已读未读总量*/
+    public static String getUnread = AppConstants.URL+"agent/message/getUnread";
+    /*消息待确认详情*/
+    public static String waitConfirmDetail = AppConstants.URL+"agent/message/work/waitConfirmDetail";
+    /*消息报备确认详情*/
+    public static String confirmDetail = AppConstants.URL+"agent/message/work/confirmDetail";
+    /*消息报备有效*/
+    public static String projectValueDetail = AppConstants.URL+"agent/message/work/projectValueDetail";
+    /*消息成交*/
+    public static String projectDealDetail = AppConstants.URL+"agent/message/work/projectDealDetail";
+    /*消息无效*/
+    public static String DisabledDetail = AppConstants.URL+"agent/message/work/disabledDetail";
+    /*项目消息无效*/
+    public static String projectDisabledDetail = AppConstants.URL+"agent/message/work/projectDisabledDetail";
 
     /*房源展示列表*/
     public static String HOUSELIST = AppConstants.URL+"user/project/list";
@@ -60,6 +76,8 @@ public class HttpAdress {
     public static String yunsuanunit = AppConstants.URL+"user/yunsuan/unit";
     /*快速推荐*/
     public static String fastRecommendList = AppConstants.URL+"agent/matching/fastRecommendList";
+    /*新增推荐客户*/
+    public static String addAndRecommend = AppConstants.URL+"project/client/addAndRecommend";
 
 
     /*快速报备*/
@@ -97,6 +115,11 @@ public class HttpAdress {
     public static String RECOMMEND = AppConstants.URL+"agent/client/recommend";
     /*确认失效*/
     public static String flushDate = AppConstants.URL+"agent/work/flushDate";
+    /*工作待确认*/
+    public static String workwaitConfirmDetail = AppConstants.URL+"agent/work/broker/waitConfirmDetail";
+    /*工作推荐确认中列表*/
+    public static String workwaitConfirm = AppConstants.URL+"agent/work/broker/waitConfirm";
+
 
 
     /*我的公司认证*/
@@ -111,5 +134,15 @@ public class HttpAdress {
     public static String isPayList = AppConstants.URL+"agent/personal/isPayList";
     /*佣金概况*/
     public static String brokerInfo = AppConstants.URL+"agent/personal/brokerInfo";
+    /*个人资料之修改密码*/
+    public static String changePassword = AppConstants.URL+"agent/user/changePassword";
+    /*工作经历*/
+    public static String WorkHis = AppConstants.URL+"agent/personal/WorkHis";
+    /*个人修改信息*/
+    public static String meupdate = AppConstants.URL+"agent/personal/update";
+    /*显示个人信息*/
+    public static String megetBaseInfo = AppConstants.URL+"agent/personal/getBaseInfo";
+    /*获取关注信息*/
+    public static String getFocusProjectList = AppConstants.URL+"agent/personal/getFocusProjectList";
 
 }

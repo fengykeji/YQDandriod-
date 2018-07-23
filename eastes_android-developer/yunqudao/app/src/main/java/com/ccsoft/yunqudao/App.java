@@ -3,6 +3,16 @@ package com.ccsoft.yunqudao;
 import android.app.Application;
 import android.content.Context;
 import com.ccsoft.yunqudao.utils.SpUtil;
+import com.scwang.smartrefresh.layout.SmartRefreshLayout;
+import com.scwang.smartrefresh.layout.api.DefaultRefreshFooterCreater;
+import com.scwang.smartrefresh.layout.api.DefaultRefreshHeaderCreater;
+import com.scwang.smartrefresh.layout.api.RefreshFooter;
+import com.scwang.smartrefresh.layout.api.RefreshHeader;
+import com.scwang.smartrefresh.layout.api.RefreshLayout;
+import com.scwang.smartrefresh.layout.constant.SpinnerStyle;
+import com.scwang.smartrefresh.layout.footer.ClassicsFooter;
+import com.scwang.smartrefresh.layout.header.ClassicsHeader;
+
 import org.xutils.x;
 
 /**
@@ -32,4 +42,7 @@ public class App extends Application {
     public static Context getContext() {
         return mContext;
     }
+
+
+
 }

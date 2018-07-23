@@ -1,20 +1,24 @@
 package com.ccsoft.yunqudao.ui.work;
 
+import android.graphics.drawable.AnimationDrawable;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 
 import com.ccsoft.yunqudao.R;
 import com.ccsoft.yunqudao.data.api.ApiSubscriber;
 import com.ccsoft.yunqudao.data.base.BaseRecyclerAdapter;
 import com.ccsoft.yunqudao.data.base.FooterHolder;
 import com.ccsoft.yunqudao.data.model.response.BrokerWaitConfirmData;
+import com.ccsoft.yunqudao.data.model.response.ConfirmDetailData;
 import com.ccsoft.yunqudao.http.HttpAdress;
 import com.ccsoft.yunqudao.manager.ClientManager;
 import com.ccsoft.yunqudao.rx.RxSchedulers;
@@ -24,6 +28,9 @@ import com.ccsoft.yunqudao.utils.JsonUtil;
 import com.ccsoft.yunqudao.utils.LogUtil;
 import com.lzy.okhttputils.OkHttpUtils;
 import com.lzy.okhttputils.callback.StringCallback;
+import com.scwang.smartrefresh.layout.SmartRefreshLayout;
+import com.scwang.smartrefresh.layout.api.RefreshLayout;
+import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -39,14 +46,16 @@ import okhttp3.Response;
  * @data: 2018/5/14 0014
  */
 
-public class WorkRecommendVerifyFragment extends Fragment implements View.OnClickListener {
+public class WorkRecommendVerifyFragment extends Fragment implements View.OnClickListener ,OnRefreshListener{
 
     private View mView;
     private WorkRecommendVerifyFragment mWorkRecommendVerifyFragment;
     private RecyclerView mWork_recyclerview_verify;
     private WorkRecommendVerifyAdapter mAdapter;
-    private SwipeRefreshLayout mSwipRefresh;
+    private SmartRefreshLayout mSwipRefresh;
     private List<BrokerWaitConfirmData.WaitConfirmData> dataList = new ArrayList<>();
+    private AnimationDrawable anim;
+    private ImageView yunsuan;
 
     @Override
     public void onStart() {
@@ -72,6 +81,9 @@ public class WorkRecommendVerifyFragment extends Fragment implements View.OnClic
     private void initView() {
         mSwipRefresh = mView.findViewById(R.id.mSwipRefresh);
         this.mWork_recyclerview_verify = mView.findViewById(R.id.work_recyclerview_verify);
+        yunsuan = mView.findViewById(R.id.yunsuan);
+        yunsuan.setImageResource(R.drawable.animation_refresh);
+        anim = (AnimationDrawable) yunsuan.getDrawable();
         mWork_recyclerview_verify.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false));
         mAdapter = new WorkRecommendVerifyAdapter(getActivity(), R.layout.item_work_recom, dataList);
         mWork_recyclerview_verify.setAdapter(mAdapter);
@@ -89,37 +101,68 @@ public class WorkRecommendVerifyFragment extends Fragment implements View.OnClic
                 WorkCommendVerifyDetailActivity.start(getActivity(), id);
             }
         });
-        mSwipRefresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
-            @Override
-            public void onRefresh() {
-                initData();
-            }
-        });
+        mSwipRefresh.setOnRefreshListener(this);
     }
 
+    /**
+     * 下拉刷新
+     */
+
+    @Override
+    public void onRefresh(RefreshLayout refreshlayout) {
+        initData();
+        anim.start();
+        mSwipRefresh.finishRefresh(900);
+    }
     private void initData() {
-        mSwipRefresh.setRefreshing(true);
 
-        ClientManager.getInstance().getBrokerWait().compose(RxSchedulers.<BrokerWaitConfirmData>io_main()).subscribe(new ApiSubscriber<BrokerWaitConfirmData>(getActivity()) {
-            @Override
-            protected void _onNext(BrokerWaitConfirmData brokerWaitConfirmData) {
-                totalPage = brokerWaitConfirmData.last_page;
-                curPage = 2;
-                dataList.clear();
-                dataList.addAll(brokerWaitConfirmData.data);
-                mAdapter.notifyDataSetChanged();
-            }
 
-            @Override
-            protected void _onError(String message) {
-                LogUtil.e(message);
-            }
+        OkHttpUtils.get(HttpAdress.workwaitConfirm)
+                .tag(this)
+                .execute(new StringCallback() {
+                    @Override
+                    public void onSuccess(String s, Call call, Response response) {
+                        int code = 0;
+                        String data1 = null;
+                        try {
+                            JSONObject jsonObject = new JSONObject(s);
+                            code = jsonObject.getInt("code");
+                            data1 = jsonObject.getString("data");
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                        if (code == 200 && data1 != null) {
+                            BrokerWaitConfirmData brokerWaitConfirmData = JsonUtil.jsonToEntity(data1, BrokerWaitConfirmData.class);
+                            totalPage = brokerWaitConfirmData.last_page;
+                            curPage = 2;
+                            dataList.clear();
+                            dataList.addAll(brokerWaitConfirmData.data);
+                            mAdapter.notifyDataSetChanged();
+                        }
+                    }
+                    @Override
+                    public void onAfter(@Nullable String s, @Nullable Exception e) {
+                        super.onAfter(s, e);
 
-            @Override
-            protected void _onCompleted() {
-                mSwipRefresh.setRefreshing(false);
-            }
-        });
+                    }
+                });
+
+//        ClientManager.getInstance().getBrokerWait().compose(RxSchedulers.<BrokerWaitConfirmData>io_main()).subscribe(new ApiSubscriber<BrokerWaitConfirmData>(getActivity()) {
+//            @Override
+//            protected void _onNext(BrokerWaitConfirmData brokerWaitConfirmData) {
+//
+//            }
+//
+//            @Override
+//            protected void _onError(String message) {
+//                LogUtil.e(message);
+//            }
+//
+//            @Override
+//            protected void _onCompleted() {
+//                mSwipRefresh.setRefreshing(false);
+//            }
+//        });
     }
 
     @Override

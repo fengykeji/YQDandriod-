@@ -2,6 +2,7 @@ package com.ccsoft.yunqudao.ui.message;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.drawable.AnimationDrawable;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.widget.SwipeRefreshLayout;
@@ -11,6 +12,7 @@ import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import com.ccsoft.yunqudao.R;
 import com.ccsoft.yunqudao.bean.AppealBean;
@@ -24,6 +26,9 @@ import com.ccsoft.yunqudao.utils.ActivityManager;
 import com.ccsoft.yunqudao.utils.JsonUtil;
 import com.lzy.okhttputils.OkHttpUtils;
 import com.lzy.okhttputils.callback.StringCallback;
+import com.scwang.smartrefresh.layout.SmartRefreshLayout;
+import com.scwang.smartrefresh.layout.api.RefreshLayout;
+import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -43,14 +48,22 @@ public class WorkMessageActivity extends AppCompatActivity implements View.OnCli
 
 
     private ImageButton im_back;
-    private SwipeRefreshLayout mSwipRefresh;
+    private SmartRefreshLayout mSwipRefresh;
     private RecyclerView rv_worklist;
     private WorkListBean bean;
     private WorkListAdapter adapter;
     private List<WorkListBean.DataBeanX.DataBean> dataList = new ArrayList<>();
     int curPage;
     int totalPage;
+    private AnimationDrawable anim;
+    private ImageView yunsuan;
 
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        initData();
+    }
 
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -76,9 +89,13 @@ public class WorkMessageActivity extends AppCompatActivity implements View.OnCli
         mSwipRefresh = findViewById(R.id.mSwipRefresh);
         rv_worklist =findViewById(R.id.rv_worklist);
 
+        yunsuan = findViewById(R.id.yunsuan);
+        yunsuan.setImageResource(R.drawable.animation_refresh);
+        anim = (AnimationDrawable) yunsuan.getDrawable();
         rv_worklist.setLayoutManager( new LinearLayoutManager(this));
         adapter = new WorkListAdapter(this,R.layout.item_message_worklist,dataList);
         rv_worklist.setAdapter(adapter);
+        rv_worklist.addOnScrollListener(endlessRecyclerOnScrollListener);
     }
 
     private void initListener() {
@@ -91,18 +108,49 @@ public class WorkMessageActivity extends AppCompatActivity implements View.OnCli
             @Override
             public void onItemClickListner(View v, int position) {
                 if(bean.getData().getData().get(position).getMessage_type()==0){
-
+                    Intent intent = new Intent(WorkMessageActivity.this,MessageCommendDisableDetailsActivity.class);
+                    intent.putExtra("client_id",bean.getData().getData().get(position).getClient_id());
+                    intent.putExtra("message_id",bean.getData().getData().get(position).getMessage_id());
+                    startActivity(intent);
+                }else if(bean.getData().getData().get(position).getMessage_type()==1){
+                    Intent intent = new Intent(WorkMessageActivity.this,MessageCommendVerifyDetailActivity.class);
+                    intent.putExtra("client_id",bean.getData().getData().get(position).getClient_id());
+                    intent.putExtra("message_id",bean.getData().getData().get(position).getMessage_id());
+                    startActivity(intent);
+                }else if(bean.getData().getData().get(position).getMessage_type()==2){
+                    Intent intent = new Intent(WorkMessageActivity.this,MessageReportVerifyActivity.class);
+                    intent.putExtra("client_id",bean.getData().getData().get(position).getClient_id());
+                    intent.putExtra("message_id",bean.getData().getData().get(position).getMessage_id());
+                    startActivity(intent);
+                }else if(bean.getData().getData().get(position).getMessage_type()==3) {
+                    Intent intent = new Intent(WorkMessageActivity.this, MessagekReportValidDeatilActivity.class);
+                    intent.putExtra("client_id", bean.getData().getData().get(position).getClient_id());
+                    intent.putExtra("message_id", bean.getData().getData().get(position).getMessage_id());
+                    startActivity(intent);
+                }else if(bean.getData().getData().get(position).getMessage_type()==4) {
+                    Intent intent = new Intent(WorkMessageActivity.this, MessageChengjiaoVailddetailActivity.class);
+                    intent.putExtra("client_id", bean.getData().getData().get(position).getClient_id());
+                    intent.putExtra("message_id", bean.getData().getData().get(position).getMessage_id());
+                    startActivity(intent);
+                }else if(bean.getData().getData().get(position).getMessage_type()==5) {
+                    Intent intent = new Intent(WorkMessageActivity.this, MessageReportDisableActivity.class);
+                    intent.putExtra("client_id", bean.getData().getData().get(position).getClient_id());
+                    intent.putExtra("message_id", bean.getData().getData().get(position).getMessage_id());
+                    startActivity(intent);
                 }
 
+
             }
         });
 
-        mSwipRefresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+        mSwipRefresh.setOnRefreshListener(new OnRefreshListener() {
             @Override
-            public void onRefresh() {
+            public void onRefresh(RefreshLayout refreshlayout) {
                 initData();
+                anim.start();
+                mSwipRefresh.finishRefresh(900);
             }
-        });
+        } );
     }
 
     private void initData(){
@@ -121,14 +169,13 @@ public class WorkMessageActivity extends AppCompatActivity implements View.OnCli
                             e.printStackTrace();
                         }
                         if (code == 200 && data != null) {
-
-                            WorkListBean bean = JsonUtil.jsonToEntity(s,WorkListBean.class);
+                            bean = JsonUtil.jsonToEntity(s,WorkListBean.class);
                             curPage = 2;
                             totalPage = bean.getData().getLast_page();
                             dataList.clear();
                             dataList.addAll(bean.getData().getData());
                             adapter.notifyDataSetChanged();
-                            mSwipRefresh.setRefreshing(false);
+//                            mSwipRefresh.setRefreshing(false);
                         }
                     }
 

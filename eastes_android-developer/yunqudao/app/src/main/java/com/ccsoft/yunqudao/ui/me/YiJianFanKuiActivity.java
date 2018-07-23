@@ -11,6 +11,7 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import com.ccsoft.yunqudao.R;
 import com.ccsoft.yunqudao.utils.ActivityManager;
+import com.ccsoft.yunqudao.utils.HideIMEUtil;
 
 /**
  * @author: Pein
@@ -27,6 +28,7 @@ public class YiJianFanKuiActivity extends AppCompatActivity implements View.OnCl
         super.onCreate(savedInstanceState);
         ActivityManager.getInstance().addActivity(this);
         setContentView(R.layout.activity_me_yijianfankui);
+        HideIMEUtil.wrap(this);
         initView();
         initListener();
     }

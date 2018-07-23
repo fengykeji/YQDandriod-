@@ -1,6 +1,7 @@
 package com.ccsoft.yunqudao.ui.work;
 
 import android.content.Intent;
+import android.graphics.drawable.AnimationDrawable;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -11,6 +12,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 import com.ccsoft.yunqudao.R;
@@ -28,6 +30,9 @@ import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.lzy.okhttputils.OkHttpUtils;
 import com.lzy.okhttputils.callback.StringCallback;
+import com.scwang.smartrefresh.layout.SmartRefreshLayout;
+import com.scwang.smartrefresh.layout.api.RefreshLayout;
+import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -45,15 +50,18 @@ import okhttp3.Response;
  * @data: 2018/5/14 0014
  */
 
-public class WorkRecommendComplainFragment extends Fragment implements View.OnClickListener {
+public class WorkRecommendComplainFragment extends Fragment implements View.OnClickListener,OnRefreshListener {
 
     private View                          mView;
     private WorkRecommendComplainFragment mWorkXinFangTuiJianShenSuFragment;
     private RecyclerView                  mWork_recyclerview_complain;
     private AppealBean appealBean;
     private List<AppealBean.DataBeanX.DataBean> datalist = new ArrayList<>();
-    private SwipeRefreshLayout mSwipRefresh;
+    private SmartRefreshLayout mSwipRefresh;
     private WorkComplainAdapter adapter;
+    private AnimationDrawable anim;
+    private ImageView yunsuan;
+
 
     @Override
     public void onStart() {
@@ -83,6 +91,9 @@ public class WorkRecommendComplainFragment extends Fragment implements View.OnCl
         adapter = new WorkComplainAdapter(getContext(),R.layout.item_work_complain,datalist);
         mWork_recyclerview_complain.setAdapter(adapter);
         mWork_recyclerview_complain.addOnScrollListener(endlessRecyclerOnScrollListener);
+        yunsuan = mView.findViewById(R.id.yunsuan);
+        yunsuan.setImageResource(R.drawable.animation_refresh);
+        anim = (AnimationDrawable) yunsuan.getDrawable();
     }
 
     /**
@@ -98,12 +109,8 @@ public class WorkRecommendComplainFragment extends Fragment implements View.OnCl
                 startActivity(intent);
             }
         });
-        mSwipRefresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
-            @Override
-            public void onRefresh() {
-                initData();
-            }
-        });
+        mSwipRefresh.setOnRefreshListener(this) ;
+
     }
 
     @Override
@@ -123,7 +130,7 @@ public class WorkRecommendComplainFragment extends Fragment implements View.OnCl
                     curPage = 2;
                     totalPage = appealBean.getData().getLast_page();
                     adapter.notifyDataSetChanged();
-                    mSwipRefresh.setRefreshing(false);
+//                    mSwipRefresh.setRefreshing(false);
                 }
 
             }
@@ -193,4 +200,11 @@ public class WorkRecommendComplainFragment extends Fragment implements View.OnCl
 
         }
     };
+
+    @Override
+    public void onRefresh(RefreshLayout refreshlayout) {
+        initData();
+        anim.start();
+        mSwipRefresh.finishRefresh(900);
+    }
 }

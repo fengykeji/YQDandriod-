@@ -1,6 +1,7 @@
 package com.ccsoft.yunqudao.ui.work;
 
 import android.content.Intent;
+import android.graphics.drawable.AnimationDrawable;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -10,6 +11,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 
 import com.ccsoft.yunqudao.R;
 import com.ccsoft.yunqudao.adapter.WorkComplainAdapter;
@@ -22,6 +24,9 @@ import com.ccsoft.yunqudao.ui.listener.EndlessRecyclerOnScrollListener;
 import com.ccsoft.yunqudao.utils.JsonUtil;
 import com.lzy.okhttputils.OkHttpUtils;
 import com.lzy.okhttputils.callback.StringCallback;
+import com.scwang.smartrefresh.layout.SmartRefreshLayout;
+import com.scwang.smartrefresh.layout.api.RefreshLayout;
+import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -32,14 +37,16 @@ import java.util.List;
 import okhttp3.Call;
 import okhttp3.Response;
 
-public class WorkChengjiaoComplainFragment extends Fragment implements View.OnClickListener {
+public class WorkChengjiaoComplainFragment extends Fragment implements View.OnClickListener ,OnRefreshListener {
     private View                       mView;
     private WorkReportComplainFragment mWorkReportComplainFragment;
     private RecyclerView mWork_recyclerview_complain;
     private AppealBean appealBean;
     private List<AppealBean.DataBeanX.DataBean> datalist = new ArrayList<>();
-    private SwipeRefreshLayout mSwipRefresh;
+    private SmartRefreshLayout mSwipRefresh;
     private WorkComplainAdapter adapter;
+    private AnimationDrawable anim;
+    private ImageView yunsuan;
 
 
     @Override
@@ -66,6 +73,9 @@ public class WorkChengjiaoComplainFragment extends Fragment implements View.OnCl
     private void initView() {
         this.mWork_recyclerview_complain = mView.findViewById(R.id.work_recyclerview_complain);
         mSwipRefresh = mView.findViewById(R.id.mSwipRefresh);
+        yunsuan = mView.findViewById(R.id.yunsuan);
+        yunsuan.setImageResource(R.drawable.animation_refresh);
+        anim = (AnimationDrawable) yunsuan.getDrawable();
         mWork_recyclerview_complain.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false));
         adapter = new WorkComplainAdapter(getContext(),R.layout.item_work_complain,datalist);
         mWork_recyclerview_complain.setAdapter(adapter);
@@ -80,19 +90,15 @@ public class WorkChengjiaoComplainFragment extends Fragment implements View.OnCl
         adapter.setOnItemClickListner(new BaseRecyclerAdapter.OnItemClickListner() {
             @Override
             public void onItemClickListner(View v, int position) {
-                Intent intent = new Intent(getContext(),WorkComplainListActivity.class);
-                intent.putExtra("appeal_id",datalist.get(position).getAppeal_id()+"");
-                intent.putExtra("gone","show");
+                Intent intent = new Intent(getContext(), WorkComplainListActivity.class);
+                intent.putExtra("appeal_id", datalist.get(position).getAppeal_id() + "");
+                intent.putExtra("gone", "show");
                 startActivity(intent);
             }
         });
-        mSwipRefresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
-            @Override
-            public void onRefresh() {
-                initData();
-            }
-        });
+        mSwipRefresh.setOnRefreshListener(this);
     }
+
 
     @Override
     public void onClick(View v) {
@@ -160,7 +166,7 @@ public class WorkChengjiaoComplainFragment extends Fragment implements View.OnCl
                             datalist.clear();
                             datalist.addAll(bean.getData().getData());
                             adapter.notifyDataSetChanged();
-                            mSwipRefresh.setRefreshing(false);
+//                            mSwipRefresh.setRefreshing(false);
                         }
                     }
                 });
@@ -184,4 +190,11 @@ public class WorkChengjiaoComplainFragment extends Fragment implements View.OnCl
 
         }
     };
+
+    @Override
+    public void onRefresh(RefreshLayout refreshlayout) {
+        initData();
+        anim.start();
+        mSwipRefresh.finishRefresh(900);
+    }
 }

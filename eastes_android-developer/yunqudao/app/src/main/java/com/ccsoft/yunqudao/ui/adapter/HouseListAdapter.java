@@ -16,6 +16,7 @@ import com.ccsoft.yunqudao.data.AppConstants;
 import com.ccsoft.yunqudao.data.base.BaseRecyclerAdapter;
 import com.ccsoft.yunqudao.data.base.BaseViewHolder;
 import com.ccsoft.yunqudao.ui.mian.MainActivity;
+import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
@@ -27,7 +28,12 @@ public class HouseListAdapter extends BaseRecyclerAdapter<HouseListBean.DataBean
     ImageView imageView;
     @Override
     protected void convert(BaseViewHolder holder, HouseListBean.DataBean bean,int position) {
-        holder.setImageResource(R.id.icon_iv, AppConstants.URL + bean.getImg_url());
+//        holder.setImageResource(R.id.icon_iv, AppConstants.URL + bean.getImg_url());
+        ImageView imageView = (ImageView) holder.getView(R.id.icon_iv);
+        Picasso.with(context).load(AppConstants.URL + bean.getImg_url())
+                .error(R.drawable.default_da2)
+                .fit()
+                .into(imageView);
         if (bean.getBrokerSortCompare() == 1) {
             holder.setImageResource(R.id.icon_iv2, R.drawable.ic_rising);
         } else if (bean.getBrokerSortCompare() == 2) {
@@ -161,8 +167,9 @@ if(bean.getProperty_tags()!=null){
                 if(bean3.getId()==Integer.parseInt(s)){
                     TextView textView = new TextView(context);
                     textView.setText(bean3.getParam());
+                    textView.setTextSize(10);
                     textView.setBackgroundResource(R.drawable.shape_laber);
-                    textView.setPadding(10,1,10,1);
+                    textView.setPadding(15,5,15,5);
                     linearLayout1.addView(textView,layoutParams);
                 }
             }

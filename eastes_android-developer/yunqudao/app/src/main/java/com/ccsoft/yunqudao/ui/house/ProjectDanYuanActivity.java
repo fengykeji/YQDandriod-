@@ -11,6 +11,7 @@ import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.ccsoft.yunqudao.R;
@@ -25,7 +26,7 @@ public class ProjectDanYuanActivity extends Activity {
     private ProjectDanYuanBean.DataBean.LISTBean list ;
     private TextView tv_fanghao,tv_loudong,tv_danyuan,tv_louceng,
             tv_danjia,tv_zongjia,tv_mianji,tv_taonei,tv_huxin,tv_wuye;
-    private ImageButton im_back;
+    private ImageView im_back;
 
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

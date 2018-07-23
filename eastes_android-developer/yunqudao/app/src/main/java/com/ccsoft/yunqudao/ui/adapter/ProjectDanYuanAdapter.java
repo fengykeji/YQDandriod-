@@ -12,6 +12,7 @@ import com.ccsoft.yunqudao.R;
 import com.ccsoft.yunqudao.bean.ProjectDanYuanBean;
 import com.ccsoft.yunqudao.data.base.BaseRecyclerAdapter;
 import com.ccsoft.yunqudao.data.base.BaseViewHolder;
+import com.ccsoft.yunqudao.ui.house.FullyLinearLayoutManager;
 import com.ccsoft.yunqudao.ui.house.ProjectDanYuanActivity;
 import com.ccsoft.yunqudao.utils.CustomLinearLayoutManager;
 
@@ -29,26 +30,13 @@ public class ProjectDanYuanAdapter extends BaseRecyclerAdapter<ProjectDanYuanBea
         holder.setText(R.id.tv_loucheng,"F"+bean.getFLOORNUM());
         RecyclerView recyclerView = (RecyclerView) holder.getView(R.id.re_danyuan);
 
-        CustomLinearLayoutManager linearLayoutManager = new CustomLinearLayoutManager(context);
-        linearLayoutManager.setScrollEnabled(false);
-        linearLayoutManager.setOrientation(LinearLayoutManager.HORIZONTAL);
-        recyclerView.setLayoutManager(linearLayoutManager);
-        recyclerView.setNestedScrollingEnabled(false);
-        recyclerView.setNestedScrollingEnabled(false);
-        recyclerView.setOnTouchListener(new View.OnTouchListener() {
-            @Override
-            public boolean onTouch(View view, MotionEvent motionEvent) {
-                if (motionEvent.getAction() == MotionEvent.ACTION_UP) {
-                    recyclerView.requestDisallowInterceptTouchEvent(false);
+//        CustomLinearLayoutManager linearLayoutManager = new CustomLinearLayoutManager(context);
+//        linearLayoutManager.setScrollEnabled(false);
+//        linearLayoutManager.setOrientation(LinearLayoutManager.HORIZONTAL);
+        FullyLinearLayoutManager fullyLinearLayoutManager = new FullyLinearLayoutManager(context);
+        fullyLinearLayoutManager.setOrientation(LinearLayoutManager.HORIZONTAL);
 
-                } else {
-                    recyclerView.requestDisallowInterceptTouchEvent(false);
-
-                }
-
-                return false;
-            }
-        });
+        recyclerView.setLayoutManager(fullyLinearLayoutManager);
 
         adapter = new ProjectDanYuan1Adapter(context,R.layout.item_project_danyuan1,bean.getLIST());
         recyclerView.setAdapter(adapter);

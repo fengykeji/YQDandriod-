@@ -35,6 +35,7 @@ import com.ccsoft.yunqudao.ui.work.AddWorkActivity;
 import com.ccsoft.yunqudao.ui.work.WrokCommendDisableDetailsActivity;
 import com.ccsoft.yunqudao.utils.ActivityManager;
 import com.ccsoft.yunqudao.utils.BaseCallBack;
+import com.ccsoft.yunqudao.utils.HideIMEUtil;
 import com.ccsoft.yunqudao.utils.JsonUtil;
 import com.ccsoft.yunqudao.utils.LogUtil;
 import com.ccsoft.yunqudao.utils.OkHttpManager;
@@ -89,6 +90,7 @@ public class QuickRecommendActivity extends AppCompatActivity implements View.On
         super.onCreate(savedInstanceState);
         ActivityManager.getInstance().addActivity(this);
         setContentView(R.layout.activity_customers_quick_recommend);
+        HideIMEUtil.wrap(this);
         initView();
         initListener();
     }

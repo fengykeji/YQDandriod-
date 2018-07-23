@@ -56,7 +56,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="推荐信息："
+            android:text="推荐信息"
             android:textColor="@color/chunhei"
             android:textSize="18sp"
             />
@@ -108,6 +108,7 @@
                 android:textColor="@color/white"
                 />
             <TextView
+                android:textColor="@color/juse"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:gravity="center"
@@ -126,6 +127,7 @@
 
                 />
             <TextView
+                android:textColor="@color/juse"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:gravity="center"
@@ -144,6 +146,7 @@
 
                 />
             <TextView
+                android:textColor="@color/juse"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:gravity="center"
@@ -185,7 +188,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text=""
-            android:textColor="@color/danlv"
+            android:textColor="@color/chunhei"
             />
 
 

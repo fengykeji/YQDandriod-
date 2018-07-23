@@ -1,6 +1,7 @@
 package com.ccsoft.yunqudao.ui.work;
 
 import android.content.Intent;
+import android.graphics.drawable.AnimationDrawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -14,6 +15,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 import com.ccsoft.yunqudao.R;
@@ -35,6 +37,9 @@ import com.ccsoft.yunqudao.utils.recyclerviwe.BaseRecyclerViewAdapter;
 import com.ccsoft.yunqudao.utils.recyclerviwe.BaseRecyclerViewHolder;
 import com.lzy.okhttputils.OkHttpUtils;
 import com.lzy.okhttputils.callback.StringCallback;
+import com.scwang.smartrefresh.layout.SmartRefreshLayout;
+import com.scwang.smartrefresh.layout.api.RefreshLayout;
+import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -50,14 +55,16 @@ import okhttp3.Response;
  * @data: 2018/5/14 0014
  */
 
-public class WorkReportVerifyFragment extends Fragment implements View.OnClickListener{
+public class WorkReportVerifyFragment extends Fragment implements View.OnClickListener ,OnRefreshListener {
 
     private View                     mView;
     private WorkReportVerifyFragment mWorkReportVerifyFragment;
     private RecyclerView             mWork_recyclerview_verify;
     private WorkReportVerifyAdapter  workReportVerifyAdapter;
     private List<RecordAffirmBaseData.DataBean> dataList = new ArrayList<>();
-    private SwipeRefreshLayout mSwipRefresh;
+    private SmartRefreshLayout mSwipRefresh;
+    private AnimationDrawable anim;
+    private ImageView yunsuan;
 
     @Override
     public void onStart() {
@@ -98,7 +105,7 @@ public class WorkReportVerifyFragment extends Fragment implements View.OnClickLi
 
             @Override
             protected void _onCompleted() {
-                mSwipRefresh.setRefreshing(false);
+//                mSwipRefresh.setRefreshing(false);
             }
         });
     }
@@ -109,6 +116,9 @@ public class WorkReportVerifyFragment extends Fragment implements View.OnClickLi
     private void initView() {
         mSwipRefresh = mView.findViewById(R.id.mSwipRefresh);
         this.mWork_recyclerview_verify = mView.findViewById(R.id.work_recyclerview_verify);
+        yunsuan = mView.findViewById(R.id.yunsuan);
+        yunsuan.setImageResource(R.drawable.animation_refresh);
+        anim = (AnimationDrawable) yunsuan.getDrawable();
         workReportVerifyAdapter = new WorkReportVerifyAdapter(getContext(),R.layout.item_work_report, dataList);
         LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false);
         this.mWork_recyclerview_verify.setLayoutManager(layoutManager);
@@ -130,12 +140,8 @@ public class WorkReportVerifyFragment extends Fragment implements View.OnClickLi
                 getActivity().startActivity(intent);
             }
         });
-        mSwipRefresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
-            @Override
-            public void onRefresh() {
-                initData();
-            }
-        });
+        mSwipRefresh.setOnRefreshListener(this);
+
 
     }
 
@@ -196,4 +202,10 @@ public class WorkReportVerifyFragment extends Fragment implements View.OnClickLi
         }
     };
 
+    @Override
+    public void onRefresh(RefreshLayout refreshlayout) {
+        initData();
+        anim.start();
+        mSwipRefresh.finishRefresh(900);
+    }
 }

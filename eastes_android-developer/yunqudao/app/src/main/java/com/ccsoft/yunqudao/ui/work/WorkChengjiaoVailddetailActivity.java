@@ -7,6 +7,7 @@ import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -214,13 +215,20 @@ public class WorkChengjiaoVailddetailActivity extends AppCompatActivity{
 
                         for (int i = 0; i < data.getData().getProcess().size(); i++) {
                             WorkDealedDetailBean.DataBean.ProcessBean processBean = data.getData().getProcess().get(i);
+                            LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
 
                             View view = getLayoutInflater().inflate(R.layout.view_process, null);
                             TextView tv_name = view.findViewById(R.id.tv_name);
                             TextView tv_time = view.findViewById(R.id.tv_time);
                             ImageView image = view.findViewById(R.id.image);
-                            tv_name.setText(processBean.getProcess_name());
-                            tv_time.setText(processBean.getTime());
+                            if(i<data.getData().getProcess().size()-1) {
+                                tv_name.setText(processBean.getProcess_name());
+                                tv_time.setText(processBean.getTime());
+                            }else {
+                                layoutParams.setMargins(10,-60,10,0);
+                                tv_name.setText(processBean.getProcess_name());
+                                tv_time.setText(processBean.getTime());
+                            }
                             LinearLayout layout = view.findViewById(R.id.ll_addImageView);
                             if (i == data.getData().getProcess().size() - 2) {
                                 ImageView imageView = new ImageView(WorkChengjiaoVailddetailActivity.this);
@@ -232,7 +240,7 @@ public class WorkChengjiaoVailddetailActivity extends AppCompatActivity{
                                 image.setVisibility(View.INVISIBLE);
                             }
 
-                            ll_progress.addView(view);
+                            ll_progress.addView(view,layoutParams);
                         }
 
 

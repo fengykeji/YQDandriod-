@@ -4,6 +4,7 @@ import android.Manifest;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
@@ -35,6 +36,7 @@ import com.ccsoft.yunqudao.http.HttpAdress;
 import com.ccsoft.yunqudao.model.StringModel;
 import com.ccsoft.yunqudao.utils.ActivityManager;
 import com.ccsoft.yunqudao.utils.DateUtil;
+import com.ccsoft.yunqudao.utils.HideIMEUtil;
 import com.ccsoft.yunqudao.utils.ItemsDialogFragment;
 import com.ccsoft.yunqudao.utils.JsonUtil;
 import com.ccsoft.yunqudao.utils.wheelview.TimePickerView;
@@ -46,8 +48,10 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 
@@ -64,6 +68,7 @@ public class GongSiRenZheng1Activity extends AppCompatActivity implements View.O
     private String companyname;
     private int companyId  = 0;
     private RelativeLayout ll_timeshow;
+    private Uri photoUri;
 
 
     private ImageView mImage;
@@ -71,11 +76,17 @@ public class GongSiRenZheng1Activity extends AppCompatActivity implements View.O
     private String icon = "上传地址";
 
     //相册请求码
-    private static final int ALBUM_REQUEST_CODE = 1;
-    //相机请求码
-    private static final int CAMERA_REQUEST_CODE = 2;
-    //剪裁请求码
+    private static final int ALBUM_REQUEST_CODE = 4;
+//    //相机请求码
+//    private static final int CAMERA_REQUEST_CODE = 2;
+//    //剪裁请求码
     private static final int CROP_REQUEST_CODE = 3;
+    public final int TYPE_TAKE_PHOTO = 1;//Uri获取类型判断
+
+    public final int CODE_TAKE_PHOTO = 1;//相机RequestCode
+
+    public final int CODE_SELECT_IMAGE = 2;//相册RequestCode
+
 
     //调用照相机返回图片文件
     private File tempFile;
@@ -85,6 +96,7 @@ public class GongSiRenZheng1Activity extends AppCompatActivity implements View.O
         super.onCreate(savedInstanceState);
         ActivityManager.getInstance().addActivity(this);
         setContentView(R.layout.gongsirenzheng1_activity);
+        HideIMEUtil.wrap(this);//键盘管理，点击除editText外区域收起键盘
         initView();
         initlistener();
         initData();
@@ -205,30 +217,63 @@ public class GongSiRenZheng1Activity extends AppCompatActivity implements View.O
                 ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.CAMERA}, 100);
             }
         } else {
-            getPicFromCamera();
-        }
+            if (Build.VERSION.SDK_INT >= 24) {
+                Intent takeIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+                 photoUri = get24MediaFileUri(TYPE_TAKE_PHOTO);
+                takeIntent.putExtra(MediaStore.EXTRA_OUTPUT, photoUri);
+                startActivityForResult(takeIntent, CODE_TAKE_PHOTO);
+            } else {
+                Intent takeIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+                 photoUri = getMediaFileUri(TYPE_TAKE_PHOTO);
+                takeIntent.putExtra(MediaStore.EXTRA_OUTPUT, photoUri);
+                startActivityForResult(takeIntent, CODE_TAKE_PHOTO);
+            }
+            }
     }
 
 
     /**
      * 从相机获取图片
      */
-    private void getPicFromCamera() {
-        //用于保存调用相机拍照后所生成的文件
-        tempFile = new File(Environment.getExternalStorageDirectory().getPath(), System.currentTimeMillis() + ".jpg");
-        //跳转到调用系统相机
-        Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-        //判断版本
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {   //如果在Android7.0以上,使用FileProvider获取Uri
-            intent.setFlags(Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
-            Uri contentUri = FileProvider.getUriForFile(GongSiRenZheng1Activity.this, "com.ccsoft.yunqudao.fileProvider", tempFile);
-            intent.putExtra(MediaStore.EXTRA_OUTPUT, contentUri);
-            Log.e("dasd", contentUri.toString());
-        } else {    //否则使用Uri.fromFile(file)方法获取Uri
-            intent.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(tempFile));
+
+    public Uri get24MediaFileUri(int type) {
+        File mediaStorageDir = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES), "相册名字");
+        if (!mediaStorageDir.exists()) {
+            if (!mediaStorageDir.mkdirs()) {
+                return null;
+            }
         }
-        startActivityForResult(intent, CAMERA_REQUEST_CODE);
+        //创建Media File
+        String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
+        File mediaFile;
+        if (type == TYPE_TAKE_PHOTO) {
+            mediaFile = new File(mediaStorageDir.getPath() + File.separator + "IMG_" + timeStamp + ".jpg");
+        } else {
+            return null;
+        }
+        return FileProvider.getUriForFile(this, getPackageName() + ".fileProvider", mediaFile);
     }
+
+
+
+    public Uri getMediaFileUri(int type) {
+        File mediaStorageDir = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES), "相册名字");
+        if (!mediaStorageDir.exists()) {
+            if (!mediaStorageDir.mkdirs()) {
+                return null;
+            }
+        }
+        //创建Media File
+        String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
+        File mediaFile;
+        if (type == TYPE_TAKE_PHOTO) {
+            mediaFile = new File(mediaStorageDir.getPath() + File.separator + "IMG_" + timeStamp + ".jpg");
+        } else {
+            return null;
+        }
+        return Uri.fromFile(mediaFile);
+    }
+
     /**
      * 从相册获取图片
      */
@@ -236,6 +281,17 @@ public class GongSiRenZheng1Activity extends AppCompatActivity implements View.O
         Intent photoPickerIntent = new Intent(Intent.ACTION_PICK);
         photoPickerIntent.setType("image/*");
         startActivityForResult(photoPickerIntent, ALBUM_REQUEST_CODE);
+    }
+
+    private void selectPic(Intent intent) {
+        Uri selectImageUri = intent.getData();
+        String[] filePathColumn = {MediaStore.Images.Media.DATA};
+        Cursor cursor = getContentResolver().query(selectImageUri, filePathColumn, null, null, null);
+        cursor.moveToFirst();
+        int columnIndex = cursor.getColumnIndex(filePathColumn[0]);
+        String picturePath = cursor.getString(columnIndex);
+        cursor.close();
+        mImage.setImageBitmap(BitmapFactory.decodeFile(picturePath));
     }
     /**
      * 裁剪图片
@@ -256,17 +312,32 @@ public class GongSiRenZheng1Activity extends AppCompatActivity implements View.O
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent intent) {
         switch (requestCode) {
-            case CAMERA_REQUEST_CODE:   //调用相机后返回
+            case CODE_TAKE_PHOTO:   //调用相机后返回
                 if (resultCode == RESULT_OK) {
-                    //用相机返回的照片去调用剪裁也需要对Uri进行处理
-                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-                        Uri contentUri = FileProvider.getUriForFile(GongSiRenZheng1Activity.this, "com.ccsoft.yunqudao.fileProvider", tempFile);
-                        cropPhoto(contentUri);
-                    } else {
-                        cropPhoto(Uri.fromFile(tempFile));
+
+                    if (intent.hasExtra("data")) {
+                        Log.e("URI", "data is not null");
+                        Bitmap bitmap = intent.getParcelableExtra("data");
+                        mImage.setImageBitmap(bitmap);//imageView即为当前页面需要展示照片的控件，可替换
+                    }
+                else {
+                    Log.e("URI", "Data is null");
+                    if (Build.VERSION.SDK_INT >= 24){
+                        Bitmap bitmap = null;
+                        try {
+                            bitmap = BitmapFactory.decodeStream(getContentResolver().openInputStream(photoUri));
+                        } catch (FileNotFoundException e) {
+                            e.printStackTrace();
+                        }
+                        mImage.setImageBitmap(bitmap);
+                    }else {
+                        Bitmap bitmap = BitmapFactory.decodeFile(photoUri.getPath());
+                        mImage.setImageBitmap(bitmap);
                     }
                 }
+                }
                 break;
+
             case ALBUM_REQUEST_CODE:    //调用相册后返回
                 if (resultCode == RESULT_OK) {
                     Uri uri = intent.getData();

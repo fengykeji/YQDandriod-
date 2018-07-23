@@ -7,6 +7,7 @@ import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -17,9 +18,19 @@ import com.ccsoft.yunqudao.data.AppConstants;
 import com.ccsoft.yunqudao.data.api.ApiSubscriber;
 import com.ccsoft.yunqudao.data.model.response.ConfirmDetailData;
 import com.ccsoft.yunqudao.data.model.response.ValueDetailData;
+import com.ccsoft.yunqudao.http.HttpAdress;
 import com.ccsoft.yunqudao.manager.ClientManager;
 import com.ccsoft.yunqudao.rx.RxSchedulers;
 import com.ccsoft.yunqudao.utils.ActivityManager;
+import com.ccsoft.yunqudao.utils.JsonUtil;
+import com.lzy.okhttputils.OkHttpUtils;
+import com.lzy.okhttputils.callback.StringCallback;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import okhttp3.Call;
+import okhttp3.Response;
 
 /**
  * desc   :
@@ -110,6 +121,8 @@ public class WorkCommendValidDetailActivity extends AppCompatActivity {
     }
 
     private void initData() {
+
+
         ClientManager.getInstance().getValueDetail(id).compose(RxSchedulers.<ValueDetailData>io_main()).subscribe(new ApiSubscriber<ValueDetailData>(this) {
             @Override
             protected void _onNext(ValueDetailData data) {
@@ -144,13 +157,20 @@ public class WorkCommendValidDetailActivity extends AppCompatActivity {
 
                     for (int i=0;i<data.process.size();i++) {
                         ValueDetailData.ProcessBean processBean = data.process.get(i);
+                        LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
 
                         View view = getLayoutInflater().inflate(R.layout.view_process,null);
                         TextView tv_name = view.findViewById(R.id.tv_name);
                         TextView tv_time = view.findViewById(R.id.tv_time);
                         ImageView image = view.findViewById(R.id.image);
-                        tv_name.setText(processBean.process_name);
-                        tv_time.setText(processBean.time);
+                        if(i<data.process.size()-1) {
+                            tv_name.setText(processBean.process_name);
+                            tv_time.setText(processBean.time);
+                        }else {
+                            layoutParams.setMargins(10,-60,10,0);
+                            tv_name.setText(processBean.process_name);
+                            tv_time.setText(processBean.time);
+                        }
 
                         LinearLayout layout = view.findViewById(R.id.ll_addImageView);
                         if (i == data.process.size() - 2) {
@@ -158,12 +178,13 @@ public class WorkCommendValidDetailActivity extends AppCompatActivity {
                             imageView.setImageResource(R.drawable.progressbar);
                             layout.removeAllViews();
                             layout.addView(imageView);
+
                         }
                         if(i==data.process.size()-1){
                             image.setVisibility(View.INVISIBLE);
                         }
 
-                        ll_progress.addView(view);
+                        ll_progress.addView(view,layoutParams);
                     }
                 }
             }

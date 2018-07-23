@@ -8,6 +8,7 @@ import android.support.v7.app.AppCompatActivity;
 
 import android.util.Log;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
@@ -151,10 +152,9 @@ public class WorkComplainListActivity extends AppCompatActivity implements View.
                             public void onSuccess(String s, Call call, Response response) {
                                 StringModel model = JsonUtil.jsonToEntity(s, StringModel.class);
                                 if (model.getCode() == 200) {
-                                    Toast.makeText(WorkComplainListActivity.this, ":取消申诉成功", Toast.LENGTH_SHORT).show();
+                                    Toast.makeText(WorkComplainListActivity.this, "取消申诉成功", Toast.LENGTH_SHORT).show();
                                     finish();
                                 }
-                                Log.e("ccccccc",model.getMsg());
                             }
                         });
 
@@ -199,7 +199,6 @@ public class WorkComplainListActivity extends AppCompatActivity implements View.
             public void onSuccess(Call call, Response response, Object obj) throws MalformedURLException {
                 Type type = new TypeToken<AppealDetailBean>() {}.getType();
                 bean = new Gson().fromJson(obj.toString(), type);
-                Log.e("AppealDetailBean","解析成功");
                 if(bean.getCode()==200&&bean.getData()!=null){
                     tv_shensuleixing.setText(bean.getData().getType());
                     tv_shensumiaosu.setText(bean.getData().getComment());
@@ -237,13 +236,20 @@ public class WorkComplainListActivity extends AppCompatActivity implements View.
                     for (int i=0;i<bean.getData().getProcess().size();i++) {
                         AppealDetailBean.DataBean.ProcessBean processBean = bean.getData().getProcess().get(i);
 
-                        View view = getLayoutInflater().inflate(R.layout.view_process, null);
+                        LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+
+                        View view = getLayoutInflater().inflate(R.layout.view_process,null);
                         TextView tv_name = view.findViewById(R.id.tv_name);
                         TextView tv_time = view.findViewById(R.id.tv_time);
                         ImageView image = view.findViewById(R.id.image);
-//                        ImageView image1 = view.findViewById(R.id.image1);
-                        tv_name.setText(processBean.getProcess_name());
-                        tv_time.setText(processBean.getTime());
+                        if(i<bean.getData().getProcess().size()-1) {
+                            tv_name.setText(processBean.getProcess_name());
+                            tv_time.setText(processBean.getTime());
+                        }else {
+                            layoutParams.setMargins(10,-60,10,0);
+                            tv_name.setText(processBean.getProcess_name());
+                            tv_time.setText(processBean.getTime());
+                        }
 
                         LinearLayout layout = view.findViewById(R.id.ll_addImageView);
                         if (i == bean.getData().getProcess().size() - 2) {
@@ -251,13 +257,13 @@ public class WorkComplainListActivity extends AppCompatActivity implements View.
                             imageView.setImageResource(R.drawable.progressbar);
                             layout.removeAllViews();
                             layout.addView(imageView);
+
                         }
-                        if (i == bean.getData().getProcess().size() - 1) {
+                        if(i==bean.getData().getProcess().size()-1){
                             image.setVisibility(View.INVISIBLE);
-//                            image1.setVisibility(View.INVISIBLE);
                         }
 
-                        ll_progress.addView(view);
+                        ll_progress.addView(view,layoutParams);
                     }
                 }
             }

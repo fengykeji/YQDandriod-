@@ -1,11 +1,16 @@
 package com.ccsoft.yunqudao.ui.customers;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
+import android.text.Editable;
+import android.text.TextUtils;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
@@ -24,26 +29,38 @@ import android.widget.Toast;
 import com.ccsoft.yunqudao.R;
 import com.ccsoft.yunqudao.bean.MessageEvent;
 
+import com.ccsoft.yunqudao.bean.Province;
+import com.ccsoft.yunqudao.data.AppConstants;
+import com.ccsoft.yunqudao.data.model.response.OpenCityData;
+import com.ccsoft.yunqudao.data.model.response.ResultData;
 import com.ccsoft.yunqudao.http.HttpAdress;
 import com.ccsoft.yunqudao.http.MyStringCallBack;
+import com.ccsoft.yunqudao.http.XutilsHttp;
 import com.ccsoft.yunqudao.model.StringModel;
 
 
 import com.ccsoft.yunqudao.ui.home.HomeActivity;
 import com.ccsoft.yunqudao.ui.mian.MainActivity;
 import com.ccsoft.yunqudao.utils.ActivityManager;
+import com.ccsoft.yunqudao.utils.HideIMEUtil;
 import com.ccsoft.yunqudao.utils.JsonUtil;
+import com.ccsoft.yunqudao.utils.LocalJsonResolutionUtils;
 import com.ccsoft.yunqudao.utils.LogUtil;
 
+import com.google.gson.Gson;
 import com.lljjcoder.citypickerview.widget.CityPicker;
 import com.lzy.okhttputils.OkHttpUtils;
+import com.lzy.okhttputils.callback.StringCallback;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
+import org.jaaksi.pickerview.dataset.OptionDataSet;
+import org.jaaksi.pickerview.picker.OptionPicker;
 
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 
@@ -55,7 +72,7 @@ import okhttp3.Response;
  * @data: 2018/5/4 0004
  */
 
-public class AddCustomers2Activity extends AppCompatActivity implements View.OnClickListener, SeekBar.OnSeekBarChangeListener {
+public class AddCustomers2Activity extends AppCompatActivity implements View.OnClickListener, SeekBar.OnSeekBarChangeListener ,OptionPicker.OnOptionSelectListener{
 
     /**
      * 添加客户2 id
@@ -65,8 +82,8 @@ public class AddCustomers2Activity extends AppCompatActivity implements View.OnC
     private ImageButton mCustomers_button_back;
     private Button mCustomers_button_commit;
     private ImageButton mCustomers_button_add;
-    private TextView mCustomers_text_seekbar1;
-    private TextView mCustomers_text_seekbar2;
+    private EditText mCustomers_text_seekbar1;
+    private EditText mCustomers_text_seekbar2;
     private SeekBar mCustomers_seekbar1;
     private SeekBar mCustomers_seekbar2;
     private Spinner mSpinner_address, mSpinner_property_type, mSpinner_total_price, mSpinner_area, mSpinner_house_type, mSpinner_decorated, mSpinner_buy_type, mSpinner_pay_type;
@@ -98,7 +115,7 @@ public class AddCustomers2Activity extends AppCompatActivity implements View.OnC
     private int area;
     private String intent;
     private String urgency;
-    private String comment;
+    private String comment = "";
     private List<String> list = new ArrayList<>();
     private Date date;
     private int property_type;
@@ -107,6 +124,18 @@ public class AddCustomers2Activity extends AppCompatActivity implements View.OnC
     private String need_tags = "";
 //    private OptionsPickerView pvOptions ;
     private ArrayList<ArrayList<String>> options2Items = new ArrayList<>();
+    private String fastR ="";
+    private int project_id;
+    private int progress = 0;
+    private boolean flag = true;
+    private String provinceId ="", cityId =""/*= "230"*/, countyId=""/* = "234"*/,region = "";
+    private OptionPicker mPicker;
+    private Province province;
+    private OpenCityData         openCityData;
+    private List<OpenCityData.DataBean> mDataBeans = new ArrayList<>();
+
+
+
 
 
     @Subscribe(threadMode = ThreadMode.MAIN)
@@ -134,7 +163,12 @@ public class AddCustomers2Activity extends AppCompatActivity implements View.OnC
                 textView.setText(list.get(i));
                 textView.setBackgroundResource(R.drawable.shape_addlabel);
                 textView.setPadding(14, 14, 14, 14);
-                textView.setTextSize(19);
+                textView.setTextSize(16);
+//                int c = getColor(R.color.b)
+                textView.setTextColor(0x7f06004c);
+                textView.setSingleLine();
+                textView.setEllipsize(TextUtils.TruncateAt.valueOf("END"));
+                textView.setMaxEms(4);
                 ll_showlabel.addView(textView, layoutParams);
                 tv_showlabel.setVisibility(View.GONE);
             }
@@ -153,10 +187,12 @@ public class AddCustomers2Activity extends AppCompatActivity implements View.OnC
         super.onCreate(savedInstanceState);
         ActivityManager.getInstance().addActivity(this);
         setContentView(R.layout.activity_customers_add_customers2);
+        HideIMEUtil.wrap(this);
         EventBus.getDefault().register(this);
         initView();
-        initListener();
         initData();
+        initListener();
+
     }
 
     private void initView() {
@@ -187,7 +223,7 @@ public class AddCustomers2Activity extends AppCompatActivity implements View.OnC
         tv_showlabel = findViewById(R.id.tv_showlabel);
         ll_showlabel = findViewById(R.id.ll_showlabel);
 
-//        mNeed_text_property_type = findViewById(R.id.need_text_property_type);
+        mNeed_text_property_type = findViewById(R.id.need_text_property_type);
 //        mNeed_text_total_price = findViewById(R.id.need_text_total_price);
 //        mNeed_text_area = findViewById(R.id.need_text_area);
 //        mNeed_text_house_type = findViewById(R.id.need_text_house_type);
@@ -203,16 +239,18 @@ public class AddCustomers2Activity extends AppCompatActivity implements View.OnC
         mString7 = (String) mSpinner_buy_type.getSelectedItem();
         mString8 = (String) mSpinner_pay_type.getSelectedItem();
 
+        mCustomers_text_seekbar1.addTextChangedListener(new textChange(mCustomers_text_seekbar1));
+        mCustomers_text_seekbar2.addTextChangedListener(new textChange1(mCustomers_text_seekbar2));
+
         Submit();
 
 //        Idlist = getIntent().getIntegerArrayListExtra("list");
-
-
+        fastR = getIntent().getStringExtra("fastR");
+        project_id = getIntent().getIntExtra("project_id",0);
 
 
 
         setSpinnerAdapter();
-
 
 
     }
@@ -235,11 +273,12 @@ public class AddCustomers2Activity extends AppCompatActivity implements View.OnC
 
 
 
+
+
+
     }
 
-    private void initData() {
 
-    }
 
     @Override
     public void onClick(View v) {
@@ -261,8 +300,7 @@ public class AddCustomers2Activity extends AppCompatActivity implements View.OnC
                 startActivity(intent1);
                 break;
             case R.id.need_text_address:
-
-                selectAddress();
+                setCityPickerview();
                 break;
             case R.id.customers_button_commit:
 
@@ -381,8 +419,70 @@ public class AddCustomers2Activity extends AppCompatActivity implements View.OnC
                 card_id+"card  "+address+"address  "+property_type+"pro  "+price+"m3  "+
                 area+"m4  "+house_type+" house "+floor_min+"min  "+floor_max+"max  "+
                 decorate+"dec  "+buy_purpose+"buy  "+pay_type+"pay  "+intent+"int  "+
-                urgency+"urg  "+need_tags+"need "+comment+"comment ");
+                urgency+"urg  "+need_tags+"need "+comment+"comment"+provinceId+"provinceId");
 
+                if(fastR!=null&&fastR.equals("fastR")){
+
+                    OkHttpUtils.post(HttpAdress.addAndRecommend)
+                            .tag(this)
+                            .params("project_id",project_id)
+                            .params("name", name)
+                            .params("sex", sex)
+                            .params("tel", tel)
+                            .params("birth", birth)
+                            .params("card_type",card_type)
+                            .params("card_id", card_id)
+                            .params("address", address)
+                            .params("property_type", property_type)
+                            .params("total_price", price)
+                            .params("area", area)
+                            .params("house_type", house_type)
+                            .params("floor_min", floor_min)
+                            .params("floor_max", floor_max)
+                            .params("decorate", decorate)
+                            .params("buy_purpose", buy_purpose)
+                            .params("pay_type", pay_type)
+                            .params("intent", intent)
+                            .params("urgency", urgency)
+                            .params("need_tags", need_tags)
+                            .params("comment", comment)
+                            .execute(new StringCallback() {
+                                @Override
+                                public void onSuccess(String s, Call call, Response response) {
+                                    ResultData resultData = JsonUtil.jsonToEntity(s, ResultData.class);
+                                    if (resultData.code == 200) {
+                                        AlertDialog.Builder builder = new AlertDialog.Builder(AddCustomers2Activity.this);
+                                        builder.setTitle("推荐成功");
+                                        builder.setMessage(resultData.msg);
+                                        builder.setNegativeButton("确定", new DialogInterface.OnClickListener() {
+                                            @Override
+                                            public void onClick(DialogInterface dialogInterface, int i) {
+                                                finish();
+                                            }
+                                        });
+                                        AlertDialog dialog = builder.create();
+                                        dialog.show();
+
+
+                                    } else {
+                                        AlertDialog.Builder builder = new AlertDialog.Builder(AddCustomers2Activity.this);
+                                        builder.setTitle("推荐失败");
+                                        builder.setMessage(resultData.msg);
+                                        builder.setNegativeButton("确定", new DialogInterface.OnClickListener() {
+                                            @Override
+                                            public void onClick(DialogInterface dialogInterface, int i) {
+
+                                            }
+                                        });
+                                        AlertDialog dialog = builder.create();
+                                        dialog.show();
+                                    }
+
+                                    }
+                            });
+
+                    return;
+                }
 
                 OkHttpUtils.post(HttpAdress.addClientAndNeed)
                         .tag(this)
@@ -392,7 +492,11 @@ public class AddCustomers2Activity extends AppCompatActivity implements View.OnC
                         .params("birth", birth)
                         .params("card_type",card_type)
                         .params("card_id", card_id)
+                        .params("province",provinceId)
+                        .params("city",cityId)
+                        .params("district",countyId)
                         .params("address", address)
+                        .params("region",region)
                         .params("property_type", property_type)
                         .params("total_price", price)
                         .params("area", area)
@@ -412,8 +516,6 @@ public class AddCustomers2Activity extends AppCompatActivity implements View.OnC
                                 super.onSuccess(s, call, response);
                                 StringModel model = JsonUtil.jsonToEntity(s, StringModel.class);
                                 if (model.getCode() == 200) {
-                                    Toast.makeText(AddCustomers2Activity.this, ":添加客户基本信息成功", Toast.LENGTH_SHORT).show();
-
                                 }
                                 Toast.makeText(AddCustomers2Activity.this, model.getMsg(), Toast.LENGTH_SHORT).show();
 
@@ -434,6 +536,83 @@ public class AddCustomers2Activity extends AppCompatActivity implements View.OnC
 
         Intent intent = new Intent(context, AddCustomers2Activity.class);
         context.startActivity(intent);
+    }
+
+    /**
+     * 获取开放城市数据
+     */
+    private void initData() {
+        XutilsHttp.getInstance().gethesder(AppConstants.URL + "/user/project/openCity", null, new XutilsHttp.XCallBack() {
+            @Override
+            public void onResponse(String result) {
+                Gson gson = new Gson();
+                openCityData = gson.fromJson(result, OpenCityData.class);
+                mDataBeans = openCityData.getData();
+
+            }
+
+            @Override
+            public void error(String message) {
+                Log.i("msg=========", openCityData.getMsg());
+            }
+        });
+    }
+
+    /**
+     *  区域选择器
+     */
+    private void setCityPickerview(){
+        String fileName = "region.json";
+        String foodJson = LocalJsonResolutionUtils.getJson(this, fileName);
+        province = LocalJsonResolutionUtils.JsonToObject(foodJson, Province.class);
+
+        mPicker = new OptionPicker.Builder(this, 2, this).create();
+        mPicker.getTopBar().getTitleView().setText("请选择城市");
+        List<Province.DynamicBean.CityBean> data1 = new ArrayList<>() ;
+        Province.DynamicBean s;
+        for (Province.DynamicBean dynamicBean : province.getDynamic()) {
+            if(dynamicBean.getName().equals("四川省")){
+                 s = dynamicBean;
+                for (Province.DynamicBean.CityBean cityBean : s.getCity()) {
+                    for (OpenCityData.DataBean mDataBean : mDataBeans) {
+                        if(cityBean.getCode().equals(mDataBean.getCity_code())){
+                            data1.add(cityBean);
+                        }
+                    }
+                }
+            }
+        }
+
+        mPicker.setDataWithValues(data1);
+        mPicker.setSelectedWithValues( provinceId, cityId, countyId);
+        mPicker.show();
+
+    }
+    @Override
+    public void onOptionSelect(OptionPicker picker, int[] selectedPosition, OptionDataSet[] selectedOptions) {
+        String text = "";
+//        Province.DynamicBean province = (Province.DynamicBean) selectedOptions[0];
+//        provinceId = province.getCode();
+        Province.DynamicBean.CityBean city = (Province.DynamicBean.CityBean) selectedOptions[0];
+        Province.DynamicBean.CityBean.DistrictBean county = (Province.DynamicBean.CityBean.DistrictBean) selectedOptions[1];
+        if (city == null) {
+            cityId = "";
+            countyId = "";
+//            text = province.getName();
+        } else {
+            cityId = city.getCode();
+            if (county == null) {
+                countyId = "";
+                text = city.getName();
+            } else {
+                cityId = city.getCode();
+                countyId = county.getCode();
+                text = "四川省"+"/"+city.getName()+"/"+county.getName();
+            }
+        }
+        region = 51000+"-"+cityId+"-"+countyId;
+        mNeed_text_address.setText(text);
+
     }
 
     /**
@@ -498,6 +677,9 @@ public class AddCustomers2Activity extends AppCompatActivity implements View.OnC
         birth = getIntent().getStringExtra("birth");
         card_id = getIntent().getStringExtra("card_id");
         address = getIntent().getStringExtra("address");
+        provinceId = getIntent().getStringExtra("provinceId");
+        cityId = getIntent().getStringExtra("cityId");
+        countyId = getIntent().getStringExtra("countyId");
     }
 
     /**
@@ -597,41 +779,54 @@ public class AddCustomers2Activity extends AppCompatActivity implements View.OnC
 
 
 
-    private void selectAddress() {
-        CityPicker cityPicker = new CityPicker.Builder(this)
-                .textSize(14)
-                .title("地址选择")
-                .titleBackgroundColor("#FFFFFF")
-//                .titleTextColor("#696969")
-                .confirTextColor("#696969")
-                .cancelTextColor("#696969")
-                .province("四川省")
-                .city("成都市")
-                .district("金牛区")
-                .textColor(Color.parseColor("#000000"))
-                .provinceCyclic(true)
-                .cityCyclic(false)
-                .districtCyclic(false)
-                .visibleItemsCount(7)
-                .itemPadding(15)
-                .onlyShowProvinceAndCity(false)
-                .build();
-        cityPicker.show();
-        //监听方法，获取选择结果
-        cityPicker.setOnCityItemClickListener(new CityPicker.OnCityItemClickListener() {
-            @Override
-            public void onSelected(String... citySelected) {
-                //省份
-                String province = citySelected[0];
-                //城市
-                String city = citySelected[1];
-                //区县（如果设定了两级联动，那么该项返回空）
-                String district = citySelected[2];
-                //邮编
-                String code = citySelected[3];
-                //为TextView赋值
-                mNeed_text_address.setText(province.trim()+ city.trim()+ district.trim());
+
+
+    class textChange implements TextWatcher {
+
+        private EditText text;
+        public textChange(EditText editText){
+            this.text = editText;
+        }
+
+        @Override
+        public void afterTextChanged(Editable s) {
+
+        }
+        @Override
+        public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+        }
+        @Override
+        public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+
+            if(!mCustomers_text_seekbar1.getText().toString().equals("")) {
+                mCustomers_seekbar1.setProgress(Integer.parseInt(text.getText().toString()));
             }
-        });
+
+        }
+    }
+
+    class textChange1 implements TextWatcher {
+
+        private EditText text;
+        public textChange1(EditText editText){
+            this.text = editText;
+        }
+
+        @Override
+        public void afterTextChanged(Editable s) {
+
+        }
+        @Override
+        public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+        }
+        @Override
+        public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+
+            if(!mCustomers_text_seekbar2.getText().toString().equals("")) {
+                mCustomers_seekbar2.setProgress(Integer.parseInt(text.getText().toString()));
+            }
+        }
     }
 }

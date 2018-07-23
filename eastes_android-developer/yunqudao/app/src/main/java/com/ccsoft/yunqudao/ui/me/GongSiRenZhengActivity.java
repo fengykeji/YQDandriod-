@@ -18,6 +18,7 @@ import com.ccsoft.yunqudao.data.base.BaseRecyclerAdapter;
 import com.ccsoft.yunqudao.http.HttpAdress;
 import com.ccsoft.yunqudao.ui.adapter.GongSiRenZhengLiBiaoAdapter;
 import com.ccsoft.yunqudao.utils.ActivityManager;
+import com.ccsoft.yunqudao.utils.HideIMEUtil;
 import com.ccsoft.yunqudao.utils.JsonUtil;
 import com.lzy.okhttputils.OkHttpUtils;
 import com.lzy.okhttputils.callback.StringCallback;
@@ -52,6 +53,7 @@ public class GongSiRenZhengActivity extends AppCompatActivity implements View.On
         super.onCreate(savedInstanceState);
         ActivityManager.getInstance().addActivity(this);
         setContentView(R.layout.activity_me_xuanzegongsi);
+        HideIMEUtil.wrap(this);
         initView();
         initData();
         initListener();

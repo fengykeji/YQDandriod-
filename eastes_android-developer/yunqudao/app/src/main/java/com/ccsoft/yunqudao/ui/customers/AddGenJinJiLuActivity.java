@@ -17,6 +17,7 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
+import android.widget.RelativeLayout;
 import android.widget.SeekBar;
 import android.widget.SeekBar.OnSeekBarChangeListener;
 import android.widget.Spinner;
@@ -29,8 +30,10 @@ import com.ccsoft.yunqudao.model.StringModel;
 import com.ccsoft.yunqudao.ui.mian.MainActivity;
 import com.ccsoft.yunqudao.utils.ActivityManager;
 import com.ccsoft.yunqudao.utils.DateUtil;
+import com.ccsoft.yunqudao.utils.HideIMEUtil;
 import com.ccsoft.yunqudao.utils.JsonUtil;
 import com.ccsoft.yunqudao.utils.LogUtil;
+import com.ccsoft.yunqudao.utils.SpUtil;
 import com.ccsoft.yunqudao.utils.wheelview.TimePickerView;
 import com.lzy.okhttputils.OkHttpUtils;
 
@@ -51,7 +54,8 @@ public class AddGenJinJiLuActivity extends AppCompatActivity implements View.OnC
     private Button  mCustomers_button_commit;
     private TextView mCustomers_text_barthday,customers_nextTime,tv_showseekbar1,tv_showseekbar2;
     private EditText et_comment;
-    private ImageButton onfollow_time,im_customers_nextTime;
+    private ImageButton onfollow_time;
+    private RelativeLayout im_customers_nextTime;
     private int                            mClienID;
     private RadioButton rb_tel,rb_qq,rb_miantan,rb_weixin,rb_qita,radioButton;
     private SeekBar sb_addGenJinLu1,sb_addGenJinLu2;
@@ -73,6 +77,7 @@ public class AddGenJinJiLuActivity extends AppCompatActivity implements View.OnC
         super.onCreate(savedInstanceState);
         ActivityManager.getInstance().addActivity(this);
         setContentView(R.layout.activity_customers_add_genjinjilu);
+        HideIMEUtil.wrap(this);
         initView();
         initListener();
     }
@@ -119,6 +124,8 @@ public class AddGenJinJiLuActivity extends AppCompatActivity implements View.OnC
         name = getIntent().getStringExtra("name");
 
         tv_kehumingcheng.setText(name);
+        getTime();
+        tv_genjingren.setText(SpUtil.getString("name",""));
 
     }
 
@@ -147,6 +154,10 @@ public class AddGenJinJiLuActivity extends AppCompatActivity implements View.OnC
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.customers_button_back:
+                Intent intent3 = new Intent(AddGenJinJiLuActivity.this,CustomersXiangQingActivity.class);
+                intent3.putExtra("fid",1);
+                intent3.putExtra("client_id",mClienID);
+                startActivity(intent3);
                 finish();
                 break;
             case R.id.customers_button_commit:
@@ -177,17 +188,20 @@ public class AddGenJinJiLuActivity extends AppCompatActivity implements View.OnC
                 else if(follow_type.equals("其他")){
                     follow_type1 = 90;
                 }
-                if(tv_showseekbar1.getText().toString().equals("")){
-                    Toast.makeText(this,"请选择购房意向度",Toast.LENGTH_LONG).show();
-                    return;
-                }else {
+    //                if(tv_showseekbar1.getText().toString().equals("")){
+    //                    Toast.makeText(this,"请选择购房意向度",Toast.LENGTH_LONG).show();
+    //                    return;
+    //                }else {
+    //
+    //                }
                     intent = Integer.parseInt(tv_showseekbar1.getText().toString());
-                }
-                if(tv_showseekbar2.getText().toString().equals("")){
-                    Toast.makeText(this,"请选择购房紧迫度",Toast.LENGTH_LONG).show();
-                }else {
+//                if(tv_showseekbar2.getText().toString().equals("")){
+//                    Toast.makeText(this,"请选择购房紧迫度",Toast.LENGTH_LONG).show();
+//                }else {
+//
+//                }
                     urgency = Integer.parseInt(tv_showseekbar2.getText().toString());
-                }
+
                 if(mString2 .equals("")) {
                     Toast.makeText(this,"请选择付款方式",Toast.LENGTH_LONG).show();
                     return;
@@ -234,13 +248,17 @@ public class AddGenJinJiLuActivity extends AppCompatActivity implements View.OnC
                                 StringModel model = JsonUtil.jsonToEntity(s,StringModel.class);
                                 if(model.getCode()==200){
                                     Toast.makeText(AddGenJinJiLuActivity.this,"提交了跟进记录",Toast.LENGTH_SHORT).show();
+                                    Intent intent = new Intent(AddGenJinJiLuActivity.this,CustomersXiangQingActivity.class);
+                                    intent.putExtra("fid",1);
+                                    intent.putExtra("client_id",mClienID);
+                                    startActivity(intent);
                                     finish();
                                 }
                             }
                         });
                 break;
             case R.id.customers_follw_time:
-                showBirthdayPicker(mCustomers_text_barthday.getText().toString());
+
                 break;
             case R.id.im_customers_nextTime:
                 showBirthdayPickerNextTime(customers_nextTime.getText().toString());
@@ -263,9 +281,9 @@ public class AddGenJinJiLuActivity extends AppCompatActivity implements View.OnC
         }
 
         Calendar startDate = Calendar.getInstance();
-        startDate.set(1950, 0, 1);
 
         Calendar endDate = Calendar.getInstance();
+        endDate.set(2050, 12, 30);
 
         TimePickerView.Builder builder = new TimePickerView.Builder(this, new TimePickerView.OnTimeSelectListener() {
             @Override
@@ -298,9 +316,9 @@ public class AddGenJinJiLuActivity extends AppCompatActivity implements View.OnC
         }
 
         Calendar startDate = Calendar.getInstance();
-        startDate.set(1950, 0, 1);
 
         Calendar endDate = Calendar.getInstance();
+        endDate.set(2050, 12, 30);
 
         TimePickerView.Builder builder = new TimePickerView.Builder(this, new TimePickerView.OnTimeSelectListener() {
             @Override
@@ -325,6 +343,18 @@ public class AddGenJinJiLuActivity extends AppCompatActivity implements View.OnC
         timePickerView.show();
     }
 
+    /**
+     * 获取系统当前时间
+     */
+
+    private void getTime(){
+        Calendar calendar = Calendar.getInstance();
+        int year = calendar.get(Calendar.YEAR);
+        int month = calendar.get(Calendar.MONTH);
+        int day = calendar.get(Calendar.DAY_OF_MONTH);
+        mCustomers_text_barthday.setText(year+"-"+month+"-"+day);
+
+    }
 
     /**
      * seek bar获取值

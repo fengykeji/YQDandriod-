@@ -14,6 +14,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.Spinner;
+import android.widget.SpinnerAdapter;
 import android.widget.TextView;
 import android.widget.Toast;
 import com.ccsoft.yunqudao.R;
@@ -26,6 +27,7 @@ import com.ccsoft.yunqudao.http.XutilsHttp;
 import com.ccsoft.yunqudao.model.StringModel;
 import com.ccsoft.yunqudao.utils.ActivityManager;
 import com.ccsoft.yunqudao.utils.DateUtil;
+import com.ccsoft.yunqudao.utils.HideIMEUtil;
 import com.ccsoft.yunqudao.utils.InputUtil;
 import com.ccsoft.yunqudao.utils.JsonUtil;
 import com.ccsoft.yunqudao.utils.wheelview.TimePickerView;
@@ -68,6 +70,7 @@ public class ResetClientBasicActivity extends AppCompatActivity implements View.
         super.onCreate(savedInstanceState);
         ActivityManager.getInstance().addActivity(this);
         setContentView(R.layout.activity_customers_add_customers1);
+        HideIMEUtil.wrap(this);
         initView();
         initListener();
     }
@@ -108,7 +111,15 @@ public class ResetClientBasicActivity extends AppCompatActivity implements View.
             mCustomers_edittext_card_id.setText(mClientPrivateData.getData().getBasic().getCard_id());
             mCustomers_edittext_address1.setText(mClientPrivateData.getData().getBasic().getAddress());
             mClient_id = mClientPrivateData.getData().getBasic().getClient_id();
-            mSex = mCustomers_spinner_sex.getSelectedItem().toString();
+            mSex = mClientPrivateData.getData().getBasic().getSex()+"";
+            if (mSex.equals(0+"")){
+                mSex = "";
+            }else if(mSex.equals("1")){
+                mSex = "男";
+            }else if(mSex.equals("2")){
+                mSex = "女";
+            }
+            setSpinnerItemSelectedByValue(mCustomers_spinner_sex,mSex);
             mCustomers_spinner_sex.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                 @Override
                 public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
@@ -136,7 +147,7 @@ public class ResetClientBasicActivity extends AppCompatActivity implements View.
         mCustomers_button_back.setOnClickListener(this);
         mButton_next.setOnClickListener(this);
         mCustomers_button_birthday.setOnClickListener(this);
-
+        mCustomers_text_birthday.setOnClickListener(this);
     }
 
     @Override
@@ -146,7 +157,7 @@ public class ResetClientBasicActivity extends AppCompatActivity implements View.
                 finish();
                 break;
 
-            case R.id.customers_button_birthday:
+            case R.id.customers_text_birthday:
 
                 showBirthdayPicker(mCustomers_text_birthday.getText().toString());
                 break;
@@ -168,7 +179,32 @@ public class ResetClientBasicActivity extends AppCompatActivity implements View.
                     return;
                 }
 
-                Log.e("cccccc",type+" "+mClient_id+" "+mName);
+                String birth = null;
+                if(mCustomers_text_birthday.getText().toString().equals("0000-00-00")){
+                    OkHttpUtils.post(HttpAdress.update)
+                            .tag(this)
+                            .params("client_id",String.valueOf(mClient_id))
+                            .params("name", mName)
+                            .params("sex",String.valueOf(type))
+                            .params("tel", mCustomers_edittext_tel.getText().toString())
+                            .params("card_id", mCustomers_edittext_card_id.getText().toString())
+                            .params("address", mCustomers_edittext_address1.getText().toString())
+                            .execute(new StringCallback() {
+                                @Override
+                                public void onSuccess(String s, Call call, Response response) {
+                                    StringModel model = JsonUtil.jsonToEntity(s,StringModel.class);
+                                    if(model.getCode()==200){
+                                        sendBroadcast(new Intent(AppConstants.REFRESH_CUSTOM_LIST));
+                                        finish();
+                                    }
+                                    Toast.makeText(ResetClientBasicActivity.this,model.getMsg(),Toast.LENGTH_SHORT).show();
+                                    return;
+                                }
+                            });
+                }else {
+
+                    birth = mCustomers_text_birthday.getText().toString();
+
 
                 OkHttpUtils.post(HttpAdress.update)
                         .tag(this)
@@ -176,7 +212,7 @@ public class ResetClientBasicActivity extends AppCompatActivity implements View.
                         .params("name", mName)
                         .params("sex",String.valueOf(type))
                         .params("tel", mCustomers_edittext_tel.getText().toString())
-                        .params("birth", mCustomers_text_birthday.getText().toString())
+                        .params("birth", birth)
                         .params("card_id", mCustomers_edittext_card_id.getText().toString())
                         .params("address", mCustomers_edittext_address1.getText().toString())
                         .execute(new StringCallback() {
@@ -193,23 +229,7 @@ public class ResetClientBasicActivity extends AppCompatActivity implements View.
 
                             }
                         });
-
-//                XutilsHttp.getInstance().postheader(AppConstants.URL + "agent/client/update", params, new XutilsHttp.XCallBack() {
-//                    @Override
-//                    public void onResponse(String result) {
-//                        Log.d("66666666------》", result.toString());
-//                        Toast.makeText(ResetClientBasicActivity.this, "修改加客户基本信息成功", Toast.LENGTH_SHORT).show();
-//                        sendBroadcast(new Intent(AppConstants.REFRESH_CUSTOM_LIST));
-//                    }
-//
-//                    @Override
-//                    public void error(String message) {
-//                        Toast.makeText(ResetClientBasicActivity.this, "修改客户基本信息失败:" + message, Toast.LENGTH_SHORT).show();
-//                    }
-//                });
-//
-//                CustomersXiangQingActivity.start(this,mClient_id);
-//                finish();
+        }
                 break;
         }
 
@@ -249,5 +269,24 @@ public class ResetClientBasicActivity extends AppCompatActivity implements View.
 
         TimePickerView timePickerView = new TimePickerView(builder);
         timePickerView.show();
+    }
+
+    /**
+     * 设置spinner的值
+     * @param spinner
+     * @param value
+     */
+
+    public  void setSpinnerItemSelectedByValue(Spinner spinner,String value) {
+        SpinnerAdapter apsAdapter = spinner.getAdapter(); //得到SpinnerAdapter对象
+        int k = apsAdapter.getCount();
+        for (int i = 0; i < k; i++) {
+            if (value.equals(apsAdapter.getItem(i).toString())) {
+//                spinner.setSelection(i,true);// 默认选中项
+                spinner.setSelection(i);// 默认选中项
+
+                break;
+            }
+        }
     }
 }

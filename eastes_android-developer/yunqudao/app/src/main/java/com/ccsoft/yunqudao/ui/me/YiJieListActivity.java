@@ -10,6 +10,7 @@ import android.view.View;
 import android.widget.ImageButton;
 import com.ccsoft.yunqudao.R;
 import com.ccsoft.yunqudao.utils.ActivityManager;
+import com.ccsoft.yunqudao.utils.HideIMEUtil;
 
 /**
  * @author: Pein
@@ -25,6 +26,7 @@ public class YiJieListActivity extends AppCompatActivity implements View.OnClick
         super.onCreate(savedInstanceState);
         ActivityManager.getInstance().addActivity(this);
         setContentView(R.layout.activity_me_yijieliebiao);
+        HideIMEUtil.wrap(this);
         initView();
         initListener();
     }

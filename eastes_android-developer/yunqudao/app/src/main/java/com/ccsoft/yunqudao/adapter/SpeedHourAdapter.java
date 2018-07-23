@@ -63,12 +63,12 @@ public class SpeedHourAdapter extends RecyclerView.Adapter<SpeedHourHolder> {
 //        if (bean != null) {
         Picasso.with(mContext)
                 .load(AppConstants.URL+specailList.get(position).getImg_url())
-                .error(R.drawable.ic_launcher_background)
+                .error(R.drawable.default_3)
                 .into(holder.speedImage);
 
 //            Glide.with(mContext).load(specailList.get(position).getProject_basic_info().getTotal_float_url()).into(holder.speedImage);
             holder.speedName.setText(specailList.get(position).getHouse_type_name());
-            holder.speedArea.setText(specailList.get(position).getProperty_area_min()+"m2");
+            holder.speedArea.setText(specailList.get(position).getProperty_area_min()+"㎡");
             holder.speedtype.setText(specailList.get(position).getHouse_type());
             holder.speedsale.setText(specailList.get(position).getSale_state());
 //        }

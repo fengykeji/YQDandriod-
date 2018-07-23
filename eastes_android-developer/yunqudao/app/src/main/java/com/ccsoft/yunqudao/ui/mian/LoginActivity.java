@@ -27,6 +27,7 @@ import com.ccsoft.yunqudao.utils.ActivityManager;
 import com.ccsoft.yunqudao.utils.InputUtil;
 import com.ccsoft.yunqudao.utils.JsonUtil;
 import com.ccsoft.yunqudao.utils.SpUtil;
+import com.ccsoft.yunqudao.utils.TokenInterceptor;
 import com.google.gson.Gson;
 import com.lzy.okhttputils.OkHttpUtils;
 import com.lzy.okhttputils.callback.StringCallback;
@@ -175,6 +176,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                             headers.put("ACCESS-TOKEN", loginBean.getData().getToken());
                             headers.put("ACCESS-ROLE", "agent");
                             OkHttpUtils.getInstance().addCommonHeaders(headers);
+                            OkHttpUtils.getInstance().addInterceptor(new TokenInterceptor(LoginActivity.this));
 
                             HomeActivity.start(LoginActivity.this);
                             finish();

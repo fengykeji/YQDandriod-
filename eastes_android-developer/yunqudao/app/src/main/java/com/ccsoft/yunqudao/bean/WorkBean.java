@@ -116,7 +116,7 @@ public class WorkBean {
              */
 
             private int disabled;
-            private int count;
+            private int total;
             private int value;
 
             public int getDisabled() {
@@ -127,12 +127,12 @@ public class WorkBean {
                 this.disabled = disabled;
             }
 
-            public int getCount() {
-                return count;
+            public int getTotal() {
+                return total;
             }
 
-            public void setCount(int count) {
-                this.count = count;
+            public void setTotal(int count) {
+                this.total = count;
             }
 
             public int getValue() {

@@ -31,24 +31,48 @@ public class ProjectYongjinAdapter extends BaseRecyclerAdapter<ProjectGetRuleBea
     protected void convert(BaseViewHolder holder, ProjectGetRuleBean.DataBean.PersonBean bean ,int position) {
 
 
+//        for (ProjectGetRuleBean.DataBean dataBean : list) {
+//            holder.setText(R.id.tv_yongjinguize, dataBean.getDescribe());
+//            holder.setText(R.id.tv_paiming, "第" + dataBean.getStandard() + "名");
+//
+//            if(dataBean.getPerson()!=null) {
+//                for (ProjectGetRuleBean.DataBean.PersonBean personBean : dataBean.getPerson()) {
+//
+//                    if (personBean.getAct_end().equals("2037-12-31 23:59:59")) {
+//                        holder.setText(R.id.tv_startTime, personBean.getAct_start() + "起");
+//                    } else {
+//                        holder.setText(R.id.tv_startTime, personBean.getAct_start() + "至" +
+//                                bean.getAct_end());
+//                    }
+//                    holder.setText(R.id.tv_jieyong, personBean.getCommission_describe());
+//                }
+//            }
+//        }
 
-                if (bean.getAct_end().equals("2037-12-31 23:59:59")) {
-                    holder.setText(R.id.tv_startTime, bean.getAct_start()+ "起");
-                } else
-                    {
-                    holder.setText(R.id.tv_startTime, bean.getAct_start() + "至" +
-                            bean.getAct_end());
+        for (int i = 0; i < list.size(); i++) {
+            holder.setText(R.id.tv_yongjinguize, list.get(i).getDescribe());
+            holder.setText(R.id.tv_paiming, "第" + list.get(i).getStandard() + "名");
+
+            if(list.get(i).getPerson()!=null) {
+                for (int i1 = 0; i1 < list.get(i).getPerson().size(); i1++) {
+                    if (list.get(i).getPerson().get(i1).getAct_end().equals("2037-12-31 23:59:59")) {
+                        holder.setText(R.id.tv_startTime, list.get(i).getPerson().get(i1).getAct_start() + "起");
+                    } else {
+                        holder.setText(R.id.tv_startTime, list.get(i).getPerson().get(i1).getAct_start() + "至" +
+                                bean.getAct_end());
+                    }
+                    holder.setText(R.id.tv_jieyong, list.get(i).getPerson().get(i1).getCommission_describe());
                 }
-                holder.setText(R.id.tv_jieyong, bean.getCommission_describe());
+            }
+        }
 
 
 
-            ll_showguize = (LinearLayout) holder.getView(R.id.ll_showguize);
-            ll_gone = (LinearLayout) holder.getView(R.id.ll_gone);
-            ll_gone1 = (LinearLayout) holder.getView(R.id.ll_gone2);
 
-            holder.setText(R.id.tv_yongjinguize, list.get(position).getDescribe());
-            holder.setText(R.id.tv_paiming, "第" + list.get(position).getStandard() + "名");
+
+
+
+
 
             holder.setVisible(R.id.ll_showguize,position == expandPosition ? View.VISIBLE : View.GONE);
             holder.setOnclick(R.id.ib_showguize, new View.OnClickListener() {

@@ -144,6 +144,17 @@ public class HouseDetailBean implements Serializable{
             private String developer_name;
             private String total_float_url;
             private String total_float_url_phone;
+            private String total_float_url_panorama;
+
+            public void setTotal_float_url_panorama(String total_float_url_panorama) {
+                this.total_float_url_panorama = total_float_url_panorama;
+            }
+
+            public String getTotal_float_url_panorama() {
+
+                return total_float_url_panorama;
+            }
+
             private double longitude;
             private double latitude;
             private String yunsuan_url;

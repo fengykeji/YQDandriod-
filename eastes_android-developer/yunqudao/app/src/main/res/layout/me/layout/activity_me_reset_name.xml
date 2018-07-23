@@ -70,6 +70,7 @@
         android:layout_gravity="center_vertical"
         />
     <ImageButton
+        android:visibility="gone"
         android:id="@+id/me_button_清除"
         android:layout_weight="0.5"
         android:src="@drawable/ic_delete_3"

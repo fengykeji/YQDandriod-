@@ -17,6 +17,7 @@ import android.widget.Button;
 import android.widget.ImageButton;
 import com.ccsoft.yunqudao.R;
 import com.ccsoft.yunqudao.ui.adapter.WorkXinFangTuiJianAdapter;
+import com.ccsoft.yunqudao.ui.home.HomeActivity;
 import com.ccsoft.yunqudao.utils.ActivityManager;
 import java.util.ArrayList;
 import java.util.List;
@@ -80,6 +81,9 @@ public class WorkRecommendActivity extends AppCompatActivity implements View.OnC
         mWork_button_back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                Intent intent = new Intent(WorkRecommendActivity.this, HomeActivity.class);
+                intent.putExtra("fid",3);
+                startActivity(intent);
                 finish();
             }
         });
@@ -132,7 +136,7 @@ public class WorkRecommendActivity extends AppCompatActivity implements View.OnC
                     title = "无效";
                     break;
                 case 3:
-                    title = "申述";
+                    title = "申诉";
                     break;
                 default:
                     title = "确认中";

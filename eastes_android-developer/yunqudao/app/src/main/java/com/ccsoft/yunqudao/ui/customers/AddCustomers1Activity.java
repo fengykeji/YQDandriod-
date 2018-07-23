@@ -18,6 +18,9 @@ import android.widget.Spinner;
 import android.widget.SpinnerAdapter;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.ccsoft.yunqudao.bean.ProjectFastRecommendListBean;
+import com.ccsoft.yunqudao.bean.Province;
 import com.ccsoft.yunqudao.data.AppConstants;
 import com.ccsoft.yunqudao.R;
 import com.ccsoft.yunqudao.bean.MessageEvent;
@@ -28,22 +31,30 @@ import com.ccsoft.yunqudao.model.StringModel;
 import com.ccsoft.yunqudao.ui.mian.RegisterActivity;
 import com.ccsoft.yunqudao.utils.ActivityManager;
 import com.ccsoft.yunqudao.utils.DateUtil;
+import com.ccsoft.yunqudao.utils.HideIMEUtil;
 import com.ccsoft.yunqudao.utils.IDCardCheckUtil;
 import com.ccsoft.yunqudao.utils.InputUtil;
 import com.ccsoft.yunqudao.utils.JsonUtil;
+import com.ccsoft.yunqudao.utils.LocalJsonResolutionUtils;
 import com.ccsoft.yunqudao.utils.wheelview.TimePickerView;
 import com.ccsoft.yunqudao.utils.wheelview.listener.WheelView;
 import com.lljjcoder.citypickerview.widget.CityPicker;
 import com.lzy.okhttputils.OkHttpUtils;
+import com.lzy.okhttputils.callback.StringCallback;
 
 import java.text.ParseException;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
+import org.jaaksi.pickerview.dataset.OptionDataSet;
+import org.jaaksi.pickerview.picker.OptionPicker;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import okhttp3.Call;
 import okhttp3.Response;
@@ -53,7 +64,7 @@ import okhttp3.Response;
  * @data: 2018/5/4 0004
  */
 
-public class AddCustomers1Activity extends AppCompatActivity implements View.OnClickListener,AdapterView.OnItemSelectedListener {
+public class AddCustomers1Activity extends AppCompatActivity implements View.OnClickListener,AdapterView.OnItemSelectedListener,OptionPicker.OnOptionSelectListener {
     /**
      * 添加客户1 id
      *
@@ -70,18 +81,25 @@ public class AddCustomers1Activity extends AppCompatActivity implements View.OnC
     private EditText     mCustomers_edittext_card_id;
     private Button       mButton_next;
     private EditText     mCustomers_edittext_address;
+    private TextView     mCustomers_edittext_address3;
 
     private static final String TAG = "MainActivity";
     private String mTelnumber1;
     private String mName;
     private String mSex;
     private int    type;
+    private String fastR ="";
+    private int project_id;
+    private String provinceId ="", cityId =""/*= "230"*/, countyId=""/* = "234"*/;
+    private OptionPicker mPicker;
+    private Province province;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         ActivityManager.getInstance().addActivity(this);
         setContentView(R.layout.activity_customers_add_customers1);
+        HideIMEUtil.wrap(this);
         EventBus.getDefault().register(this);
         initView();
         initListener();
@@ -109,6 +127,7 @@ public class AddCustomers1Activity extends AppCompatActivity implements View.OnC
         mCustomers_spinner_card_type = findViewById(R.id.customers_spinner_card_type);
         mCustomers_edittext_card_id = findViewById(R.id.customers_edittext_card_id);
         mCustomers_edittext_address = findViewById(R.id.customers_edittext_address1);
+        mCustomers_edittext_address3 = findViewById(R.id.customers_edittext_address3);
         mButton_next = findViewById(R.id.button_next);
         mSex = mCustomers_spinner_sex.getSelectedItem().toString();
         mCustomers_spinner_sex.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
@@ -132,6 +151,8 @@ public class AddCustomers1Activity extends AppCompatActivity implements View.OnC
             }
         });
 
+        fastR = getIntent().getStringExtra("fastR");
+        project_id = getIntent().getIntExtra("project_id",0);
 
     }
 
@@ -145,6 +166,8 @@ public class AddCustomers1Activity extends AppCompatActivity implements View.OnC
         mButton_next.setOnClickListener(this);
         mCustomers_button_birthday.setOnClickListener(this);
         mNeed_text_address2.setOnClickListener(this);
+        mCustomers_text_barthday.setOnClickListener(this);
+        mCustomers_edittext_address3.setOnClickListener(this);
     }
 
     @Override
@@ -157,6 +180,9 @@ public class AddCustomers1Activity extends AppCompatActivity implements View.OnC
 
             case R.id.button_next:
 //                AddCustomers2Activity.start(AddCustomers1Activity.this);
+
+
+
                 mName = mCustomers_edittext_name.getText().toString();
                 if (TextUtils.isEmpty(mCustomers_edittext_name.getText())) {
                     Toast.makeText(this, "请输入姓名", Toast.LENGTH_SHORT).show();
@@ -164,12 +190,12 @@ public class AddCustomers1Activity extends AppCompatActivity implements View.OnC
                 }
 
                 if (TextUtils.isEmpty(mCustomers_edittext_tel.getText().toString())) {
-                    Toast.makeText(this, "联系号码不能为空1", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(this, "联系号码不能为空", Toast.LENGTH_SHORT).show();
                     return;
                 }
 
                 if (!InputUtil.isMobileLegal(mCustomers_edittext_tel.getText().toString())) {
-                    Toast.makeText(this, "请输入正确的手机号1", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(this, "请输入正确的手机号", Toast.LENGTH_SHORT).show();
                     return;
                 }
                 Intent intent = new Intent(AddCustomers1Activity.this,AddCustomers2Activity.class);
@@ -193,40 +219,66 @@ public class AddCustomers1Activity extends AppCompatActivity implements View.OnC
             }if(mCustomers_edittext_address.getText().toString()==null){
                     intent.putExtra("address","");
             }
+
+            intent.putExtra("province",provinceId);
+                intent.putExtra("city",cityId);
+                intent.putExtra("district",countyId);
                 intent.putExtra("address",mCustomers_edittext_address.getText().toString());
+                intent.putExtra("fastR",fastR);
+                intent.putExtra("project_id",project_id);
             startActivity(intent);
             finish();
-
-//                OkHttpUtils.post(HttpAdress.addClientAndNeed)
-//                        .tag(this)
-//                        .params("name", mName)
-//                        .params("sex", String.valueOf(type))
-//                        .params("tel", mCustomers_edittext_tel.getText().toString())
-//                        .params("birth", mCustomers_text_barthday.getText().toString())
-//                        .params("card_id",mCustomers_edittext_card_id.getText().toString())
-//                        .params("address",mCustomers_edittext_address.getText().toString())
-//                        .execute(new MyStringCallBack() {
-//                            @Override
-//                            public void onSuccess(String s, Call call, Response response) {
-//                                super.onSuccess(s, call, response);
-//                                StringModel model = JsonUtil.jsonToEntity(s,StringModel.class);
-//                                if(model.getCode()==200){
-//                                    Toast.makeText(AddCustomers1Activity.this, ":添加客户基本信息成功", Toast.LENGTH_SHORT).show();
-//                                    sendBroadcast(new Intent(AppConstants.REFRESH_CUSTOM_LIST));
-//                                    AddCustomers2Activity.start(AddCustomers1Activity.this);
-//                                }
-//                                Toast.makeText(AddCustomers1Activity.this,model.getMsg(),Toast.LENGTH_SHORT).show();
-//                            }
-//                        });
-
                 break;
-            case R.id.customers_button_birthday:
+            case R.id.customers_text_birthday:
                 showBirthdayPicker(mCustomers_text_barthday.getText().toString());
                 break;
                 case R.id.customers_edittext_address2:
                     selectAddress();
                     break;
+            case R.id.customers_edittext_address3:
+                setCityPickerview();
+                break;
         }
+    }
+    private void setCityPickerview(){
+
+        String fileName = "region.json";
+        String foodJson = LocalJsonResolutionUtils.getJson(this, fileName);
+        province = LocalJsonResolutionUtils.JsonToObject(foodJson, Province.class);
+
+        mPicker = new OptionPicker.Builder(this, 3, this).create();
+        mPicker.getTopBar().getTitleView().setText("请选择城市");
+        List<Province.DynamicBean> data = province.getDynamic();
+        mPicker.setDataWithValues(data);
+        mPicker.setSelectedWithValues(provinceId, cityId, countyId);
+        mPicker.show();
+
+
+    }
+    @Override
+    public void onOptionSelect(OptionPicker picker, int[] selectedPosition, OptionDataSet[] selectedOptions) {
+        String text;
+        Province.DynamicBean province = (Province.DynamicBean) selectedOptions[0];
+        provinceId = province.getCode();
+        Province.DynamicBean.CityBean city = (Province.DynamicBean.CityBean) selectedOptions[1];
+        Province.DynamicBean.CityBean.DistrictBean county = (Province.DynamicBean.CityBean.DistrictBean) selectedOptions[2];
+        if (city == null) {
+            cityId = "";
+            countyId = "";
+            text = province.getName();
+        } else {
+            cityId = city.getCode();
+            if (county == null) {
+                countyId = "";
+                text = city.getName();
+            } else {
+                cityId = city.getCode();
+                countyId = county.getCode();
+                text = province.getName()+"/"+city.getName()+"/"+county.getName();
+            }
+        }
+        mCustomers_edittext_address3.setText(text);
+
     }
 
     /**

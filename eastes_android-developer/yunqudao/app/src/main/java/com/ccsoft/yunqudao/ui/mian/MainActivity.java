@@ -1,13 +1,15 @@
 package com.ccsoft.yunqudao.ui.mian;
 
 import android.os.Handler;
+import android.os.Message;
 import android.text.TextUtils;
 import android.util.Log;
-import android.widget.Toast;
 
+import com.ccsoft.yunqudao.bean.GetDistrictListBean;
 import com.ccsoft.yunqudao.bean.PeizhiBean;
 import com.ccsoft.yunqudao.data.AppConstants;
 import com.ccsoft.yunqudao.R;
+import com.ccsoft.yunqudao.http.HttpAdress;
 import com.ccsoft.yunqudao.ui.Guide.GuideActivity;
 import com.ccsoft.yunqudao.ui.home.HomeActivity;
 import com.ccsoft.yunqudao.utils.ActivityManager;
@@ -22,6 +24,8 @@ import com.lzy.okhttputils.model.HttpHeaders;
 
 import android.app.Activity;
 import android.os.Bundle;
+import android.view.KeyEvent;
+import android.widget.Toast;
 
 import java.lang.reflect.Type;
 import java.net.MalformedURLException;
@@ -35,12 +39,16 @@ public class MainActivity extends Activity {
     private Long startTime;
     private  static PeizhiBean peizhiBean;
 
+
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         ActivityManager.getInstance().addActivity(this);
         startTime = System.currentTimeMillis();
         setContentView(R.layout.activity_guide);
+
 
         HttpHeaders headers = new HttpHeaders();
         headers.put("ACCESS-TOKEN", SpUtil.getToken());
@@ -128,4 +136,7 @@ public class MainActivity extends Activity {
         });
         return peizhiBean;
     }
+
+
+
 }

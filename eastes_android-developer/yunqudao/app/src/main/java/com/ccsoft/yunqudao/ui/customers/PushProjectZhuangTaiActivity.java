@@ -9,6 +9,7 @@ import android.view.View;
 import android.widget.ImageButton;
 import com.ccsoft.yunqudao.R;
 import com.ccsoft.yunqudao.utils.ActivityManager;
+import com.ccsoft.yunqudao.utils.HideIMEUtil;
 
 /**
  * @author: Pein
@@ -23,6 +24,7 @@ public class PushProjectZhuangTaiActivity extends AppCompatActivity implements V
         super.onCreate(savedInstanceState);
         ActivityManager.getInstance().addActivity(this);
         setContentView(R.layout.activity_customers_push_project_zhuangtai);
+        HideIMEUtil.wrap(this);
         initView();
         initListener();
     }

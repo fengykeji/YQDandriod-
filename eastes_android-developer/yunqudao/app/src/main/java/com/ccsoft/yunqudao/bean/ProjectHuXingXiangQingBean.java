@@ -75,8 +75,8 @@ public class ProjectHuXingXiangQingBean implements Serializable{
              */
 
             private int id;
-            private int property_area_min;
-            private int property_area_max;
+            private float property_area_min;
+            private float property_area_max;
             private String sell_point;
             private String house_type_name;
 
@@ -88,7 +88,7 @@ public class ProjectHuXingXiangQingBean implements Serializable{
                 this.id = id;
             }
 
-            public int getProperty_area_min() {
+            public float getProperty_area_min() {
                 return property_area_min;
             }
 
@@ -96,7 +96,7 @@ public class ProjectHuXingXiangQingBean implements Serializable{
                 this.property_area_min = property_area_min;
             }
 
-            public int getProperty_area_max() {
+            public float getProperty_area_max() {
                 return property_area_max;
             }
 

@@ -14,6 +14,13 @@ import android.widget.Toast;
 import com.ccsoft.yunqudao.R;
 import com.ccsoft.yunqudao.ui.adapter.HouseProjectFragmentPagerAdapter;
 import com.ccsoft.yunqudao.utils.ActivityManager;
+import com.umeng.commonsdk.UMConfigure;
+import com.umeng.socialize.PlatformConfig;
+import com.umeng.socialize.ShareAction;
+import com.umeng.socialize.UMShareListener;
+import com.umeng.socialize.bean.SHARE_MEDIA;
+
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -37,6 +44,11 @@ public class ProjectXiangQingActivity extends AppCompatActivity implements View.
         super.onCreate(savedInstanceState);
         ActivityManager.getInstance().addActivity(this);
         setContentView(R.layout.activity_house_project_xiangqing);
+
+        UMConfigure.init(this,"5ac9defef29d986c30000078"
+                ,"umeng",UMConfigure.DEVICE_TYPE_PHONE,"");
+        PlatformConfig.setQQZone("1106811849", "ik2oC5WcDQ5IOrpc");
+        PlatformConfig.setWeixin("wx3e34d92e8b8cb53e", "200ee15186843d67c0d9ba6a66f3a6ba");
         initView();
         initListener();
     }
@@ -96,7 +108,10 @@ public class ProjectXiangQingActivity extends AppCompatActivity implements View.
                 mHouse_viewpager_分类.setCurrentItem(2);
                 break;
             case R.id.house_button_分享:
-                Toast.makeText(this,"你分享了",Toast.LENGTH_SHORT).show();
+                new ShareAction(this).withText("hello")
+                        .setDisplayList(SHARE_MEDIA.QZONE,SHARE_MEDIA.QQ,SHARE_MEDIA.WEIXIN,SHARE_MEDIA.WEIXIN_CIRCLE)
+                        .setCallback(shareListener).open();
+
                 break;
         }
     }
@@ -115,4 +130,47 @@ public class ProjectXiangQingActivity extends AppCompatActivity implements View.
     public void onPageScrollStateChanged(int state) {
 
     }
+
+    /**
+     * 分享回调
+     */
+    private UMShareListener shareListener = new UMShareListener() {
+        /**
+         * @descrption 分享开始的回调
+         * @param platform 平台类型
+         */
+        @Override
+        public void onStart(SHARE_MEDIA platform) {
+
+        }
+
+        /**
+         * @descrption 分享成功的回调
+         * @param platform 平台类型
+         */
+        @Override
+        public void onResult(SHARE_MEDIA platform) {
+            Toast.makeText(ProjectXiangQingActivity.this,"成功了",Toast.LENGTH_LONG).show();
+        }
+
+        /**
+         * @descrption 分享失败的回调
+         * @param platform 平台类型
+         * @param t 错误原因
+         */
+        @Override
+        public void onError(SHARE_MEDIA platform, Throwable t) {
+            Toast.makeText(ProjectXiangQingActivity.this,"失败"+t.getMessage(),Toast.LENGTH_LONG).show();
+        }
+
+        /**
+         * @descrption 分享取消的回调
+         * @param platform 平台类型
+         */
+        @Override
+        public void onCancel(SHARE_MEDIA platform) {
+            Toast.makeText(ProjectXiangQingActivity.this,"取消了",Toast.LENGTH_LONG).show();
+
+        }
+    };
 }

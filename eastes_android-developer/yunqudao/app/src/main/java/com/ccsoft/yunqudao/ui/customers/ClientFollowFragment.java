@@ -11,12 +11,15 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
+import android.widget.LinearLayout;
+
 import com.ccsoft.yunqudao.R;
 import com.ccsoft.yunqudao.data.api.ApiSubscriber;
 import com.ccsoft.yunqudao.data.model.viewmodel.ClientFollowViewModel;
 import com.ccsoft.yunqudao.manager.ClientManager;
 import com.ccsoft.yunqudao.rx.RxSchedulers;
 import com.ccsoft.yunqudao.model.ClientFollowRecyclerAdapter;
+import com.ccsoft.yunqudao.utils.HideIMEUtil;
 import com.ccsoft.yunqudao.utils.LogUtil;
 import java.util.List;
 
@@ -29,7 +32,7 @@ public class ClientFollowFragment extends Fragment implements View.OnClickListen
 
     private View                        mView;
     private ClientFollowFragment        mClientFollowFragment;
-    private ImageButton                 mCustomers_button_add_follow;
+    private LinearLayout                mCustomers_button_add_follow;
     private RecyclerView                mCustomers_client_recyclerview;
     private LinearLayoutManager         mLinearLayoutManager;
     private ClientFollowRecyclerAdapter mAdapter;
@@ -37,10 +40,9 @@ public class ClientFollowFragment extends Fragment implements View.OnClickListen
 
     private int id;
 
-    public static ClientFollowFragment newInstance(int id) {
+    public static ClientFollowFragment newInstance() {
         ClientFollowFragment fragment = new ClientFollowFragment();
         Bundle bundle = new Bundle();
-        bundle.putInt("id", id);
         fragment.setArguments(bundle);
         return fragment;
     }
@@ -56,6 +58,7 @@ public class ClientFollowFragment extends Fragment implements View.OnClickListen
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
         mView = inflater.inflate(R.layout.fragment_customers_follow, container, false);
+        HideIMEUtil.wrap(getActivity());
         mClientFollowFragment = new ClientFollowFragment();
         id = getArguments().getInt("id");
         initView();

@@ -98,9 +98,12 @@ import com.lzy.okhttputils.OkHttpUtils;
 import com.lzy.okhttputils.callback.StringCallback;
 import com.squareup.picasso.Picasso;
 
+
+
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.File;
 import java.io.Serializable;
 import java.lang.reflect.Type;
 import java.net.MalformedURLException;
@@ -131,11 +134,11 @@ public class ProjectXiangQingFragment extends Fragment implements View.OnClickLi
     private ImageView               mHouse_imageview_楼栋信息;
     private Button              mHouse_button_查看全部户型信息;
     private ViewPager                mHouse_viewpager_户型信息;
-    private Button                   mHouse_button_教育;
-    private Button                   mHouse_button_交通;
-    private Button                   mHouse_button_医院;
-    private Button                   mHouse_button_购物;
-    private Button                   mHouse_button_餐饮;
+    private TextView                   mHouse_button_教育;
+    private TextView                   mHouse_button_交通;
+    private TextView                  mHouse_button_医院;
+    private TextView                   mHouse_button_购物;
+    private TextView                   mHouse_button_餐饮;
     private Button              mHouse_button_查看更多推荐;
     private Button                   mHouse_button_推荐1;
     private Button                   mHouse_button_推荐2;
@@ -199,8 +202,8 @@ public class ProjectXiangQingFragment extends Fragment implements View.OnClickLi
 
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         SDKInitializer.initialize(getContext().getApplicationContext());
-
         mView = inflater.inflate(R.layout.fragment_house_xiangmuxiangqing_xiangmu, container, false);
+
         initView();
         initData();
         initListener();
@@ -360,6 +363,11 @@ public class ProjectXiangQingFragment extends Fragment implements View.OnClickLi
 //                ProjectLouDongXiangQingActivity.start(getActivity());
                 Intent intent2 = new Intent(getContext(),ProjectLouDongXiangQingActivity.class);
                 intent2.putExtra("project_id",project_id);
+                if(!bean.getProject_basic_info().getTotal_float_url_panorama().equals("")){
+                    intent2.putExtra("panorama",bean.getProject_basic_info().getTotal_float_url_panorama());
+                }else {
+                    intent2.putExtra("panorama",bean.getProject_basic_info().getTotal_float_url_phone());
+                }
                 startActivity(intent2);
                 break;
             case R.id.house_button_查看全部户型信息:
@@ -383,11 +391,13 @@ public class ProjectXiangQingFragment extends Fragment implements View.OnClickLi
             case R.id.house_button_查看更多推荐:
 //                ProjectPiPeiKeHuActivity.start(getActivity());
                 Bundle bundle = new Bundle();
-                bundle.putSerializable("list", (Serializable) piPeiKeHuBean.getData());
-                bundle.putInt("project_id",project_id);
-                Intent intent3 = new Intent(getContext(),ProjectPiPeiKeHuActivity.class);
-                intent3.putExtras(bundle);
-                startActivity(intent3);
+                if(piPeiKeHuBean.getData()!=null) {
+                    bundle.putSerializable("list", (Serializable) piPeiKeHuBean.getData());
+                    bundle.putInt("project_id", project_id);
+                    Intent intent3 = new Intent(getContext(), ProjectPiPeiKeHuActivity.class);
+                    intent3.putExtras(bundle);
+                    startActivity(intent3);
+                }
 
                 break;
             case R.id.house_button_推荐1:
@@ -457,16 +467,25 @@ public class ProjectXiangQingFragment extends Fragment implements View.OnClickLi
     //高德
     private void goToGaode() {
 
-        StringBuffer stringBuffer = new StringBuffer("androidamap://route?sourceApplication=").append("amap");
+        if(isInstallByread("com.autonavi.minimap")) {
 
-        stringBuffer
-                .append("&dname=").append(bean.getProject_basic_info().getAbsolute_address())
-                .append("&dev=").append(0)
-                .append("&t=").append(0);
+            StringBuffer stringBuffer = new StringBuffer("androidamap://route?sourceApplication=").append("amap");
 
-        Intent intent = new Intent("android.intent.action.VIEW", android.net.Uri.parse(stringBuffer.toString()));
-        intent.setPackage("com.autonavi.minimap");
-        startActivity(intent);
+            stringBuffer
+                    .append("&dname=").append(bean.getProject_basic_info().getAbsolute_address())
+                    .append("&dev=").append(0)
+                    .append("&t=").append(0);
+
+            Intent intent = new Intent("android.intent.action.VIEW", android.net.Uri.parse(stringBuffer.toString()));
+            intent.setPackage("com.autonavi.minimap");
+            startActivity(intent);
+        }else if (!isInstallByread("com.autonavi.minimap")) {
+            Intent intent = new Intent();
+            intent.setAction("android.intent.action.VIEW");
+            // 驾车导航
+            intent.setData(Uri.parse("http://uri.amap.com/navigation?from=" + bean.getProject_basic_info().getAbsolute_address() + "&mode=car&src=nyx_super"));
+            startActivity(intent); // 启动调用
+        }
     }
 
 
@@ -516,12 +535,15 @@ public class ProjectXiangQingFragment extends Fragment implements View.OnClickLi
                             tv_sale_state.setText(bean.getProject_basic_info().getSale_state());
                             tv_num.setText(bean.getFocus().getNum() + "");
                             tv_handing_room_time.setText(bean.getProject_basic_info().getDeveloper_name());
-                            tv_average_price.setText(bean.getProject_basic_info().getAverage_price() + "/m2");
+                            tv_average_price.setText(bean.getProject_basic_info().getAverage_price() + "/㎡");
                             tv_absolute_address.setText(bean.getProject_basic_info().getAbsolute_address());
                             content_tv6.setText(bean.getProject_basic_info().getDeveloper_name());
                             content_tv7.setText(bean.getBuild_info().getOpen_time());
                             content_tv8.setText(bean.getBuild_info().getHanding_room_time());
                             content_tv10.setText("共"+bean.getDynamic().getCount()+"条");
+                            if(bean.getDynamic().getFirst()!=null){
+                                ll_dongtaixiangqing.setVisibility(View.GONE);
+                            }
                             content_tv11.setText(bean.getDynamic().getFirst().getTitle());
                             content_tv13.setText(bean.getDynamic().getFirst().getAbstracts());
                             content_tv12.setText(bean.getDynamic().getFirst().getCreate_time());
@@ -531,8 +553,9 @@ public class ProjectXiangQingFragment extends Fragment implements View.OnClickLi
                                 button.setImageResource(R.drawable.ic_focus_2);
                             }
                             Picasso.with(getContext())
-                                    .load(AppConstants.URL+bean.getProject_basic_info().getTotal_float_url_phone())
+                                    .load(AppConstants.URL+bean.getProject_basic_info().getTotal_float_url())
                                     .error(R.drawable.default_2)
+                                    .fit()
                                     .into(mHouse_imageview_楼栋信息);
 
                             List<HouseDetailBean.DataBean.ProjectImgBean.UrlBean> Imgurl = bean.getProject_img().getUrl();
@@ -588,13 +611,13 @@ public class ProjectXiangQingFragment extends Fragment implements View.OnClickLi
                                         } else if (bean.getProject_basic_info().getProperty_type().get(j).equals("公寓")) {
                                             imageView.setImageResource(R.drawable.ic_apartment);
                                             linearLayout.addView(imageView, layoutParams);
-                                        } else if (bean.getProject_basic_info().getProperty_type().get(j).equals("别墅")) {
+                                        } else if (bean.getProject_basic_info().getProperty_type().get(j).equals("写字楼")) {
                                             imageView.setImageResource(R.drawable.ic_officebuilding);
                                             linearLayout.addView(imageView, layoutParams);
                                         } else if (bean.getProject_basic_info().getProperty_type().get(j).equals("商铺")) {
                                             imageView.setImageResource(R.drawable.ic_shops);
                                             linearLayout.addView(imageView, layoutParams);
-                                        } else if (bean.getProject_basic_info().getProperty_type().get(j).equals("写字楼")) {
+                                        } else if (bean.getProject_basic_info().getProperty_type().get(j).equals("别墅")) {
                                             imageView.setImageResource(R.drawable.ic_villa);
                                             linearLayout.addView(imageView, layoutParams);
                                         }
@@ -617,8 +640,9 @@ public class ProjectXiangQingFragment extends Fragment implements View.OnClickLi
                                     if(bean3.getId()==Integer.parseInt(s1)){
                                         TextView textView = new TextView(getContext());
                                         textView.setText(bean3.getParam());
+                                        textView.setTextSize(10);
                                         textView.setBackgroundResource(R.drawable.shape_laber);
-                                        textView.setPadding(10,1,10,1);
+                                        textView.setPadding(15,5,15,5);
                                         linearLayout1.addView(textView,layoutParams);
                                     }
                                 }
@@ -652,6 +676,7 @@ public class ProjectXiangQingFragment extends Fragment implements View.OnClickLi
                 Bundle bundle = new Bundle();
                 bundle.putSerializable("list", (Serializable) dataList);
                 intent.putExtra("id",dataList.get(position).getId());
+                intent.putExtra("project_id",project_id);
                 intent.putExtras(bundle);
                 startActivity(intent);
             }
@@ -927,7 +952,9 @@ public class ProjectXiangQingFragment extends Fragment implements View.OnClickLi
 
     }
 
-
+    private boolean isInstallByread(String packageName) {
+        return new File("/data/data/" + packageName).exists();
+    }
 
 }
 

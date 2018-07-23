@@ -14,6 +14,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 import com.ccsoft.yunqudao.R;
 import com.ccsoft.yunqudao.utils.ActivityManager;
+import com.ccsoft.yunqudao.utils.HideIMEUtil;
 
 /**
  * @author: Pein
@@ -33,6 +34,7 @@ public class YinHangKaActivity extends AppCompatActivity implements View.OnClick
         super.onCreate(savedInstanceState);
         ActivityManager.getInstance().addActivity(this);
         setContentView(R.layout.activity_me_bankcard);
+        HideIMEUtil.wrap(this);
         initView();
         initListener();
     }

@@ -31,7 +31,7 @@
                 android:layout_marginRight="10dp"
                 android:text=""
                 android:textColor="@color/chunhei"
-                android:textSize="18sp"
+                android:textSize="15sp"
                 />
             <ImageView
                 android:id="@+id/customers_image_性别"

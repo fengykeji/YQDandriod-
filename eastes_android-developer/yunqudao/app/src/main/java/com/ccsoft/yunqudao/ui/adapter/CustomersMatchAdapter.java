@@ -20,10 +20,15 @@ public class CustomersMatchAdapter extends BaseRecyclerAdapter<PipeiBean.DataBea
     @Override
     protected void convert(BaseViewHolder holder, PipeiBean.DataBean.RecommendProjectBean bean ,int position) {
         holder.setText(R.id.tv_project_name,bean.getProject_name());
-        holder.setText(R.id.tv_state_change_time,bean.getState_change_time());
+        holder.setText(R.id.tv_state_change_time,bean.getState_change_time()+"推荐");
         TextView textView= (TextView) holder.getView(R.id.tv_disabled_state);
         if(bean.getDisabled_state()==0){
            textView.setText("有效");
+            if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.M) {
+                int color = context.getColor(R.color.liji_material_blue_500);
+                textView.setTextColor(color);
+            }
+
         }else {
             textView.setText("无效");
 //            textView.setTextColor();

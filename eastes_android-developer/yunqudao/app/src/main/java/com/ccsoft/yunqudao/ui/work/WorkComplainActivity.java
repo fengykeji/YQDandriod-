@@ -113,8 +113,6 @@ public class WorkComplainActivity extends AppCompatActivity implements View.OnCl
                 }else {
                 comment = et_comment.getText().toString();}
 
-                Log.e("cccccc",type+" "+ poject_client_id+"  "+comment);
-
                 HashMap<String,String> map = new HashMap<>();
                 map.put("project_client_id",poject_client_id+"");
                 map.put("type",type+"");
@@ -126,6 +124,9 @@ public class WorkComplainActivity extends AppCompatActivity implements View.OnCl
                         StringModel model = new Gson().fromJson(obj.toString(), type);
                         if(model.getCode()==200) {
                             Toast.makeText(WorkComplainActivity.this, "申诉成功", Toast.LENGTH_SHORT).show();
+                            Intent intent = new Intent(WorkComplainActivity.this,WorkRecommendActivity.class);
+                            intent.putExtra("fid",2);
+                            startActivity(intent);
                             finish();
                         }
                     }

@@ -1,18 +1,30 @@
 package com.ccsoft.yunqudao.ui.home;
 
 import android.app.Activity;
+import android.app.Notification;
+import android.app.NotificationManager;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
+import android.provider.Settings;
+import android.support.multidex.MultiDex;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
+import android.view.KeyEvent;
 import android.widget.FrameLayout;
 import android.widget.Toast;
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import cn.jpush.android.api.JPushInterface;
+
+
 import com.ashokvarma.bottomnavigation.BottomNavigationBar;
 import com.ashokvarma.bottomnavigation.BottomNavigationItem;
+import com.ashokvarma.bottomnavigation.TextBadgeItem;
 import com.ccsoft.yunqudao.R;
 import com.ccsoft.yunqudao.ui.fragment.CustomersFragment;
 import com.ccsoft.yunqudao.ui.fragment.HouseFragment;
@@ -20,12 +32,16 @@ import com.ccsoft.yunqudao.ui.fragment.MeFragment;
 import com.ccsoft.yunqudao.ui.fragment.MessageFragment;
 import com.ccsoft.yunqudao.ui.fragment.WorkFragment;
 import com.ccsoft.yunqudao.utils.ActivityManager;
+import com.ccsoft.yunqudao.utils.SpUtil;
+
+import java.lang.reflect.Field;
+import java.lang.reflect.Method;
 
 /**
  *
  * BottomNavigationBar实现底部导航
  */
-public class HomeActivity extends AppCompatActivity implements BottomNavigationBar.OnTabSelectedListener {
+public class HomeActivity extends AppCompatActivity implements BottomNavigationBar.OnTabSelectedListener,MessageFragment.CallBackValue {
 
     @BindView(R.id.frameLayout)
     FrameLayout         frameLayout;
@@ -40,6 +56,51 @@ public class HomeActivity extends AppCompatActivity implements BottomNavigationB
     private Fragment            mFragment;//当前显示的Fragment
     private long firstTime = 0;//记录用户首次点击返回键的时间
     private int fid;
+    private String noread;
+    private TextBadgeItem badgeItem;
+
+
+    private static boolean isExit = false;
+
+    Handler mHandler = new Handler() {
+
+        @Override
+        public void handleMessage(Message msg) {
+            super.handleMessage(msg);
+            isExit = false;
+        }
+    };
+
+
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if (keyCode == KeyEvent.KEYCODE_BACK) {
+            exit();
+            return false;
+        }
+        return super.onKeyDown(keyCode, event);
+    }
+
+    private void exit() {
+        if (!isExit) {
+            isExit = true;
+            Toast.makeText(getApplicationContext(), "再按一次退出程序",
+                    Toast.LENGTH_SHORT).show();
+            // 利用handler延迟发送更改状态信息
+            mHandler.sendEmptyMessageDelayed(0, 2000);
+        } else {
+            finish();
+            System.exit(0);
+        }
+    }
+
+    protected void requestPermission(int requestCode) {
+        // TODO Auto-generated method stub
+        // 6.0以上系统才可以判断权限
+        // 进入设置系统应用权限界面
+        Intent intent = new Intent(Settings.ACTION_SETTINGS);
+        startActivity(intent);
+    }
 
     public HomeActivity() {}
     public static void start(Context context) {
@@ -50,14 +111,19 @@ public class HomeActivity extends AppCompatActivity implements BottomNavigationB
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        JPushInterface.init(this);
+        JPushInterface.setAlias(this,"agent_"+ SpUtil.getInt("agent_id",0),null);
         ActivityManager.getInstance().addActivity(this);
         setContentView(R.layout.activity_main);
+        MultiDex.install(this);
         initView();
         ButterKnife.bind(this);
         //底部导航栏
         setBottomNavigationBar();
-        //setBottomNavigationBar的选中事件
+//setBottomNavigationBar的选中事件
         mBottomNavigationBar.setTabSelectedListener(this);
+
+        setBadge();
 
     }
 
@@ -80,6 +146,10 @@ public class HomeActivity extends AppCompatActivity implements BottomNavigationB
             mFragmentTransaction.replace(R.id.frameLayout, mCustomersFragment)
                     .commit();
             mFragment = mCustomersFragment;
+        }else if(fid == 3){
+            mFragmentTransaction.replace(R.id.frameLayout, mWorkFragment)
+                    .commit();
+            mFragment = mWorkFragment;
         }
         else {
             mFragmentTransaction.replace(R.id.frameLayout, mMessageFragment)
@@ -110,6 +180,7 @@ public class HomeActivity extends AppCompatActivity implements BottomNavigationB
          * 添加导航按钮
          */
 
+//        badgeItem = new TextBadgeItem().setText(noread);
         mBottomNavigationBar.addItem(new BottomNavigationItem(R.drawable.ic_message_selected, "消息").setActiveColorResource(R.color.qianlan).setInactiveIconResource(R.drawable.ic_message));
         mBottomNavigationBar.addItem(new BottomNavigationItem(R.drawable.ic_housing_selected, "房源").setActiveColorResource(R.color.qianlan).setInactiveIconResource(R.drawable.ic_housing));
         mBottomNavigationBar.addItem(new BottomNavigationItem(R.drawable.ic_customers_selected, "客源").setActiveColorResource(R.color.qianlan).setInactiveIconResource(R.drawable.ic_customers));
@@ -121,7 +192,10 @@ public class HomeActivity extends AppCompatActivity implements BottomNavigationB
         }else if(fid == 2){
             mBottomNavigationBar.setFirstSelectedPosition(2);
 
-        } else {
+        } else if(fid == 3){
+            mBottomNavigationBar.setFirstSelectedPosition(3);
+        }
+        else {
             mBottomNavigationBar.setFirstSelectedPosition(0);
         }
         mBottomNavigationBar.initialise();
@@ -170,19 +244,58 @@ public class HomeActivity extends AppCompatActivity implements BottomNavigationB
     /**
      * 双击返回键退出
      */
+//    @Override
+//    public void onBackPressed() {
+//        long secondTime = System.currentTimeMillis();
+//        if (secondTime - firstTime > 2000) {
+//            Toast.makeText(HomeActivity.this, "再按一次退出程序", Toast.LENGTH_SHORT).show();
+//            firstTime = secondTime;
+//        }
+//        else {
+//            System.exit(0);
+//        }
+//    }
+
+
     @Override
-    public void onBackPressed() {
-        long secondTime = System.currentTimeMillis();
-        if (secondTime - firstTime > 2000) {
-            Toast.makeText(HomeActivity.this, "再按一次退出程序", Toast.LENGTH_SHORT).show();
-            firstTime = secondTime;
-        }
-        else {
-            System.exit(0);
-        }
+    public void SendMessageValue(String strValue) {
+        noread = strValue;
+
+
     }
 
+    /**
+     * 设置角标
+     */
+     private void setBadge(){
+         NotificationManager mNotificationManager = (NotificationManager) this
+
+                 .getSystemService(Context.NOTIFICATION_SERVICE);
 
 
 
+         Notification.Builder builder = new Notification.Builder(this)
+
+                 .setContentTitle("title").setContentText("text").setSmallIcon(R.drawable.icon);
+
+         Notification notification = builder.build();
+
+         try {
+
+             Field field = notification.getClass().getDeclaredField("extraNotification");
+
+             Object extraNotification = field.get(notification);
+
+             Method method = extraNotification.getClass().getDeclaredMethod("setMessageCount", int.class);
+
+             method.invoke(extraNotification, 35);
+
+         } catch (Exception e) {
+
+             e.printStackTrace();
+
+         }
+
+         mNotificationManager.notify(0,notification);
+     }
 }

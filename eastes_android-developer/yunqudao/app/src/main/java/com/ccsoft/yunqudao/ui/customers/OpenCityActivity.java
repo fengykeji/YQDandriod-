@@ -22,6 +22,7 @@ import com.ccsoft.yunqudao.http.XutilsHttp;
 import com.ccsoft.yunqudao.ui.adapter.OpenCityAdapter;
 import com.ccsoft.yunqudao.ui.home.HomeActivity;
 import com.ccsoft.yunqudao.utils.ActivityManager;
+import com.ccsoft.yunqudao.utils.HideIMEUtil;
 import com.ccsoft.yunqudao.utils.indexbar.CubeIndexBar;
 import com.ccsoft.yunqudao.utils.indexbar.SuspensionDecoration;
 import com.ccsoft.yunqudao.utils.recyclerviwe.BaseRecyclerViewAdapter;
@@ -54,6 +55,7 @@ public class OpenCityActivity extends AppCompatActivity implements View.OnClickL
         super.onCreate(savedInstanceState);
         ActivityManager.getInstance().addActivity(this);
         setContentView(R.layout.activity_opencity);
+        HideIMEUtil.wrap(this);
         initView();
         initListener();
         initData();

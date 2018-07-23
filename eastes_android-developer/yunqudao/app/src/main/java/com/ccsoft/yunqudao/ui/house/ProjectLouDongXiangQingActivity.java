@@ -21,6 +21,7 @@ import android.widget.TextView;
 
 import com.ccsoft.yunqudao.R;
 import com.ccsoft.yunqudao.bean.ProjectLouDongChooseBean;
+import com.ccsoft.yunqudao.data.AppConstants;
 import com.ccsoft.yunqudao.data.base.BaseRecyclerAdapter;
 import com.ccsoft.yunqudao.http.HttpAdress;
 import com.ccsoft.yunqudao.ui.adapter.HouseLoudongChooseAdapter;
@@ -51,13 +52,14 @@ public class ProjectLouDongXiangQingActivity extends AppCompatActivity implement
     private WebView webView;
     private DrawerLayout drawerLayout;
     private RecyclerView recyclerView;
-    private TextView tv_showdrawer;
+    private ImageView tv_showdrawer;
     private RelativeLayout rlRight;
-    private ImageButton im_closedrawer;
+    private ImageView im_closedrawer;
     private HouseLoudongChooseAdapter adapter;
     private int project_id;
     private ProjectLouDongChooseBean bean;
     private List<ProjectLouDongChooseBean.DataBean> dataList = new ArrayList<>();
+    private String panorama;
 
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -88,10 +90,11 @@ public class ProjectLouDongXiangQingActivity extends AppCompatActivity implement
         im_closedrawer = findViewById(R.id.im_closedrawer);
 
         project_id = getIntent().getIntExtra("project_id",0);
+        panorama = getIntent().getStringExtra("panorama");
 
         webView.getSettings().setJavaScriptEnabled(true);
         webView.setWebViewClient(new WebViewClient());
-        webView.loadUrl("http://120.27.21.136:2798/360/test4/index.html");
+        webView.loadUrl(AppConstants.URL+panorama);
 
         controlDrawer();
 
@@ -104,10 +107,13 @@ public class ProjectLouDongXiangQingActivity extends AppCompatActivity implement
                 if(bean.getData().get(position).getDYLIST().size()>0){
                     showItemsDialogFragment(position);
                 }else {
+                    Bundle bundle = new Bundle();
+                    bundle.putSerializable("data",bean.getData().get(position).getBuild_info());
                     Intent intent = new Intent(ProjectLouDongXiangQingActivity.this,ProjectDanYuanXiangQingActivity.class);
                     intent.putExtra("project_id",project_id);
                     intent.putExtra("build_id",bean.getData().get(position).getBuild_info().getYs_build_id());
                     intent.putExtra("unit_id","0");
+                    intent.putExtras(bundle);
                     startActivity(intent);
                 }
             }

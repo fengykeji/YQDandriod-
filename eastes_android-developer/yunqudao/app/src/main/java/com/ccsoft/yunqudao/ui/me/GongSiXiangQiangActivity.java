@@ -15,6 +15,7 @@ import android.widget.TextView;
 import com.ccsoft.yunqudao.R;
 import com.ccsoft.yunqudao.data.AppConstants;
 import com.ccsoft.yunqudao.utils.ActivityManager;
+import com.ccsoft.yunqudao.utils.HideIMEUtil;
 import com.squareup.picasso.Picasso;
 
 public class GongSiXiangQiangActivity extends AppCompatActivity implements View.OnClickListener{
@@ -30,6 +31,7 @@ public class GongSiXiangQiangActivity extends AppCompatActivity implements View.
         super.onCreate(savedInstanceState);
         ActivityManager.getInstance().addActivity(this);
         setContentView(R.layout.activity_me_gongsixiangqing);
+        HideIMEUtil.wrap(this);
         initView();
         initListener();
     }
@@ -52,7 +54,9 @@ public class GongSiXiangQiangActivity extends AppCompatActivity implements View.
         imgurl= getIntent().getStringExtra("imgurl");
         companyId = getIntent().getIntExtra("companyid",0);
 
-        Picasso.with(this).load(AppConstants.URL+imgurl).error(R.drawable.default_3)
+        Picasso.with(this).load(AppConstants.URL+imgurl)
+                .fit()
+                .error(R.drawable.default_3)
                 .into(im_photo);
         tv_company.setText(companyname);
         tv_content.setText(addaress);

@@ -135,7 +135,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:textSize="18sp"
+                        android:textSize="15sp"
                         android:text="角色"/>
                     <TextView
                         android:layout_alignParentRight="true"
@@ -188,7 +188,7 @@
                         android:textSize="15sp"
                         android:text="所属部门"/>
                     <TextView
-                        android:textSize="18sp"
+                        android:textSize="15sp"
                         android:layout_alignParentRight="true"
                         android:id="@+id/et_suoshubumen"
                         android:text=""
@@ -284,7 +284,7 @@
 
                 <ImageView
                     android:id="@+id/ib_photo"
-                    android:src="@drawable/ic_launcher_background"
+                    android:src="@drawable/default_1"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content" />
 
@@ -302,9 +302,9 @@
                 android:id="@+id/button_next"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="20dp"
+                android:layout_margin="18dp"
                 android:background="@drawable/ic_loginbackground"
-                android:text="从新认证"
+                android:text="重新认证"
                 android:textColor="@color/chunbai"
                 android:textSize="20sp"
                 />
@@ -312,7 +312,7 @@
                 android:id="@+id/button_next1"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="20dp"
+                android:layout_margin="18dp"
                 android:background="@drawable/ic_loginbackground"
                 android:text="离职"
                 android:textColor="@color/chunbai"

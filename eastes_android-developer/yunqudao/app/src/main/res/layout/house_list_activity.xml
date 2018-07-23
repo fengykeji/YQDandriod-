@@ -18,10 +18,10 @@
             >
             <ImageView
                 android:id="@+id/icon_iv"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
                 android:layout_gravity="center_vertical"
-                android:src="@drawable/ic_launcher_background"
+                android:src="@drawable/default_da2"
                 />
             <LinearLayout
                 android:layout_width="match_parent"
@@ -57,6 +57,7 @@
                         />
                 </RelativeLayout>
                 <LinearLayout
+                    android:id="@+id/ll_yongjing"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:gravity="center_vertical"
@@ -86,7 +87,7 @@
                         android:id="@+id/title3"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="20dp"
+                        android:layout_marginLeft="5dp"
                         android:text="结佣："
                         android:textSize="14sp"
                         />
@@ -94,35 +95,34 @@
                         android:id="@+id/im_dian1"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginRight="5dp"
+                        android:layout_marginRight="4dp"
                         android:src="@drawable/ic_lightning"
                         />
                     <ImageView
                         android:id="@+id/im_dian2"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginRight="5dp"
+                        android:layout_marginRight="4dp"
                         android:src="@drawable/ic_lightning_1"
                         />
                     <ImageView
                         android:id="@+id/im_dian3"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginRight="5dp"
+                        android:layout_marginRight="4dp"
                         android:src="@drawable/ic_lightning_1"
                         />
                     <ImageView
                         android:id="@+id/im_dian4"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginRight="5dp"
+                        android:layout_marginRight="4dp"
                         android:src="@drawable/ic_lightning_1"
                         />
                     <ImageView
                         android:id="@+id/im_dian5"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginRight="5dp"
                         android:src="@drawable/ic_lightning_1"
                         />
 
@@ -154,7 +154,7 @@
                 <LinearLayout
                     android:id="@+id/ll_property"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="26dp"
                     android:orientation="horizontal"
                     android:visibility="visible">
 
@@ -205,12 +205,16 @@
                         />
 
                 </LinearLayout>
+                <HorizontalScrollView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
                 <LinearLayout
                     android:id="@+id/ll_project_tags"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
                     android:visibility="visible">
+
                     <TextView
                         android:id="@+id/icon_iv11"
                         android:textSize="16sp"
@@ -242,6 +246,7 @@
                         />
 
                 </LinearLayout>
+                </HorizontalScrollView>
             </LinearLayout>
         </LinearLayout>
 

@@ -7,10 +7,29 @@
     >
 
 
-    <android.support.v4.widget.SwipeRefreshLayout
-        android:id="@+id/mSwipRefresh"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
+
+
+        <com.scwang.smartrefresh.layout.SmartRefreshLayout
+            android:id="@+id/mSwipRefresh"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+        <LinearLayout
+            android:padding="10dp"
+            android:gravity="center"
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <ImageView
+                android:id="@+id/yunsuan"
+                android:src="@drawable/animation_refresh"
+                android:layout_width="50dp"
+                android:layout_height="50dp" />
+            <TextView
+                android:layout_marginLeft="10dp"
+                android:text="人算不如云算"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
 
         <android.support.v7.widget.RecyclerView
             android:id="@+id/work_recyclerview_valid"
@@ -20,7 +39,10 @@
 
         </android.support.v7.widget.RecyclerView>
 
-    </android.support.v4.widget.SwipeRefreshLayout>
+            <com.scwang.smartrefresh.layout.footer.ClassicsFooter
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+        </com.scwang.smartrefresh.layout.SmartRefreshLayout>>
 
 
 </LinearLayout>

@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -76,6 +77,7 @@ public class XuQiuXingXiFragment extends Fragment implements View.OnClickListene
     private boolean isGetData = false;
     private String need_tags;
     private LinearLayout ll_showlabers;
+    private String region="",textregion="";
 
     public static XuQiuXingXiFragment newInstance() {
         XuQiuXingXiFragment fragment = new XuQiuXingXiFragment();
@@ -85,24 +87,30 @@ public class XuQiuXingXiFragment extends Fragment implements View.OnClickListene
         return fragment;
     }
 
-    @Override
-    public Animation onCreateAnimation(int transit, boolean enter, int nextAnim) {
-        //   进入当前Fragment
-        if (enter && !isGetData) {
-            isGetData = true;
-            //   这里可以做网络请求或者需要的数据刷新操作
+//    @Override
+//    public Animation onCreateAnimation(int transit, boolean enter, int nextAnim) {
+//        //   进入当前Fragment
+//        if (enter && !isGetData) {
+//            isGetData = true;
+//            //   这里可以做网络请求或者需要的数据刷新操作
+//
+//           initData();
+//        } else {
+//            isGetData = false;
+//        }
+//        return super.onCreateAnimation(transit, enter, nextAnim);
+//    }
+//
+//    @Override
+//    public void onPause() {
+//        super.onPause();
+//        isGetData = false;
+//    }
 
-           initData();
-        } else {
-            isGetData = false;
-        }
-        return super.onCreateAnimation(transit, enter, nextAnim);
-    }
-
     @Override
-    public void onPause() {
-        super.onPause();
-        isGetData = false;
+    public void onStart() {
+        super.onStart();
+        initData();
     }
 
     @Nullable
@@ -150,6 +158,7 @@ public class XuQiuXingXiFragment extends Fragment implements View.OnClickListene
 //                ResetClientNeedActivity.start(getActivity());
                 Intent intent = new Intent(getContext(),ResetClientNeedActivity.class);
                 intent.putExtra("need_id",need_id);
+                intent.putExtra("textregion",textregion);
                 intent.putExtra("propertyType",propertyType);
                 intent.putExtra("totalPrice",totalPrice);
                 intent.putExtra("area",area);
@@ -158,7 +167,6 @@ public class XuQiuXingXiFragment extends Fragment implements View.OnClickListene
                 intent.putExtra("pay_type",pay_type);
                 intent.putExtra("houseType",houseType);
                 intent.putExtra("need_tags",need_tags);
-
                 intent.putExtra("foor_min",foor_min);
                 intent.putExtra("foor_max",foor_max);
                 intent.putExtra("intents",intents);
@@ -180,6 +188,7 @@ public class XuQiuXingXiFragment extends Fragment implements View.OnClickListene
                 if(bean.getCode()==200&&bean.getData()!=null) {
                     CustomersGetInfoBean.DataBean.NeedInfoBean  data= bean.getData().getNeed_info().get(0);
                     setData(data);
+
 
 
                 }
@@ -234,7 +243,12 @@ public class XuQiuXingXiFragment extends Fragment implements View.OnClickListene
                             textView.setText(bean3.getParam());
                             textView.setBackgroundResource(R.drawable.shape_addlabel);
                             textView.setPadding(14, 14, 14, 14);
-                                textView.setTextSize(19);
+                                textView.setTextSize(14);
+//                int c = getColor(R.color.b)
+                                textView.setTextColor(0x7f06004c);
+                                textView.setSingleLine();
+                                textView.setEllipsize(TextUtils.TruncateAt.valueOf("END"));
+                                textView.setMaxEms(4);
                             ll_showlabers.addView(textView, layoutParams);
                         }
                     }
@@ -258,15 +272,24 @@ public class XuQiuXingXiFragment extends Fragment implements View.OnClickListene
             mCustomers_floor.setText(String.valueOf(data.getFloor_min()) + "层" + " - " + String.valueOf(data.getFloor_max()) + "层");
             mCustomers_intent.setText(String.valueOf(data.getIntent()) + "%");
             mCustomers_urgency.setText(String.valueOf(data.getUrgency()) + "%");
-            tv_qitaneeds.setText(data.getComment());
+            if(commnet.equals("null")){
+                tv_qitaneeds.setText("");
+            }else {
+                tv_qitaneeds.setText(data.getComment());
+            }
 
             String address = "";
-            //for (int i = 0; i < 3; i++) {
-            //    ClientPrivateData.NeedInfoBean.Region info = mData.region.get(i);
-            //    address = address + info.city_name + " - " + info.district_name + "   ";
-            //}
-//            mCustomers_regions.setText(address);
-
+//            for (int i = 0; i < 3; i++) {
+//                ClientPrivateData.NeedInfoBean.Region info = data;
+//                address = address + info.city_name + " - " + info.district_name + "   ";
+//            }
+            if(data.getRegion().size()>0) {
+                address = data.getRegion().get(0).getProvince_name()+"-"+data.getRegion().get(0).getCity_name()
+                        +"-"+data.getRegion().get(0).getDistrict_name();
+                textregion = data.getRegion().get(0).getProvince_name()+"-"+data.getRegion().get(0).getCity_name()
+                        +"-"+data.getRegion().get(0).getDistrict_name();
+            }
+            mCustomers_regions.setText(address);
             if(data.getHouse_type().equals("32")){
                 mCustomers_house_type.setText("3室2厅2卫");
             }else if(data.getHouse_type().equals("33")){

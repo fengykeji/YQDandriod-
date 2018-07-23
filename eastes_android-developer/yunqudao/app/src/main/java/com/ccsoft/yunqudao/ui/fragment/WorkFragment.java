@@ -19,6 +19,7 @@ import com.ccsoft.yunqudao.data.model.viewmodel.WorkModel;
 import com.ccsoft.yunqudao.http.HttpAdress;
 import com.ccsoft.yunqudao.manager.ClientManager;
 import com.ccsoft.yunqudao.rx.RxSchedulers;
+import com.ccsoft.yunqudao.ui.mian.LoginActivity;
 import com.ccsoft.yunqudao.ui.work.WorkChengJiaoKeHuActivity;
 import com.ccsoft.yunqudao.ui.work.WorkReportActivity;
 import com.ccsoft.yunqudao.ui.work.WorkRecommendActivity;
@@ -130,12 +131,7 @@ public class WorkFragment extends Fragment implements View.OnClickListener{
             protected void _onNext(WorkModel workModel) {
                 Log.i("hcc------->", "--------------" + workModel.toString());
                 mWorkModel  =  workModel;
-                mWork_list_total_recommend.setText("累计推荐"+String.valueOf(mWorkModel.recommend.total)+",");
-                mWork_list_value_recommend.setText("有效"+String.valueOf(mWorkModel.recommend.value)+",");
-                mWork_list_disabled_recommend.setText("无效"+String.valueOf(mWorkModel.recommend.disabled));
-                mWork_list_count_preparation.setText("累计报备"+String.valueOf(mWorkModel.preparation.total)+",");
-                mWork_list_value_preparation.setText("有效"+String.valueOf(mWorkModel.preparation.value)+",");
-                mWork_list_disabled_preparation.setText("无效"+String.valueOf(mWorkModel.preparation.disabled));
+
 
 
 
@@ -159,10 +155,20 @@ public class WorkFragment extends Fragment implements View.OnClickListener{
                 Type type = new TypeToken<WorkBean>() {}.getType();
                 workBean = new Gson().fromJson(obj.toString(),type);
 
-
-                mWork_list_count_deal.setText("累计笔数"+workBean.getData().getDeal().getTotal()+",");
-                mWork_list_value_deal.setText("有效"+workBean.getData().getDeal().getValue()+",");
-                mWork_list_disabled_deal.setText("无效"+workBean.getData().getDeal().getDisabled());
+                 if(workBean.getCode() == 401){
+                    Intent intent = new Intent(getContext(), LoginActivity.class);
+                    startActivity(intent);
+                }else if(workBean.getCode() == 200) {
+                     mWork_list_total_recommend.setText("累计推荐" + workBean.getData().getRecommend().getTotal() + ",");
+                     mWork_list_value_recommend.setText("有效" + workBean.getData().getRecommend().getValue() + ",");
+                     mWork_list_disabled_recommend.setText("无效" + workBean.getData().getRecommend().getDisabled());
+                     mWork_list_count_preparation.setText("累计报备" + workBean.getData().getPreparation().getTotal() + ",");
+                     mWork_list_value_preparation.setText("有效" + workBean.getData().getPreparation().getValue() + ",");
+                     mWork_list_disabled_preparation.setText("无效" + workBean.getData().getPreparation().getDisabled());
+                     mWork_list_count_deal.setText("累计笔数" + workBean.getData().getDeal().getTotal() + ",");
+                     mWork_list_value_deal.setText("有效" + workBean.getData().getDeal().getValue() + ",");
+                     mWork_list_disabled_deal.setText("无效" + workBean.getData().getDeal().getDisabled());
+                 }
             }
 
             @Override

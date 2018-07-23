@@ -1,6 +1,7 @@
 package com.ccsoft.yunqudao.ui.work;
 
 import android.content.Intent;
+import android.graphics.drawable.AnimationDrawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -11,6 +12,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 import com.ccsoft.yunqudao.R;
@@ -32,6 +34,9 @@ import com.ccsoft.yunqudao.utils.recyclerviwe.BaseRecyclerViewAdapter;
 import com.ccsoft.yunqudao.utils.recyclerviwe.BaseRecyclerViewHolder;
 import com.lzy.okhttputils.OkHttpUtils;
 import com.lzy.okhttputils.callback.StringCallback;
+import com.scwang.smartrefresh.layout.SmartRefreshLayout;
+import com.scwang.smartrefresh.layout.api.RefreshLayout;
+import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -48,14 +53,16 @@ import rx.functions.Action1;
  * @data: 2018/5/14 0014
  */
 
-public class WorkRecommendDisableFragment extends Fragment implements View.OnClickListener {
+public class WorkRecommendDisableFragment extends Fragment implements View.OnClickListener ,OnRefreshListener{
 
     private View                         mView;
     private WorkRecommendDisableFragment mWorkRecommendDisableFragment;
     private RecyclerView                 mWork_recyclerview_disable;
     private WorkRecommendDisableAdapter  mAdapter;
     private List<BrrokerDisabledData.DisabledData> dataList = new ArrayList<>();
-    private SwipeRefreshLayout mSwipRefresh;
+    private SmartRefreshLayout mSwipRefresh;
+    private AnimationDrawable anim;
+    private ImageView yunsuan;
 
     @Nullable
     @Override
@@ -80,6 +87,9 @@ public class WorkRecommendDisableFragment extends Fragment implements View.OnCli
         mAdapter = new WorkRecommendDisableAdapter(getContext(),R.layout.item_work_value, dataList);
         mWork_recyclerview_disable.setAdapter(mAdapter);
         mWork_recyclerview_disable.addOnScrollListener(endlessRecyclerOnScrollListener);
+        yunsuan = mView.findViewById(R.id.yunsuan);
+        yunsuan.setImageResource(R.drawable.animation_refresh);
+        anim = (AnimationDrawable) yunsuan.getDrawable();
     }
 
     /**
@@ -95,12 +105,8 @@ public class WorkRecommendDisableFragment extends Fragment implements View.OnCli
                 startActivity(intent);
             }
         });
-        mSwipRefresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
-            @Override
-            public void onRefresh() {
-                initData();
-            }
-        });
+        mSwipRefresh.setOnRefreshListener(this);
+
 
     }
 
@@ -122,7 +128,7 @@ public class WorkRecommendDisableFragment extends Fragment implements View.OnCli
 
             @Override
             protected void _onCompleted() {
-                mSwipRefresh.setRefreshing(false);
+//                mSwipRefresh.setRefreshing(false);
             }
         });
     }
@@ -183,4 +189,10 @@ public class WorkRecommendDisableFragment extends Fragment implements View.OnCli
         }
     };
 
+    @Override
+    public void onRefresh(RefreshLayout refreshlayout) {
+        initData();
+        anim.start();
+        mSwipRefresh.finishRefresh(900);
+    }
 }

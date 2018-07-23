@@ -9,8 +9,18 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.Toast;
+
 import com.ccsoft.yunqudao.R;
+import com.ccsoft.yunqudao.http.HttpAdress;
+import com.ccsoft.yunqudao.model.StringModel;
 import com.ccsoft.yunqudao.utils.ActivityManager;
+import com.ccsoft.yunqudao.utils.JsonUtil;
+import com.lzy.okhttputils.OkHttpUtils;
+import com.lzy.okhttputils.callback.StringCallback;
+
+import okhttp3.Call;
+import okhttp3.Response;
 
 /**
  * @author: Pein
@@ -66,8 +76,26 @@ public class ResetPassWordActivity extends AppCompatActivity implements View.OnC
                 finish();
                 break;
             case R.id.me_button_完成:
-                finish();
+//                updata();
                 break;
         }
+    }
+
+    /**
+     * 修改个人信息
+     */
+    public void updata(String password, String passwordagin,String surepassword){
+        OkHttpUtils.post(HttpAdress.meupdate)
+//                .params("sex",sex)
+                .execute(new StringCallback() {
+                    @Override
+                    public void onSuccess(String s, Call call, Response response) {
+                        StringModel model = JsonUtil.jsonToEntity(s,StringModel.class);
+                        if(model.getCode() == 200){
+                            finish();
+                        }
+                        Toast.makeText(ResetPassWordActivity.this,model.getMsg(),Toast.LENGTH_SHORT).show();
+                    }
+                });
     }
 }

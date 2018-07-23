@@ -21,7 +21,7 @@ public abstract class BaseRecyclerAdapter<T> extends RecyclerView.Adapter<Recycl
     private View head_layout;
     public List<T> data;
     public Context context;
-    private OnItemClickListner onItemClickListner;//单击事件
+    public OnItemClickListner onItemClickListner;//单击事件
     private OnItemLongClickListner onItemLongClickListner;//长按单击事件
     private boolean clickFlag = true;//单击事件和长单击事件的屏蔽标识
 
@@ -76,7 +76,10 @@ public abstract class BaseRecyclerAdapter<T> extends RecyclerView.Adapter<Recycl
             return footerHolder;
         }
         if (viewType == HEAD_LAYOUT) {
-            headHolder = new HeadHolder(head_layout);
+            View v = LayoutInflater.from(context).inflate(R.layout.item_header, parent, false);
+//            headHolder = new HeadHolder(head_layout);
+            headHolder = new HeadHolder(v);
+
             return headHolder;
         }
 

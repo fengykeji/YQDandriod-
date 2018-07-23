@@ -24,6 +24,7 @@ import com.ccsoft.yunqudao.ui.adapter.AddLabelAdapter;
 import com.ccsoft.yunqudao.ui.adapter.AddLabelAdapter1;
 import com.ccsoft.yunqudao.ui.mian.MainActivity;
 import com.ccsoft.yunqudao.utils.ActivityManager;
+import com.ccsoft.yunqudao.utils.HideIMEUtil;
 
 import org.greenrobot.eventbus.EventBus;
 
@@ -63,6 +64,7 @@ public class AddLabelActivity extends AppCompatActivity implements View.OnClickL
         super.onCreate(savedInstanceState);
         ActivityManager.getInstance().addActivity(this);
         setContentView(R.layout.activity_customers_add_label);
+        HideIMEUtil.wrap(this);
         initView();
         initListener();
     }

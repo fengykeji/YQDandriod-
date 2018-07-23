@@ -14,10 +14,10 @@
             android:textSize="20sp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="运算公馆"/>
-        <ImageButton
+            android:text="云算公馆"/>
+        <ImageView
             android:id="@+id/im_back"
-            android:src="@drawable/progressbar"
+            android:src="@drawable/close"
             android:layout_alignParentRight="true"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />

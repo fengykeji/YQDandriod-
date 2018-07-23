@@ -95,7 +95,7 @@
                     <TextView
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_weight="4.5"
+                        android:layout_weight="5.5"
                         android:padding="10dp"
                         android:text="姓名："
                         android:textColor="@color/chunhei"
@@ -107,7 +107,7 @@
                         android:id="@+id/customers_edittext_name"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_weight="5"
+                        android:layout_weight="4.5"
                         android:background="@drawable/shape_case"
                         android:hint="必填"
                         android:maxLength="5"
@@ -140,7 +140,7 @@
                     <LinearLayout
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
-                        android:layout_weight="6"
+                        android:layout_weight="5"
                         android:background="@drawable/shape_case"
                         android:weightSum="10"
                         >
@@ -148,8 +148,9 @@
 
                         <Spinner
                             android:id="@+id/customers_spinner_sex"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_weight="10"
                             android:layout_gravity="center"
                             android:dropDownVerticalOffset="35dp"
                             android:dropDownWidth="1080px"
@@ -201,6 +202,7 @@
                             android:textSize="14sp"
                             />
                         <ImageButton
+                            android:visibility="gone"
                             android:id="@+id/customers_button_birthday"
                             android:layout_width="0dp"
                             android:layout_height="20dp"
@@ -492,13 +494,66 @@
                         android:background="@drawable/shape_case"
                         android:gravity="center"
                         android:weightSum="10"
+                        android:orientation="vertical"
                         >
+
+                        <TextView
+                            android:id="@+id/customers_edittext_address3"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="7"
+                            android:background="@drawable/shape_case"
+                            android:hint=""
+                            android:maxLength="30"
+                            android:padding="10dp"
+                            android:textSize="15sp"
+                            />
+
+
+
+                    </LinearLayout>
+
+                </LinearLayout>
+
+
+                <!--地址-->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal"
+                    android:paddingBottom="20dp"
+                    android:weightSum="10"
+                    >
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:layout_weight="3"
+                        android:padding="10dp"
+                        android:text=""
+                        android:textColor="@color/chunhei"
+                        android:textSize="15sp"
+                        />
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:layout_weight="7"
+                        android:background="@drawable/shape_case"
+                        android:gravity="center"
+                        android:weightSum="10"
+                        android:orientation="vertical"
+                        >
+
 
 
                         <EditText
                             android:id="@+id/customers_edittext_address1"
                             android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
+                            android:layout_height="match_parent"
                             android:layout_weight="7"
                             android:background="@drawable/shape_case"
                             android:hint="详细地址,最多30个字"

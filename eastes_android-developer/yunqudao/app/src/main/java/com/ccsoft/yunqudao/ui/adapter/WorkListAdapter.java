@@ -22,6 +22,8 @@ public class WorkListAdapter extends BaseRecyclerAdapter<WorkListBean.DataBeanX.
         holder.setText(R.id.tv_name,bean.getName());
         holder.setText(R.id.tv_project_name,bean.getProject_name());
         holder.setText(R.id.tv_time,bean.getCreate_time());
-
+        if(bean.getAttribute().getIs_read()==1) {
+            holder.setImageResource(R.id.im_news, R.drawable.ic_news_read);
+        }
     }
 }

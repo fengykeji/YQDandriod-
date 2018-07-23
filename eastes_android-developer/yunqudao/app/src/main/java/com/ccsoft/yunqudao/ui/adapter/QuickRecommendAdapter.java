@@ -18,12 +18,13 @@ import com.ccsoft.yunqudao.ui.mian.MainActivity;
 import com.ccsoft.yunqudao.utils.GlideUtil;
 import com.ccsoft.yunqudao.utils.recyclerviwe.BaseRecyclerViewAdapter;
 import com.ccsoft.yunqudao.utils.recyclerviwe.BaseRecyclerViewHolder;
+import com.squareup.picasso.Picasso;
 
 import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.List;
 
-import static com.umeng.commonsdk.stateless.UMSLEnvelopeBuild.mContext;
+
 
 /**
  * desc   :
@@ -69,7 +70,139 @@ public class QuickRecommendAdapter extends BaseRecyclerAdapter<QuickRecommendVie
     protected void convert(BaseViewHolder holder, QuickRecommendViewModel bean,int position) {
 
 
-        holder.setImageResource(R.id.icon_iv, AppConstants.URL + bean.img_url);
+//        holder.setImageResource(R.id.icon_iv, AppConstants.URL + bean.img_url);
+//        if (bean.brokerSortCompare == 1) {
+//            holder.setImageResource(R.id.icon_iv2, R.drawable.ic_rising);
+//        } else if (bean.brokerSortCompare == 2) {
+//            holder.setImageResource(R.id.icon_iv2, R.drawable.ic_falling);
+//        } else {
+//            holder.setVisible(R.id.icon_iv2, View.INVISIBLE);
+//        }
+//        holder.setText(R.id.title_tv1, bean.project_name);
+//        if (bean.sort != 0 && bean.brokerSortCompare != 0) {
+//            holder.setText(R.id.content_tv1, "荐");
+//            holder.setText(R.id.content_tv4, "保证结佣");
+//        }
+//        holder.setText(R.id.content_tv3, bean.absolute_address);
+//        holder.setText(R.id.number, "第" + bean.sort + "名");
+//        if (bean.cycle == 0) {
+//            holder.setImageResource(R.id.im_dian1, R.drawable.ic_lightning_1);
+//            holder.setImageResource(R.id.im_dian2, R.drawable.ic_lightning_1);
+//            holder.setImageResource(R.id.im_dian3, R.drawable.ic_lightning_1);
+//            holder.setImageResource(R.id.im_dian4, R.drawable.ic_lightning_1);
+//            holder.setImageResource(R.id.im_dian5, R.drawable.ic_lightning_1);
+//        } else if (bean.cycle == 1) {
+//            holder.setImageResource(R.id.im_dian1, R.drawable.ic_lightning);
+//            holder.setImageResource(R.id.im_dian2, R.drawable.ic_lightning_1);
+//            holder.setImageResource(R.id.im_dian3, R.drawable.ic_lightning_1);
+//            holder.setImageResource(R.id.im_dian4, R.drawable.ic_lightning_1);
+//            holder.setImageResource(R.id.im_dian5, R.drawable.ic_lightning_1);
+//        } else if (bean.cycle == 2) {
+//            holder.setImageResource(R.id.im_dian1, R.drawable.ic_lightning);
+//            holder.setImageResource(R.id.im_dian2, R.drawable.ic_lightning);
+//            holder.setImageResource(R.id.im_dian3, R.drawable.ic_lightning_1);
+//            holder.setImageResource(R.id.im_dian4, R.drawable.ic_lightning_1);
+//            holder.setImageResource(R.id.im_dian5, R.drawable.ic_lightning_1);
+//        } else if (bean.cycle == 3) {
+//            holder.setImageResource(R.id.im_dian1, R.drawable.ic_lightning);
+//            holder.setImageResource(R.id.im_dian2, R.drawable.ic_lightning);
+//            holder.setImageResource(R.id.im_dian3, R.drawable.ic_lightning);
+//            holder.setImageResource(R.id.im_dian4, R.drawable.ic_lightning_1);
+//            holder.setImageResource(R.id.im_dian5, R.drawable.ic_lightning_1);
+//        } else if (bean.cycle == 4) {
+//            holder.setImageResource(R.id.im_dian1, R.drawable.ic_lightning);
+//            holder.setImageResource(R.id.im_dian2, R.drawable.ic_lightning);
+//            holder.setImageResource(R.id.im_dian3, R.drawable.ic_lightning);
+//            holder.setImageResource(R.id.im_dian4, R.drawable.ic_lightning);
+//            holder.setImageResource(R.id.im_dian5, R.drawable.ic_lightning_1);
+//        } else if (bean.cycle == 5) {
+//            holder.setImageResource(R.id.im_dian1, R.drawable.ic_lightning);
+//            holder.setImageResource(R.id.im_dian2, R.drawable.ic_lightning);
+//            holder.setImageResource(R.id.im_dian3, R.drawable.ic_lightning);
+//            holder.setImageResource(R.id.im_dian4, R.drawable.ic_lightning);
+//            holder.setImageResource(R.id.im_dian5, R.drawable.ic_lightning);
+//        }
+//
+//        /**
+//         * 设置物业类型和项目标签
+//         */
+//
+//        LinearLayout linearLayout = (LinearLayout) holder.getView(R.id.ll_property);
+//        LinearLayout linearLayout1 = (LinearLayout) holder.getView(R.id.ll_project_tags);
+//        LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+//        layoutParams.leftMargin = 6;
+//        layoutParams.topMargin = 6;
+//        layoutParams.bottomMargin = 6;
+//        linearLayout.removeAllViews();
+//        linearLayout1.removeAllViews();
+//        PeizhiBean peizhiBean = MainActivity.savePeizhi();
+//        peizhiBean.getData().get_$16().getParam();
+//        peizhiBean.getData().get_$15().getParam();
+//
+//        for (int i = 0; i < peizhiBean.getData().get_$16().getParam().size(); i++) {
+//            if (bean.property_tags.size() > 0) {
+//                for (int j = 0; j < bean.property_tags.size(); j++) {
+//                    if (peizhiBean.getData().get_$16().getParam().get(i).getId() == bean.property_tags.get(j)) {
+//                        String s = peizhiBean.getData().get_$16().getParam().get(i).getParam();
+//                        if(true) {
+//                            imageView = new ImageView(context);
+//                            if (peizhiBean.getData().get_$16().getParam().get(i).getId() == 59) {
+//                                imageView.setImageResource(R.drawable.ic_residential2);
+//                                linearLayout.addView(imageView, layoutParams);
+//                            } else if (peizhiBean.getData().get_$16().getParam().get(i).getId() == 60) {
+//                                imageView.setImageResource(R.drawable.ic_apartment);
+//                                linearLayout.addView(imageView, layoutParams);
+//                            } else if (peizhiBean.getData().get_$16().getParam().get(i).getId() == 61) {
+//                                imageView.setImageResource(R.drawable.ic_officebuilding);
+//                                linearLayout.addView(imageView, layoutParams);
+//                            } else if (peizhiBean.getData().get_$16().getParam().get(i).getId() == 62) {
+//                                imageView.setImageResource(R.drawable.ic_shops);
+//                                linearLayout.addView(imageView, layoutParams);
+//                            } else if (peizhiBean.getData().get_$16().getParam().get(i).getId() == 64) {
+//                                imageView.setImageResource(R.drawable.ic_villa);
+//                                linearLayout.addView(imageView, layoutParams);
+//                            }
+//                        }
+//                    }
+//                }
+//            }
+//        }
+//
+//
+//        String ss = bean.project_tags;
+//        if (TextUtils.isEmpty(ss)) {
+//            return;
+//        }
+//        String[] b = ss.split(",");
+//        for (int i = 0; i < peizhiBean.getData().get_$15().getParam().size(); i++) {
+//            if (bean.project_tags.length() > 0) {
+//                for (int j = 0; j < b.length; j++) {
+//                    int h = Integer.parseInt(b[j]);
+//                    if (peizhiBean.getData().get_$15().getParam().get(i).getId() == h) {
+//
+//                       imageView = new ImageView(context);
+//                        if (peizhiBean.getData().get_$15().getParam().get(i).getId() == 56) {
+//                            imageView.setImageResource(R.drawable.ic_elevatorroom);
+//                            linearLayout1.addView(imageView,layoutParams);
+//                        } else if (peizhiBean.getData().get_$15().getParam().get(i).getId() == 57) {
+//                            imageView.setImageResource(R.drawable.ic_schooldistrictroom);
+//                            linearLayout1.addView(imageView, layoutParams);
+//                        } else if (peizhiBean.getData().get_$15().getParam().get(i).getId() == 58) {
+//                            imageView.setImageResource(R.drawable.ic_subwayroom);
+//                            linearLayout1.addView(imageView, layoutParams);
+//                        }
+//                    }
+//                }
+//            }
+//
+//        }
+//    }
+
+        ImageView imageView = (ImageView) holder.getView(R.id.icon_iv);
+        Picasso.with(context).load(AppConstants.URL + bean.img_url)
+                .error(R.drawable.default_1)
+                .fit()
+                .into(imageView);
         if (bean.brokerSortCompare == 1) {
             holder.setImageResource(R.id.icon_iv2, R.drawable.ic_rising);
         } else if (bean.brokerSortCompare == 2) {
@@ -78,19 +211,22 @@ public class QuickRecommendAdapter extends BaseRecyclerAdapter<QuickRecommendVie
             holder.setVisible(R.id.icon_iv2, View.INVISIBLE);
         }
         holder.setText(R.id.title_tv1, bean.project_name);
-        if (bean.sort != 0 && bean.brokerSortCompare != 0) {
+
+        if (bean.sort != 0 && bean.cycle != 0) {
             holder.setText(R.id.content_tv1, "荐");
+        }
+        if(bean.guarantee_brokerage==1){
             holder.setText(R.id.content_tv4, "保证结佣");
         }
         holder.setText(R.id.content_tv3, bean.absolute_address);
-        holder.setText(R.id.number, "第" + bean.sort + "名");
+        holder.setText(R.id.number, "第" + bean.sort+ "名");
         if (bean.cycle == 0) {
             holder.setImageResource(R.id.im_dian1, R.drawable.ic_lightning_1);
             holder.setImageResource(R.id.im_dian2, R.drawable.ic_lightning_1);
             holder.setImageResource(R.id.im_dian3, R.drawable.ic_lightning_1);
             holder.setImageResource(R.id.im_dian4, R.drawable.ic_lightning_1);
             holder.setImageResource(R.id.im_dian5, R.drawable.ic_lightning_1);
-        } else if (bean.cycle == 1) {
+        } else if (bean.cycle== 1) {
             holder.setImageResource(R.id.im_dian1, R.drawable.ic_lightning);
             holder.setImageResource(R.id.im_dian2, R.drawable.ic_lightning_1);
             holder.setImageResource(R.id.im_dian3, R.drawable.ic_lightning_1);
@@ -129,38 +265,36 @@ public class QuickRecommendAdapter extends BaseRecyclerAdapter<QuickRecommendVie
         LinearLayout linearLayout = (LinearLayout) holder.getView(R.id.ll_property);
         LinearLayout linearLayout1 = (LinearLayout) holder.getView(R.id.ll_project_tags);
         LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-        layoutParams.leftMargin = 6;
-        layoutParams.topMargin = 6;
-        layoutParams.bottomMargin = 6;
+        layoutParams.leftMargin = 16;
+        layoutParams.topMargin = 16;
+        layoutParams.bottomMargin = 16;
         linearLayout.removeAllViews();
         linearLayout1.removeAllViews();
         PeizhiBean peizhiBean = MainActivity.savePeizhi();
         peizhiBean.getData().get_$16().getParam();
         peizhiBean.getData().get_$15().getParam();
 
-        for (int i = 0; i < peizhiBean.getData().get_$16().getParam().size(); i++) {
+        if(bean.property_tags!=null){
             if (bean.property_tags.size() > 0) {
+                linearLayout.removeAllViews();
                 for (int j = 0; j < bean.property_tags.size(); j++) {
-                    if (peizhiBean.getData().get_$16().getParam().get(i).getId() == bean.property_tags.get(j)) {
-                        String s = peizhiBean.getData().get_$16().getParam().get(i).getParam();
-                        if(true) {
-                            imageView = new ImageView(context);
-                            if (peizhiBean.getData().get_$16().getParam().get(i).getId() == 59) {
-                                imageView.setImageResource(R.drawable.ic_residential2);
-                                linearLayout.addView(imageView, layoutParams);
-                            } else if (peizhiBean.getData().get_$16().getParam().get(i).getId() == 60) {
-                                imageView.setImageResource(R.drawable.ic_apartment);
-                                linearLayout.addView(imageView, layoutParams);
-                            } else if (peizhiBean.getData().get_$16().getParam().get(i).getId() == 61) {
-                                imageView.setImageResource(R.drawable.ic_officebuilding);
-                                linearLayout.addView(imageView, layoutParams);
-                            } else if (peizhiBean.getData().get_$16().getParam().get(i).getId() == 62) {
-                                imageView.setImageResource(R.drawable.ic_shops);
-                                linearLayout.addView(imageView, layoutParams);
-                            } else if (peizhiBean.getData().get_$16().getParam().get(i).getId() == 64) {
-                                imageView.setImageResource(R.drawable.ic_villa);
-                                linearLayout.addView(imageView, layoutParams);
-                            }
+                    if(true) {
+                        imageView = new ImageView(context);
+                        if (bean.property_tags.get(j) == 59) {
+                            imageView.setImageResource(R.drawable.ic_residential2);
+                            linearLayout.addView(imageView, layoutParams);
+                        } else if (bean.property_tags.get(j) == 60) {
+                            imageView.setImageResource(R.drawable.ic_apartment);
+                            linearLayout.addView(imageView, layoutParams);
+                        } else if (bean.property_tags.get(j) == 63) {
+                            imageView.setImageResource(R.drawable.ic_officebuilding);
+                            linearLayout.addView(imageView, layoutParams);
+                        } else if (bean.property_tags.get(j) == 62) {
+                            imageView.setImageResource(R.drawable.ic_shops);
+                            linearLayout.addView(imageView, layoutParams);
+                        } else if (bean.property_tags.get(j) == 61) {
+                            imageView.setImageResource(R.drawable.ic_villa);
+                            linearLayout.addView(imageView, layoutParams);
                         }
                     }
                 }
@@ -173,26 +307,44 @@ public class QuickRecommendAdapter extends BaseRecyclerAdapter<QuickRecommendVie
             return;
         }
         String[] b = ss.split(",");
-        for (int i = 0; i < peizhiBean.getData().get_$15().getParam().size(); i++) {
-            if (bean.project_tags.length() > 0) {
-                for (int j = 0; j < b.length; j++) {
-                    int h = Integer.parseInt(b[j]);
-                    if (peizhiBean.getData().get_$15().getParam().get(i).getId() == h) {
+//        for (int i = 0; i < peizhiBean.getData().get_$15().getParam().size(); i++) {
+//            if (bean.getProject_tags().length() > 0) {
+//                for (int j = 0; j < b.length; j++) {
+//                    int h = Integer.parseInt(b[j]);
+//                    if (peizhiBean.getData().get_$15().getParam().get(i).getId() == h) {
+//
+//                        imageView = new ImageView(context);
+//                        if (peizhiBean.getData().get_$15().getParam().get(i).getId() == 56) {
+//                            imageView.setImageResource(R.drawable.ic_elevatorroom);
+//                            linearLayout1.addView(imageView,layoutParams);
+//                        } else if (peizhiBean.getData().get_$15().getParam().get(i).getId() == 57) {
+//                            imageView.setImageResource(R.drawable.ic_schooldistrictroom);
+//                            linearLayout1.addView(imageView, layoutParams);
+//                        } else if (peizhiBean.getData().get_$15().getParam().get(i).getId() == 58) {
+//                            imageView.setImageResource(R.drawable.ic_subwayroom);
+//                            linearLayout1.addView(imageView, layoutParams);
+//                        }
+//                    }
+//                }
+//            }
+//
+//        }
 
-                       imageView = new ImageView(context);
-                        if (peizhiBean.getData().get_$15().getParam().get(i).getId() == 56) {
-                            imageView.setImageResource(R.drawable.ic_elevatorroom);
-                            linearLayout1.addView(imageView,layoutParams);
-                        } else if (peizhiBean.getData().get_$15().getParam().get(i).getId() == 57) {
-                            imageView.setImageResource(R.drawable.ic_schooldistrictroom);
-                            linearLayout1.addView(imageView, layoutParams);
-                        } else if (peizhiBean.getData().get_$15().getParam().get(i).getId() == 58) {
-                            imageView.setImageResource(R.drawable.ic_subwayroom);
-                            linearLayout1.addView(imageView, layoutParams);
-                        }
-                    }
+        List<PeizhiBean.DataBean._$15Bean.ParamBeanXXXXXXXXXXXXXX> list = peizhiBean.getData().get_$15().getParam();
+        for (String s : b) {
+            for (PeizhiBean.DataBean._$15Bean.ParamBeanXXXXXXXXXXXXXX bean3 : list) {
+                if(bean3.getId()==Integer.parseInt(s)){
+                    TextView textView = new TextView(context);
+                    textView.setText(bean3.getParam());
+                    textView.setTextSize(13);
+                    textView.setBackgroundResource(R.drawable.shape_laber);
+                    textView.setPadding(10,1,10,1);
+                    linearLayout1.addView(textView,layoutParams);
                 }
             }
-
         }
-    }}
+
+    }
+
+
+    }

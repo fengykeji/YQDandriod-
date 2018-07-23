@@ -2,6 +2,7 @@ package com.ccsoft.yunqudao.ui.me;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
@@ -14,6 +15,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 import com.ccsoft.yunqudao.R;
 import com.ccsoft.yunqudao.utils.ActivityManager;
+import com.ccsoft.yunqudao.utils.ZXingUtils;
 
 /**
  * @author: Pein
@@ -50,6 +52,10 @@ public class WoDeErWeiMaActivity extends AppCompatActivity implements View.OnCli
         mMe_icon_二维码头像 = findViewById(R.id.me_icon_二维码头像);
         mMe_text_二维码内名字 = findViewById(R.id.me_text_二维码内名字);
         mMe_image_二维码 = findViewById(R.id.me_image_二维码);
+
+        String content = "ssssssss";
+        Bitmap bitmap = ZXingUtils.createQRImage(content, 200, 200);
+        mMe_image_二维码.setImageBitmap(bitmap);
     }
 
     private void initListener() {

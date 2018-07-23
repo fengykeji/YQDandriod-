@@ -19,6 +19,7 @@ import com.ccsoft.yunqudao.data.model.response.WorkCommendDisableData;
 import com.ccsoft.yunqudao.http.HttpAdress;
 import com.ccsoft.yunqudao.http.XutilsHttp;
 import com.ccsoft.yunqudao.model.StringModel;
+import com.ccsoft.yunqudao.ui.home.HomeActivity;
 import com.ccsoft.yunqudao.utils.ActivityManager;
 import com.ccsoft.yunqudao.utils.JsonUtil;
 import com.google.gson.Gson;
@@ -57,6 +58,9 @@ public class WrokCommendDisableDetailsActivity extends AppCompatActivity impleme
     private ImageView work_button_back;
     private Button tv_shensu,tv_retuijian;
     private int project_id,client_need_id,client_id;
+    private int NumTv;
+    private String   mwork_commend_client_name,mwork_commend_project,mwork_commend_project_address,
+            DisableTime;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -67,6 +71,7 @@ public class WrokCommendDisableDetailsActivity extends AppCompatActivity impleme
         Intent intent = getIntent();
         id = intent.getIntExtra("id", 0);
         initData();
+        initListener();
     }
 
     private void initView() {
@@ -91,8 +96,11 @@ public class WrokCommendDisableDetailsActivity extends AppCompatActivity impleme
                 finish();
             }
         });
-        tv_shensu.setOnClickListener(this);
-        tv_retuijian.setOnClickListener(this);
+
+    }
+    private void initListener(){
+        tv_shensu.setOnClickListener(WrokCommendDisableDetailsActivity.this);
+        tv_retuijian.setOnClickListener(WrokCommendDisableDetailsActivity.this);
     }
 
     private void initData() {
@@ -104,6 +112,7 @@ public class WrokCommendDisableDetailsActivity extends AppCompatActivity impleme
                 Gson gson = new Gson();
                 WorkCommendDisableData workCommendDisableData = gson.fromJson(result, WorkCommendDisableData.class);
                 setInfo(workCommendDisableData);
+
             }
 
             @Override
@@ -144,6 +153,15 @@ public class WrokCommendDisableDetailsActivity extends AppCompatActivity impleme
             work_commend_client_sex.setText("女");
         }
         work_commend_client_tel.setText(workCommendDisableData.getData().getTel());
+
+        NumTv = workCommendDisableData.getData().getClient_id();
+        mwork_commend_client_name = workCommendDisableData.getData().getName();
+        mwork_commend_project = workCommendDisableData.getData().getProject_name();
+        mwork_commend_project_address = workCommendDisableData.getData().getProvince_name()+"-"+
+                workCommendDisableData.getData().getCity_name()+"-"+
+                workCommendDisableData.getData().getDistrict_name()+
+                workCommendDisableData.getData().getAbsolute_address();
+        DisableTime = workCommendDisableData.getData().getDisabled_time();
     }
 
     @Override
@@ -170,13 +188,16 @@ public class WrokCommendDisableDetailsActivity extends AppCompatActivity impleme
                                 if (model.getCode() == 200) {
                                     AlertDialog.Builder builder = new AlertDialog.Builder(WrokCommendDisableDetailsActivity.this);
                                     builder.setTitle("推荐成功");
-                                    builder.setMessage("推荐编号:"+mNumTv+"\n客户:"+work_commend_client_name
-                                    +"\n项目名字:"+work_commend_project+"\n项目地址:"+work_commend_project_address
-                                    +"\n失效时间:"+mDisableTime);
+                                    builder.setMessage("推荐编号:"+NumTv+"\n客户:"+mwork_commend_client_name
+                                    +"\n项目名字:"+mwork_commend_project+"\n项目地址:"+mwork_commend_project_address
+                                    +"\n失效时间:"+DisableTime);
                                     builder.setNegativeButton("确定", new DialogInterface.OnClickListener() {
                                         @Override
                                         public void onClick(DialogInterface dialogInterface, int i) {
-
+                                            Intent intent = new Intent(WrokCommendDisableDetailsActivity.this, HomeActivity.class);
+                                            intent.putExtra("fid",3);
+                                            startActivity(intent);
+                                            finish();
                                         }
                                     });
                                     AlertDialog dialog = builder.create();

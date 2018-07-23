@@ -5,23 +5,29 @@
     android:orientation="vertical">
 
     <RelativeLayout
+        android:id="@+id/ib_showguize"
         android:background="@color/gray"
         android:padding="10dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
         <TextView
+            android:gravity="center"
             android:id="@+id/tv_startTime"
             android:textSize="13sp"
             android:text=""
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
-        <ImageButton
-            android:id="@+id/ib_showguize"
+        <ImageView
+            android:id="@+id/ib_showguize1"
             android:layout_alignParentRight="true"
-            android:src="@drawable/progressbar"
+            android:src="@drawable/ic_downarrow"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
     </RelativeLayout>
+    <ImageView
+        android:background="@color/white"
+        android:layout_width="match_parent"
+        android:layout_height="1dp" />
 
     <ScrollView
         android:layout_width="match_parent"

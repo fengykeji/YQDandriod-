@@ -18,6 +18,7 @@ import com.ccsoft.yunqudao.model.ClientListModel;
 import com.ccsoft.yunqudao.ui.adapter.CustomersMatchAdapter;
 import com.ccsoft.yunqudao.utils.ActivityManager;
 import com.ccsoft.yunqudao.utils.BaseCallBack;
+import com.ccsoft.yunqudao.utils.HideIMEUtil;
 import com.ccsoft.yunqudao.utils.JsonUtil;
 import com.ccsoft.yunqudao.utils.OkHttpManager;
 import com.google.gson.Gson;
@@ -61,6 +62,7 @@ public class PiPeiProjectListActivity extends AppCompatActivity implements View.
         super.onCreate(savedInstanceState);
         ActivityManager.getInstance().addActivity(this);
         setContentView(R.layout.activity_customers_xiangqing_pipeilist);
+        HideIMEUtil.wrap(this);
         initView();
         initListener();
         initData();
@@ -100,7 +102,11 @@ public class PiPeiProjectListActivity extends AppCompatActivity implements View.
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.customers_button_back:
-                finish();
+                Intent intent = new Intent(this,CustomersXiangQingActivity.class);
+                intent.putExtra("fid",2);
+                intent.putExtra("client_id",client_id);
+                startActivity(intent);
+//                finish();
                 break;
         }
     }

@@ -59,7 +59,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="18sp"
+            android:textSize="15sp"
             android:text="所属公司"/>
         <TextView
             android:layout_alignParentRight="true"
@@ -84,9 +84,11 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="18sp"
+            android:textSize="15sp"
             android:text="工号"/>
         <EditText
+            android:textCursorDrawable="@null"
+            android:gravity="right"
             android:id="@+id/et_gonghao"
             android:background="@null"
             android:layout_width="match_parent"
@@ -112,13 +114,13 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="18sp"
+            android:textSize="15sp"
             android:text="角色"/>
         <TextView
             android:layout_alignParentRight="true"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="18sp"
+            android:textSize="15sp"
             android:text="经纪人"/>
         </RelativeLayout>
 
@@ -139,7 +141,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="18sp"
+            android:textSize="15sp"
             android:text="申请项目"/>
 
     </LinearLayout>
@@ -158,9 +160,11 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="18sp"
+            android:textSize="15sp"
             android:text="所属部门"/>
         <EditText
+            android:textCursorDrawable="@null"
+            android:gravity="right"
             android:id="@+id/et_suoshubumen"
             android:background="@null"
             android:layout_width="match_parent"
@@ -182,9 +186,11 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="18sp"
+            android:textSize="15sp"
             android:text="职位"/>
         <EditText
+            android:textCursorDrawable="@null"
+            android:gravity="right"
             android:background="@null"
             android:id="@+id/et_zhiwei"
             android:layout_width="match_parent"
@@ -210,7 +216,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textSize="18sp"
+                android:textSize="15sp"
                 android:text="入职\申请时间"/>
             <TextView
                 android:id="@+id/tv_tuzhitime"
@@ -242,12 +248,12 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textSize="18sp"
+                    android:textSize="15sp"
                     android:text="工牌照片"/>
 
                 <ImageView
                     android:id="@+id/ib_photo"
-                    android:src="@drawable/progressbar"
+                    android:src="@drawable/default_3"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content" />
 
@@ -265,7 +271,7 @@
                 android:id="@+id/button_next"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="20dp"
+                android:layout_margin="18dp"
                 android:background="@drawable/ic_loginbackground"
                 android:text="提交申请"
                 android:textColor="@color/chunbai"

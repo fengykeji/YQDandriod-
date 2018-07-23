@@ -17,7 +17,7 @@
             android:layout_height="wrap_content"
             android:gravity="center_horizontal"
             android:text="消息"
-            android:textSize="20sp"
+            android:textSize="16sp"
             android:textColor="@color/chunhei"
             />
 
@@ -52,12 +52,13 @@
             android:orientation="vertical"
             >
             <TextView
+                android:textColor="@color/chunhei"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:ellipsize="end"
                 android:lines="1"
                 android:text="系统消息"
-                android:textSize="18sp"
+                android:textSize="15sp"
                 />
             <TextView
                 android:id="@+id/message_text_未读系统消息条数"
@@ -66,7 +67,7 @@
                 android:ellipsize="end"
                 android:lines="1"
                 android:text="未读消息1条"
-                android:textSize="15sp"
+                android:textSize="13sp"
                 />
         </LinearLayout>
     </LinearLayout>
@@ -100,12 +101,13 @@
             android:orientation="vertical"
             >
             <TextView
+                android:textColor="@color/chunhei"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="工作消息"
                 android:lines="1"
                 android:ellipsize="end"
-                android:textSize="18sp"
+                android:textSize="15sp"
                 />
             <TextView
                 android:id="@+id/message_text_未读工作消息条数"
@@ -114,7 +116,7 @@
                 android:text="未读消息1条"
                 android:lines="1"
                 android:ellipsize="end"
-                android:textSize="15sp"
+                android:textSize="13sp"
                 />
         </LinearLayout>
     </LinearLayout>

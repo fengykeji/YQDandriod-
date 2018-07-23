@@ -258,7 +258,7 @@ public class CustomersGetInfoBean implements Serializable{
             private String create_time;
             private String update_time;
             private int state;
-//            private List<RegionBean> region;
+            private List<RegionBean> region;
 
             public int getNeed_id() {
                 return need_id;
@@ -428,13 +428,13 @@ public class CustomersGetInfoBean implements Serializable{
                 this.state = state;
             }
 
-//            public List<RegionBean> getRegion() {
-//                return region;
-//            }
+            public List<RegionBean> getRegion() {
+                return region;
+            }
 
-//            public void setRegion(List<RegionBean> region) {
-//                this.region = region;
-//            }
+            public void setRegion(List<RegionBean> region) {
+                this.region = region;
+            }
 
             public static class RegionBean {
                 /**

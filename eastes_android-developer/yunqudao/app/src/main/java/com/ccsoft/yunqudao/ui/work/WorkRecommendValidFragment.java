@@ -1,5 +1,6 @@
 package com.ccsoft.yunqudao.ui.work;
 
+import android.graphics.drawable.AnimationDrawable;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -9,6 +10,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 import com.ccsoft.yunqudao.R;
@@ -28,6 +30,9 @@ import com.ccsoft.yunqudao.utils.recyclerviwe.BaseRecyclerViewAdapter;
 import com.ccsoft.yunqudao.utils.recyclerviwe.BaseRecyclerViewHolder;
 import com.lzy.okhttputils.OkHttpUtils;
 import com.lzy.okhttputils.callback.StringCallback;
+import com.scwang.smartrefresh.layout.SmartRefreshLayout;
+import com.scwang.smartrefresh.layout.api.RefreshLayout;
+import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -43,15 +48,24 @@ import okhttp3.Response;
  * @data: 2018/5/14 0014
  */
 
-public class WorkRecommendValidFragment extends Fragment implements View.OnClickListener {
+public class WorkRecommendValidFragment extends Fragment implements View.OnClickListener , OnRefreshListener{
 
     private View                       mView;
     private WorkRecommendValidFragment mWorkRecommendValidFragment;
     private RecyclerView               mWork_recyclerview_Valid;
-    private SwipeRefreshLayout mSwipRefresh;
+    private SmartRefreshLayout mSwipRefresh;
     private WorkRecommendValidAdapter  mAdapter;
 
     private List<BrrokerValueData.ValueData> dataList = new ArrayList<>();
+    private AnimationDrawable anim;
+    private ImageView yunsuan;
+
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        initData();
+    }
 
     @Nullable
     @Override
@@ -75,6 +89,9 @@ public class WorkRecommendValidFragment extends Fragment implements View.OnClick
         mAdapter = new WorkRecommendValidAdapter(getContext(),R.layout.item_work_value, dataList);
         mWork_recyclerview_Valid.setAdapter(mAdapter);
         mWork_recyclerview_Valid.addOnScrollListener(endlessRecyclerOnScrollListener);
+        yunsuan = mView.findViewById(R.id.yunsuan);
+        yunsuan.setImageResource(R.drawable.animation_refresh);
+        anim = (AnimationDrawable) yunsuan.getDrawable();
 
     }
 
@@ -88,12 +105,8 @@ public class WorkRecommendValidFragment extends Fragment implements View.OnClick
                 WorkCommendValidDetailActivity.start(getActivity(), dataList.get(position).client_id);
             }
         });
-        mSwipRefresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
-            @Override
-            public void onRefresh() {
-                initData();
-            }
-        });
+        mSwipRefresh.setOnRefreshListener(this) ;
+
     }
 
     private void initData() {
@@ -114,7 +127,7 @@ public class WorkRecommendValidFragment extends Fragment implements View.OnClick
 
             @Override
             protected void _onCompleted() {
-                mSwipRefresh.setRefreshing(false);
+
             }
         });
     }
@@ -176,4 +189,10 @@ public class WorkRecommendValidFragment extends Fragment implements View.OnClick
     };
 
 
+    @Override
+    public void onRefresh(RefreshLayout refreshlayout) {
+        initData();
+        anim.start();
+        mSwipRefresh.finishRefresh(900);
+    }
 }

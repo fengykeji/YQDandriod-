@@ -85,10 +85,10 @@ public class ProjectPiPeiKeHuActivity extends AppCompatActivity implements View.
      */
     private void initView() {
         Bundle bundle = getIntent().getExtras();
-
+        mHouse_button_添加客户 = findViewById(R.id.house_button_添加客户);
         if(bundle.size()==2) {
             dataList = (List<ProjectPiPeiKeHuBean.DataBean>) bundle.get("list");
-
+            mHouse_button_添加客户.setVisibility(View.GONE);
         }
 
         project_id = (int) bundle.get("project_id");
@@ -111,6 +111,8 @@ public class ProjectPiPeiKeHuActivity extends AppCompatActivity implements View.
             recyclerView.setAdapter(adapter1);
             recyclerView.addOnScrollListener(endlessRecyclerOnScrollListener);
         }
+
+
 
 
     }
@@ -209,7 +211,10 @@ public class ProjectPiPeiKeHuActivity extends AppCompatActivity implements View.
                 break;
 
             case R.id.house_button_添加客户:
-                AddCustomers1Activity.start(this);
+                Intent intent = new Intent(this,AddCustomers1Activity.class);
+                intent.putExtra("fastR","fastR");
+                intent.putExtra("project_id",project_id);
+                startActivity(intent);
                 break;
 
             case R.id.house_button_推荐1:

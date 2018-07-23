@@ -12,8 +12,12 @@ import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.widget.ImageButton;
+import android.widget.LinearLayout;
+import android.widget.TextView;
+
 import com.ccsoft.yunqudao.R;
 import com.ccsoft.yunqudao.bean.ProjectDanYuanBean;
+import com.ccsoft.yunqudao.bean.ProjectLouDongChooseBean;
 import com.ccsoft.yunqudao.http.HttpAdress;
 import com.ccsoft.yunqudao.ui.adapter.ProjectDanYuanAdapter;
 import com.ccsoft.yunqudao.utils.ActivityManager;
@@ -44,7 +48,9 @@ public class ProjectDanYuanXiangQingActivity extends AppCompatActivity implement
     private ProjectDanYuanBean bean;
     private List<ProjectDanYuanBean.DataBean> dataList = new ArrayList<>();
     private ProjectDanYuanAdapter adapter;
-
+    private TextView tv_zonghushu,tv_kaipanfangshi,tv_loushangcengshu,tv_louxiacengshu,
+            tv_kaipanshijian,tv_jiaofangshijian;
+    private LinearLayout ll_closectent,ll_showcontent,ll_colse;
 
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -70,17 +76,38 @@ public class ProjectDanYuanXiangQingActivity extends AppCompatActivity implement
 
         mHouse_button_返回 = findViewById(R.id.house_button_返回);
         re_loudong = findViewById(R.id.re_loudong);
+        tv_zonghushu = findViewById(R.id.tv_zonghushu);
+        tv_kaipanfangshi = findViewById(R.id.tv_kaipanfangshi);
+        tv_loushangcengshu= findViewById(R.id.tv_loushangcengshu);
+        tv_louxiacengshu = findViewById(R.id.tv_louxiacengshu);
+        tv_kaipanshijian = findViewById(R.id.tv_kaipanshijian);
+        tv_jiaofangshijian = findViewById(R.id.tv_jiaofangshijian);
+        ll_closectent = findViewById(R.id.ll_closectent);
+        ll_showcontent = findViewById(R.id.ll_showcontent);
+        ll_colse = findViewById(R.id.ll_close);
+
 
         project_id = getIntent().getIntExtra("project_id",0);
         build_id = getIntent().getIntExtra("build_id",0);
         unit_id = getIntent().getStringExtra("unit_id");
+        Bundle bundle = getIntent().getExtras();
+        ProjectLouDongChooseBean.DataBean.BuildInfoBean bean = (ProjectLouDongChooseBean.DataBean.BuildInfoBean) bundle.getSerializable("data");
+
+        if(bean!=null) {
+            tv_zonghushu.setText("总户数:"+bean.getTotal_house_num());
+            tv_kaipanfangshi.setText("开盘方式:"+bean.getOpen_way());
+            tv_loushangcengshu.setText("楼上层数:"+bean.getUpper_floor_num());
+            tv_louxiacengshu.setText("楼下层数:"+bean.getDown_floor_num());
+            tv_kaipanshijian.setText("开盘时间"+bean.getOpen_time());
+            tv_jiaofangshijian.setText("交房时间:"+bean.getHanding_room_time());
+
+        }
+
 
 
         re_loudong.setLayoutManager(new LinearLayoutManager(this));
         adapter = new ProjectDanYuanAdapter(this,R.layout.item_project_danyuan,dataList);
         re_loudong.setAdapter(adapter);
-
-
 
 
     }
@@ -93,6 +120,10 @@ public class ProjectDanYuanXiangQingActivity extends AppCompatActivity implement
     private void initListener() {
 
         mHouse_button_返回.setOnClickListener(this);
+        ll_showcontent.setOnClickListener(this);
+        ll_closectent.setOnClickListener(this);
+        ll_colse.setOnClickListener(this);
+
     }
 
     private void initData(){
@@ -128,6 +159,14 @@ public class ProjectDanYuanXiangQingActivity extends AppCompatActivity implement
         switch (v.getId()) {
             case R.id.house_button_返回:
                 finish();
+                break;
+            case R.id.ll_closectent:
+                ll_closectent.setVisibility(View.GONE);
+                ll_showcontent.setVisibility(View.VISIBLE);
+                break;
+            case R.id.ll_close:
+                ll_showcontent.setVisibility(View.GONE);
+                ll_closectent.setVisibility(View.VISIBLE);
                 break;
         }
     }

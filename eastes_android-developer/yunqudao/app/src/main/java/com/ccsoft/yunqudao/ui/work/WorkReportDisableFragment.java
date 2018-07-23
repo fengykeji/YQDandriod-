@@ -1,6 +1,7 @@
 package com.ccsoft.yunqudao.ui.work;
 
 import android.content.Intent;
+import android.graphics.drawable.AnimationDrawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -12,6 +13,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 import com.ccsoft.yunqudao.R;
@@ -33,6 +35,9 @@ import com.ccsoft.yunqudao.utils.recyclerviwe.BaseRecyclerViewAdapter;
 import com.ccsoft.yunqudao.utils.recyclerviwe.BaseRecyclerViewHolder;
 import com.lzy.okhttputils.OkHttpUtils;
 import com.lzy.okhttputils.callback.StringCallback;
+import com.scwang.smartrefresh.layout.SmartRefreshLayout;
+import com.scwang.smartrefresh.layout.api.RefreshLayout;
+import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -48,14 +53,16 @@ import okhttp3.Response;
  * @data: 2018/5/14 0014
  */
 
-public class WorkReportDisableFragment extends Fragment implements View.OnClickListener{
+public class WorkReportDisableFragment extends Fragment implements View.OnClickListener ,OnRefreshListener {
 
     private View                      mView;
     private WorkReportDisableFragment mWorkReportDisableFragment;
     private RecyclerView              mWork_recyclerview_disable;
     private WorkReportDisableAdapter  workReportDisableAdapter;
     private List<WorkReportDisableData.DataBean> dataList = new ArrayList<>();
-    private SwipeRefreshLayout mSwipRefresh;
+    private SmartRefreshLayout mSwipRefresh;
+    private AnimationDrawable anim;
+    private ImageView yunsuan;
 
     @Nullable
     @Override
@@ -75,6 +82,9 @@ public class WorkReportDisableFragment extends Fragment implements View.OnClickL
     private void initView() {
         mSwipRefresh = mView.findViewById(R.id.mSwipRefresh);
         this.mWork_recyclerview_disable = mView.findViewById(R.id.work_recyclerview_disable);
+        yunsuan = mView.findViewById(R.id.yunsuan);
+        yunsuan.setImageResource(R.drawable.animation_refresh);
+        anim = (AnimationDrawable) yunsuan.getDrawable();
         workReportDisableAdapter = new WorkReportDisableAdapter(getContext(),R.layout.item_work_disable, dataList);
         LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false);
         this.mWork_recyclerview_disable.setLayoutManager(layoutManager);
@@ -103,7 +113,7 @@ public class WorkReportDisableFragment extends Fragment implements View.OnClickL
 
             @Override
             protected void _onCompleted() {
-                mSwipRefresh.setRefreshing(false);
+//                mSwipRefresh.setRefreshing(false);
             }
         });
     }
@@ -121,12 +131,8 @@ public class WorkReportDisableFragment extends Fragment implements View.OnClickL
                 getActivity().startActivity(intent);
             }
         });
-        mSwipRefresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
-            @Override
-            public void onRefresh() {
-                initData();
-            }
-        });
+        mSwipRefresh.setOnRefreshListener(this);
+
     }
 
     @Override
@@ -185,4 +191,11 @@ public class WorkReportDisableFragment extends Fragment implements View.OnClickL
 
         }
     };
+
+    @Override
+    public void onRefresh(RefreshLayout refreshlayout) {
+        initData();
+        anim.start();
+        mSwipRefresh.finishRefresh(900);
+    }
 }
