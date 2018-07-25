@@ -15,6 +15,7 @@ import com.ccsoft.yunqudao.R;
 import com.ccsoft.yunqudao.bean.ProjectGetRuleBean;
 import com.ccsoft.yunqudao.http.HttpAdress;
 import com.ccsoft.yunqudao.ui.adapter.ProjectYongjinAdapter;
+import com.ccsoft.yunqudao.ui.adapter.ProjectYongjinAdapter1;
 import com.ccsoft.yunqudao.utils.JsonUtil;
 import com.ccsoft.yunqudao.utils.OkHttpManager;
 import com.ccsoft.yunqudao.utils.SpUtil;
@@ -43,8 +44,11 @@ public class ProjectYongJinFragment extends Fragment {
     private int project_id;
     private RecyclerView recyclerView;
     private ProjectYongjinAdapter adapter;
+    private ProjectYongjinAdapter1 adapter1;
     private ArrayList<ProjectGetRuleBean.DataBean.PersonBean> dataList = new ArrayList<>();
     private ArrayList<ProjectGetRuleBean.DataBean> list = new ArrayList<>();
+    private int Cycle;
+    private int brokerage;
 
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
@@ -64,9 +68,15 @@ public class ProjectYongJinFragment extends Fragment {
         tv_chenjiao = mView.findViewById(R.id.tv_chenjiao);
         recyclerView = mView.findViewById(R.id.re_yongjinguize);
 
+         Cycle = getActivity().getIntent().getIntExtra("Cycle",0);
+        brokerage = getActivity().getIntent().getIntExtra("brokerage",0);
+
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-        if(dataList!=null) {
-            adapter = new ProjectYongjinAdapter(getContext(), R.layout.item_project_yongjin, dataList,list);
+        if (brokerage == 2){
+            adapter1 = new ProjectYongjinAdapter1(getContext(), R.layout.item_project_yongjin, list);
+            recyclerView.setAdapter(adapter1);
+        }else if(dataList!=null) {
+            adapter = new ProjectYongjinAdapter(getContext(), R.layout.item_project_yongjin, dataList,list,Cycle);
             recyclerView.setAdapter(adapter);
         }
     }
@@ -93,13 +103,18 @@ public class ProjectYongJinFragment extends Fragment {
                         }
                         if(code == 200&& data!=null){
                             ProjectGetRuleBean bean = JsonUtil.jsonToEntity(s,ProjectGetRuleBean.class);
-                            for (ProjectGetRuleBean.DataBean dataBean : bean.getData()) {
-                                if(dataBean.getPerson()!=null) {
-                                    dataList.addAll(dataBean.getPerson());
+                            if(brokerage == 2){
+                                list.addAll(bean.getData());
+                                adapter1.notifyDataSetChanged();
+                            }else {
+                                for (ProjectGetRuleBean.DataBean dataBean : bean.getData()) {
+                                    if (dataBean.getPerson() != null) {
+                                        dataList.addAll(dataBean.getPerson());
+                                    }
                                 }
+                                list.addAll(bean.getData());
+                                adapter.notifyDataSetChanged();
                             }
-                            list.addAll(bean.getData());
-                            adapter.notifyDataSetChanged();
                         }
                     }
                 });

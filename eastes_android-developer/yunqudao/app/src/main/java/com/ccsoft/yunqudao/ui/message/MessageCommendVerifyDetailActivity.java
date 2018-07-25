@@ -157,7 +157,7 @@ public class MessageCommendVerifyDetailActivity extends AppCompatActivity {
         public void run() {
             time= DataUtils.getTime(finishTime);
 
-            overtime();
+//            overtime();
             times = time.split("-");
 
             date_day.setText(times[0]);

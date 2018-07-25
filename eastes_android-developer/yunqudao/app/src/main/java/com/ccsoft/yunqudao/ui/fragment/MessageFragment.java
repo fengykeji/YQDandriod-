@@ -108,6 +108,7 @@ public class MessageFragment extends Fragment implements View.OnClickListener {
                             e.printStackTrace();
                         }
                         if (code == 200 && data != null) {
+                            Log.e("cccccc",total1+" "+read1);
                             GetUnreadBean bean = JsonUtil.jsonToEntity(s,GetUnreadBean.class);
                              total = bean.getData().getSystem().getTotal();
                              read = bean.getData().getSystem().getRead();

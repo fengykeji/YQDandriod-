@@ -119,20 +119,61 @@ public class ProjectJiChuXinXiActivity extends AppCompatActivity implements View
                         Type type = new TypeToken<BuildInfoBean>() {}.getType();
                         infoBean = new Gson().fromJson(obj.toString(),type);
                         if(infoBean.getCode()==200&&infoBean.getData()!=null){
-                            tv_project_name.setText(infoBean.getData().getProject_name());
-                            tv_sale_state.setText(infoBean.getData().getSale_state());
-                            tv_kaifashang.setText(infoBean.getData().getDeveloper_name());
+
+                            if(infoBean.getData().getProject_name()==null){
+                                tv_project_name.setText("暂无数据");
+                            }else {
+                                tv_project_name.setText(infoBean.getData().getProject_name());
+                            }
+                            if(infoBean.getData().getSale_state()==null){
+                                tv_sale_state.setText("暂无数据");
+                            }else {
+                                tv_sale_state.setText(infoBean.getData().getSale_state());
+                            }
+                            if(infoBean.getData().getDeveloper_name() == null){
+                                tv_kaifashang.setText("暂无数据");
+                            }else {
+                                tv_kaifashang.setText(infoBean.getData().getDeveloper_name());
+                            }
                             tv_absolute_address.setText(infoBean.getData().getProvince_name()+"-"+
                             infoBean.getData().getCity_name()+"-"+infoBean.getData().getDistrict_name());
-                            tv_sheji.setText(infoBean.getData().getDecoration_company());
-                            tv_property_area.setText(infoBean.getData().getAbsolute_address());
-                            tv_shoulouchu.setText(infoBean.getData().getSale_address());
-                            tv_jianzuleixing.setText(infoBean.getData().getBuild_type());
-                            tv_average_price.setText(infoBean.getData().getAverage_price()+"/㎡");
+                            if(infoBean.getData().getDecoration_company().equals("")){
+                                tv_sheji.setText("暂无数据");
+                            }else {
+                                tv_sheji.setText(infoBean.getData().getDecoration_company());
+                            }
+                            if(infoBean.getData().getAbsolute_address() == null){
+                                tv_property_area.setText("暂无数据");
+                            }else {
+                                tv_property_area.setText(infoBean.getData().getAbsolute_address());
+                            }
+                            if(infoBean.getData().getSale_address() == null){
+                                tv_shoulouchu.setText("暂无数据");
+                            }else {
+                                tv_shoulouchu.setText(infoBean.getData().getSale_address());
+                            }
+                            if(infoBean.getData().getBuild_type() == null){
+                                tv_jianzuleixing.setText("暂无数据");
+                            }else {
+                                tv_jianzuleixing.setText(infoBean.getData().getBuild_type());
+                            }
+                            if(infoBean.getData().getAverage_price() == 0){
+                                tv_average_price.setText("暂无数据");
+                            }else {
+                                tv_average_price.setText(infoBean.getData().getAverage_price() + "/㎡");
+                            }
                             tv_price_area.setText(infoBean.getData().getMin_price()+"万"+"-"+
                             infoBean.getData().getMax_price()+"万");
-                            tv_area.setText(infoBean.getData().getFloor_space()+"㎡");
-                            tv_zhuangxiubiaozhun.setText(infoBean.getData().getDecoration_standard());
+                            if(infoBean.getData().getFloor_space() == 0){
+                                tv_area.setText("暂无数据");
+                            }else {
+                                tv_area.setText(infoBean.getData().getFloor_space() + "㎡");
+                            }
+                            if(infoBean.getData().getDecoration_standard() == null){
+                                tv_zhuangxiubiaozhun.setText("暂无数据");
+                            }else {
+                                tv_zhuangxiubiaozhun.setText(infoBean.getData().getDecoration_standard());
+                            }
                             tv_jianzumianzhi.setText(infoBean.getData().getCovered_area()+"㎡");
                             tv_rongjilv.setText(infoBean.getData().getPlot_retio()+"");
                             tv_lvhualv.setText(infoBean.getData().getGreening_rate()+"5");
@@ -150,11 +191,28 @@ public class ProjectJiChuXinXiActivity extends AppCompatActivity implements View
                                 }
                                 tv_wuyeleixing.setText(need_tags);
                             }
-                            tv_wuyegongsi.setText(infoBean.getData().getProperty_company_name());
+                            if(infoBean.getData().getProperty_company_name() == null){
+                                tv_wuyegongsi.setText("暂无数据");
+                            }else {
+                                tv_wuyegongsi.setText(infoBean.getData().getProperty_company_name());
+                            }
                             tv_wuyefei.setText(infoBean.getData().getProperty_cost()+"元/㎡/元");
-                            tv_gongnuanfangshi.setText(infoBean.getData().getHeat_supply());
-                            tv_gongshuifangshi.setText(infoBean.getData().getWater_supply());
-                            tv_gongdianfangshi.setText(infoBean.getData().getPower_supply());
+
+                            if(infoBean.getData().getHeat_supply().equals("")){
+                                tv_gongnuanfangshi.setText("暂无数据");
+                            }else {
+                                tv_gongnuanfangshi.setText(infoBean.getData().getHeat_supply());
+                            }
+                            if(infoBean.getData().getWater_supply().equals("")){
+                                tv_gongshuifangshi.setText("暂无数据");
+                            }else {
+                                tv_gongshuifangshi.setText(infoBean.getData().getWater_supply());
+                            }
+                            if(infoBean.getData().getPower_supply().equals("")){
+                                tv_gongdianfangshi.setText("暂无数据");
+                            }else {
+                                tv_gongdianfangshi.setText(infoBean.getData().getPower_supply());
+                            }
                             if(infoBean.getData().getSale_permit().size()!=0){
                                 for (BuildInfoBean.DataBean.SalePermitBean salePermitBean : infoBean.getData().getSale_permit()) {
                                     TextView textView = new TextView(ProjectJiChuXinXiActivity.this);

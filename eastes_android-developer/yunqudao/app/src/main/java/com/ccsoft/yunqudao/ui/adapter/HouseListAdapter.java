@@ -49,6 +49,11 @@ public class HouseListAdapter extends BaseRecyclerAdapter<HouseListBean.DataBean
         if(bean.getGuarantee_brokerage()==1){
             holder.setText(R.id.content_tv4, "保证结佣");
         }
+        if(bean.getGuarantee_brokerage() == 2){
+            LinearLayout ll_yongjin = (LinearLayout) holder.getView(R.id.ll_yongjing);
+            ll_yongjin.setVisibility(View.GONE);
+            holder.setText(R.id.content_tv1, "荐");
+        }
         holder.setText(R.id.content_tv3, bean.getAbsolute_address());
         holder.setText(R.id.number, "第" + bean.getSort()+ "名");
         if (bean.getCycle() == 0) {
@@ -102,8 +107,10 @@ public class HouseListAdapter extends BaseRecyclerAdapter<HouseListBean.DataBean
         linearLayout.removeAllViews();
         linearLayout1.removeAllViews();
         PeizhiBean peizhiBean = MainActivity.savePeizhi();
-        peizhiBean.getData().get_$16().getParam();
-        peizhiBean.getData().get_$15().getParam();
+        if(peizhiBean.getData()!=null) {
+            peizhiBean.getData().get_$16().getParam();
+            peizhiBean.getData().get_$15().getParam();
+        }
 
 if(bean.getProperty_tags()!=null){
                 if (bean.getProperty_tags().size() > 0) {

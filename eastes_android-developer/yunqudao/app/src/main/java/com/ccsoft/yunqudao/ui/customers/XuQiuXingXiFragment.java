@@ -272,9 +272,12 @@ public class XuQiuXingXiFragment extends Fragment implements View.OnClickListene
             mCustomers_floor.setText(String.valueOf(data.getFloor_min()) + "层" + " - " + String.valueOf(data.getFloor_max()) + "层");
             mCustomers_intent.setText(String.valueOf(data.getIntent()) + "%");
             mCustomers_urgency.setText(String.valueOf(data.getUrgency()) + "%");
-            if(commnet.equals("null")){
+            if(commnet == null){
                 tv_qitaneeds.setText("");
-            }else {
+            }else if(commnet.equals("null")){
+                tv_qitaneeds.setText("");
+            }
+            else {
                 tv_qitaneeds.setText(data.getComment());
             }
 

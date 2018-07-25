@@ -227,7 +227,7 @@ public class ResetClientNeedActivity extends AppCompatActivity implements View.O
 
         et_floor_min.setText(foor_min+"");
         et_floor_max.setText(foor_max+"");
-        if(comment.equals("null")){
+        if(comment==null){
             et_comment.setText("");
         }else {
             et_comment.setText(comment + "");

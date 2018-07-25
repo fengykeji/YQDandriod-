@@ -366,7 +366,7 @@ public class ProjectXiangQingFragment extends Fragment implements View.OnClickLi
                 if(!bean.getProject_basic_info().getTotal_float_url_panorama().equals("")){
                     intent2.putExtra("panorama",bean.getProject_basic_info().getTotal_float_url_panorama());
                 }else {
-                    intent2.putExtra("panorama",bean.getProject_basic_info().getTotal_float_url_phone());
+                    intent2.putExtra("phone",bean.getProject_basic_info().getTotal_float_url_phone());
                 }
                 startActivity(intent2);
                 break;
@@ -541,7 +541,7 @@ public class ProjectXiangQingFragment extends Fragment implements View.OnClickLi
                             content_tv7.setText(bean.getBuild_info().getOpen_time());
                             content_tv8.setText(bean.getBuild_info().getHanding_room_time());
                             content_tv10.setText("共"+bean.getDynamic().getCount()+"条");
-                            if(bean.getDynamic().getFirst()!=null){
+                            if(bean.getDynamic().getCount()==0){
                                 ll_dongtaixiangqing.setVisibility(View.GONE);
                             }
                             content_tv11.setText(bean.getDynamic().getFirst().getTitle());

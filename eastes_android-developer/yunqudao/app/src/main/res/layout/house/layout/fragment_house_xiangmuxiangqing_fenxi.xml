@@ -46,7 +46,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                android:paddingLeft="20dp"
+                android:paddingLeft="10dp"
                 android:paddingRight="10dp"
                 >
                 <LinearLayout
@@ -62,18 +62,18 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_margin="10dp"
                     android:text="项目优势"
                     android:textColor="@color/chunhei"
                     android:textSize="18sp"
                     />
                 </LinearLayout>
                 <TextView
+                    android:layout_marginTop="10dp"
                     android:id="@+id/content_tv6"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="10dp"
-                    android:layout_marginLeft="10dp"
+                    android:layout_marginLeft="20dp"
                     android:layout_marginRight="10dp"
                     android:ellipsize="end"
                     android:lineSpacingExtra="3dp"
@@ -92,7 +92,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                android:paddingLeft="20dp"
+                android:paddingLeft="10dp"
                 android:paddingRight="10dp"
                 >
                 <LinearLayout
@@ -108,18 +108,18 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_margin="10dp"
                     android:text="周边分析"
                     android:textColor="@color/chunhei"
                     android:textSize="18sp"
                     />
                     </LinearLayout>
                 <TextView
+                    android:layout_marginTop="10dp"
                     android:id="@+id/content_tv7"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="10dp"
-                    android:layout_marginLeft="10dp"
+                    android:layout_marginLeft="20dp"
                     android:layout_marginRight="10dp"
                     android:ellipsize="end"
                     android:lineSpacingExtra="3dp"
@@ -137,7 +137,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                android:paddingLeft="20dp"
+                android:paddingLeft="10dp"
                 android:paddingRight="10dp"
                 >
                 <LinearLayout
@@ -153,18 +153,18 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_margin="10dp"
                     android:text="适合人群"
                     android:textColor="@color/chunhei"
                     android:textSize="18sp"
                     />
                 </LinearLayout>
                 <TextView
+                    android:layout_marginTop="10dp"
                     android:id="@+id/content_tv8"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="10dp"
-                    android:layout_marginLeft="10dp"
+                    android:layout_marginLeft="20dp"
                     android:layout_marginRight="10dp"
                     android:ellipsize="end"
                     android:text="连续两场，每场历时5小时，44位众议员连环出击，面对车轮式的问题轰炸，偶尔陷入尴尬的扎克伯克依然努力保持微笑，是重要的。”同济大学研究员刘旭表示。"
@@ -181,7 +181,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                android:paddingLeft="20dp"
+                android:paddingLeft="10dp"
                 android:paddingRight="10dp"
                 >
                 <LinearLayout
@@ -198,18 +198,18 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_margin="10dp"
                     android:text="升值空间"
                     android:textColor="@color/chunhei"
                     android:textSize="18sp"
                     />
                 </LinearLayout>
                 <TextView
+                    android:layout_marginTop="10dp"
                     android:id="@+id/content_tv9"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="10dp"
-                    android:layout_marginLeft="10dp"
+                    android:layout_marginLeft="20dp"
                     android:layout_marginRight="10dp"
                     android:ellipsize="end"
                     android:lineSpacingExtra="3dp"

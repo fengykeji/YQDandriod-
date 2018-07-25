@@ -30,6 +30,7 @@ import com.ccsoft.yunqudao.utils.ItemsDialogFragment;
 import com.ccsoft.yunqudao.utils.JsonUtil;
 import com.lzy.okhttputils.OkHttpUtils;
 import com.lzy.okhttputils.callback.StringCallback;
+import com.squareup.picasso.Picasso;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -59,7 +60,7 @@ public class ProjectLouDongXiangQingActivity extends AppCompatActivity implement
     private int project_id;
     private ProjectLouDongChooseBean bean;
     private List<ProjectLouDongChooseBean.DataBean> dataList = new ArrayList<>();
-    private String panorama;
+    private String panorama,phone;
 
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -91,10 +92,19 @@ public class ProjectLouDongXiangQingActivity extends AppCompatActivity implement
 
         project_id = getIntent().getIntExtra("project_id",0);
         panorama = getIntent().getStringExtra("panorama");
+        phone = getIntent().getStringExtra("phone");
 
-        webView.getSettings().setJavaScriptEnabled(true);
-        webView.setWebViewClient(new WebViewClient());
-        webView.loadUrl(AppConstants.URL+panorama);
+        if(panorama!=null){
+            webView.getSettings().setJavaScriptEnabled(true);
+            webView.setWebViewClient(new WebViewClient());
+            webView.loadUrl(AppConstants.URL+panorama);
+        }else {
+            webView.setVisibility(View.GONE);
+            Picasso.with(this).load(AppConstants.URL+phone).error(R.drawable.default_2)
+                    .fit()
+                    .into(mHouse_imageview_楼栋详情);
+        }
+
 
         controlDrawer();
 

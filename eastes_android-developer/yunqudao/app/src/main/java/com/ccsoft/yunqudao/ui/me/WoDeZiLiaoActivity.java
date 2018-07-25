@@ -169,7 +169,11 @@ public class WoDeZiLiaoActivity extends AppCompatActivity implements View.OnClic
                 break;
 
             case R.id.me_button_linearlayout_查看二维码:
-                WoDeErWeiMaActivity.start(this);
+//                WoDeErWeiMaActivity.start(this);
+                Intent intent1 = new Intent(this,WoDeErWeiMaActivity.class);
+                intent1.putExtra("mename",mMe_text_姓名.getText().toString());
+                intent1.putExtra("Account",mMe_text_云算号.getText().toString());
+                startActivity(intent1);
                 break;
             case R.id.me_button_linearlayout_姓名:
                 ResetNameActivity.start(this);

@@ -436,7 +436,7 @@ public class CustomersGetInfoBean implements Serializable{
                 this.region = region;
             }
 
-            public static class RegionBean {
+            public static class RegionBean implements Serializable{
                 /**
                  * province : 310000
                  * province_name : 上海市

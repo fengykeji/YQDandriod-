@@ -26,4 +26,18 @@
         <attr format="dimension" name="indexBarTextSize"/>
         <attr format="color" name="indexBarPressBackground"/>
     </declare-styleable>
+
+    <!-- 圆角imageView-->
+    <!--<declare-styleable name="RoundImageView">-->
+        <!--<attr name="radius" format="dimension" />-->
+    <!--</declare-styleable>-->
+
+    <declare-styleable name="SeatTableView">
+        <attr name="seat_checked" format="reference" />
+        <attr name="seat_sold" format="reference" />
+        <attr name="seat_available" format="reference" />
+        <attr name="overview_checked" format="color" />
+        <attr name="overview_sold" format="color" />
+        <attr name="txt_color" format="color"/>
+    </declare-styleable>
 </resources>

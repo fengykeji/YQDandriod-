@@ -25,7 +25,9 @@ import com.ccsoft.yunqudao.adapter.SpeedHourAdapter;
 import com.ccsoft.yunqudao.bean.HouseDetailBean;
 import com.ccsoft.yunqudao.bean.ProjectHuXingXiangQingBean;
 import com.ccsoft.yunqudao.bean.ProjectPiPeiKeHuBean;
+import com.ccsoft.yunqudao.data.AppConstants;
 import com.ccsoft.yunqudao.http.HttpAdress;
+import com.ccsoft.yunqudao.ui.adapter.ProjectPiPeiAdapter;
 import com.ccsoft.yunqudao.utils.ActivityManager;
 import com.ccsoft.yunqudao.utils.BaseCallBack;
 import com.ccsoft.yunqudao.utils.JsonUtil;
@@ -73,9 +75,12 @@ public class ProjectHuXingXiangQingActivity extends AppCompatActivity implements
     private SpeedHourAdapter speedHourAdapter=null;
     private List<HouseDetailBean.DataBean.HouseTypeBean> dataList = new ArrayList<>();
     private List<HouseDetailBean.DataBean.HouseTypeBean> dataList2 = new ArrayList<>();
+    private List<ProjectPiPeiKeHuBean.DataBean> dataList3 = new ArrayList<>();
     private int project_id;
     private TextView content_tv14;
     private ProjectPiPeiKeHuBean piPeiKeHuBean;
+    private RecyclerView re_pipei;
+    private ProjectPiPeiAdapter adapter;
 
 
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -116,9 +121,18 @@ public class ProjectHuXingXiangQingActivity extends AppCompatActivity implements
         viewPager = findViewById(R.id.viewPager);
         tabLayout = findViewById(R.id.tl_tablaout);
         content_tv14 = findViewById(R.id.content_tv14);
+        re_pipei = findViewById(R.id.re_pipei);
+
+
 
         project_id = getIntent().getIntExtra("project_id",0);
         id = getIntent().getIntExtra("id",0);
+
+        re_pipei.setLayoutManager(new LinearLayoutManager(this));
+        adapter = new ProjectPiPeiAdapter(this,R.layout.item_project_pipei,dataList3,project_id);
+        re_pipei.setAdapter(adapter);
+
+
         dataList = (List<HouseDetailBean.DataBean.HouseTypeBean>) getIntent().getSerializableExtra("list");
         dataList2 = dataList;
 
@@ -305,9 +319,10 @@ public class ProjectHuXingXiangQingActivity extends AppCompatActivity implements
 
     private void getPiPeiKeHu() {
 
-        OkHttpUtils.get(HttpAdress.matchingproject)
+        OkHttpUtils.get(AppConstants.URL+"agent/matching/houseType")
                 .tag(this)
                 .params("project_id", project_id)
+                .params("house_type_id",id)
                 .execute(new StringCallback() {
                     @Override
                     public void onSuccess(String s, Call call, Response response) {
@@ -323,6 +338,16 @@ public class ProjectHuXingXiangQingActivity extends AppCompatActivity implements
                         if (code == 200 && data != null) {
                             piPeiKeHuBean = JsonUtil.jsonToEntity(s, ProjectPiPeiKeHuBean.class);
                             content_tv14.setText("(" + piPeiKeHuBean.getData().size() + ")");
+                            dataList3.clear();
+                            if (piPeiKeHuBean.getData().size()>0&&piPeiKeHuBean.getData().size()<2) {
+                                dataList3.add(piPeiKeHuBean.getData().get(0));
+                            }
+                            if(piPeiKeHuBean.getData().size()>1){
+                                dataList3.add(piPeiKeHuBean.getData().get(0));
+                            dataList3.add(piPeiKeHuBean.getData().get(1));
+                            }
+                            adapter.notifyDataSetChanged();
+
                         }
                     }
                 });

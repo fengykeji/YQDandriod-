@@ -19,13 +19,17 @@ public class ProjectYongjinAdapter extends BaseRecyclerAdapter<ProjectGetRuleBea
     LinearLayout ll_showguize,ll_gone,ll_gone1;
     int expandPosition = -1;
     private ArrayList<ProjectGetRuleBean.DataBean> list = new ArrayList<>();
+    int Cycle;
 
 
     public ProjectYongjinAdapter(Context context, int layoutId, List<ProjectGetRuleBean.DataBean.PersonBean> data,
-                                 ArrayList<ProjectGetRuleBean.DataBean> list ) {
+                                 ArrayList<ProjectGetRuleBean.DataBean> list,int Cycle ) {
         super(context, layoutId, data);
         this.list = list;
+        this.Cycle = Cycle;
     }
+
+
 
     @Override
     protected void convert(BaseViewHolder holder, ProjectGetRuleBean.DataBean.PersonBean bean ,int position) {
@@ -49,9 +53,54 @@ public class ProjectYongjinAdapter extends BaseRecyclerAdapter<ProjectGetRuleBea
 //            }
 //        }
 
+
+        if(position==0){
+            holder.setVisible(R.id.ll_closeyongjin,View.VISIBLE);
+        }else {
+            holder.setVisible(R.id.ll_closeyongjin,View.GONE);
+        }
+        if (Cycle == 0) {
+            holder.setImageResource(R.id.im_dian1, R.drawable.ic_lightning_1);
+            holder.setImageResource(R.id.im_dian2, R.drawable.ic_lightning_1);
+            holder.setImageResource(R.id.im_dian3, R.drawable.ic_lightning_1);
+            holder.setImageResource(R.id.im_dian4, R.drawable.ic_lightning_1);
+            holder.setImageResource(R.id.im_dian5, R.drawable.ic_lightning_1);
+        } else if (Cycle== 1) {
+            holder.setImageResource(R.id.im_dian1, R.drawable.ic_lightning);
+            holder.setImageResource(R.id.im_dian2, R.drawable.ic_lightning_1);
+            holder.setImageResource(R.id.im_dian3, R.drawable.ic_lightning_1);
+            holder.setImageResource(R.id.im_dian4, R.drawable.ic_lightning_1);
+            holder.setImageResource(R.id.im_dian5, R.drawable.ic_lightning_1);
+        } else if (Cycle == 2) {
+            holder.setImageResource(R.id.im_dian1, R.drawable.ic_lightning);
+            holder.setImageResource(R.id.im_dian2, R.drawable.ic_lightning);
+            holder.setImageResource(R.id.im_dian3, R.drawable.ic_lightning_1);
+            holder.setImageResource(R.id.im_dian4, R.drawable.ic_lightning_1);
+            holder.setImageResource(R.id.im_dian5, R.drawable.ic_lightning_1);
+        } else if (Cycle == 3) {
+            holder.setImageResource(R.id.im_dian1, R.drawable.ic_lightning);
+            holder.setImageResource(R.id.im_dian2, R.drawable.ic_lightning);
+            holder.setImageResource(R.id.im_dian3, R.drawable.ic_lightning);
+            holder.setImageResource(R.id.im_dian4, R.drawable.ic_lightning_1);
+            holder.setImageResource(R.id.im_dian5, R.drawable.ic_lightning_1);
+        } else if (Cycle == 4) {
+            holder.setImageResource(R.id.im_dian1, R.drawable.ic_lightning);
+            holder.setImageResource(R.id.im_dian2, R.drawable.ic_lightning);
+            holder.setImageResource(R.id.im_dian3, R.drawable.ic_lightning);
+            holder.setImageResource(R.id.im_dian4, R.drawable.ic_lightning);
+            holder.setImageResource(R.id.im_dian5, R.drawable.ic_lightning_1);
+        } else if (Cycle == 5) {
+            holder.setImageResource(R.id.im_dian1, R.drawable.ic_lightning);
+            holder.setImageResource(R.id.im_dian2, R.drawable.ic_lightning);
+            holder.setImageResource(R.id.im_dian3, R.drawable.ic_lightning);
+            holder.setImageResource(R.id.im_dian4, R.drawable.ic_lightning);
+            holder.setImageResource(R.id.im_dian5, R.drawable.ic_lightning);
+        }
+
         for (int i = 0; i < list.size(); i++) {
             holder.setText(R.id.tv_yongjinguize, list.get(i).getDescribe());
             holder.setText(R.id.tv_paiming, "第" + list.get(i).getStandard() + "名");
+
 
             if(list.get(i).getPerson()!=null) {
                 for (int i1 = 0; i1 < list.get(i).getPerson().size(); i1++) {
@@ -61,17 +110,10 @@ public class ProjectYongjinAdapter extends BaseRecyclerAdapter<ProjectGetRuleBea
                         holder.setText(R.id.tv_startTime, list.get(i).getPerson().get(i1).getAct_start() + "至" +
                                 bean.getAct_end());
                     }
-                    holder.setText(R.id.tv_jieyong, list.get(i).getPerson().get(i1).getCommission_describe());
+                    holder.setText(R.id.tv_jieyong, list.get(i).getPerson().get(position).getCommission_describe());
                 }
             }
         }
-
-
-
-
-
-
-
 
 
             holder.setVisible(R.id.ll_showguize,position == expandPosition ? View.VISIBLE : View.GONE);

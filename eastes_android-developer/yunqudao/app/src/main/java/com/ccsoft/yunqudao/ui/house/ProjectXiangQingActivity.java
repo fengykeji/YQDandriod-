@@ -2,6 +2,7 @@ package com.ccsoft.yunqudao.ui.house;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -36,9 +37,10 @@ public class ProjectXiangQingActivity extends AppCompatActivity implements View.
     private Button                           mHouse_button_佣金;
     private Button                           mHouse_button_分析;
     private ImageButton                      mHouse_button_分享;
-    private ViewPager                        mHouse_viewpager_分类;
+    private CustomViewPager                        mHouse_viewpager_分类;
     private List<Fragment>                   mList;
     private HouseProjectFragmentPagerAdapter mHouseProjectFragmentPagerAdapter;
+    private int color,color1;
 
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -64,6 +66,8 @@ public class ProjectXiangQingActivity extends AppCompatActivity implements View.
 
     private void initView() {
 
+        color = getResources().getColor(R.color.liji_material_blue_500);
+        color1 = getResources().getColor(R.color.chunhei);
         mHouse_button_返回 = findViewById(R.id.house_button_返回);
         mHouse_button_项目 = findViewById(R.id.house_button_项目);
         mHouse_button_佣金 = findViewById(R.id.house_button_佣金);
@@ -75,6 +79,7 @@ public class ProjectXiangQingActivity extends AppCompatActivity implements View.
         mList.add(new ProjectYongJinFragment());
         mList.add(new ProjectFenXiFragment());
 
+        mHouse_viewpager_分类.setScanScroll(false);
         mHouseProjectFragmentPagerAdapter = new HouseProjectFragmentPagerAdapter(getSupportFragmentManager(), mList);
         mHouse_viewpager_分类.setAdapter(mHouseProjectFragmentPagerAdapter);
         //初始化显示第一个页面
@@ -100,12 +105,21 @@ public class ProjectXiangQingActivity extends AppCompatActivity implements View.
                 break;
             case R.id.house_button_项目:
                 mHouse_viewpager_分类.setCurrentItem(0);
+                mHouse_button_项目.setTextColor(color);
+                mHouse_button_佣金.setTextColor(color1);
+                mHouse_button_分析.setTextColor(color1);
                 break;
             case R.id.house_button_佣金:
                 mHouse_viewpager_分类.setCurrentItem(1);
+                mHouse_button_项目.setTextColor(color1);
+                mHouse_button_佣金.setTextColor(color);
+                mHouse_button_分析.setTextColor(color1);
                 break;
             case R.id.house_button_分析:
                 mHouse_viewpager_分类.setCurrentItem(2);
+                mHouse_button_项目.setTextColor(color1);
+                mHouse_button_佣金.setTextColor(color1);
+                mHouse_button_分析.setTextColor(color);
                 break;
             case R.id.house_button_分享:
                 new ShareAction(this).withText("hello")

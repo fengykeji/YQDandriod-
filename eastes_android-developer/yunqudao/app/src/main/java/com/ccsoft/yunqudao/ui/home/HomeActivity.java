@@ -60,39 +60,7 @@ public class HomeActivity extends AppCompatActivity implements BottomNavigationB
     private TextBadgeItem badgeItem;
 
 
-    private static boolean isExit = false;
 
-    Handler mHandler = new Handler() {
-
-        @Override
-        public void handleMessage(Message msg) {
-            super.handleMessage(msg);
-            isExit = false;
-        }
-    };
-
-
-    @Override
-    public boolean onKeyDown(int keyCode, KeyEvent event) {
-        if (keyCode == KeyEvent.KEYCODE_BACK) {
-            exit();
-            return false;
-        }
-        return super.onKeyDown(keyCode, event);
-    }
-
-    private void exit() {
-        if (!isExit) {
-            isExit = true;
-            Toast.makeText(getApplicationContext(), "再按一次退出程序",
-                    Toast.LENGTH_SHORT).show();
-            // 利用handler延迟发送更改状态信息
-            mHandler.sendEmptyMessageDelayed(0, 2000);
-        } else {
-            finish();
-            System.exit(0);
-        }
-    }
 
     protected void requestPermission(int requestCode) {
         // TODO Auto-generated method stub
@@ -111,8 +79,7 @@ public class HomeActivity extends AppCompatActivity implements BottomNavigationB
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        JPushInterface.init(this);
-        JPushInterface.setAlias(this,"agent_"+ SpUtil.getInt("agent_id",0),null);
+
         ActivityManager.getInstance().addActivity(this);
         setContentView(R.layout.activity_main);
         MultiDex.install(this);

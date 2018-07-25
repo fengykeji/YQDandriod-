@@ -39,13 +39,15 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:visibility="gone"
+            android:visibility="visible"
             >
             <LinearLayout
+                android:id="@+id/ll_closeyongjin"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
                 android:padding="10dp"
+                android:visibility="visible"
                 >
 
                 <LinearLayout
@@ -55,7 +57,7 @@
                     android:orientation="horizontal"
                     android:paddingBottom="10dp"
                     android:paddingTop="10dp"
-                    android:visibility="gone"
+                    android:visibility="visible"
                     >
                     <TextView
                         android:layout_width="wrap_content"
@@ -63,8 +65,10 @@
                         android:layout_marginRight="10dp"
                         android:text="开始时间："
                         android:textSize="15sp"
+                        android:visibility="gone"
                         />
                     <TextView
+                        android:visibility="gone"
                         android:id="@+id/tv_begintime"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -76,9 +80,9 @@
                     android:id="@+id/ll_gone"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:gravity="center"
                     android:orientation="horizontal"
                     android:padding="10dp"
+                    android:layout_marginLeft="20dp"
                     >
                     <TextView
                         android:layout_width="wrap_content"
@@ -107,9 +111,9 @@
                     android:id="@+id/ll_gone2"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:gravity="center"
                     android:orientation="horizontal"
                     android:padding="10dp"
+                    android:layout_marginLeft="20dp"
                     >
                     <TextView
                         android:layout_width="wrap_content"
@@ -120,27 +124,35 @@
                         android:textSize="14sp"
                         />
                     <ImageView
+                        android:id="@+id/im_dian1"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginRight="5dp"
                         android:src="@drawable/ic_lightning_2"
                         />
                     <ImageView
+                        android:id="@+id/im_dian2"
+
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:src="@drawable/ic_lightning_3"
                         />
                     <ImageView
+                        android:id="@+id/im_dian3"
+
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:src="@drawable/ic_lightning_3"
                         />
                     <ImageView
+                        android:id="@+id/im_dian4"
+
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:src="@drawable/ic_lightning_3"
                         />
                     <ImageView
+                        android:id="@+id/im_dian5"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:src="@drawable/ic_lightning_3"
@@ -204,6 +216,7 @@
                     >
 
                     <TextView
+                        android:layout_marginLeft="10dp"
                         android:id="@+id/tv_yongjinguize"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -240,6 +253,10 @@
                 android:background="@drawable/ic_line"
                 />
             <!--结佣标准-->
+            <LinearLayout
+                android:id="@+id/ll_closebiaozhun"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -295,6 +312,7 @@
                         >
 
                         <TextView
+                            android:visibility="gone"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="成交："
@@ -310,6 +328,7 @@
                             />
 
                     </LinearLayout>
+                </LinearLayout>
 
 
                     <LinearLayout

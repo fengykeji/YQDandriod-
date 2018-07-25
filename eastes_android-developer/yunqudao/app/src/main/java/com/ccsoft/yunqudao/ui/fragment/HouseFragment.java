@@ -51,6 +51,7 @@ import com.ccsoft.yunqudao.utils.BaseCallBack;
 import com.ccsoft.yunqudao.utils.HideIMEUtil;
 import com.ccsoft.yunqudao.utils.JsonUtil;
 import com.ccsoft.yunqudao.utils.OkHttpManager;
+import com.ccsoft.yunqudao.utils.SpUtil;
 import com.facebook.drawee.backends.pipeline.Fresco;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -112,6 +113,7 @@ public class HouseFragment extends Fragment implements View.OnClickListener ,Hou
     private GetRequest getRequest;
     private AnimationDrawable anim;
     private ImageView yunsuan;
+    private int agent_id;
 
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         /**
@@ -144,6 +146,7 @@ public class HouseFragment extends Fragment implements View.OnClickListener ,Hou
         yunsuan.setImageResource(R.drawable.animation_refresh);
         anim = (AnimationDrawable) yunsuan.getDrawable();
 
+        agent_id = SpUtil.getInt("agent_id",0);
         if( getActivity().getIntent().getStringExtra("city_name")!=null) {
             city_name = getActivity().getIntent().getStringExtra("city_name");
             city_code = getActivity().getIntent().getStringExtra("city_code");
@@ -171,6 +174,8 @@ public class HouseFragment extends Fragment implements View.OnClickListener ,Hou
             public void onItemClickListner(View v, int position) {
                 Intent intent = new Intent(getContext(),ProjectXiangQingActivity.class);
                 intent.putExtra("project_id",houseListBeans.getData().get(position).getProject_id());
+                intent.putExtra("Cycle",houseListBeans.getData().get(position).getCycle());
+                intent.putExtra("brokerage",houseListBeans.getData().get(position).getGuarantee_brokerage());
                 startActivity(intent);
             }
         });
@@ -229,6 +234,7 @@ public class HouseFragment extends Fragment implements View.OnClickListener ,Hou
          getRequest = OkHttpUtils.get(HttpAdress.HOUSELIST)
                 .tag(this)
                 .params("city",city_code)
+                 .params("agent_id",agent_id)
 //                .params("project_name",project_name)
 //                .params("district",district)
 //                .params("verage_price",verage_price)

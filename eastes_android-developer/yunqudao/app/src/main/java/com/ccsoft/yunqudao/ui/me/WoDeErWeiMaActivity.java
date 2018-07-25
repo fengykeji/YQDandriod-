@@ -14,8 +14,16 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 import com.ccsoft.yunqudao.R;
+import com.ccsoft.yunqudao.bean.ErWeiMaBean;
+import com.ccsoft.yunqudao.data.AppConstants;
 import com.ccsoft.yunqudao.utils.ActivityManager;
+import com.ccsoft.yunqudao.utils.JsonUtil;
 import com.ccsoft.yunqudao.utils.ZXingUtils;
+import com.lzy.okhttputils.OkHttpUtils;
+import com.lzy.okhttputils.callback.StringCallback;
+
+import okhttp3.Call;
+import okhttp3.Response;
 
 /**
  * @author: Pein
@@ -28,13 +36,16 @@ public class WoDeErWeiMaActivity extends AppCompatActivity implements View.OnCli
     private Button mMe_button_二维码分享;
     private ImageView mMe_icon_二维码头像;
     private TextView mMe_text_二维码内名字;
+    private TextView mMe_text_云算号;
     private ImageView mMe_image_二维码;
+    private String Account;
 
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         ActivityManager.getInstance().addActivity(this);
         setContentView(R.layout.activity_me_erweima);
         initView();
+        initDta();
         initListener();
     }
 
@@ -52,10 +63,12 @@ public class WoDeErWeiMaActivity extends AppCompatActivity implements View.OnCli
         mMe_icon_二维码头像 = findViewById(R.id.me_icon_二维码头像);
         mMe_text_二维码内名字 = findViewById(R.id.me_text_二维码内名字);
         mMe_image_二维码 = findViewById(R.id.me_image_二维码);
+        mMe_text_云算号 = findViewById(R.id.me_text_云算号);
+        mMe_text_二维码内名字.setText(getIntent().getStringExtra("mename"));
+        Account = getIntent().getStringExtra("Account");
+        mMe_text_云算号.setText("云算号:"+Account);
 
-        String content = "ssssssss";
-        Bitmap bitmap = ZXingUtils.createQRImage(content, 200, 200);
-        mMe_image_二维码.setImageBitmap(bitmap);
+
     }
 
     private void initListener() {
@@ -78,4 +91,21 @@ public class WoDeErWeiMaActivity extends AppCompatActivity implements View.OnCli
                 break;
         }
     }
+
+    public void initDta(){
+        OkHttpUtils.get(AppConstants.URL+"agent/personal/qrcodeUrl")
+                .tag(this)
+                .execute(new StringCallback() {
+                    @Override
+                    public void onSuccess(String s, Call call, Response response) {
+                        ErWeiMaBean bean = JsonUtil.jsonToEntity(s,ErWeiMaBean.class);
+                        if(bean.getCode() == 200){
+                            String content = bean.getData().getUrl();
+                            Bitmap bitmap = ZXingUtils.createQRImage(content, 400, 400);
+                            mMe_image_二维码.setImageBitmap(bitmap);
+                        }
+                    }
+                });
+    }
+
 }

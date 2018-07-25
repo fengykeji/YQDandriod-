@@ -24,6 +24,7 @@ import com.ccsoft.yunqudao.ui.adapter.WorkListAdapter;
 import com.ccsoft.yunqudao.ui.listener.EndlessRecyclerOnScrollListener;
 import com.ccsoft.yunqudao.utils.ActivityManager;
 import com.ccsoft.yunqudao.utils.JsonUtil;
+import com.ccsoft.yunqudao.utils.SpUtil;
 import com.lzy.okhttputils.OkHttpUtils;
 import com.lzy.okhttputils.callback.StringCallback;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
@@ -36,6 +37,7 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.List;
 
+import cn.jpush.android.api.JPushInterface;
 import okhttp3.Call;
 import okhttp3.Response;
 
@@ -68,6 +70,8 @@ public class WorkMessageActivity extends AppCompatActivity implements View.OnCli
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         ActivityManager.getInstance().addActivity(this);
+        JPushInterface.init(this);
+        JPushInterface.setAlias(this,"agent_"+ SpUtil.getInt("agent_id",0),null);
         setContentView(R.layout.activity_message_workmessage);
         initView();
 

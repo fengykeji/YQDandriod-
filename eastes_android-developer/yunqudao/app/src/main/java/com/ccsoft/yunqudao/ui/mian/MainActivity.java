@@ -16,6 +16,7 @@ import com.ccsoft.yunqudao.utils.ActivityManager;
 import com.ccsoft.yunqudao.utils.BaseCallBack;
 import com.ccsoft.yunqudao.utils.OkHttpManager;
 import com.ccsoft.yunqudao.utils.SpUtil;
+import com.ccsoft.yunqudao.utils.TokenInterceptor;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.lzy.okhttputils.OkHttpUtils;
@@ -40,7 +41,39 @@ public class MainActivity extends Activity {
     private  static PeizhiBean peizhiBean;
 
 
+    private static boolean isExit = false;
 
+    Handler mHandler = new Handler() {
+
+        @Override
+        public void handleMessage(Message msg) {
+            super.handleMessage(msg);
+            isExit = false;
+        }
+    };
+
+
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if (keyCode == KeyEvent.KEYCODE_BACK) {
+            exit();
+            return false;
+        }
+        return super.onKeyDown(keyCode, event);
+    }
+
+    private void exit() {
+        if (!isExit) {
+            isExit = true;
+            Toast.makeText(getApplicationContext(), "再按一次退出程序",
+                    Toast.LENGTH_SHORT).show();
+            // 利用handler延迟发送更改状态信息
+            mHandler.sendEmptyMessageDelayed(0, 2000);
+        } else {
+            finish();
+            System.exit(0);
+        }
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,7 +93,8 @@ public class MainActivity extends Activity {
                 .setReadTimeOut(10*1000)
                 .setWriteTimeOut(10*1000)
                 .setCookieStore(new PersistentCookieStore())
-                .addCommonHeaders(headers);
+                .addCommonHeaders(headers)
+                .addInterceptor(new TokenInterceptor(MainActivity.this));
 
         new Handler().postDelayed(new Runnable() {
             @Override
