@@ -103,7 +103,7 @@ public class CustomersFragment extends Fragment implements View.OnClickListener,
     private CustomersRecyclerAdapter mAdapter;
 
     private List<CustomerListViewModel> mViewModels = new ArrayList<>();
-    private List<ClientListModel.Data> dataList = new ArrayList<>();
+    private List<ClientListModel.DataBeanX.DataBean> dataList = new ArrayList<>();
 
     private String search;
     private EditText et_search;
@@ -177,7 +177,7 @@ public class CustomersFragment extends Fragment implements View.OnClickListener,
         this.mAdapter.setOnItemClickListner(new BaseRecyclerAdapter.OnItemClickListner() {
             @Override
             public void onItemClickListner(View v, int position) {
-                ClientListModel.Data viewModel = dataList.get(position);//每一条item的数据
+                ClientListModel.DataBeanX.DataBean viewModel = dataList.get(position);//每一条item的数据
 //                CustomersXiangQingActivity.start(getActivity(), viewModel.getClient_id());//拿id查数据
                 Intent intent = new Intent(getContext(),CustomersXiangQingActivity.class);
                 intent.putExtra("client_id",viewModel.getClient_id());
@@ -242,7 +242,7 @@ public class CustomersFragment extends Fragment implements View.OnClickListener,
                     e.printStackTrace();
                 }
                 if (code == 200 && data != null) {
-                    ClientListModel clientListModel = JsonUtil.jsonToEntity(data, ClientListModel.class);
+                    ClientListModel.DataBeanX clientListModel = JsonUtil.jsonToEntity(data, ClientListModel.DataBeanX.class);
                     totalPage = clientListModel.getLast_page();
                     curPage = 2;
                     dataList.clear();
@@ -301,7 +301,7 @@ public class CustomersFragment extends Fragment implements View.OnClickListener,
                     e.printStackTrace();
                 }
                 if (code == 200 && data != null) {
-                    ClientListModel clientListModel = JsonUtil.jsonToEntity(data, ClientListModel.class);
+                    ClientListModel.DataBeanX clientListModel = JsonUtil.jsonToEntity(data, ClientListModel.DataBeanX.class);
                     totalPage = clientListModel.getLast_page();
                     curPage = 2;
                     dataList.clear();
@@ -358,7 +358,7 @@ public class CustomersFragment extends Fragment implements View.OnClickListener,
                     e.printStackTrace();
                 }
                 if (code == 200 && data != null) {
-                    ClientListModel clientListModel = JsonUtil.jsonToEntity(data, ClientListModel.class);
+                    ClientListModel.DataBeanX clientListModel = JsonUtil.jsonToEntity(data, ClientListModel.DataBeanX.class);
                     totalPage = clientListModel.getLast_page();
                     curPage = 2;
                     dataList.clear();
@@ -469,7 +469,7 @@ public class CustomersFragment extends Fragment implements View.OnClickListener,
                 }
                 if (code == 200 && data != null) {
                     curPage++;
-                    ClientListModel clientListModel = JsonUtil.jsonToEntity(data, ClientListModel.class);
+                    ClientListModel.DataBeanX clientListModel = JsonUtil.jsonToEntity(data, ClientListModel.DataBeanX.class);
                     dataList.addAll(clientListModel.getData());
                     mAdapter.notifyDataSetChanged();
                 }

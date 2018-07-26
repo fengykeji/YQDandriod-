@@ -1,6 +1,7 @@
 package com.ccsoft.yunqudao.ui.adapter;
 
 import android.content.Context;
+import android.util.Log;
 import android.widget.ImageView;
 import android.widget.TextView;
 import com.ccsoft.yunqudao.R;
@@ -17,15 +18,15 @@ import java.util.List;
  * @data: 2018/5/23 0023
  */
 
-public class CustomersRecyclerAdapter extends BaseRecyclerAdapter<ClientListModel.Data>{
+public class CustomersRecyclerAdapter extends BaseRecyclerAdapter<ClientListModel.DataBeanX.DataBean>{
 
 
-    public CustomersRecyclerAdapter(Context context, int layoutId, List<ClientListModel.Data> data) {
+    public CustomersRecyclerAdapter(Context context, int layoutId, List<ClientListModel.DataBeanX.DataBean> data) {
         super(context, layoutId, data);
     }
 
     @Override
-    protected void convert(BaseViewHolder holder, ClientListModel.Data bean,int position) {
+    protected void convert(BaseViewHolder holder, ClientListModel.DataBeanX.DataBean bean,int position) {
         TextView mCustomers_text_姓名 = (TextView) holder.getView(R.id.customers_text_姓名);
         ImageView mCustomers_image_性别 = (ImageView) holder.getView(R.id.customers_image_性别);
         TextView mCustomers_text_意向总价 = (TextView) holder.getView(R.id.customers_text_意向总价);
@@ -93,7 +94,11 @@ public class CustomersRecyclerAdapter extends BaseRecyclerAdapter<ClientListMode
 
         mCustomers_text_联系电话.setText(String.valueOf(bean.getTel()));
         mCustomers_text_购买意向度.setText(String.valueOf(bean.getIntent()) + "%");
-//        mCustomers_text_意向区域.setText(bean.);
+        if(!bean.getRegion().toString().equals("[]")) {
+            mCustomers_text_意向区域.setText(bean.getRegion().get(0).getProvince_name()
+            +"-"+bean.getRegion().get(0).getCity_name()+"-"+
+                    bean.getRegion().get(0).getDistrict_name());
+        }
         mCustomers_text_购买紧迫度.setText(String.valueOf(bean.getUrgency()) + "%");
 
     }

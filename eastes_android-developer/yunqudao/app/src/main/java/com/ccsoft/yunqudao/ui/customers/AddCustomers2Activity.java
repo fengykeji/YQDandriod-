@@ -56,7 +56,9 @@ import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 import org.jaaksi.pickerview.dataset.OptionDataSet;
+import org.jaaksi.pickerview.picker.BasePicker;
 import org.jaaksi.pickerview.picker.OptionPicker;
+import org.jaaksi.pickerview.widget.PickerView;
 
 
 import java.util.ArrayList;
@@ -129,6 +131,8 @@ public class AddCustomers2Activity extends AppCompatActivity implements View.OnC
     private int progress = 0;
     private boolean flag = true;
     private String provinceId ="", cityId =""/*= "230"*/, countyId=""/* = "234"*/,region = "";
+    private String provinceId1 ="", cityId1 =""/*= "230"*/, countyId1=""/* = "234"*/;
+
     private OptionPicker mPicker;
     private Province province;
     private OpenCityData         openCityData;
@@ -419,7 +423,8 @@ public class AddCustomers2Activity extends AppCompatActivity implements View.OnC
                 card_id+"card  "+address+"address  "+property_type+"pro  "+price+"m3  "+
                 area+"m4  "+house_type+" house "+floor_min+"min  "+floor_max+"max  "+
                 decorate+"dec  "+buy_purpose+"buy  "+pay_type+"pay  "+intent+"int  "+
-                urgency+"urg  "+need_tags+"need "+comment+"comment"+provinceId+"provinceId");
+                urgency+"urg  "+need_tags+"need "+comment+"comment"+provinceId+"provinceId"
+                +cityId +"cityId"+countyId+"countyId"+"region"+region);
 
                 if(fastR!=null&&fastR.equals("fastR")){
 
@@ -566,8 +571,20 @@ public class AddCustomers2Activity extends AppCompatActivity implements View.OnC
         String foodJson = LocalJsonResolutionUtils.getJson(this, fileName);
         province = LocalJsonResolutionUtils.JsonToObject(foodJson, Province.class);
 
-        mPicker = new OptionPicker.Builder(this, 2, this).create();
+        mPicker = new OptionPicker.Builder(this, 2, this)
+                .setInterceptor(new BasePicker.Interceptor() {
+                    @Override
+                    public void intercept(PickerView pickerView) {
+                        int color = getResources().getColor(R.color.gray);
+                        pickerView.setTextSize(16,18);
+                        pickerView.setColor(0xFF000000,color);
+
+                    }
+                })
+                .create();
         mPicker.getTopBar().getTitleView().setText("请选择城市");
+        mPicker.getTopBar().getTopBarView().setBackgroundColor(0xFF666666);
+        mPicker.getTopBar().getTitleView().setBackgroundColor(0xFF666666);
         List<Province.DynamicBean.CityBean> data1 = new ArrayList<>() ;
         Province.DynamicBean s;
         for (Province.DynamicBean dynamicBean : province.getDynamic()) {
@@ -596,21 +613,21 @@ public class AddCustomers2Activity extends AppCompatActivity implements View.OnC
         Province.DynamicBean.CityBean city = (Province.DynamicBean.CityBean) selectedOptions[0];
         Province.DynamicBean.CityBean.DistrictBean county = (Province.DynamicBean.CityBean.DistrictBean) selectedOptions[1];
         if (city == null) {
-            cityId = "";
-            countyId = "";
+            cityId1 = "";
+            countyId1 = "";
 //            text = province.getName();
         } else {
-            cityId = city.getCode();
+            cityId1 = city.getCode();
             if (county == null) {
-                countyId = "";
+                countyId1 = "";
                 text = city.getName();
             } else {
-                cityId = city.getCode();
-                countyId = county.getCode();
+                cityId1 = city.getCode();
+                countyId1 = county.getCode();
                 text = "四川省"+"/"+city.getName()+"/"+county.getName();
             }
         }
-        region = 51000+"-"+cityId+"-"+countyId;
+        region = 510000+"-"+cityId1+"-"+countyId1;
         mNeed_text_address.setText(text);
 
     }
@@ -677,9 +694,9 @@ public class AddCustomers2Activity extends AppCompatActivity implements View.OnC
         birth = getIntent().getStringExtra("birth");
         card_id = getIntent().getStringExtra("card_id");
         address = getIntent().getStringExtra("address");
-        provinceId = getIntent().getStringExtra("provinceId");
-        cityId = getIntent().getStringExtra("cityId");
-        countyId = getIntent().getStringExtra("countyId");
+        provinceId = getIntent().getStringExtra("province");
+        cityId = getIntent().getStringExtra("city");
+        countyId = getIntent().getStringExtra("district");
     }
 
     /**

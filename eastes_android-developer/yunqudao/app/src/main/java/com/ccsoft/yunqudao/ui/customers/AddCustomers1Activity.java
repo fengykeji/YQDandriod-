@@ -52,7 +52,9 @@ import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 import org.jaaksi.pickerview.dataset.OptionDataSet;
+import org.jaaksi.pickerview.picker.BasePicker;
 import org.jaaksi.pickerview.picker.OptionPicker;
+import org.jaaksi.pickerview.widget.PickerView;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -246,8 +248,20 @@ public class AddCustomers1Activity extends AppCompatActivity implements View.OnC
         String foodJson = LocalJsonResolutionUtils.getJson(this, fileName);
         province = LocalJsonResolutionUtils.JsonToObject(foodJson, Province.class);
 
-        mPicker = new OptionPicker.Builder(this, 3, this).create();
+        mPicker = new OptionPicker.Builder(this, 3, this)
+                .setInterceptor(new BasePicker.Interceptor() {
+                    @Override
+                    public void intercept(PickerView pickerView) {
+                        int color = getResources().getColor(R.color.gray);
+                        pickerView.setTextSize(16,18);
+                        pickerView.setColor(0xFF000000,color);
+                    }
+                })
+                .create();
         mPicker.getTopBar().getTitleView().setText("请选择城市");
+        mPicker.getTopBar().getTopBarView().setBackgroundColor(0xFF666666);
+        mPicker.getTopBar().getTitleView().setBackgroundColor(0xFF666666);
+
         List<Province.DynamicBean> data = province.getDynamic();
         mPicker.setDataWithValues(data);
         mPicker.setSelectedWithValues(provinceId, cityId, countyId);

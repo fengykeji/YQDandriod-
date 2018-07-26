@@ -76,7 +76,9 @@ public class ResetPassWordActivity extends AppCompatActivity implements View.OnC
                 finish();
                 break;
             case R.id.me_button_完成:
-//                updata();
+                updata(mMe_edittext_原始密码.getText().toString(),
+                        mMe_edittext_新密码.getText().toString(),
+                        mMe_edittext_再次输入新密码.getText().toString());
                 break;
         }
     }
@@ -85,8 +87,10 @@ public class ResetPassWordActivity extends AppCompatActivity implements View.OnC
      * 修改个人信息
      */
     public void updata(String password, String passwordagin,String surepassword){
-        OkHttpUtils.post(HttpAdress.meupdate)
-//                .params("sex",sex)
+        OkHttpUtils.post(HttpAdress.changePassword)
+                .params("old_password",password)
+                .params("password",passwordagin)
+                .params("password_verify",surepassword)
                 .execute(new StringCallback() {
                     @Override
                     public void onSuccess(String s, Call call, Response response) {
