@@ -419,6 +419,17 @@ public class AddCustomers2Activity extends AppCompatActivity implements View.OnC
                     comment = et_comment.getText().toString();
                 }
 
+                if(provinceId.equals("null")&&cityId.equals("null")){
+                    provinceId = "";
+                    cityId ="";
+                    countyId ="";
+                }
+
+                if(cityId1.equals("null")&&countyId1.equals("null")){
+                    region="";
+                }
+
+
                 Log.e("cccccw",name+"name "+sex+"sex  "+tel+"tel  "+birth+"bir  "+
                 card_id+"card  "+address+"address  "+property_type+"pro  "+price+"m3  "+
                 area+"m4  "+house_type+" house "+floor_min+"min  "+floor_max+"max  "+
@@ -488,6 +499,7 @@ public class AddCustomers2Activity extends AppCompatActivity implements View.OnC
 
                     return;
                 }
+
 
                 OkHttpUtils.post(HttpAdress.addClientAndNeed)
                         .tag(this)
@@ -601,7 +613,7 @@ public class AddCustomers2Activity extends AppCompatActivity implements View.OnC
         }
 
         mPicker.setDataWithValues(data1);
-        mPicker.setSelectedWithValues( provinceId, cityId, countyId);
+        mPicker.setSelectedWithValues( provinceId1, cityId1, countyId1);
         mPicker.show();
 
     }

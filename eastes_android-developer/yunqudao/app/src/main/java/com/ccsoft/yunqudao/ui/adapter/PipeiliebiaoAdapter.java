@@ -26,7 +26,8 @@ public class PipeiliebiaoAdapter extends BaseRecyclerAdapter<PipeiBean.DataBean.
 
     @Override
     protected void convert(BaseViewHolder holder, PipeiBean.DataBean.ListBean bean ,int position) {
-        holder.setText(R.id.content_tv1,"匹配度："+bean.getSort());
+        holder.setText(R.id.content_tv1,"匹配度："+bean.getScore()+"%");
+        holder.setText(R.id.title_tv1,bean.getProject_name());
 
         holder.setImageResource(R.id.icon_iv, AppConstants.URL + bean.getImg_url());
         if (bean.getBrokerSortCompare() == 1) {
@@ -90,16 +91,19 @@ public class PipeiliebiaoAdapter extends BaseRecyclerAdapter<PipeiBean.DataBean.
         linearLayout.removeAllViews();
         linearLayout1.removeAllViews();
         PeizhiBean peizhiBean = MainActivity.savePeizhi();
-        peizhiBean.getData().get_$16().getParam();
-        peizhiBean.getData().get_$15().getParam();
+        if(peizhiBean.getData()!=null) {
+            peizhiBean.getData().get_$16().getParam();
+            peizhiBean.getData().get_$15().getParam();
+        }
         ImageView imageView;
 
         for (int i = 0; i < peizhiBean.getData().get_$16().getParam().size(); i++) {
+            if(bean.getProperty_tags()!=null){
             if (bean.getProperty_tags().size() > 0) {
                 for (int j = 0; j < bean.getProperty_tags().size(); j++) {
                     if (peizhiBean.getData().get_$16().getParam().get(i).getId() == bean.getProperty_tags().get(j)) {
                         String s = peizhiBean.getData().get_$16().getParam().get(i).getParam();
-                        if(true) {
+                        if (true) {
                             imageView = new ImageView(context);
                             if (peizhiBean.getData().get_$16().getParam().get(i).getId() == 59) {
                                 imageView.setImageResource(R.drawable.ic_residential2);
@@ -119,6 +123,7 @@ public class PipeiliebiaoAdapter extends BaseRecyclerAdapter<PipeiBean.DataBean.
                             }
                         }
                     }
+                }
                 }
             }
         }

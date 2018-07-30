@@ -144,12 +144,11 @@ public class PiPeiXinXiFragment extends Fragment implements View.OnClickListener
                     e.printStackTrace();
                 }
                 if (code == 200 && data != null) {
-                    Log.e("cc", "onSuccess: "+data);
                     PipeiBean matchData = JsonUtil.jsonToEntity(s, PipeiBean.class);
                     if(matchData.getData()!=null&&matchData.getData().getRecommend_project().size()==0) {
                         tv_num.setText("0");
                     } else {
-                        tv_num.setText(matchData.getData().getRecommend_project().size()+"");
+                        tv_num.setText("（"+matchData.getData().getRecommend_project().size()+"）");
                         dataList.clear();
                         dataList.addAll(matchData.getData().getList());
                         adapter.notifyDataSetChanged();

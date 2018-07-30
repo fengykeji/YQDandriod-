@@ -242,6 +242,10 @@ public class AddCustomers1Activity extends AppCompatActivity implements View.OnC
                 break;
         }
     }
+
+    /**
+     * 城市选择
+     */
     private void setCityPickerview(){
 
         String fileName = "region.json";

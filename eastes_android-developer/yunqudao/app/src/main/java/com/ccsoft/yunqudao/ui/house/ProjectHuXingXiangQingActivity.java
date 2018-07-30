@@ -78,10 +78,15 @@ public class ProjectHuXingXiangQingActivity extends AppCompatActivity implements
     private List<ProjectPiPeiKeHuBean.DataBean> dataList3 = new ArrayList<>();
     private int project_id;
     private TextView content_tv14;
-    private ProjectPiPeiKeHuBean piPeiKeHuBean;
+    private ProjectPiPeiKeHuBean piPeiKeHuBean = new ProjectPiPeiKeHuBean();
     private RecyclerView re_pipei;
     private ProjectPiPeiAdapter adapter;
 
+    @Override
+    protected void onStart() {
+        super.onStart();
+        initData();
+    }
 
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -122,6 +127,7 @@ public class ProjectHuXingXiangQingActivity extends AppCompatActivity implements
         tabLayout = findViewById(R.id.tl_tablaout);
         content_tv14 = findViewById(R.id.content_tv14);
         re_pipei = findViewById(R.id.re_pipei);
+        recyclerView = findViewById(R.id.re_huxing);
 
 
 
@@ -137,18 +143,22 @@ public class ProjectHuXingXiangQingActivity extends AppCompatActivity implements
         dataList2 = dataList;
 
 
-        for (int i = 0; i < dataList.size(); i++) {
-            if(dataList.get(i).getId()==id){
-                dataList.remove(i);
-            }
-        }
+//        for (int i = 0; i < dataList.size(); i++) {
+//            if(dataList.get(i).getId()==id){
+//                dataList.remove(i);
+//            }
+//        }
 
-        recyclerView = findViewById(R.id.re_huxing);
+
         LinearLayoutManager layoutManager = new LinearLayoutManager(this);
         layoutManager.setOrientation(LinearLayoutManager.HORIZONTAL);
         recyclerView.setLayoutManager(layoutManager);
         speedHourAdapter = new SpeedHourAdapter(this,dataList);
         recyclerView.setAdapter(speedHourAdapter);
+        getPiPeiKeHu();
+
+
+
 
         speedHourAdapter.setOnItemClickListener(new SpeedHourAdapter.OnItemClickListener() {
             @Override
@@ -157,13 +167,14 @@ public class ProjectHuXingXiangQingActivity extends AppCompatActivity implements
                 Intent intent = new Intent(ProjectHuXingXiangQingActivity.this,ProjectHuXingXiangQingActivity.class);
                 Bundle bundle = new Bundle();
                 bundle.putSerializable("list", (Serializable) dataList);
+                intent.putExtra("project_id",project_id);
                 intent.putExtra("id",dataList.get(position).getId());
                 intent.putExtras(bundle);
                 startActivity(intent);
             }
         });
 
-        getPiPeiKeHu();
+
 
     }
 
@@ -190,6 +201,7 @@ public class ProjectHuXingXiangQingActivity extends AppCompatActivity implements
                 Type type = new TypeToken<ProjectHuXingXiangQingBean>(){}.getType();
                 bean = new Gson().fromJson(obj.toString(),type);
                 if(bean.getCode()==200&&bean.getData()!=null){
+
                     tv_house_type_name.setText(bean.getData().getBaseInfo().getHouse_type_name());
                     tv_property_area.setText(bean.getData().getBaseInfo().getProperty_area_min()+"m2--"
                     +bean.getData().getBaseInfo().getProperty_area_max()+"m2");

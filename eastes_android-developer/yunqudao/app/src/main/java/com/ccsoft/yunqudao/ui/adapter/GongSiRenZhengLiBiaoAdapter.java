@@ -27,7 +27,11 @@ public class GongSiRenZhengLiBiaoAdapter extends BaseRecyclerAdapter<GetCompanyL
                 .fit().into(imageView);
         holder.setText(R.id.tv_companyname,bean.getCompany_name());
         holder.setText(R.id.tv_content,bean.getAbsolute_address());
-        holder.setText(R.id.tv_tel,"联系方式："+bean.getContact_tel());
+        if(bean.getContact_tel()==null){
+            holder.setText(R.id.tv_tel,"联系方式：");
+        }else {
+            holder.setText(R.id.tv_tel, "联系方式：" + bean.getContact_tel());
+        }
         holder.setText(R.id.tv_person,"负责人："+bean.getContact());
     }
 }

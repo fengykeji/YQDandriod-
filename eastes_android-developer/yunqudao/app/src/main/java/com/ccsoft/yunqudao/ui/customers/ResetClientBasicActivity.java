@@ -19,6 +19,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 import com.ccsoft.yunqudao.R;
 import com.ccsoft.yunqudao.bean.CustomersGetInfoBean;
+import com.ccsoft.yunqudao.bean.Province;
 import com.ccsoft.yunqudao.data.AppConstants;
 import com.ccsoft.yunqudao.data.model.response.ClientPrivateData;
 import com.ccsoft.yunqudao.data.model.response.ResultData;
@@ -30,14 +31,21 @@ import com.ccsoft.yunqudao.utils.DateUtil;
 import com.ccsoft.yunqudao.utils.HideIMEUtil;
 import com.ccsoft.yunqudao.utils.InputUtil;
 import com.ccsoft.yunqudao.utils.JsonUtil;
+import com.ccsoft.yunqudao.utils.LocalJsonResolutionUtils;
 import com.ccsoft.yunqudao.utils.wheelview.TimePickerView;
 import com.lzy.okhttputils.OkHttpUtils;
 import com.lzy.okhttputils.callback.StringCallback;
+
+import org.jaaksi.pickerview.dataset.OptionDataSet;
+import org.jaaksi.pickerview.picker.BasePicker;
+import org.jaaksi.pickerview.picker.OptionPicker;
+import org.jaaksi.pickerview.widget.PickerView;
 
 import java.io.Serializable;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import okhttp3.Call;
@@ -48,9 +56,10 @@ import okhttp3.Response;
  * @data: 2018/5/28 0028
  */
 
-public class ResetClientBasicActivity extends AppCompatActivity implements View.OnClickListener {
+public class ResetClientBasicActivity extends AppCompatActivity implements View.OnClickListener ,OptionPicker.OnOptionSelectListener{
 
     private TextView          mCustomers_edittext_name;
+    private TextView customers_edittext_address3;
     private Spinner           mCustomers_spinner_sex;
     private TextView          mCustomers_text_birthday;
     private EditText          mCustomers_edittext_tel;
@@ -64,6 +73,10 @@ public class ResetClientBasicActivity extends AppCompatActivity implements View.
     private int               type;
     private int                mClient_id;
     private CustomersGetInfoBean mClientPrivateData;
+    private String provinceId ="", cityId =""/*= "230"*/, countyId=""/* = "234"*/;
+    private OptionPicker mPicker;
+    private Province province;
+
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -103,6 +116,7 @@ public class ResetClientBasicActivity extends AppCompatActivity implements View.
         mCustomers_edittext_address1 = findViewById(R.id.customers_edittext_address1);
         mButton_next = findViewById(R.id.button_next);
         mCustomers_button_birthday = findViewById(R.id.customers_button_birthday);
+        customers_edittext_address3 = findViewById(R.id.customers_edittext_address3);
 
         if (mClientPrivateData != null) {
             mCustomers_edittext_name.setText(mClientPrivateData.getData().getBasic().getName());
@@ -111,6 +125,9 @@ public class ResetClientBasicActivity extends AppCompatActivity implements View.
             mCustomers_edittext_card_id.setText(mClientPrivateData.getData().getBasic().getCard_id());
             mCustomers_edittext_address1.setText(mClientPrivateData.getData().getBasic().getAddress());
             mClient_id = mClientPrivateData.getData().getBasic().getClient_id();
+            provinceId = mClientPrivateData.getData().getBasic().getProvince();
+            cityId = mClientPrivateData.getData().getBasic().getCity();
+            countyId = mClientPrivateData.getData().getBasic().getDistrict();
             mSex = mClientPrivateData.getData().getBasic().getSex()+"";
             if (mSex.equals(0+"")){
                 mSex = "";
@@ -118,6 +135,11 @@ public class ResetClientBasicActivity extends AppCompatActivity implements View.
                 mSex = "男";
             }else if(mSex.equals("2")){
                 mSex = "女";
+            }
+            if(mClientPrivateData.getData().getBasic().getProvince_name()!=null) {
+                customers_edittext_address3.setText(mClientPrivateData.getData().getBasic().getProvince_name()
+                        + "-" + mClientPrivateData.getData().getBasic().getCity_name() + "-" +
+                        mClientPrivateData.getData().getBasic().getDistrict_name());
             }
             setSpinnerItemSelectedByValue(mCustomers_spinner_sex,mSex);
             mCustomers_spinner_sex.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
@@ -148,6 +170,7 @@ public class ResetClientBasicActivity extends AppCompatActivity implements View.
         mButton_next.setOnClickListener(this);
         mCustomers_button_birthday.setOnClickListener(this);
         mCustomers_text_birthday.setOnClickListener(this);
+        customers_edittext_address3.setOnClickListener(this);
     }
 
     @Override
@@ -179,60 +202,127 @@ public class ResetClientBasicActivity extends AppCompatActivity implements View.
                     return;
                 }
 
+                if(provinceId.equals("null")&&cityId.equals("null")){
+                    provinceId = "";
+                    cityId = "";
+                    countyId = "";
+                }
+
                 String birth = null;
-                if(mCustomers_text_birthday.getText().toString().equals("0000-00-00")){
+                if (mCustomers_text_birthday.getText().toString().equals("0000-00-00")) {
                     OkHttpUtils.post(HttpAdress.update)
                             .tag(this)
-                            .params("client_id",String.valueOf(mClient_id))
+                            .params("client_id", String.valueOf(mClient_id))
                             .params("name", mName)
-                            .params("sex",String.valueOf(type))
+                            .params("sex", String.valueOf(type))
                             .params("tel", mCustomers_edittext_tel.getText().toString())
                             .params("card_id", mCustomers_edittext_card_id.getText().toString())
+                            .params("province",provinceId)
+                            .params("city",cityId)
+                            .params("district",countyId)
                             .params("address", mCustomers_edittext_address1.getText().toString())
                             .execute(new StringCallback() {
                                 @Override
                                 public void onSuccess(String s, Call call, Response response) {
-                                    StringModel model = JsonUtil.jsonToEntity(s,StringModel.class);
-                                    if(model.getCode()==200){
+                                    StringModel model = JsonUtil.jsonToEntity(s, StringModel.class);
+                                    if (model.getCode() == 200) {
                                         sendBroadcast(new Intent(AppConstants.REFRESH_CUSTOM_LIST));
                                         finish();
                                     }
-                                    Toast.makeText(ResetClientBasicActivity.this,model.getMsg(),Toast.LENGTH_SHORT).show();
+                                    Toast.makeText(ResetClientBasicActivity.this, model.getMsg(), Toast.LENGTH_SHORT).show();
                                     return;
                                 }
                             });
-                }else {
+                } else {
 
                     birth = mCustomers_text_birthday.getText().toString();
 
 
-                OkHttpUtils.post(HttpAdress.update)
-                        .tag(this)
-                        .params("client_id",String.valueOf(mClient_id))
-                        .params("name", mName)
-                        .params("sex",String.valueOf(type))
-                        .params("tel", mCustomers_edittext_tel.getText().toString())
-                        .params("birth", birth)
-                        .params("card_id", mCustomers_edittext_card_id.getText().toString())
-                        .params("address", mCustomers_edittext_address1.getText().toString())
-                        .execute(new StringCallback() {
-                            @Override
-                            public void onSuccess(String s, Call call, Response response) {
-                                StringModel model = JsonUtil.jsonToEntity(s,StringModel.class);
+                    OkHttpUtils.post(HttpAdress.update)
+                            .tag(this)
+                            .params("client_id", String.valueOf(mClient_id))
+                            .params("name", mName)
+                            .params("sex", String.valueOf(type))
+                            .params("tel", mCustomers_edittext_tel.getText().toString())
+                            .params("birth", birth)
+                            .params("card_id", mCustomers_edittext_card_id.getText().toString())
+                            .params("province",provinceId)
+                            .params("city",cityId)
+                            .params("district",countyId)
+                            .params("address", mCustomers_edittext_address1.getText().toString())
+                            .execute(new StringCallback() {
+                                @Override
+                                public void onSuccess(String s, Call call, Response response) {
+                                    StringModel model = JsonUtil.jsonToEntity(s, StringModel.class);
 
-                                if(model.getCode()==200){
-                                    sendBroadcast(new Intent(AppConstants.REFRESH_CUSTOM_LIST));
-                                    finish();
+                                    if (model.getCode() == 200) {
+                                        sendBroadcast(new Intent(AppConstants.REFRESH_CUSTOM_LIST));
+                                        finish();
+                                    }
+                                    Toast.makeText(ResetClientBasicActivity.this, model.getMsg(), Toast.LENGTH_SHORT).show();
+
+
                                 }
-                                Toast.makeText(ResetClientBasicActivity.this,model.getMsg(),Toast.LENGTH_SHORT).show();
-
-
-                            }
-                        });
-        }
+                            });
+                }
+                break;
+            case R.id.customers_edittext_address3:
+                setCityPickerview();
                 break;
         }
+    }
 
+
+    private void setCityPickerview(){
+
+        String fileName = "region.json";
+        String foodJson = LocalJsonResolutionUtils.getJson(this, fileName);
+        province = LocalJsonResolutionUtils.JsonToObject(foodJson, Province.class);
+
+        mPicker = new OptionPicker.Builder(this, 3, this)
+                .setInterceptor(new BasePicker.Interceptor() {
+                    @Override
+                    public void intercept(PickerView pickerView) {
+                        int color = getResources().getColor(R.color.gray);
+                        pickerView.setTextSize(16,18);
+                        pickerView.setColor(0xFF000000,color);
+                    }
+                })
+                .create();
+        mPicker.getTopBar().getTitleView().setText("请选择城市");
+        mPicker.getTopBar().getTopBarView().setBackgroundColor(0xFF666666);
+        mPicker.getTopBar().getTitleView().setBackgroundColor(0xFF666666);
+
+        List<Province.DynamicBean> data = province.getDynamic();
+        mPicker.setDataWithValues(data);
+        mPicker.setSelectedWithValues(provinceId, cityId, countyId);
+        mPicker.show();
+
+
+    }
+    @Override
+    public void onOptionSelect(OptionPicker picker, int[] selectedPosition, OptionDataSet[] selectedOptions) {
+        String text;
+        Province.DynamicBean province = (Province.DynamicBean) selectedOptions[0];
+        provinceId = province.getCode();
+        Province.DynamicBean.CityBean city = (Province.DynamicBean.CityBean) selectedOptions[1];
+        Province.DynamicBean.CityBean.DistrictBean county = (Province.DynamicBean.CityBean.DistrictBean) selectedOptions[2];
+        if (city == null) {
+            cityId = "";
+            countyId = "";
+            text = province.getName();
+        } else {
+            cityId = city.getCode();
+            if (county == null) {
+                countyId = "";
+                text = city.getName();
+            } else {
+                cityId = city.getCode();
+                countyId = county.getCode();
+                text = province.getName()+"/"+city.getName()+"/"+county.getName();
+            }
+        }
+        customers_edittext_address3.setText(text);
 
     }
 

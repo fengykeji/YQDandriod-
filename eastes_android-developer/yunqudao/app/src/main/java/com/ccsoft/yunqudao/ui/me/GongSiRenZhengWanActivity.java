@@ -5,6 +5,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -39,6 +40,7 @@ public class GongSiRenZhengWanActivity extends AppCompatActivity implements View
     private ImageButton me_button_返回;
     private ImageView ib_photo;
     private int id;
+    private GongSiRenZhengBean bean;
 
 
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -94,7 +96,7 @@ public class GongSiRenZhengWanActivity extends AppCompatActivity implements View
 
                          if (code == 200 && data != null) {
 
-                            GongSiRenZhengBean bean = JsonUtil.jsonToEntity(s,GongSiRenZhengBean.class);
+                             bean = JsonUtil.jsonToEntity(s,GongSiRenZhengBean.class);
                             tv_company.setText(bean.getData().getCompany_name());
                             et_gonghao.setText(bean.getData().getWork_code());
                             et_suoshubumen.setText(bean.getData().getDepartment());
@@ -115,6 +117,8 @@ public class GongSiRenZhengWanActivity extends AppCompatActivity implements View
                 break;
             case R.id.button_next:
                 Intent intent = new Intent(GongSiRenZhengWanActivity.this,GongSiRenZheng1Activity.class);
+                intent.putExtra("chongxin",123);
+                intent.putExtra("bId",bean.getData().getId());
                 startActivity(intent);
 
                 break;

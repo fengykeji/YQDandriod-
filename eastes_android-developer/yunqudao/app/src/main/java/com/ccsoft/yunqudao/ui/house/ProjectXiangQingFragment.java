@@ -595,8 +595,10 @@ public class ProjectXiangQingFragment extends Fragment implements View.OnClickLi
                             linearLayout.removeAllViews();
                             linearLayout1.removeAllViews();
                             PeizhiBean peizhiBean = MainActivity.savePeizhi();
-                            peizhiBean.getData().get_$16().getParam();
-                            peizhiBean.getData().get_$15().getParam();
+                            if(peizhiBean.getData()!=null) {
+                                peizhiBean.getData().get_$16().getParam();
+                                peizhiBean.getData().get_$15().getParam();
+                            }
 
                             ImageView imageView;
                             if(bean.getProject_basic_info().getProperty_type()!=null){

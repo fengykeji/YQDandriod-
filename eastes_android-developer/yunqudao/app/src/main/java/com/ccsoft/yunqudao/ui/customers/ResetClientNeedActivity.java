@@ -208,6 +208,8 @@ public class ResetClientNeedActivity extends AppCompatActivity implements View.O
         mString7 = (String) mSpinner_buy_type.getSelectedItem();
         mString8 = (String) mSpinner_pay_type.getSelectedItem();
 
+        region = getIntent().getStringExtra("region");
+
         need_id = getIntent().getStringExtra("need_id");
         textregion = getIntent().getStringExtra("textregion");
         property_type = getIntent().getIntExtra("propertyType",0);
@@ -407,6 +409,9 @@ public class ResetClientNeedActivity extends AppCompatActivity implements View.O
                     comment = et_comment.getText().toString();
                 }
 
+                if(cityId.equals("null")&&countyId.equals("null")){
+                    region="";
+                }
                 OkHttpUtils.post(HttpAdress.UPDATANEED)
                         .tag(this)
                         .params("need_id",need_id)

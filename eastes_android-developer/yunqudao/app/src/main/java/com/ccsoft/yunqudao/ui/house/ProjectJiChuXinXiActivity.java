@@ -175,8 +175,8 @@ public class ProjectJiChuXinXiActivity extends AppCompatActivity implements View
                                 tv_zhuangxiubiaozhun.setText(infoBean.getData().getDecoration_standard());
                             }
                             tv_jianzumianzhi.setText(infoBean.getData().getCovered_area()+"㎡");
-                            tv_rongjilv.setText(infoBean.getData().getPlot_retio()+"");
-                            tv_lvhualv.setText(infoBean.getData().getGreening_rate()+"5");
+                            tv_rongjilv.setText(infoBean.getData().getPlot_retio()+"%");
+                            tv_lvhualv.setText(infoBean.getData().getGreening_rate()+"%");
                             tv_huihuanum.setText(infoBean.getData().getHouseholds_num()+"");
                             tv_huihuachehua.setText(infoBean.getData().getParking_num()+"");
                             if (infoBean.getData().getProperty() != null) {
@@ -196,7 +196,7 @@ public class ProjectJiChuXinXiActivity extends AppCompatActivity implements View
                             }else {
                                 tv_wuyegongsi.setText(infoBean.getData().getProperty_company_name());
                             }
-                            tv_wuyefei.setText(infoBean.getData().getProperty_cost()+"元/㎡/元");
+                            tv_wuyefei.setText(infoBean.getData().getProperty_cost()+"元/㎡");
 
                             if(infoBean.getData().getHeat_supply().equals("")){
                                 tv_gongnuanfangshi.setText("暂无数据");

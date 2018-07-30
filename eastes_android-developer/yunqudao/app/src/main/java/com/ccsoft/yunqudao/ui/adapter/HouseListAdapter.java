@@ -112,6 +112,8 @@ public class HouseListAdapter extends BaseRecyclerAdapter<HouseListBean.DataBean
             peizhiBean.getData().get_$15().getParam();
         }
 
+
+
 if(bean.getProperty_tags()!=null){
                 if (bean.getProperty_tags().size() > 0) {
                     linearLayout.removeAllViews();
@@ -134,7 +136,10 @@ if(bean.getProperty_tags()!=null){
                                 imageView.setImageResource(R.drawable.ic_villa);
                                 linearLayout.addView(imageView, layoutParams);
                             }
+
+
                         }
+
                 }
             }
         }

@@ -2,6 +2,9 @@
 <paths xmlns:android="http://schemas.android.com/apk/res/android">
     <external-path name="external_files" path="diary sdcard/photo"/>
 
+    <external-path name="external_files" path="."/>
+
+
     <!--代表外部存储区域的根目录下的文件 Environment.getExternalStorageDirectory()/DCIM/camerademo目录-->
     <external-path name="hm_DCIM" path="DCIM/camerademo" />
     <!--代表外部存储区域的根目录下的文件 Environment.getExternalStorageDirectory()/Pictures/camerademo目录-->

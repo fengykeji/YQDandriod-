@@ -7,6 +7,7 @@ import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.RelativeLayout;
@@ -48,6 +49,8 @@ public class GongSiRenZhengActivity extends AppCompatActivity implements View.On
     private GongSiRenZhengLiBiaoAdapter adapter;
     private List<GetCompanyListBean.DataBeanX.DataBean> dataList = new ArrayList<>();
     private GetCompanyListBean bean;
+    private int chongxin = 0;
+    private int bId = 0;
 
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -80,6 +83,11 @@ public class GongSiRenZhengActivity extends AppCompatActivity implements View.On
 
         me_recyclerview_公司列表 = findViewById(R.id.me_recyclerview_公司列表);
 
+            chongxin = getIntent().getIntExtra("chongxin",0);
+            bId = getIntent().getIntExtra("bId", 0);
+            Log.e("ccccs",chongxin+" "+bId);
+
+
         me_recyclerview_公司列表.setLayoutManager(new LinearLayoutManager(this));
         adapter = new GongSiRenZhengLiBiaoAdapter(this,R.layout.item_me_renzheng,dataList);
         me_recyclerview_公司列表.setAdapter(adapter);
@@ -95,6 +103,8 @@ public class GongSiRenZhengActivity extends AppCompatActivity implements View.On
                 intent.putExtra("comment",bean.getData().getData().get(position).getComment());
                 intent.putExtra("imgurl",bean.getData().getData().get(position).getLogo());
                 intent.putExtra("companyid",bean.getData().getData().get(position).getCompany_id());
+                intent.putExtra("chongxin",chongxin);
+                intent.putExtra("bId", bId);
                 startActivity(intent);
                 finish();
             }

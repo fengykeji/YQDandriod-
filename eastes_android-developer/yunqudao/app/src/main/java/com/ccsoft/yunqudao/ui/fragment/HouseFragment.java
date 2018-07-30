@@ -515,7 +515,7 @@ public class HouseFragment extends Fragment implements View.OnClickListener ,Hou
         PopupWindow popupWindow = new PopupWindow(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
         popupWindow.setContentView(view);
         popupWindow.setFocusable(true);
-        popupWindow.showAsDropDown(content_更多);
+//        popupWindow.showAsDropDown(content_更多);
 
         textView.setOnClickListener(new View.OnClickListener() {
             @Override

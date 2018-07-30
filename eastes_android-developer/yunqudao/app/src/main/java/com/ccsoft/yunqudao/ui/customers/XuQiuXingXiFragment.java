@@ -159,6 +159,7 @@ public class XuQiuXingXiFragment extends Fragment implements View.OnClickListene
                 Intent intent = new Intent(getContext(),ResetClientNeedActivity.class);
                 intent.putExtra("need_id",need_id);
                 intent.putExtra("textregion",textregion);
+                intent.putExtra("region",region);
                 intent.putExtra("propertyType",propertyType);
                 intent.putExtra("totalPrice",totalPrice);
                 intent.putExtra("area",area);
@@ -232,24 +233,26 @@ public class XuQiuXingXiFragment extends Fragment implements View.OnClickListene
 
             String[] b = need_tags.split(",");
             PeizhiBean peizhiBean = MainActivity.savePeizhi();
-            List<PeizhiBean.DataBean._$15Bean.ParamBeanXXXXXXXXXXXXXX> list = peizhiBean.getData().get_$15().getParam();
+            if(peizhiBean.getData()!=null) {
+                List<PeizhiBean.DataBean._$15Bean.ParamBeanXXXXXXXXXXXXXX> list = peizhiBean.getData().get_$15().getParam();
 
-            ll_showlabers.removeAllViews();
+                ll_showlabers.removeAllViews();
                 for (String s : b) {
                     for (PeizhiBean.DataBean._$15Bean.ParamBeanXXXXXXXXXXXXXX bean3 : list) {
-                        if(!s.equals("")) {
+                        if (!s.equals("")) {
                             if (bean3.getId() == Integer.parseInt(s)) {
-                            TextView textView = new TextView(getContext());
-                            textView.setText(bean3.getParam());
-                            textView.setBackgroundResource(R.drawable.shape_addlabel);
-                            textView.setPadding(14, 14, 14, 14);
+                                TextView textView = new TextView(getContext());
+                                textView.setText(bean3.getParam());
+                                textView.setBackgroundResource(R.drawable.shape_addlabel);
+                                textView.setPadding(14, 14, 14, 14);
                                 textView.setTextSize(14);
 //                int c = getColor(R.color.b)
                                 textView.setTextColor(0x7f06004c);
                                 textView.setSingleLine();
                                 textView.setEllipsize(TextUtils.TruncateAt.valueOf("END"));
                                 textView.setMaxEms(4);
-                            ll_showlabers.addView(textView, layoutParams);
+                                ll_showlabers.addView(textView, layoutParams);
+                            }
                         }
                     }
                 }
@@ -291,6 +294,8 @@ public class XuQiuXingXiFragment extends Fragment implements View.OnClickListene
                         +"-"+data.getRegion().get(0).getDistrict_name();
                 textregion = data.getRegion().get(0).getProvince_name()+"-"+data.getRegion().get(0).getCity_name()
                         +"-"+data.getRegion().get(0).getDistrict_name();
+                region = data.getRegion().get(0).getProvince()+"-"+data.getRegion().get(0).getCity()
+                        +"-"+data.getRegion().get(0).getDistrict();
             }
             mCustomers_regions.setText(address);
             if(data.getHouse_type().equals("32")){

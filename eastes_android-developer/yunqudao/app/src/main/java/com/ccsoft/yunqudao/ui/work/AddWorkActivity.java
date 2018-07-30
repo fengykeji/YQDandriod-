@@ -174,6 +174,12 @@ public class AddWorkActivity extends AppCompatActivity implements View.OnClickLi
                     Toast.makeText(this, "请输入正确的手机号1", Toast.LENGTH_SHORT).show();
                     return;
                 }
+
+                Log.e("cccccw",customers_edittext_projectName.getText().toString()+"s");
+                if(customers_edittext_projectName.getText().toString().equals("")){
+                    Toast.makeText(this, "请点击项目名称选择项目", Toast.LENGTH_SHORT).show();
+                    return;
+                }
 //                Intent intent = new Intent(AddCustomers1Activity.this,AddCustomers2Activity.class);
 //                intent.putExtra("name", mName);
 //                intent.putExtra("sex", String.valueOf(type));
@@ -197,6 +203,7 @@ public class AddWorkActivity extends AppCompatActivity implements View.OnClickLi
                                 super.onSuccess(s, call, response);
                                 Gson gson = new Gson();
                                 ResultData model = gson.fromJson(s, ResultData.class);
+                                Log.e("cccccs",model.code+" "+model.msg);
                                 if(model.code==200){
                                     Toast.makeText(AddWorkActivity.this, ":快速报备成功", Toast.LENGTH_SHORT).show();
                                     sendBroadcast(new Intent(AppConstants.REFRESH_CUSTOM_LIST));

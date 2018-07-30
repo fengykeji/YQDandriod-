@@ -108,7 +108,6 @@ public class MessageFragment extends Fragment implements View.OnClickListener {
                             e.printStackTrace();
                         }
                         if (code == 200 && data != null) {
-                            Log.e("cccccc",total1+" "+read1);
                             GetUnreadBean bean = JsonUtil.jsonToEntity(s,GetUnreadBean.class);
                              total = bean.getData().getSystem().getTotal();
                              read = bean.getData().getSystem().getRead();
@@ -116,8 +115,12 @@ public class MessageFragment extends Fragment implements View.OnClickListener {
                              total1 = bean.getData().getWork().getTotal();
                              read1 = bean.getData().getWork().getRead();
                              noread1 = total1-read1;
-                            mMessage_text_未读系统消息条数.setText("未读消息"+noread+"条");
-                            mMessage_text_未读工作消息条数.setText("未读消息"+noread1+"条");
+                            mMessage_text_未读系统消息条数.setText("未读消息"+0+"条");
+                            if(noread1<0){
+                                mMessage_text_未读工作消息条数.setText("未读消息"+0+"条");
+                            }else {
+                                mMessage_text_未读工作消息条数.setText("未读消息" + noread1 + "条");
+                            }
                             callBackValue.SendMessageValue(noread1+"");
 
                         }

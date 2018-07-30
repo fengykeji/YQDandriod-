@@ -1,6 +1,9 @@
 package com.ccsoft.yunqudao.ui.me;
 
 import android.Manifest;
+import android.annotation.TargetApi;
+import android.content.ContentUris;
+import android.content.ContentValues;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -8,15 +11,20 @@ import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
+import android.graphics.Matrix;
+import android.media.ExifInterface;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
+import android.provider.DocumentsContract;
 import android.provider.MediaStore;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.content.FileProvider;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
 import android.util.Log;
@@ -32,6 +40,7 @@ import android.widget.Toast;
 
 import com.ccsoft.yunqudao.R;
 import com.ccsoft.yunqudao.bean.GongSiRenZhengBean;
+import com.ccsoft.yunqudao.data.AppConstants;
 import com.ccsoft.yunqudao.http.HttpAdress;
 import com.ccsoft.yunqudao.model.StringModel;
 import com.ccsoft.yunqudao.utils.ActivityManager;
@@ -47,6 +56,8 @@ import com.lzy.okhttputils.callback.StringCallback;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
@@ -69,6 +80,15 @@ public class GongSiRenZheng1Activity extends AppCompatActivity implements View.O
     private int companyId  = 0;
     private RelativeLayout ll_timeshow;
     private Uri photoUri;
+    private int chongxin = 0;
+    private int bId = 0;
+
+    public static final int TAKE_PHOTO = 1;//启动相机标识
+    public static final int SELECT_PHOTO = 2;//启动相册标识
+    private ImageView imageView;
+    private TextView textView;
+    private File outputImagepath;//存储拍完照后的图片
+    private Bitmap orc_bitmap;//拍照和相册获取图片的Bitmap
 
 
     private ImageView mImage;
@@ -117,6 +137,12 @@ public class GongSiRenZheng1Activity extends AppCompatActivity implements View.O
 
         companyname = getIntent().getStringExtra("companyname");
         companyId = getIntent().getIntExtra("companyId",0);
+
+        chongxin = getIntent().getIntExtra("chongxin",0);
+        bId = getIntent().getIntExtra("bId",0);
+
+        Log.e("ccccca",chongxin+"sss"+bId);
+
         tv_company.setText(companyname);
 
 
@@ -150,27 +176,53 @@ public class GongSiRenZheng1Activity extends AppCompatActivity implements View.O
                 }
 
 
-                OkHttpUtils.post(HttpAdress.addAuthInfo)
-                        .params("company_id",companyId)
-                        .params("work_code",et_gonghao.getText().toString())
-                        .params("role",1)
-                        .params("department",et_suoshubumen.getText().toString())
-                        .params("position",et_zhiwei.getText().toString())
-                        .params("entry_time",tv_tuzhitime.getText().toString())
-                        .execute(new StringCallback() {
-                            @Override
-                            public void onSuccess(String s, Call call, Response response) {
-                                StringModel model = JsonUtil.jsonToEntity(s,StringModel.class);
-                                if(model.getCode()==200){
-                                    finish();
+                if(chongxin==123) {
+                    OkHttpUtils.post(AppConstants.URL + "agent/personal/reAuth")
+                            .params("company_id", companyId)
+                            .params("work_code", et_gonghao.getText().toString())
+                            .params("role", 1)
+                            .params("department", et_suoshubumen.getText().toString())
+                            .params("position", et_zhiwei.getText().toString())
+                            .params("entry_time", tv_tuzhitime.getText().toString())
+                            .params("before_id", bId)
+                            .execute(new StringCallback() {
+                                @Override
+                                public void onSuccess(String s, Call call, Response response) {
+                                    StringModel model = JsonUtil.jsonToEntity(s, StringModel.class);
+                                    if (model.getCode() == 200) {
+                                        finish();
+                                    }
+                                    Toast.makeText(GongSiRenZheng1Activity.this, model.getMsg(), Toast.LENGTH_SHORT).show();
                                 }
-                                Toast.makeText(GongSiRenZheng1Activity.this,model.getMsg(),Toast.LENGTH_SHORT).show();
-                            }
-                        });
+                            });
+                    return;
+                }
+
+
+                    OkHttpUtils.post(HttpAdress.addAuthInfo)
+                            .params("company_id", companyId)
+                            .params("work_code", et_gonghao.getText().toString())
+                            .params("role", 1)
+                            .params("department", et_suoshubumen.getText().toString())
+                            .params("position", et_zhiwei.getText().toString())
+                            .params("entry_time", tv_tuzhitime.getText().toString())
+                            .execute(new StringCallback() {
+                                @Override
+                                public void onSuccess(String s, Call call, Response response) {
+                                    StringModel model = JsonUtil.jsonToEntity(s, StringModel.class);
+                                    if (model.getCode() == 200) {
+                                        finish();
+                                    }
+                                    Toast.makeText(GongSiRenZheng1Activity.this, model.getMsg(), Toast.LENGTH_SHORT).show();
+                                }
+                            });
+
 
                 break;
             case R.id.ll_company:
                 Intent intent = new Intent(this,GongSiRenZhengActivity.class);
+                intent.putExtra("chongxin",chongxin);
+                intent.putExtra("bId", bId);
                 startActivity(intent);
                 finish();
                 break;
@@ -191,10 +243,10 @@ public class GongSiRenZheng1Activity extends AppCompatActivity implements View.O
             public void onClick(DialogInterface dialog, int which) {
                 switch (which){
                     case 0:
-                       checkPermission();
+                       xiangjiClick();
                         break;
                     case 1:
-                        getPicFromAlbm();
+                        xiangceClick();
                         break;
                     case 2:
                         itemsDialogFragment.dismiss();
@@ -207,173 +259,347 @@ public class GongSiRenZheng1Activity extends AppCompatActivity implements View.O
 
 
 
-    private void checkPermission() {
-        if (ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
-            // 进入这儿表示没有权限
-            if (ActivityCompat.shouldShowRequestPermissionRationale(this, Manifest.permission.CAMERA)) {
-                // 提示已经禁止
+    /**
+     * 打开相机
+     *
+     */
+    public void xiangjiClick() {
+        //checkSelfPermission 检测有没有 权限
+//        PackageManager.PERMISSION_GRANTED 有权限
+//        PackageManager.PERMISSION_DENIED  拒绝权限
+        //一定要先判断权限,再打开相机,否则会报错
+        if(ActivityCompat.checkSelfPermission(this, Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED){
+            //权限发生了改变 true  //  false,没有权限时
+            if(ActivityCompat.shouldShowRequestPermissionRationale(this,Manifest.permission.CAMERA)){
+                new AlertDialog.Builder(this).setTitle("title")
+                        .setPositiveButton("ok", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                // 请求授权
+                                ActivityCompat.requestPermissions(GongSiRenZheng1Activity.this,new String[]{Manifest.permission.CAMERA},1);
+                            }
+                        }).setNegativeButton("cancel", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        //不请求权限的操作
+                    }
+                }).create().show();
+            }else {
+                ActivityCompat.requestPermissions(GongSiRenZheng1Activity.this,new String[]{Manifest.permission.CAMERA},1);
+            }
+        }else{
+            take_photo();//已经授权了就调用打开相机的方法
+        }
+    }
 
+    /**
+     * 打开相册
+     */
+    public void xiangceClick() {
+        select_photo();
+    }
+
+    /**
+     * 拍照获取图片
+     **/
+    public void take_photo() {
+        //获取系統版本
+        int currentapiVersion = Build.VERSION.SDK_INT;
+        // 激活相机
+        Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+        // 判断存储卡是否可以用，可用进行存储
+        if (hasSdcard()) {
+            SimpleDateFormat timeStampFormat = new SimpleDateFormat(
+                    "yyyy_MM_dd_HH_mm_ss");
+            String filename = timeStampFormat.format(new Date());
+            outputImagepath = new File(Environment.getExternalStorageDirectory(),
+                    filename + ".jpg");
+            if (currentapiVersion < 24) {
+                // 从文件中创建uri
+                Uri uri = Uri.fromFile(outputImagepath);
+                intent.putExtra(MediaStore.EXTRA_OUTPUT, uri);
             } else {
-                ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.CAMERA}, 100);
+                //兼容android7.0 使用共享文件的形式
+                ContentValues contentValues = new ContentValues(1);
+                contentValues.put(MediaStore.Images.Media.DATA, outputImagepath.getAbsolutePath());
+                Uri uri = getApplication().getContentResolver().insert(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, contentValues);
+                intent.putExtra(MediaStore.EXTRA_OUTPUT, uri);
             }
+        }
+        // 开启一个带有返回值的Activity，请求码为PHOTO_REQUEST_CAREMA
+        startActivityForResult(intent, TAKE_PHOTO);
+    }
+
+
+    /*
+     * 判断sdcard是否被挂载
+     */
+    public static boolean hasSdcard() {
+        return Environment.getExternalStorageState().equals(
+                Environment.MEDIA_MOUNTED);
+    }
+
+    /**
+     * 从相册中获取图片
+     */
+    public void select_photo() {
+        if (ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE)
+                != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, 1);
         } else {
-            if (Build.VERSION.SDK_INT >= 24) {
-                Intent takeIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-                 photoUri = get24MediaFileUri(TYPE_TAKE_PHOTO);
-                takeIntent.putExtra(MediaStore.EXTRA_OUTPUT, photoUri);
-                startActivityForResult(takeIntent, CODE_TAKE_PHOTO);
-            } else {
-                Intent takeIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-                 photoUri = getMediaFileUri(TYPE_TAKE_PHOTO);
-                takeIntent.putExtra(MediaStore.EXTRA_OUTPUT, photoUri);
-                startActivityForResult(takeIntent, CODE_TAKE_PHOTO);
-            }
-            }
+            openAlbum();
+        }
+    }
+
+    /**
+     * 打开相册的方法
+     */
+    private void openAlbum() {
+        Intent intent = new Intent("android.intent.action.GET_CONTENT");
+        intent.setType("image/*");
+        startActivityForResult(intent, SELECT_PHOTO);
     }
 
 
     /**
-     * 从相机获取图片
+     * 4.4以下系统处理图片的方法
      */
-
-    public Uri get24MediaFileUri(int type) {
-        File mediaStorageDir = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES), "相册名字");
-        if (!mediaStorageDir.exists()) {
-            if (!mediaStorageDir.mkdirs()) {
-                return null;
-            }
-        }
-        //创建Media File
-        String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
-        File mediaFile;
-        if (type == TYPE_TAKE_PHOTO) {
-            mediaFile = new File(mediaStorageDir.getPath() + File.separator + "IMG_" + timeStamp + ".jpg");
-        } else {
-            return null;
-        }
-        return FileProvider.getUriForFile(this, getPackageName() + ".fileProvider", mediaFile);
-    }
-
-
-
-    public Uri getMediaFileUri(int type) {
-        File mediaStorageDir = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES), "相册名字");
-        if (!mediaStorageDir.exists()) {
-            if (!mediaStorageDir.mkdirs()) {
-                return null;
-            }
-        }
-        //创建Media File
-        String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
-        File mediaFile;
-        if (type == TYPE_TAKE_PHOTO) {
-            mediaFile = new File(mediaStorageDir.getPath() + File.separator + "IMG_" + timeStamp + ".jpg");
-        } else {
-            return null;
-        }
-        return Uri.fromFile(mediaFile);
+    private void handleImageBeforeKitKat(Intent data) {
+        Uri uri = data.getData();
+        String imagePath = getImagePath(uri, null);
+        displayImage(imagePath);
     }
 
     /**
-     * 从相册获取图片
+     * 4.4及以上系统处理图片的方法
      */
-    private void getPicFromAlbm() {
-        Intent photoPickerIntent = new Intent(Intent.ACTION_PICK);
-        photoPickerIntent.setType("image/*");
-        startActivityForResult(photoPickerIntent, ALBUM_REQUEST_CODE);
-    }
+    @TargetApi(Build.VERSION_CODES.KITKAT)
+    private void handleImgeOnKitKat(Intent data) {
+        String imagePath = null;
+        Uri uri = data.getData();
+        Log.d("uri=intent.getData :", "" + uri);
+        if (DocumentsContract.isDocumentUri(this, uri)) {
+            String docId = DocumentsContract.getDocumentId(uri);        //数据表里指定的行
+            Log.d("getDocumentId(uri) :", "" + docId);
+            Log.d("uri.getAuthority() :", "" + uri.getAuthority());
+            if ("com.android.providers.media.documents".equals(uri.getAuthority())) {
+                String id = docId.split(":")[1];
+                String selection = MediaStore.Images.Media._ID + "=" + id;
+                imagePath = getImagePath(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, selection);
+            } else if ("com.android.providers.downloads.documents".equals(uri.getAuthority())) {
+                Uri contentUri = ContentUris.withAppendedId(Uri.parse("content://downloads/public_downloads"), Long.valueOf(docId));
+                imagePath = getImagePath(contentUri, null);
+            }
 
-    private void selectPic(Intent intent) {
-        Uri selectImageUri = intent.getData();
-        String[] filePathColumn = {MediaStore.Images.Media.DATA};
-        Cursor cursor = getContentResolver().query(selectImageUri, filePathColumn, null, null, null);
-        cursor.moveToFirst();
-        int columnIndex = cursor.getColumnIndex(filePathColumn[0]);
-        String picturePath = cursor.getString(columnIndex);
-        cursor.close();
-        mImage.setImageBitmap(BitmapFactory.decodeFile(picturePath));
+        } else if ("content".equalsIgnoreCase(uri.getScheme())) {
+            imagePath = getImagePath(uri, null);
+        }
+        displayImage(imagePath);
     }
     /**
-     * 裁剪图片
+     * 通过uri和selection来获取真实的图片路径,从相册获取图片时要用
      */
-    private void cropPhoto(Uri uri) {
-        Intent intent = new Intent("com.android.camera.action.CROP");
-        intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
-        intent.addFlags(Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
-        intent.setDataAndType(uri, "image/*");
-        intent.putExtra("crop", "true");
-        intent.putExtra("aspectX", 1);
-        intent.putExtra("aspectY", 1);
-        intent.putExtra("outputX", 300);
-        intent.putExtra("outputY", 300);
-        intent.putExtra("return-data", true);
-        startActivityForResult(intent, CROP_REQUEST_CODE);
+    private String getImagePath(Uri uri, String selection) {
+        String path = null;
+        Cursor cursor = getContentResolver().query(uri, null, selection, null, null);
+        if (cursor != null) {
+            if (cursor.moveToFirst()) {
+                path = cursor.getString(cursor.getColumnIndex(MediaStore.Images.Media.DATA));
+            }
+            cursor.close();
+        }
+        return path;
     }
+
+
+    /**
+     * 拍完照和从相册获取玩图片都要执行的方法(根据图片路径显示图片)
+     */
+    private void displayImage(String imagePath) {
+        if (!TextUtils.isEmpty(imagePath)) {
+            //orc_bitmap = BitmapFactory.decodeFile(imagePath);//获取图片
+            orc_bitmap = comp(BitmapFactory.decodeFile(imagePath)); //压缩图片
+            ImgUpdateDirection(imagePath);//显示图片,并且判断图片显示的方向,如果不正就放正
+        } else {
+            Toast.makeText(this, "图片获取失败", Toast.LENGTH_LONG).show();
+        }
+    }
+
+
+
+
     @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent intent) {
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
         switch (requestCode) {
-            case CODE_TAKE_PHOTO:   //调用相机后返回
+            //打开相机后返回
+            case TAKE_PHOTO:
                 if (resultCode == RESULT_OK) {
-
-                    if (intent.hasExtra("data")) {
-                        Log.e("URI", "data is not null");
-                        Bitmap bitmap = intent.getParcelableExtra("data");
-                        mImage.setImageBitmap(bitmap);//imageView即为当前页面需要展示照片的控件，可替换
-                    }
-                else {
-                    Log.e("URI", "Data is null");
-                    if (Build.VERSION.SDK_INT >= 24){
-                        Bitmap bitmap = null;
-                        try {
-                            bitmap = BitmapFactory.decodeStream(getContentResolver().openInputStream(photoUri));
-                        } catch (FileNotFoundException e) {
-                            e.printStackTrace();
-                        }
-                        mImage.setImageBitmap(bitmap);
-                    }else {
-                        Bitmap bitmap = BitmapFactory.decodeFile(photoUri.getPath());
-                        mImage.setImageBitmap(bitmap);
-                    }
-                }
+                    /**
+                     * 这种方法是通过内存卡的路径进行读取图片，所以的到的图片是拍摄的原图
+                     */
+                    displayImage(outputImagepath.getAbsolutePath());
+                    Log.i("tag", "拍照图片路径>>>>" + outputImagepath);
                 }
                 break;
-
-            case ALBUM_REQUEST_CODE:    //调用相册后返回
+            //打开相册后返回
+            case SELECT_PHOTO:
                 if (resultCode == RESULT_OK) {
-                    Uri uri = intent.getData();
-                    cropPhoto(uri);
+                    //判断手机系统版本号
+                    if (Build.VERSION.SDK_INT > 19) {
+                        //4.4及以上系统使用这个方法处理图片
+                        handleImgeOnKitKat(data);
+                    } else {
+                        handleImageBeforeKitKat(data);
+                    }
                 }
                 break;
-            case CROP_REQUEST_CODE:     //调用剪裁后返回
-                Bundle bundle = intent.getExtras();
-                if (bundle != null) {
-                    //在这里获得了剪裁后的Bitmap对象，可以用于上传
-                    Bitmap image = bundle.getParcelable("data");
-                    //设置到ImageView上
-                    mImage.setImageBitmap(image);
-                    //也可以进行一些保存、压缩等操作后上传
-//                    String path = saveImage("crop", image);
-                }
+            default:
                 break;
         }
     }
-    public String saveImage(String name, Bitmap bmp) {
-        File appDir = new File(Environment.getExternalStorageDirectory().getPath());
-        if (!appDir.exists()) {
-            appDir.mkdir();
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        switch (requestCode) {
+            case 1:
+                //判断是否有权限
+                if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    openAlbum();//打开相册
+                    take_photo();//打开相机
+                } else {
+                    Toast.makeText(this, "你需要许可", Toast.LENGTH_LONG).show();
+                }
+                break;
+            default:
+                break;
         }
-        String fileName = name + ".jpg";
-        File file = new File(appDir, fileName);
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        if (orc_bitmap != null) {
+            orc_bitmap.recycle();
+        } else {
+            orc_bitmap = null;
+        }
+    }
+
+
+    /**
+     * 质量压缩方法
+     *
+     * @param image
+     * @return
+     */
+    public static Bitmap compressImage(Bitmap image) {
+        if (image != null) {
+            ByteArrayOutputStream baos = new ByteArrayOutputStream();
+            image.compress(Bitmap.CompressFormat.JPEG, 100, baos);//质量压缩方法，这里100表示不压缩，把压缩后的数据存放到baos中
+            int options = 100;
+            while (baos.toByteArray().length / 1024 > 100) { //循环判断如果压缩后图片是否大于100kb,大于继续压缩
+                baos.reset();//重置baos即清空baos
+                options -= 10;//每次都减少10
+                image.compress(Bitmap.CompressFormat.JPEG, options, baos);//这里压缩options%，把压缩后的数据存放到baos中
+
+            }
+            ByteArrayInputStream isBm = new ByteArrayInputStream(baos.toByteArray());//把压缩后的数据baos存放到ByteArrayInputStream中
+            Bitmap bitmap = BitmapFactory.decodeStream(isBm, null, null);//把ByteArrayInputStream数据生成图片
+            return bitmap;
+        } else {
+            return null;
+        }
+
+    }
+    //比例压缩
+    private Bitmap comp(Bitmap image) {
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        image.compress(Bitmap.CompressFormat.JPEG, 100, baos);
+        if (baos.toByteArray().length / 1024 > 1024) {//判断如果图片大于1M,进行压缩避免在生成图片（BitmapFactory.decodeStream）时溢出
+            baos.reset();//重置baos即清空baos
+            image.compress(Bitmap.CompressFormat.JPEG, 50, baos);//这里压缩50%，把压缩后的数据存放到baos中
+        }
+        ByteArrayInputStream isBm = new ByteArrayInputStream(baos.toByteArray());
+        BitmapFactory.Options newOpts = new BitmapFactory.Options();
+        //开始读入图片，此时把options.inJustDecodeBounds 设回true了
+        newOpts.inJustDecodeBounds = true;
+        Bitmap bitmap = BitmapFactory.decodeStream(isBm, null, newOpts);
+        newOpts.inJustDecodeBounds = false;
+        int w = newOpts.outWidth;
+        int h = newOpts.outHeight;
+        //现在主流手机比较多是800*480分辨率，所以高和宽我们设置为
+        float hh = 800f;//这里设置高度为800f
+        float ww = 480f;//这里设置宽度为480f
+        //缩放比。由于是固定比例缩放，只用高或者宽其中一个数据进行计算即可
+        int be = 1;//be=1表示不缩放
+        if (w > h && w > ww) {//如果宽度大的话根据宽度固定大小缩放
+            be = (int) (newOpts.outWidth / ww);
+        } else if (w < h && h > hh) {//如果高度高的话根据宽度固定大小缩放
+            be = (int) (newOpts.outHeight / hh);
+        }
+        if (be <= 0)
+            be = 1;
+        newOpts.inSampleSize = be;//设置缩放比例
+        newOpts.inPreferredConfig = Bitmap.Config.RGB_565;//降低图片从ARGB888到RGB565
+        //重新读入图片，注意此时已经把options.inJustDecodeBounds 设回false了
+        isBm = new ByteArrayInputStream(baos.toByteArray());
+        bitmap = BitmapFactory.decodeStream(isBm, null, newOpts);
+        return bitmap;//压缩好比例大小后再进行质量压缩
+    }
+
+
+    //改变拍完照后图片方向不正的问题
+    private void ImgUpdateDirection(String filepath) {
+        int digree = 0;//图片旋转的角度
+        //根据图片的URI获取图片的绝对路径
+        Log.i("tag", ">>>>>>>>>>>>>开始");
+        //String filepath = ImgUriDoString.getRealFilePath(getApplicationContext(), uri);
+        Log.i("tag", "》》》》》》》》》》》》》》》" + filepath);
+        //根据图片的filepath获取到一个ExifInterface的对象
+        ExifInterface exif = null;
         try {
-            FileOutputStream fos = new FileOutputStream(file);
-            bmp.compress(Bitmap.CompressFormat.PNG, 100, fos);
-            fos.flush();
-            fos.close();
-            return file.getAbsolutePath();
+            exif = new ExifInterface(filepath);
+            Log.i("tag", "exif》》》》》》》》》》》》》》》" + exif);
+            if (exif != null) {
+
+                // 读取图片中相机方向信息
+                int ori = exif.getAttributeInt(ExifInterface.TAG_ORIENTATION, ExifInterface.ORIENTATION_UNDEFINED);
+
+                // 计算旋转角度
+                switch (ori) {
+                    case ExifInterface.ORIENTATION_ROTATE_90:
+                        digree = 90;
+                        break;
+                    case ExifInterface.ORIENTATION_ROTATE_180:
+                        digree = 180;
+                        break;
+                    case ExifInterface.ORIENTATION_ROTATE_270:
+                        digree = 270;
+                        break;
+                    default:
+                        digree = 0;
+                        break;
+
+                }
+
+            }
+            //如果图片不为0
+            if (digree != 0) {
+                // 旋转图片
+                Matrix m = new Matrix();
+                m.postRotate(digree);
+                orc_bitmap = Bitmap.createBitmap(orc_bitmap, 0, 0, orc_bitmap.getWidth(),
+                        orc_bitmap.getHeight(), m, true);
+            }
+            if (orc_bitmap != null) {
+                mImage.setImageBitmap(orc_bitmap);
+            }
         } catch (IOException e) {
             e.printStackTrace();
+            exif = null;
         }
-        return null;
     }
 
 

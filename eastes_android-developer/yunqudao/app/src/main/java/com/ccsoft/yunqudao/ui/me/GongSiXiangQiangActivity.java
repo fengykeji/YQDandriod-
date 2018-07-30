@@ -26,6 +26,8 @@ public class GongSiXiangQiangActivity extends AppCompatActivity implements View.
     private TextView tv_company,tv_content,tv_lianxi,tv_fuzheren,tv_jianjie;
     private String companyname,addaress,tel,name,comment,imgurl;
     private int companyId;
+    private int chongxin = 0;
+    private int bId = 0;
 
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -53,6 +55,8 @@ public class GongSiXiangQiangActivity extends AppCompatActivity implements View.
         comment= getIntent().getStringExtra("comment");
         imgurl= getIntent().getStringExtra("imgurl");
         companyId = getIntent().getIntExtra("companyid",0);
+        chongxin = getIntent().getIntExtra("chongxin",0);
+        bId = getIntent().getIntExtra("bId", 0);
 
         Picasso.with(this).load(AppConstants.URL+imgurl)
                 .fit()
@@ -60,7 +64,11 @@ public class GongSiXiangQiangActivity extends AppCompatActivity implements View.
                 .into(im_photo);
         tv_company.setText(companyname);
         tv_content.setText(addaress);
-        tv_lianxi.setText("联系电话："+tel);
+        if(tel.equals("null")){
+            tv_lianxi.setText("联系电话：");
+        }else {
+            tv_lianxi.setText("联系电话：" + tel);
+        }
         tv_fuzheren.setText("负责人："+name);
         tv_jianjie.setText(comment);
 
@@ -82,6 +90,8 @@ public class GongSiXiangQiangActivity extends AppCompatActivity implements View.
                 intent.putExtra("companyname",companyname);
 
                 intent.putExtra("companyId",companyId);
+                intent.putExtra("chongxin",chongxin);
+                intent.putExtra("bId", bId);
                 startActivity(intent);
                 finish();
                 break;

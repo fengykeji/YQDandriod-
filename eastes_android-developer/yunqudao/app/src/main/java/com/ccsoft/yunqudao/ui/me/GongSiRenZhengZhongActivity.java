@@ -19,6 +19,7 @@ import com.ccsoft.yunqudao.model.StringModel;
 import com.ccsoft.yunqudao.utils.ActivityManager;
 import com.ccsoft.yunqudao.utils.HideIMEUtil;
 import com.ccsoft.yunqudao.utils.JsonUtil;
+import com.ccsoft.yunqudao.utils.SpUtil;
 import com.lzy.okhttputils.OkHttpUtils;
 import com.lzy.okhttputils.callback.StringCallback;
 
@@ -58,7 +59,6 @@ public class GongSiRenZhengZhongActivity  extends AppCompatActivity{
 
 
         id = getIntent().getIntExtra("id",0);
-        Log.e("ssss",id+"");
         me_button_返回.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -109,6 +109,7 @@ public class GongSiRenZhengZhongActivity  extends AppCompatActivity{
                         else if (code == 200 && data != null) {
                             GongSiRenZhengBean bean = JsonUtil.jsonToEntity(s,GongSiRenZhengBean.class);
 
+                            tv_name.setText(SpUtil.getString("name",""));
                             tv_companyname.setText(bean.getData().getCompany_name());
                             tv_companynum.setText(bean.getData().getWork_code());
                             tv_companyweizhi.setText(bean.getData().getPosition());
