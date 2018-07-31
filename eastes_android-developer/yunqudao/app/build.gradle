@@ -87,7 +87,6 @@ android {
 
 
 
-
 dependencies {
     implementation fileTree(include: ['*.jar'], dir: 'libs')
     implementation 'com.android.support:appcompat-v7:26.0.0-beta1'
@@ -130,7 +129,8 @@ dependencies {
     implementation files('libs/umeng-share-core-6.9.3.jar')
     implementation files('libs/umeng-sharetool-6.9.3.jar')
     implementation files('libs/umeng-share-wechat-simplify-6.9.3.jar')
-//    implementation files('libs/umeng-share-QQ-simplify-6.9.3.jar')
+    implementation files('libs/umeng-share-QQ-simplify-6.9.3.jar')
+
 
     compile 'cn.jiguang.sdk:jpush:3.1.1'  // 此处以JPush 3.1.1 版本为例。
     compile 'cn.jiguang.sdk:jcore:1.1.9'  // 此处以JCore 1.1.9 版本为例。

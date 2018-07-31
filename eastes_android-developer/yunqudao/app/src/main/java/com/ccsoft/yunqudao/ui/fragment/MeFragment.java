@@ -189,7 +189,7 @@ public class MeFragment extends Fragment implements View.OnClickListener  {
 
                 break;
             case R.id.me_item_linearlayout_company:
-//                GongSiRenZhengActivity.start(getActivity());
+
                 OkHttpUtils.get(HttpAdress.getAuthInfo)
                         .tag(this)
                         .execute(new StringCallback() {

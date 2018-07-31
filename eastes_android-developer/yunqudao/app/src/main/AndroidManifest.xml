@@ -346,6 +346,7 @@
         <activity android:name=".ui.me.GongSiXiangQiangActivity"></activity>
         <activity android:name=".ui.me.GongSiRenZhengZhongActivity"></activity>
         <activity android:name=".ui.me.GongSiRenZhengWanActivity"></activity>
+        <activity android:name=".ui.me.WeiJieYongJinXiangQingActivity"></activity>
 
     </application>
 

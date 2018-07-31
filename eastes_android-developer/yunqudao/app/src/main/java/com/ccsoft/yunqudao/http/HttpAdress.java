@@ -130,6 +130,8 @@ public class HttpAdress {
     public static String addAuthInfo = AppConstants.URL+"agent/personal/addAuthInfo";
     /*未接佣金*/
     public static String unPayList = AppConstants.URL+"agent/personal/unPayList";
+    /*为结佣金详情*/
+    public static String unPayDetail = AppConstants.URL+"agent/personal/unPayDetail";
     /*已结佣金*/
     public static String isPayList = AppConstants.URL+"agent/personal/isPayList";
     /*佣金概况*/
@@ -144,5 +146,7 @@ public class HttpAdress {
     public static String megetBaseInfo = AppConstants.URL+"agent/personal/getBaseInfo";
     /*获取关注信息*/
     public static String getFocusProjectList = AppConstants.URL+"agent/personal/getFocusProjectList";
+    /*催佣*/
+    public static String urge = AppConstants.URL+"agent/personal/urge";
 
 }

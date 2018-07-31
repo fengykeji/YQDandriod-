@@ -8,6 +8,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageButton;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import com.ccsoft.yunqudao.R;
 import com.ccsoft.yunqudao.bean.PayListBean;
@@ -39,6 +40,7 @@ public class WoDeYongJinActivity extends AppCompatActivity implements View.OnCli
     private TextView    mMe_text_未结佣金;
     private TextView    mMe_text_已结佣金条数;
     private TextView    mMe_text_已结佣金;
+    private LinearLayout mMe_text_未结佣金条数1;
 
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -66,6 +68,7 @@ public class WoDeYongJinActivity extends AppCompatActivity implements View.OnCli
         mMe_text_未结佣金 = findViewById(R.id.me_text_未结佣金);
         mMe_text_已结佣金条数 = findViewById(R.id.me_text_已结佣金条数);
         mMe_text_已结佣金 = findViewById(R.id.me_text_已结佣金);
+        mMe_text_未结佣金条数1 = findViewById(R.id.me_text_未结佣金条数1);
     }
 
     private void initListener() {
@@ -77,6 +80,7 @@ public class WoDeYongJinActivity extends AppCompatActivity implements View.OnCli
         mMe_button_银行卡.setOnClickListener(this);
         mMe_text_未结佣金条数.setOnClickListener(this);
         mMe_text_已结佣金条数.setOnClickListener(this);
+        mMe_text_未结佣金条数1.setOnClickListener(this);
     }
     private void initData(){
         OkHttpUtils.get(HttpAdress.brokerInfo)
@@ -120,7 +124,7 @@ public class WoDeYongJinActivity extends AppCompatActivity implements View.OnCli
             case R.id.me_button_银行卡:
                 YinHangKaActivity.start(this);
                 break;
-            case R.id.me_text_未结佣金条数:
+            case R.id.me_text_未结佣金条数1:
                 WeiJieListActivity.start(this);
                 break;
             case R.id.me_text_已结佣金条数:
