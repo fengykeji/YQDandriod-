@@ -14,13 +14,12 @@
         <LinearLayout
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_weight="2"
+            android:layout_weight="1.5"
             android:orientation="horizontal"
-            android:padding="10dp"
-            android:weightSum="3"
+            android:weightSum="10"
             >
             <TextView
-                android:gravity="center"
+                android:gravity="center_vertical"
                 android:id="@+id/house_text_城市"
                 android:layout_width="50dp"
                 android:layout_height="50dp"
@@ -49,20 +48,21 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
-            android:layout_weight="7.5"
+            android:layout_weight="8.5"
             android:background="@color/qianhui"
-            android:padding="10dp"
             >
             <EditText
+                android:padding="5dp"
                 android:id="@+id/et_search"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
                 android:hint="小区/楼盘/商铺"
-                android:background="@null"
+                android:background="@drawable/shape_ettext"
                 android:textSize="15sp"
                 />
             <ImageView
+                android:paddingRight="10dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
@@ -77,7 +77,6 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
-        android:background="@color/chunbai"
         android:gravity="center"
         android:orientation="horizontal"
         android:padding="10dp"

@@ -101,13 +101,15 @@
                 android:id="@+id/date_day"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:background="@color/juse"
+                android:background="@drawable/shape_button"
                 android:gravity="center"
                 android:padding="10dp"
                 android:textSize="20sp"
                 android:textColor="@color/white"
                 />
             <TextView
+                android:layout_marginLeft="3dp"
+                android:layout_marginRight="3dp"
                 android:textColor="@color/juse"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -119,7 +121,7 @@
                 android:id="@+id/date_hour"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:background="@color/juse"
+                android:background="@drawable/shape_button"
                 android:gravity="center"
                 android:padding="10dp"
                 android:textSize="20sp"
@@ -127,6 +129,8 @@
 
                 />
             <TextView
+                android:layout_marginLeft="3dp"
+                android:layout_marginRight="3dp"
                 android:textColor="@color/juse"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -138,7 +142,7 @@
                 android:id="@+id/date_minute"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:background="@color/juse"
+                android:background="@drawable/shape_button"
                 android:gravity="center"
                 android:padding="10dp"
                 android:textSize="20sp"
@@ -146,6 +150,8 @@
 
                 />
             <TextView
+                android:layout_marginLeft="3dp"
+                android:layout_marginRight="3dp"
                 android:textColor="@color/juse"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -157,7 +163,7 @@
                 android:id="@+id/date_seconds"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:background="@color/juse"
+                android:background="@drawable/shape_button"
                 android:gravity="center"
                 android:padding="10dp"
                 android:textSize="20sp"

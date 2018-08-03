@@ -44,7 +44,7 @@ public class HouseListAdapter extends BaseRecyclerAdapter<HouseListBean.DataBean
         holder.setText(R.id.title_tv1, bean.getProject_name());
 
         if (bean.getSort() != 0 && bean.getCycle() != 0) {
-            holder.setText(R.id.content_tv1, "荐");
+            holder.setImageResource(R.id.content_tv1, R.drawable.tui);
         }
         if(bean.getGuarantee_brokerage()==1){
             holder.setText(R.id.content_tv4, "保证结佣");
@@ -52,7 +52,7 @@ public class HouseListAdapter extends BaseRecyclerAdapter<HouseListBean.DataBean
         if(bean.getGuarantee_brokerage() == 2){
             LinearLayout ll_yongjin = (LinearLayout) holder.getView(R.id.ll_yongjing);
             ll_yongjin.setVisibility(View.GONE);
-            holder.setText(R.id.content_tv1, "荐");
+            holder.setImageResource(R.id.content_tv1, R.drawable.tui);
         }
         holder.setText(R.id.content_tv3, bean.getAbsolute_address());
         holder.setText(R.id.number, "第" + bean.getSort()+ "名");

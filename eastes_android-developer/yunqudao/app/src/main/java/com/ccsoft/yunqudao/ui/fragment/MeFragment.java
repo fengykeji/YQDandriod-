@@ -265,9 +265,9 @@ public class MeFragment extends Fragment implements View.OnClickListener  {
     }
 
 
-
-
-
+    /**
+     * 获取头像
+     */
 
     private void loadData(){
         OkHttpUtils.post(HttpAdress.getBaseInfo)
@@ -296,7 +296,6 @@ public class MeFragment extends Fragment implements View.OnClickListener  {
                 switch (which){
                     case 0:
                         xiangjiClick();
-
                         break;
                     case 1:
                         xiangceClick();

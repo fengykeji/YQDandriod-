@@ -38,7 +38,7 @@ public class ProjectPingMianTuFragment  extends android.support.v4.app.Fragment 
                 mlist = list.get(i).getList();
             }
         }
-        madapter = new Test2Adapter(getContext(), mlist);
+        madapter = new Test2Adapter(getContext(), mlist, list);
 
         im_viewPager = view.findViewById(R.id.im_viewPager);
         im_viewPager.setAdapter(madapter);

@@ -4,8 +4,10 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:background="#f0f0f0"
     >
     <LinearLayout
+        android:background="@color/chunbai"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center_vertical"
@@ -14,8 +16,8 @@
         >
         <com.ccsoft.yunqudao.utils.CircleImageView
             android:id="@+id/me_icon_icon"
-            android:layout_width="100dp"
-            android:layout_height="100dp"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
             android:src="@drawable/ic_def_head"
             />
         <TextView
@@ -36,6 +38,8 @@
 
     <!--个人资料-->
     <LinearLayout
+        android:background="@color/chunbai"
+
         android:id="@+id/me_item_linearlayout_personal"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -51,8 +55,8 @@
             android:layout_height="wrap_content"
             android:gravity="center_vertical"
             android:orientation="horizontal"
-            android:paddingBottom="10dp"
-            android:paddingTop="20dp"
+            android:paddingBottom="15dp"
+            android:paddingTop="15dp"
             >
 
             <LinearLayout
@@ -101,6 +105,7 @@
         />
     <!--公司认证-->
     <LinearLayout
+        android:background="@color/chunbai"
         android:id="@+id/me_item_linearlayout_company"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -116,8 +121,8 @@
             android:layout_height="wrap_content"
             android:gravity="center_vertical"
             android:orientation="horizontal"
-            android:paddingBottom="10dp"
-            android:paddingTop="20dp"
+            android:paddingBottom="15dp"
+            android:paddingTop="15dp"
             >
 
             <LinearLayout
@@ -189,6 +194,8 @@
         android:paddingLeft="20dp"
         android:paddingRight="20dp"
         tools:ignore="InvalidId"
+        android:background="@color/chunbai"
+
         >
 
 
@@ -197,8 +204,8 @@
             android:layout_height="wrap_content"
             android:gravity="center_vertical"
             android:orientation="horizontal"
-            android:paddingBottom="10dp"
-            android:paddingTop="20dp"
+            android:paddingBottom="15dp"
+            android:paddingTop="15dp"
             >
 
             <LinearLayout
@@ -254,6 +261,8 @@
         android:orientation="vertical"
         android:paddingLeft="20dp"
         android:paddingRight="20dp"
+        android:background="@color/chunbai"
+
         >
 
 
@@ -262,8 +271,8 @@
             android:layout_height="wrap_content"
             android:gravity="center_vertical"
             android:orientation="horizontal"
-            android:paddingBottom="10dp"
-            android:paddingTop="20dp"
+            android:paddingBottom="15dp"
+            android:paddingTop="15dp"
             >
 
             <LinearLayout
@@ -319,6 +328,8 @@
         android:orientation="vertical"
         android:paddingLeft="20dp"
         android:paddingRight="20dp"
+        android:background="@color/chunbai"
+
         >
 
 
@@ -327,8 +338,8 @@
             android:layout_height="wrap_content"
             android:gravity="center_vertical"
             android:orientation="horizontal"
-            android:paddingBottom="10dp"
-            android:paddingTop="20dp"
+            android:paddingBottom="15dp"
+            android:paddingTop="15dp"
             >
 
             <LinearLayout
@@ -384,6 +395,8 @@
         android:orientation="vertical"
         android:paddingLeft="20dp"
         android:paddingRight="20dp"
+        android:background="@color/chunbai"
+
         >
 
 
@@ -392,8 +405,8 @@
             android:layout_height="wrap_content"
             android:gravity="center_vertical"
             android:orientation="horizontal"
-            android:paddingBottom="10dp"
-            android:paddingTop="20dp"
+            android:paddingBottom="15dp"
+            android:paddingTop="15dp"
             >
 
             <LinearLayout
@@ -442,6 +455,7 @@
         />
     <!--关于云算-->
     <LinearLayout
+        android:background="@color/chunbai"
         android:id="@+id/me_item_linearlayout_about_yunsuan"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -457,8 +471,8 @@
             android:layout_height="wrap_content"
             android:gravity="center_vertical"
             android:orientation="horizontal"
-            android:paddingBottom="10dp"
-            android:paddingTop="20dp"
+            android:paddingBottom="15dp"
+            android:paddingTop="15dp"
             >
 
             <LinearLayout

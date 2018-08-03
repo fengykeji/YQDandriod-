@@ -4,7 +4,10 @@ import android.app.Activity;
 import android.app.Notification;
 import android.app.NotificationManager;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -12,6 +15,7 @@ import android.provider.Settings;
 import android.support.multidex.MultiDex;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.KeyEvent;
@@ -20,19 +24,26 @@ import android.widget.Toast;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import cn.jpush.android.api.JPushInterface;
+import okhttp3.Call;
+import okhttp3.Response;
 
 
 import com.ashokvarma.bottomnavigation.BottomNavigationBar;
 import com.ashokvarma.bottomnavigation.BottomNavigationItem;
 import com.ashokvarma.bottomnavigation.TextBadgeItem;
 import com.ccsoft.yunqudao.R;
+import com.ccsoft.yunqudao.bean.GetVersionBean;
+import com.ccsoft.yunqudao.data.AppConstants;
 import com.ccsoft.yunqudao.ui.fragment.CustomersFragment;
 import com.ccsoft.yunqudao.ui.fragment.HouseFragment;
 import com.ccsoft.yunqudao.ui.fragment.MeFragment;
 import com.ccsoft.yunqudao.ui.fragment.MessageFragment;
 import com.ccsoft.yunqudao.ui.fragment.WorkFragment;
 import com.ccsoft.yunqudao.utils.ActivityManager;
+import com.ccsoft.yunqudao.utils.JsonUtil;
 import com.ccsoft.yunqudao.utils.SpUtil;
+import com.lzy.okhttputils.OkHttpUtils;
+import com.lzy.okhttputils.callback.StringCallback;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
@@ -58,6 +69,7 @@ public class HomeActivity extends AppCompatActivity implements BottomNavigationB
     private int fid;
     private String noread;
     private TextBadgeItem badgeItem;
+
 
 
     private static boolean isExit = false;
@@ -116,6 +128,7 @@ public class HomeActivity extends AppCompatActivity implements BottomNavigationB
 
         ActivityManager.getInstance().addActivity(this);
         setContentView(R.layout.activity_main);
+        judgeVersion();
         MultiDex.install(this);
         initView();
         ButterKnife.bind(this);
@@ -125,6 +138,7 @@ public class HomeActivity extends AppCompatActivity implements BottomNavigationB
         mBottomNavigationBar.setTabSelectedListener(this);
 
         setBadge();
+
 
     }
 
@@ -299,4 +313,61 @@ public class HomeActivity extends AppCompatActivity implements BottomNavigationB
 
          mNotificationManager.notify(0,notification);
      }
+
+     private void judgeVersion(){
+         OkHttpUtils.get(AppConstants.URL+"getVersion")
+                 .tag(this)
+                 .execute(new StringCallback() {
+                     @Override
+                     public void onSuccess(String s, Call call, Response response) {
+                         GetVersionBean bean = JsonUtil.jsonToEntity(s,GetVersionBean.class);
+                         if(bean.getCode() == 200 ){
+//                             Double version = Double.valueOf(bean.getData());
+                             String version = getVerName(HomeActivity.this);
+                             if(!version.equals(bean.getData())){
+                                 AlertDialog.Builder builder = new AlertDialog.Builder(HomeActivity.this);  //先得到构造器
+                                 builder.setTitle("请更新版本"); //设置标题
+                                 //builder.setMessage("是否确认退出?"); //设置内容
+                                 //builder.setIcon(R.mipmap.ic_launcher);//设置图标，图片id即可
+                                 //设置列表显示，注意设置了列表显示就不要设置builder.setMessage()了，否则列表不起作用。
+                                 builder.setPositiveButton("确定",new DialogInterface.OnClickListener() {
+                                     @Override
+                                     public void onClick(DialogInterface dialogInterface, int i) {
+                                         Uri uri = Uri.parse("https://www.baidu.com");
+                                         Intent intent = new Intent(Intent.ACTION_VIEW, uri);
+                                         startActivity(intent);
+                                     }
+                                 });
+
+                                 builder.setNegativeButton("取消", new DialogInterface.OnClickListener() {
+                                     @Override
+                                     public void onClick(DialogInterface dialogInterface, int i) {
+
+                                     }
+                                 });
+
+                                 builder.create();
+                                 builder.create().show();
+                             }
+                         }
+                     }
+                 });
+     }
+
+    /**
+     * 获取版本号名称
+     *
+     * @param context 上下文
+     * @return
+     */
+    public static String getVerName(Context context) {
+        String verName = "";
+        try {
+            verName = context.getPackageManager().
+                    getPackageInfo(context.getPackageName(), 0).versionName;
+        } catch (PackageManager.NameNotFoundException e) {
+            e.printStackTrace();
+        }
+        return verName;
+    }
 }

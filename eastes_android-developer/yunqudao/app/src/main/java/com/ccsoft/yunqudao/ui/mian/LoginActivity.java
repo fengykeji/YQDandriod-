@@ -7,10 +7,15 @@ import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
 import android.util.Log;
+import android.view.Gravity;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.LinearLayout;
+import android.widget.PopupWindow;
 import android.widget.Toast;
 
 import com.ccsoft.yunqudao.bean.LoginBean;
@@ -24,6 +29,7 @@ import com.ccsoft.yunqudao.manager.ClientManager;
 import com.ccsoft.yunqudao.rx.RxSchedulers;
 import com.ccsoft.yunqudao.ui.home.HomeActivity;
 import com.ccsoft.yunqudao.utils.ActivityManager;
+import com.ccsoft.yunqudao.utils.CommonPopupWindow;
 import com.ccsoft.yunqudao.utils.InputUtil;
 import com.ccsoft.yunqudao.utils.JsonUtil;
 import com.ccsoft.yunqudao.utils.SpUtil;
@@ -33,10 +39,18 @@ import com.lzy.okhttputils.OkHttpUtils;
 import com.lzy.okhttputils.callback.StringCallback;
 import com.lzy.okhttputils.cookie.store.PersistentCookieStore;
 import com.lzy.okhttputils.model.HttpHeaders;
+import com.mob.commons.SHARESDK;
 
 import java.util.HashMap;
 import java.util.Map;
 
+import cn.sharesdk.framework.Platform;
+import cn.sharesdk.framework.PlatformActionListener;
+import cn.sharesdk.framework.PlatformDb;
+import cn.sharesdk.framework.ShareSDK;
+import cn.sharesdk.onekeyshare.OnekeyShareThemeImpl;
+import cn.sharesdk.tencent.qq.QQ;
+import cn.sharesdk.wechat.friends.Wechat;
 import okhttp3.Call;
 import okhttp3.Response;
 
@@ -45,7 +59,7 @@ import okhttp3.Response;
  * @data: 2018/5/8 0008
  */
 
-public class LoginActivity extends AppCompatActivity implements View.OnClickListener {
+public class LoginActivity extends AppCompatActivity implements View.OnClickListener , PlatformActionListener {
 
     private EditText mMe_edittext_account;
     private EditText mMe_edittext_password;
@@ -57,10 +71,13 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     private LoginData loginData;
     private long firstTime = 0;//记录用户首次点击返回键的时间
 
+    private PlatformDb platDB; //平台授权数据DB
+
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         ActivityManager.getInstance().addActivity(this);
         setContentView(R.layout.activity_me_log_in);
+
         initView();
         initListener();
     }
@@ -113,10 +130,23 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                 ForgetResetPassWordActivity.start(this);
                 break;
             case R.id.me_button_QQ:
-                Toast.makeText(this, "你点击了QQ登录", Toast.LENGTH_SHORT).show();
+                // qq登录
+                Platform qq = ShareSDK.getPlatform(QQ.NAME);
+                authorize();
                 break;
             case R.id.me_button_wechat:
-                Toast.makeText(this, "你点击了微信登录", Toast.LENGTH_SHORT).show();
+                // 微信登录
+                Platform wechat = ShareSDK.getPlatform(Wechat.NAME);
+                authorize();
+                //            CommonPopupWindow popupWindow = new CommonPopupWindow.Builder()
+//                    .setContext(this) //设置 context
+//                    .setContentView(R.layout.activity_login_sanfang) //设置布局文件
+//                    .setwidth(LinearLayout.LayoutParams.MATCH_PARENT) //设置宽度，由于我已经在布局写好，这里就用 wrap_content就好了
+//                    .setheight(500) //设置高度
+//                    .setFouse(true)  //设置popupwindow 是否可以获取焦点
+//                    .setOutSideCancel(true) //设置点击外部取消
+//                    .builder()
+//                    .showAtLocation(R.layout.activity_me_log_in, Gravity.BOTTOM,0,0);
                 break;
         }
     }
@@ -227,5 +257,98 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
         }
 
+    }
+
+
+    //第三方授权登录
+    private void authorize() {
+        Platform plat = ShareSDK.getPlatform(Wechat.NAME);
+        if (plat == null) {
+            return;
+        }
+
+//判断指定平台是否已经完成授权
+        if(plat.isAuthValid()) {
+            plat.removeAccount(true);
+
+        }
+        plat.setPlatformActionListener(new PlatformActionListener() {
+            @Override
+            public void onComplete(Platform platform, int i, HashMap<String, Object> hashMap) {
+                Log.i("1234",platform.getDb().exportData());
+
+            }
+
+            @Override
+            public void onError(Platform platform, int i, Throwable throwable) {
+                Log.i("1234",throwable.toString());
+            }
+
+            @Override
+            public void onCancel(Platform platform, int i) {
+                Log.i("1234","onCancel");
+
+
+            }
+        });
+//        String
+        // true不使用SSO授权，false使用SSO授权
+        plat.SSOSetting(false);
+        //获取用户资料
+        plat.showUser(null);
+
+
+    }
+
+
+
+    @Override
+    public void onComplete(Platform platform, int i, HashMap<String, Object> hashMap) {
+        String headImageUrl = null;//头像
+        String userId;//userId
+        String token;//token
+        String gender;//性别
+        String name = null;//用户名
+        Log.e("ccccc","sssss1");
+
+        if (i == Platform.ACTION_USER_INFOR) {
+
+            platDB = platform.getDb(); // 获取平台数据DB
+
+            if (platform.getName().equals(Wechat.NAME)) {
+                //微信登录
+
+                // 通过DB获取各种数据
+                token = platDB.getToken();
+                userId = platDB.getUserId();
+                name = platDB.getUserName();
+                gender = platDB.getUserGender();
+                headImageUrl = platDB.getUserIcon();
+                if ("m".equals(gender)) {
+                    gender = "1";
+                } else {
+                    gender = "2";
+                }
+            } else if (platform.getName().equals(QQ.NAME)) {
+                // QQ登录
+                token = platDB.getToken();
+                userId = platDB.getUserId();
+                name = hashMap.get("nickname").toString(); // 名字
+                gender = hashMap.get("gender").toString(); // 年龄
+                headImageUrl = hashMap.get("figureurl_qq_2").toString(); // 头像figureurl_qq_2 中等图，figureurl_qq_1缩略图
+
+            }
+            }
+        }
+
+
+    @Override
+    public void onError(Platform platform, int i, Throwable throwable) {
+        Log.e("ccccc","sssss2");
+    }
+
+    @Override
+    public void onCancel(Platform platform, int i) {
+        Log.e("ccccc","sssss3");
     }
 }

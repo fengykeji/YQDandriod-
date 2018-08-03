@@ -72,16 +72,15 @@
             android:layout_gravity="center|right"
             android:gravity="center"
             >
-            <com.ccsoft.yunqudao.utils.indexbar.CubeIndexBar
-                xmlns:android="http://schemas.android.com/apk/res/android"
+
+            <com.ccsoft.yunqudao.utils.indexbar.CubeIndexBar xmlns:android="http://schemas.android.com/apk/res/android"
                 android:id="@+id/sidebar"
                 android:layout_width="20dp"
                 android:layout_height="300dp"
                 android:paddingBottom="12dp"
                 android:paddingTop="12dp"
                 app:indexBarPressBackground="@color/chunhei"
-                app:indexBarTextSize="12sp"
-                />
+                app:indexBarTextSize="12sp" />
         </LinearLayout>
     </FrameLayout>
 </LinearLayout>

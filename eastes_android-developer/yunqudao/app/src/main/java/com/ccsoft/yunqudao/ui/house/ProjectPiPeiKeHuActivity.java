@@ -66,6 +66,7 @@ public class ProjectPiPeiKeHuActivity extends AppCompatActivity implements View.
     private List<ProjectPiPeiKeHuBean.DataBean> dataList = new ArrayList<>();
     private List<ProjectFastRecommendListBean.DataBeanX.DataBean> dataList1 = new ArrayList<>();
     private int project_id = 0;
+    private Bundle bundle;
 
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -84,7 +85,7 @@ public class ProjectPiPeiKeHuActivity extends AppCompatActivity implements View.
      * 初始化
      */
     private void initView() {
-        Bundle bundle = getIntent().getExtras();
+        bundle = getIntent().getExtras();
         mHouse_button_添加客户 = findViewById(R.id.house_button_添加客户);
         if(bundle.size()==2) {
             dataList = (List<ProjectPiPeiKeHuBean.DataBean>) bundle.get("list");
@@ -104,6 +105,7 @@ public class ProjectPiPeiKeHuActivity extends AppCompatActivity implements View.
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         adapter = new ProjectPiPeiAdapter(this,R.layout.item_project_pipei,dataList,project_id);
         recyclerView.setAdapter(adapter);
+        recyclerView.addOnScrollListener(endlessRecyclerOnScrollListener);
 
         if(bundle.size()==1) {
             initData();
@@ -129,7 +131,17 @@ public class ProjectPiPeiKeHuActivity extends AppCompatActivity implements View.
         mSwipRefresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                initData();
+                if(bundle.size()==2) {
+                    adapter = new ProjectPiPeiAdapter(ProjectPiPeiKeHuActivity.this, R.layout.item_project_pipei, dataList, project_id);
+                    recyclerView.setAdapter(adapter);
+                    recyclerView.addOnScrollListener(endlessRecyclerOnScrollListener);
+                    mSwipRefresh.setRefreshing(false);
+                }else {
+                    initData();
+                    adapter1 = new ProjectFastAdapter(ProjectPiPeiKeHuActivity.this,R.layout.item_project_pipei,dataList1,project_id);
+                    recyclerView.setAdapter(adapter1);
+                    recyclerView.addOnScrollListener(endlessRecyclerOnScrollListener);
+                }
             }
         });
     }

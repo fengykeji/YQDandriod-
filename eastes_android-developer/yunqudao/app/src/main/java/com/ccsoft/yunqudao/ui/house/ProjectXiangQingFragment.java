@@ -285,7 +285,9 @@ public class ProjectXiangQingFragment extends Fragment implements View.OnClickLi
         baiduMap = mapView.getMap();
 
 
-
+        /**
+         * 百度地图滑动冲突解决
+         */
 
         View v = mapView.getChildAt(0);
         v.setOnTouchListener(new View.OnTouchListener() {
@@ -768,6 +770,11 @@ public class ProjectXiangQingFragment extends Fragment implements View.OnClickLi
     }
 
 
+    /**
+     * 百度地图
+     */
+
+
     private void location(){
 
         LatLng latLng = new LatLng(bean.getProject_basic_info().getLatitude(),
@@ -854,6 +861,14 @@ public class ProjectXiangQingFragment extends Fragment implements View.OnClickLi
 
     }
 
+
+    /**
+     * 推荐
+     * @param project_id
+     * @param id
+     * @param mClienId
+     */
+
     private void getRecommend(int project_id,int id,int mClienId ){
         Map<String, String> map = new HashMap<>();
         map.put("project_id", String.valueOf(project_id));
@@ -899,6 +914,10 @@ public class ProjectXiangQingFragment extends Fragment implements View.OnClickLi
             }
         });
     }
+
+    /**
+     * 拨打电话
+     */
 
     private void getPermiission(){
         // 检查是否获得了权限（Android6.0运行时权限）

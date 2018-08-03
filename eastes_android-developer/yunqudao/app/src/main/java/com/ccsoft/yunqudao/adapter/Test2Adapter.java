@@ -16,16 +16,21 @@ import com.ccsoft.yunqudao.data.AppConstants;
 import com.ccsoft.yunqudao.ui.house.ProjectXiangCeActivity;
 import com.squareup.picasso.Picasso;
 
+import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 public class Test2Adapter extends PagerAdapter {
     private List<ProjectHuXingXiangQingBean.DataBean.ImgInfoBean.listbean> mPaths;
+    private List<ProjectHuXingXiangQingBean.DataBean.ImgInfoBean> list = new ArrayList<>();
 
     private Context mContext;
 
-    public Test2Adapter(Context context, List<ProjectHuXingXiangQingBean.DataBean.ImgInfoBean.listbean> paths) {
+    public Test2Adapter(Context context, List<ProjectHuXingXiangQingBean.DataBean.ImgInfoBean.listbean> paths
+    ,List<ProjectHuXingXiangQingBean.DataBean.ImgInfoBean> list) {
         mContext = context;
         this.mPaths = paths;
+        this.list = list;
     }
 
 
@@ -58,9 +63,10 @@ public class Test2Adapter extends PagerAdapter {
         iv.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-//                Intent intent = new Intent(mContext,ProjectXiangCeActivity.class);
-//                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-//                mContext.startActivity(intent);
+                Intent intent = new Intent(mContext,ProjectXiangCeActivity.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                intent.putExtra("list1", (Serializable) list);
+                mContext.startActivity(intent);
             }
         });
         ((ViewPager)container).addView(iv, 0);

@@ -84,27 +84,7 @@ public class WorkChengjiaoVerifyFragment extends Fragment implements View.OnClic
      * 请求数据
      */
     private void initData() {
-//        ClientManager.getInstance().getRecordAffirm().compose(RxSchedulers.<RecordAffirmBaseData>io_main()).subscribe(new ApiSubscriber<RecordAffirmBaseData>(getActivity()) {
-//
-//            @Override
-//            protected void _onNext(RecordAffirmBaseData recordAffirmBaseData) {
-//                curPage = 2;
-//                totalPage = recordAffirmBaseData.last_page;
-//                dataList.clear();
-//                dataList.addAll(recordAffirmBaseData.data);
-//                workReportVerifyAdapter.notifyDataSetChanged();
-//            }
-//
-//            @Override
-//            protected void _onError(String message) {
-//                LogUtil.e(message);
-//            }
-//
-//            @Override
-//            protected void _onCompleted() {
-//                mSwipRefresh.setRefreshing(false);
-//            }
-//        });
+
 
         OkHttpUtils.get(HttpAdress.DEALLIST)
                 .tag(getActivity())

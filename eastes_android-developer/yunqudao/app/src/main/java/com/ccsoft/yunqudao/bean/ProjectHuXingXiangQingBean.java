@@ -149,6 +149,17 @@ public class ProjectHuXingXiangQingBean implements Serializable{
             public static class listbean implements Serializable{
                 private int img_id;
                 private String img_url;
+                private String img_url_3d;
+
+                public void setImg_url_3d(String img_url_3d) {
+                    this.img_url_3d = img_url_3d;
+                }
+
+                public String getImg_url_3d() {
+
+                    return img_url_3d;
+                }
+
                 private String img_describe;
                 private String update_time;
                 private int img_type;

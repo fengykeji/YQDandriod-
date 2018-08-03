@@ -1,7 +1,5 @@
 package com.ccsoft.yunqudao.wxapi;
 
-import com.umeng.socialize.weixin.view.WXCallbackActivity;
-
-public class WXEntryActivity extends WXCallbackActivity {
+public class WXEntryActivity extends cn.sharesdk.demo.wxapi.WXEntryActivity {
 
 }

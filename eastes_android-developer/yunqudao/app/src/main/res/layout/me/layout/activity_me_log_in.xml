@@ -102,21 +102,23 @@
             android:layout_height="wrap_content"
             >
             <Button
+                android:gravity=""
                 android:id="@+id/me_button_register"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="30dp"
                 android:autoLink="all"
                 android:background="@android:color/transparent"
                 android:text="马上注册"
                 android:textSize="15sp"
                 />
             <Button
+
+                android:gravity="center_vertical"
+                android:paddingLeft="30dp"
                 android:id="@+id/me_button_repassword"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
-                android:layout_marginRight="20dp"
                 android:background="@android:color/transparent"
                 android:text="忘记密码"
                 android:textSize="15sp"
@@ -144,7 +146,7 @@
                 android:gravity="center_horizontal"
                 android:orientation="horizontal"
                 android:padding="20dp"
-                android:visibility="gone">
+                android:visibility="visible">
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -164,7 +166,7 @@
                 android:orientation="horizontal"
                 android:padding="20dp"
                 android:weightSum="4"
-                android:visibility="gone">
+                android:visibility="visible">
 
                     <ImageView
                     android:layout_width="0dp"

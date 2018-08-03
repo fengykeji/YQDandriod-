@@ -2,6 +2,7 @@ package com.ccsoft.yunqudao.ui.adapter;
 
 import android.content.Context;
 import android.util.Log;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 import com.ccsoft.yunqudao.R;
@@ -90,6 +91,8 @@ public class CustomersRecyclerAdapter extends BaseRecyclerAdapter<ClientListMode
             mCustomers_image_性别.setImageResource(R.drawable.ic_man);
         }else if(bean.getSex()==2){
             mCustomers_image_性别.setImageResource(R.drawable.ic_girl);
+        }else {
+            mCustomers_image_性别.setVisibility(View.GONE);
         }
 
         mCustomers_text_联系电话.setText(String.valueOf(bean.getTel()));

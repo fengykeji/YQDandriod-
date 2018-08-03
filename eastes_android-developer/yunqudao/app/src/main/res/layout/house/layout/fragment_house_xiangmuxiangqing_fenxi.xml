@@ -79,7 +79,7 @@
                     android:lineSpacingExtra="3dp"
                     android:maxEms="100"
                     android:text="连续两场，每场历时5小时，44位众议员连环出击，面对车轮式的问题轰炸，但Facebook关于垄断、隐私泄露、内容审核等问题的已引起关注。“由此透出的立法倾向和规划对美国乃至世界互联网企业都是重要的。”同济大学研究员刘旭表示。"
-                    android:textSize="16sp"
+                    android:textSize="14sp"
                     />
             </LinearLayout>
             <ImageView
@@ -124,7 +124,7 @@
                     android:ellipsize="end"
                     android:lineSpacingExtra="3dp"
                     android:text="连续两场，每场历时5小时，44位众议员连环出击，面对车轮式的问题轰炸，等问题的已引起关注。“由此透出的立法倾向和规划对美国乃至世的。”同济大学研究员刘旭表示。"
-                    android:textSize="16sp"
+                    android:textSize="14sp"
                     />
             </LinearLayout>
             <ImageView
@@ -168,7 +168,7 @@
                     android:layout_marginRight="10dp"
                     android:ellipsize="end"
                     android:text="连续两场，每场历时5小时，44位众议员连环出击，面对车轮式的问题轰炸，偶尔陷入尴尬的扎克伯克依然努力保持微笑，是重要的。”同济大学研究员刘旭表示。"
-                    android:textSize="16sp"
+                    android:textSize="14sp"
                     />
             </LinearLayout>
             <ImageView
@@ -214,7 +214,7 @@
                     android:ellipsize="end"
                     android:lineSpacingExtra="3dp"
                     android:text="连续两场，每场历时5小时，44位众议员连环出击，面对车轮式的问题轰炸，偶尔陷入尴尬的扎克伯克依然努力保持微笑，是重要的。”同济大学研究员刘旭表示。"
-                    android:textSize="16sp"
+                    android:textSize="14sp"
                     />
 
             </LinearLayout>

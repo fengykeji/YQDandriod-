@@ -237,7 +237,6 @@ public class ProjectHuXingXiangQingActivity extends AppCompatActivity implements
                             fragment.setArguments(bundle);
                             mTitles.add(imgInfoBean.getType());
                         }
-
                     }
                     MyFragmentPagerAdapter fragmentPagerAdapter = new MyFragmentPagerAdapter(getSupportFragmentManager(),  fragments,  mTitles);
                     viewPager.setAdapter(fragmentPagerAdapter);

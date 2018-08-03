@@ -21,6 +21,7 @@
         android:orientation="horizontal"
         >
         <ImageButton
+            android:paddingRight="30dp"
             android:id="@+id/me_button_返回"
             android:layout_width="50dp"
             android:layout_height="50dp"
@@ -36,7 +37,7 @@
             android:layout_centerInParent="true"
             android:text="认证信息填写"
             android:textColor="@color/chunhei"
-            android:textSize="16sp"
+            android:textSize="15sp"
             />
     </RelativeLayout>
 
@@ -65,6 +66,7 @@
             android:layout_alignParentRight="true"
             android:id="@+id/tv_company"
             android:text=""
+            android:textColor="#333333"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
         </RelativeLayout>
@@ -87,6 +89,7 @@
             android:textSize="15sp"
             android:text="工号"/>
         <EditText
+            android:textColor="#333333"
             android:textCursorDrawable="@null"
             android:gravity="right"
             android:id="@+id/et_gonghao"
@@ -117,6 +120,7 @@
             android:textSize="15sp"
             android:text="角色"/>
         <TextView
+            android:textColor="#333333"
             android:layout_alignParentRight="true"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -163,6 +167,8 @@
             android:textSize="15sp"
             android:text="所属部门"/>
         <EditText
+            android:textColor="#333333"
+
             android:textCursorDrawable="@null"
             android:gravity="right"
             android:id="@+id/et_suoshubumen"
@@ -189,6 +195,8 @@
             android:textSize="15sp"
             android:text="职位"/>
         <EditText
+            android:textColor="#333333"
+
             android:textCursorDrawable="@null"
             android:gravity="right"
             android:background="@null"
@@ -220,7 +228,7 @@
                 android:text="入职\申请时间"/>
             <TextView
                 android:id="@+id/tv_tuzhitime"
-
+                android:textColor="#333333"
                 android:layout_alignParentRight="true"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -268,6 +276,7 @@
             </ImageView>
 
             <Button
+                android:visibility="gone"
                 android:id="@+id/button_next"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -277,6 +286,24 @@
                 android:textColor="@color/chunbai"
                 android:textSize="20sp"
                 />
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="20dp"
+                >
+                <Button
+                    android:background="@drawable/ic_loginbackground"
+                    android:id="@+id/me_button_退出登录"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentBottom="true"
+                    android:textColor="@color/chunbai"
+                    android:text="提交申请"
+                    />
+
+
+            </RelativeLayout>
 
 
 

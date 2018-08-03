@@ -25,7 +25,7 @@
                     android:layout_height="wrap_content"
                     android:text="张三"
                     android:textColor="@color/chunhei"
-                    android:textSize="15sp"
+                    android:textSize="17sp"
                     />
 
             </RelativeLayout>

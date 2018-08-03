@@ -25,6 +25,8 @@ import com.umeng.socialize.bean.SHARE_MEDIA;
 import java.util.ArrayList;
 import java.util.List;
 
+import cn.sharesdk.onekeyshare.OnekeyShare;
+
 /**
  * @author: Pein
  * @data: 2018/5/9 0009
@@ -47,10 +49,7 @@ public class ProjectXiangQingActivity extends AppCompatActivity implements View.
         ActivityManager.getInstance().addActivity(this);
         setContentView(R.layout.activity_house_project_xiangqing);
 
-        UMConfigure.init(this,"5ac9defef29d986c30000078"
-                ,"umeng",UMConfigure.DEVICE_TYPE_PHONE,"");
-        PlatformConfig.setQQZone("1106811849", "ik2oC5WcDQ5IOrpc");
-        PlatformConfig.setWeixin("wx3e34d92e8b8cb53e", "200ee15186843d67c0d9ba6a66f3a6ba");
+
         initView();
         initListener();
     }
@@ -124,7 +123,8 @@ public class ProjectXiangQingActivity extends AppCompatActivity implements View.
             case R.id.house_button_分享:
 //                new ShareAction(this).withText("hello")
 //                        .setDisplayList(SHARE_MEDIA.QZONE,SHARE_MEDIA.QQ,SHARE_MEDIA.WEIXIN,SHARE_MEDIA.WEIXIN_CIRCLE)
-//                        .setCallback(shareListener).open();
+//                        .setCallback(shareLstener).open();
+                showShare();
 
                 break;
         }
@@ -145,46 +145,32 @@ public class ProjectXiangQingActivity extends AppCompatActivity implements View.
 
     }
 
-    /**
-     * 分享回调
-     */
-    private UMShareListener shareListener = new UMShareListener() {
-        /**
-         * @descrption 分享开始的回调
-         * @param platform 平台类型
-         */
-        @Override
-        public void onStart(SHARE_MEDIA platform) {
 
-        }
 
-        /**
-         * @descrption 分享成功的回调
-         * @param platform 平台类型
-         */
-        @Override
-        public void onResult(SHARE_MEDIA platform) {
-            Toast.makeText(ProjectXiangQingActivity.this,"成功了",Toast.LENGTH_LONG).show();
-        }
 
-        /**
-         * @descrption 分享失败的回调
-         * @param platform 平台类型
-         * @param t 错误原因
-         */
-        @Override
-        public void onError(SHARE_MEDIA platform, Throwable t) {
-            Toast.makeText(ProjectXiangQingActivity.this,"失败"+t.getMessage(),Toast.LENGTH_LONG).show();
-        }
+    private void showShare() {
+        OnekeyShare oks = new OnekeyShare();
+//关闭sso授权
+        oks.disableSSOWhenAuthorize();
 
-        /**
-         * @descrption 分享取消的回调
-         * @param platform 平台类型
-         */
-        @Override
-        public void onCancel(SHARE_MEDIA platform) {
-            Toast.makeText(ProjectXiangQingActivity.this,"取消了",Toast.LENGTH_LONG).show();
+// title标题，印象笔记、邮箱、信息、微信、人人网和QQ空间等使用
+        oks.setTitle("标题");
+// titleUrl是标题的网络链接，QQ和QQ空间等使用
+        oks.setTitleUrl("http://sharesdk.cn");
+// text是分享文本，所有平台都需要这个字段
+        oks.setText("我是分享文本");
+// imagePath是图片的本地路径，Linked-In以外的平台都支持此参数
+//oks.setImagePath("/sdcard/test.jpg");//确保SDcard下面存在此张图片
+// url仅在微信（包括好友和朋友圈）中使用
+        oks.setUrl("http://sharesdk.cn");
+// comment是我对这条分享的评论，仅在人人网和QQ空间使用
+        oks.setComment("我是测试评论文本");
+// site是分享此内容的网站名称，仅在QQ空间使用
+        oks.setSite(getString(R.string.app_name));
+// siteUrl是分享此内容的网站地址，仅在QQ空间使用
+        oks.setSiteUrl("http://sharesdk.cn");
 
-        }
-    };
+// 启动分享GUI
+        oks.show(this);
+    }
 }

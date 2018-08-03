@@ -17,6 +17,7 @@ import android.widget.TextView;
 import com.ccsoft.yunqudao.R;
 import com.ccsoft.yunqudao.adapter.MyFragmentPagerAdapter;
 import com.ccsoft.yunqudao.bean.MessageEvent;
+import com.ccsoft.yunqudao.bean.ProjectHuXingXiangQingBean;
 import com.ccsoft.yunqudao.bean.ProjectImgGetBean;
 import com.ccsoft.yunqudao.http.HttpAdress;
 import com.ccsoft.yunqudao.utils.ActivityManager;
@@ -62,6 +63,8 @@ public class ProjectXiangCeActivity extends AppCompatActivity implements View.On
     private int postion1 = 0;
     private int ss = 0;
     private ArrayList<ProjectImgGetBean.DataBeanX> list;
+    private List<ProjectHuXingXiangQingBean.DataBean.ImgInfoBean> listhuxing = new ArrayList<>();
+    private List<ProjectHuXingXiangQingBean.DataBean.ImgInfoBean> listbeans = new ArrayList<>();
 
 
     @Override
@@ -86,7 +89,6 @@ public class ProjectXiangCeActivity extends AppCompatActivity implements View.On
         setContentView(R.layout.activity_house_loupanxiangce);
         EventBus.getDefault().register(this);
         initView();
-        initData();
         initListener();
     }
 
@@ -114,8 +116,50 @@ public class ProjectXiangCeActivity extends AppCompatActivity implements View.On
         tabLayout = findViewById(R.id.xc_tablaout);
 
         project_id = getIntent().getIntExtra("project_id",0);
+
+        if(project_id == 0) {
+            listhuxing = (List<ProjectHuXingXiangQingBean.DataBean.ImgInfoBean>) getIntent().getSerializableExtra("list1");
+
+
+            ArrayList<Fragment> fragments = new ArrayList<>();
+            ArrayList<String> mTitles = new ArrayList<>();
+            ProjectXiangCeFragment fragment = null;
+            for (ProjectHuXingXiangQingBean.DataBean.ImgInfoBean imgInfoBean : listhuxing) {
+                fragment = new ProjectXiangCeFragment();
+                Bundle bundle1 = new Bundle();
+                listbeans.add(imgInfoBean);
+                bundle1.putSerializable("list1", (Serializable) imgInfoBean);
+                fragment.setArguments(bundle1);
+                mTitles.add(imgInfoBean.getType());
+                ss+=imgInfoBean.getList().size();
+                fragments.add(fragment);
+
+                mHouse_text_效果图.setText(listhuxing.get(0).getType()+"1/"+listhuxing.get(0).getList().size());
+                mHouse_text_全部图.setText("全部图:1/"+ss);
+                MyFragmentPagerAdapter fragmentPagerAdapter = new MyFragmentPagerAdapter(getSupportFragmentManager(),  fragments,  mTitles);
+                mHouse_viewpager_图册.setAdapter(fragmentPagerAdapter);
+                tabLayout.setupWithViewPager(mHouse_viewpager_图册);
+
+                mHouse_viewpager_图册.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+                    @Override
+                    public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+
+                    }
+
+                    @Override
+                    public void onPageSelected(int position) {
+
+                    }
+                    @Override
+                    public void onPageScrollStateChanged(int state) {
+
+                    }
+                });
+            }
+        }else {
+            initData();
+        }
     }
-    Bundle bundle1 = new Bundle();
 
     private void initData(){
         OkHttpManager.getInstance().get(HttpAdress.imgget + "?project_id=" + project_id, new BaseCallBack() {
@@ -134,17 +178,14 @@ public class ProjectXiangCeActivity extends AppCompatActivity implements View.On
 
                     for (ProjectImgGetBean.DataBeanX dataBeanX : bean.getData()) {
                         fragment = new ProjectXiangCeFragment();
-                        fragments.add(fragment);
+                        Bundle bundle1 = new Bundle();
                         list.add(dataBeanX);
+                        bundle1.putSerializable("list", (Serializable) dataBeanX);
+                        fragment.setArguments(bundle1);
                         mTitles.add(dataBeanX.getName());
                         ss+=dataBeanX.getData().size();
-                        fragment.setArguments(bundle1);
+                        fragments.add(fragment);
                     }
-
-
-                    bundle1.putSerializable("list", (Serializable) list);
-
-//                    bundle.putSerializable("lists", (Serializable) dataBeanX.getData());
 
                     mHouse_text_效果图.setText(list.get(0).getName()+"1/"+list.get(0).getData().size());
                     mHouse_text_全部图.setText("全部图:1/"+ss);
@@ -160,7 +201,7 @@ public class ProjectXiangCeActivity extends AppCompatActivity implements View.On
 
                         @Override
                         public void onPageSelected(int position) {
-                            postion1 = position;
+
                         }
                         @Override
                         public void onPageScrollStateChanged(int state) {
