@@ -17,6 +17,7 @@ import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.PopupWindow;
@@ -216,15 +217,19 @@ public class HouseFragment extends Fragment implements View.OnClickListener ,Hou
                 break;
             case R.id.content_均价:
                 showPopupWindow();
+                backgroundAlpha((float) 0.5);
                 break;
             case R.id.content_类型:
                 showPopupWindow1();
+                backgroundAlpha((float) 0.5);
                 break;
             case R.id.content_区域:
                 showPopupWindow2();
+                backgroundAlpha((float) 0.5);
                 break;
             case R.id.content_更多:
                 showPopupWindow3();
+                backgroundAlpha((float) 0.5);
                 break;
         }
     }
@@ -369,6 +374,7 @@ public class HouseFragment extends Fragment implements View.OnClickListener ,Hou
             public void onClick(View view) {
                 content_均价.setText("不限");
                 verage_price = 0;
+                backgroundAlpha(1);
                 popupWindow.dismiss();
                 loadFangyuanList();
             }
@@ -379,8 +385,15 @@ public class HouseFragment extends Fragment implements View.OnClickListener ,Hou
             public void onItemClickListner(View v, int position) {
                 content_均价.setText(peizhiBean.getData().get_$22().getParam().get(position).getParam());
                 verage_price =peizhiBean.getData().get_$22().getParam().get(position).getId();
+                backgroundAlpha(1);
                 popupWindow.dismiss();
                 loadFangyuanList();
+            }
+        });
+        popupWindow.setOnDismissListener(new PopupWindow.OnDismissListener() {
+            @Override
+            public void onDismiss() {
+                backgroundAlpha(1);
             }
         });
     }
@@ -407,6 +420,7 @@ public class HouseFragment extends Fragment implements View.OnClickListener ,Hou
             public void onClick(View view) {
                 content_类型.setText("不限");
                 property_id = 0;
+                backgroundAlpha(1);
                 popupWindow.dismiss();
                 loadFangyuanList();
             }
@@ -417,8 +431,15 @@ public class HouseFragment extends Fragment implements View.OnClickListener ,Hou
             public void onItemClickListner(View v, int position) {
                 content_类型.setText(peizhiBean.getData().get_$16().getParam().get(position).getParam());
                 property_id = peizhiBean.getData().get_$16().getParam().get(position).getId();
+                backgroundAlpha(1);
                 popupWindow.dismiss();
                 loadFangyuanList();
+            }
+        });
+        popupWindow.setOnDismissListener(new PopupWindow.OnDismissListener() {
+            @Override
+            public void onDismiss() {
+                backgroundAlpha(1);
             }
         });
     }
@@ -449,6 +470,7 @@ public class HouseFragment extends Fragment implements View.OnClickListener ,Hou
                         public void onClick(View view) {
                             content_区域.setText("不限");
                             district = content_区域.getText().toString();
+                            backgroundAlpha(1);
                             popupWindow.dismiss();
                             loadFangyuanList();
                         }
@@ -459,8 +481,16 @@ public class HouseFragment extends Fragment implements View.OnClickListener ,Hou
                         public void onItemClickListner(View v, int position) {
                             content_区域.setText(getDistrictListBean.getData().get(position).getName());
                             district = getDistrictListBean.getData().get(position).getCode();
+                            backgroundAlpha(1);
                             popupWindow.dismiss();
                             loadFangyuanList();
+                        }
+                    });
+
+                    popupWindow.setOnDismissListener(new PopupWindow.OnDismissListener() {
+                        @Override
+                        public void onDismiss() {
+                            backgroundAlpha(1);
                         }
                     });
                 }
@@ -520,6 +550,7 @@ public class HouseFragment extends Fragment implements View.OnClickListener ,Hou
         textView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                backgroundAlpha(1);
                 popupWindow.dismiss();
             }
         });
@@ -529,8 +560,8 @@ public class HouseFragment extends Fragment implements View.OnClickListener ,Hou
             public void onItemClickListner(View v, int position) {
 
             }
-        });
 
+        });
     }
 
     private TextView buildLabel(final String text) {
@@ -567,5 +598,16 @@ public class HouseFragment extends Fragment implements View.OnClickListener ,Hou
         loadFangyuanList();
         anim.start();
         mCustomers_swiperefreshlayout.finishRefresh(900);
+    }
+
+    /**
+     * 设置屏幕背景
+     * @param bgAlpha
+     */
+    public void backgroundAlpha(float bgAlpha)  //阴影改变
+    {
+        WindowManager.LayoutParams lp =getActivity().getWindow().getAttributes();
+        lp.alpha = bgAlpha; //0.0-1.0
+        getActivity().getWindow().setAttributes(lp);
     }
 }

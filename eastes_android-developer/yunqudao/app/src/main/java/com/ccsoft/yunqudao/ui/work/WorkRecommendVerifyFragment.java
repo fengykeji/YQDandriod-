@@ -115,8 +115,6 @@ public class WorkRecommendVerifyFragment extends Fragment implements View.OnClic
         mSwipRefresh.finishRefresh(900);
     }
     private void initData() {
-
-
         OkHttpUtils.get(HttpAdress.workwaitConfirm)
                 .tag(this)
                 .execute(new StringCallback() {
@@ -146,23 +144,6 @@ public class WorkRecommendVerifyFragment extends Fragment implements View.OnClic
 
                     }
                 });
-
-//        ClientManager.getInstance().getBrokerWait().compose(RxSchedulers.<BrokerWaitConfirmData>io_main()).subscribe(new ApiSubscriber<BrokerWaitConfirmData>(getActivity()) {
-//            @Override
-//            protected void _onNext(BrokerWaitConfirmData brokerWaitConfirmData) {
-//
-//            }
-//
-//            @Override
-//            protected void _onError(String message) {
-//                LogUtil.e(message);
-//            }
-//
-//            @Override
-//            protected void _onCompleted() {
-//                mSwipRefresh.setRefreshing(false);
-//            }
-//        });
     }
 
     @Override

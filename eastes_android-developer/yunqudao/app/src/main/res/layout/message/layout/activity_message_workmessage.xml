@@ -27,7 +27,7 @@
             android:layout_centerHorizontal="true"
             android:text="工作消息"
             android:textColor="@color/chunhei"
-            android:textSize="20sp"
+            android:textSize="16sp"
             />
     </RelativeLayout>
     <ImageView
@@ -381,7 +381,7 @@
 
 
     <LinearLayout
-        android:background="@color/gray"
+        android:background="@color/bgcolcor"
 
         android:layout_width="match_parent"
         android:layout_height="wrap_content">

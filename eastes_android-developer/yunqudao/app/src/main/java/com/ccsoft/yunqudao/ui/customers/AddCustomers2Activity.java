@@ -196,15 +196,12 @@ public class AddCustomers2Activity extends AppCompatActivity implements View.OnC
         initView();
         initData();
         initListener();
-
     }
 
     private void initView() {
         /**
          * 初始化id
          */
-
-
         mCustomers_button_back = findViewById(R.id.customers_button_back);
         mCustomers_button_add = findViewById(R.id.customers_button_add);
         mCustomers_button_commit = findViewById(R.id.customers_button_commit);
@@ -248,7 +245,6 @@ public class AddCustomers2Activity extends AppCompatActivity implements View.OnC
 
         Submit();
 
-//        Idlist = getIntent().getIntegerArrayListExtra("list");
         fastR = getIntent().getStringExtra("fastR");
         project_id = getIntent().getIntExtra("project_id",0);
 

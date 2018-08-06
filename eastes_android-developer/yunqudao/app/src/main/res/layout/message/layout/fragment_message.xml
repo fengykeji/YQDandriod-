@@ -28,14 +28,21 @@
         android:layout_height="3dp"
         android:background="@drawable/ic_line"
         />
+
+
+    <LinearLayout
+        android:background="@color/bgcolcor"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
     <!--模拟，后期删除-->
     <LinearLayout
         android:id="@+id/message_item_linearlayout_系统消息"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
+        android:background="@color/chunbai"
         >
-
 
         <ImageView
             android:layout_width="wrap_content"
@@ -83,6 +90,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
+        android:background="@color/chunbai"
         >
 
 
@@ -125,6 +133,7 @@
         android:layout_height="wrap_content"
         android:src="@drawable/ic_line"
         />
+    </LinearLayout>
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/message_recyclerview_消息列表"

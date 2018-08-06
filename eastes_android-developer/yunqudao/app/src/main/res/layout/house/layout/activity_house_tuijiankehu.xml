@@ -32,9 +32,10 @@
             android:layout_gravity="center_vertical"
             android:layout_weight="17"
             android:background="@color/qianhui"
-            android:padding="10dp"
+            android:padding="5dp"
             >
             <TextView
+                android:layout_marginLeft="10dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
@@ -42,6 +43,7 @@
                 android:textSize="18sp"
                 />
             <ImageView
+                android:paddingRight="10dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"

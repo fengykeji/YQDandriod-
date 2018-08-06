@@ -611,16 +611,24 @@
             </LinearLayout>
 
 
-            <Button
-                android:id="@+id/button_next"
+            <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="20dp"
-                android:background="@drawable/ic_loginbackground"
-                android:text="确定"
-                android:textColor="@color/chunbai"
-                android:textSize="15sp"
-                />
+                >
+                <Button
+                    android:id="@+id/button_next"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/ic_loginbackground"
+                    android:text="确定"
+                    android:textColor="@color/chunbai"
+                    android:textSize="15sp"
+                    />
+
+
+            </RelativeLayout>
+
 
 
         </LinearLayout>

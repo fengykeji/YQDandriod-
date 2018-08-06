@@ -192,7 +192,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="佣金规则"
+                        android:text="报备规则"
                         android:textColor="@color/chunhei"
                         android:textSize="18sp"
                         />

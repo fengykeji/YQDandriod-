@@ -121,9 +121,7 @@ public class ProjectXiangQingActivity extends AppCompatActivity implements View.
                 mHouse_button_分析.setTextColor(color);
                 break;
             case R.id.house_button_分享:
-//                new ShareAction(this).withText("hello")
-//                        .setDisplayList(SHARE_MEDIA.QZONE,SHARE_MEDIA.QQ,SHARE_MEDIA.WEIXIN,SHARE_MEDIA.WEIXIN_CIRCLE)
-//                        .setCallback(shareLstener).open();
+
                 showShare();
 
                 break;

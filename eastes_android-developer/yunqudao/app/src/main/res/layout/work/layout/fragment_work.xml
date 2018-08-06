@@ -3,6 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:background="@color/bgcolcor"
     >
 
     <RelativeLayout
@@ -28,6 +29,7 @@
         />
 
     <RelativeLayout
+        android:background="@color/chunbai"
         android:id="@+id/work_list_item1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -116,6 +118,7 @@
         />
 
     <RelativeLayout
+        android:background="@color/chunbai"
         android:id="@+id/work_list_item2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -203,6 +206,7 @@
         />
 
     <RelativeLayout
+        android:background="@color/chunbai"
         android:id="@+id/work_list_item3"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

@@ -159,9 +159,11 @@ public class WorkCommendValidDetailActivity extends AppCompatActivity {
                         ValueDetailData.ProcessBean processBean = data.process.get(i);
                         LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
 
+
                         View view = getLayoutInflater().inflate(R.layout.view_process,null);
                         TextView tv_name = view.findViewById(R.id.tv_name);
                         TextView tv_time = view.findViewById(R.id.tv_time);
+
                         ImageView image = view.findViewById(R.id.image);
                         if(i<data.process.size()-1) {
                             tv_name.setText(processBean.process_name);

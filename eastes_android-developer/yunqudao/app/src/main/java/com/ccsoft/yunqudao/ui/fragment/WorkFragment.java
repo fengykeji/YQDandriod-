@@ -131,11 +131,6 @@ public class WorkFragment extends Fragment implements View.OnClickListener{
             protected void _onNext(WorkModel workModel) {
                 Log.i("hcc------->", "--------------" + workModel.toString());
                 mWorkModel  =  workModel;
-
-
-
-
-
             }
 
             @Override

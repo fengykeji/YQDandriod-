@@ -392,6 +392,7 @@ public class CustomersFragment extends Fragment implements View.OnClickListener,
                 break;
             case R.id.content_need:
                 showPopupWindow();
+                backgroundAlpha((float) 0.5);
                 break;
             case R.id.content_intent:
                 flog++;
@@ -523,6 +524,7 @@ public class CustomersFragment extends Fragment implements View.OnClickListener,
             public void onClick(View view) {
                 content_need.setText("不限");
                  property_id = 0;
+                 backgroundAlpha(1);
                 popupWindow.dismiss();
                 getData();
             }
@@ -533,11 +535,24 @@ public class CustomersFragment extends Fragment implements View.OnClickListener,
             public void onItemClickListner(View v, int position) {
                 content_need.setText(peizhiBean.getData().get_$16().getParam().get(position).getParam());
                  property_id = peizhiBean.getData().get_$16().getParam().get(position).getId();
+                backgroundAlpha(1);
                 popupWindow.dismiss();
                 getData();
             }
         });
-    }
 
+        popupWindow.setOnDismissListener(new PopupWindow.OnDismissListener() {
+            @Override
+            public void onDismiss() {
+                backgroundAlpha(1);
+            }
+        });
+    }
+    public void backgroundAlpha(float bgAlpha)  //阴影改变
+    {
+        WindowManager.LayoutParams lp =getActivity().getWindow().getAttributes();
+        lp.alpha = bgAlpha; //0.0-1.0
+        getActivity().getWindow().setAttributes(lp);
+    }
 
 }

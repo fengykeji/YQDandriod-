@@ -26,7 +26,7 @@
             android:layout_centerHorizontal="true"
             android:text="新房推荐"
             android:textColor="@color/chunhei"
-            android:textSize="20sp"
+            android:textSize="16sp"
             android:layout_centerVertical="true"/>
         <ImageButton
             android:id="@+id/work_button_add_recommend"

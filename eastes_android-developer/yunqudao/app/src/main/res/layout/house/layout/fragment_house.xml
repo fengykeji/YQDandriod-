@@ -12,6 +12,7 @@
         android:weightSum="10"
         >
         <LinearLayout
+            android:gravity="center"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1.5"
@@ -21,15 +22,20 @@
             <TextView
                 android:gravity="center_vertical"
                 android:id="@+id/house_text_城市"
-                android:layout_width="50dp"
+                android:layout_width="wrap_content"
                 android:layout_height="50dp"
                 android:ellipsize="end"
                 android:maxEms="2"
                 android:singleLine="true"
                 android:text="成都"
                 android:textColor="@android:color/black"
-                android:textSize="14sp"
+                android:textSize="16sp"
                 />
+            <ImageView
+                android:visibility="gone"
+                android:src="@drawable/downarrow"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
             <Spinner
                 android:id="@+id/house_spinner_城市"
                 android:layout_width="0dp"
@@ -90,10 +96,7 @@
             android:orientation="horizontal"
             android:weightSum="5"
             >
-            <ImageView
-                android:src="@drawable/downarrow"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
+
             <TextView
                 android:id="@+id/content_区域"
                 android:layout_width="0dp"
@@ -105,6 +108,10 @@
                 android:singleLine="true"
                 android:text="区域"
                 />
+            <ImageView
+                android:src="@drawable/downarrow"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
             <Spinner
                 android:visibility="gone"
                 android:id="@+id/spinner区域"
@@ -126,10 +133,7 @@
             android:orientation="horizontal"
             android:weightSum="5"
             >
-            <ImageView
-                android:src="@drawable/downarrow"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
+
             <TextView
                 android:id="@+id/content_均价"
                 android:layout_width="0dp"
@@ -141,6 +145,10 @@
                 android:singleLine="true"
                 android:text="均价"
                 />
+            <ImageView
+                android:src="@drawable/downarrow"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
             <Spinner
                 android:visibility="gone"
                 android:id="@+id/spinner均价"
@@ -161,10 +169,7 @@
             android:orientation="horizontal"
             android:weightSum="5"
             >
-            <ImageView
-                android:src="@drawable/downarrow"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
+
             <TextView
                 android:id="@+id/content_类型"
                 android:layout_width="0dp"
@@ -176,6 +181,10 @@
                 android:singleLine="true"
                 android:text="类型"
                 />
+            <ImageView
+                android:src="@drawable/downarrow"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
             <Spinner
                 android:visibility="gone"
                 android:id="@+id/spinner类型"
@@ -236,6 +245,12 @@
 
     </LinearLayout>
 
+
+    <LinearLayout
+        android:background="@color/bgcolcor"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
     <com.scwang.smartrefresh.layout.SmartRefreshLayout
         android:id="@+id/customers_swiperefreshlayout"
         android:layout_width="match_parent"
@@ -268,6 +283,6 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"/>
     </com.scwang.smartrefresh.layout.SmartRefreshLayout>>
-
+    </LinearLayout>
 
 </LinearLayout>

@@ -24,4 +24,8 @@
     <color name="saled">#f47564</color>
     <color name="yiding">#ffd79a</color>
     <color name="keyuanhui">#e5e5e5</color>
+    <color name="bgcolcor">#f0f0f0</color>
+    <color name="miantext">#333333</color>
+    <color name="futext">#565656</color>
+    <color name="text">#aaaaaa</color>
 </resources>
