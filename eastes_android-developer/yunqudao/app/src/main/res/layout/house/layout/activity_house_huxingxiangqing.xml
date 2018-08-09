@@ -32,7 +32,7 @@
             android:textSize="16sp"
             />
         <ImageButton
-            android:visibility="gone"
+            android:visibility="visible"
             android:id="@+id/house_button_分享"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
@@ -67,6 +67,15 @@
                     android:layout_height="wrap_content">
 
                 </android.support.v4.view.ViewPager>
+
+                <ImageView
+                    android:id="@+id/a3D"
+                    android:visibility="gone"
+                    android:layout_gravity="center"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/a3d"
+                    />
 
                 <android.support.design.widget.TabLayout
                     android:background="#50000000"

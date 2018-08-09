@@ -1106,7 +1106,7 @@ public class PeizhiBean {
                 this.param = param;
             }
 
-            public static class ParamBeanXXXXXXXXXXXXXX {
+            public static class ParamBeanXXXXXXXXXXXXXX implements ISelect {
                 /**
                  * id : 56
                  * param : 学区房
@@ -1114,6 +1114,7 @@ public class PeizhiBean {
 
                 private int id;
                 private String param;
+                private boolean isSelected;
 
                 public int getId() {
                     return id;
@@ -1129,6 +1130,16 @@ public class PeizhiBean {
 
                 public void setParam(String param) {
                     this.param = param;
+                }
+
+                @Override
+                public boolean isSelected() {
+                    return false;
+                }
+
+                @Override
+                public void setSelected(boolean selected) {
+                    isSelected = selected;
                 }
             }
         }

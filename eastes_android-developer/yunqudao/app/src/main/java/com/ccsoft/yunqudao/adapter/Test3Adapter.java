@@ -66,25 +66,26 @@ public class Test3Adapter extends PagerAdapter {
                     .error(R.drawable.default_3)
                     .into(iv);//载入bitmap
 
-        iv.setOnPhotoTapListener(new PhotoViewAttacher.OnPhotoTapListener() {
-            @Override
-            public void onPhotoTap(View view, float x, float y) {
+        if(mPaths1!=null) {
+            iv.setOnPhotoTapListener(new PhotoViewAttacher.OnPhotoTapListener() {
+                @Override
+                public void onPhotoTap(View view, float x, float y) {
 
-                Log.e("cccccc",mPaths1.get(position)+"");
-                if(!mPaths1.get(position).equals("")) {
-                    Intent intent = new Intent(mContext, ProjectXiangCeVebViewActivity.class);
-                    intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                    intent.putExtra("url",mPaths1.get(position));
-                    mContext.startActivity(intent);
+                    if (!mPaths1.get(position).equals("")) {
+                        Intent intent = new Intent(mContext, ProjectXiangCeVebViewActivity.class);
+                        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                        intent.putExtra("url", mPaths1.get(position));
+                        mContext.startActivity(intent);
+                    }
                 }
-            }
 
-            @Override
-            public void onOutsidePhotoTap() {
+                @Override
+                public void onOutsidePhotoTap() {
 
-            }
+                }
 
-        });
+            });
+        }
         ((ViewPager)container).addView(iv, 0);
         return iv;
     }

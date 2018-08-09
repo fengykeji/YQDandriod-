@@ -58,7 +58,7 @@ public class PiPeiXinXiFragment extends Fragment implements View.OnClickListener
     private ArrayList<PipeiBean.DataBean.ListBean> dataList = new ArrayList<>();
     private PipeiBean.DataBean.ListBean data = new PipeiBean.DataBean.ListBean();
     private PipeiliebiaoAdapter adapter;
-    private TextView tv_num;
+    private TextView tv_num,pipeinum;
 
 
 
@@ -93,12 +93,14 @@ public class PiPeiXinXiFragment extends Fragment implements View.OnClickListener
         this.mCustomers_button_look_all = mView.findViewById(R.id.customers_button_look_all);
         customers_recyclerview_项目列表 = mView.findViewById(R.id.customers_recyclerview_项目列表);
         tv_num = mView.findViewById(R.id.tv_num);
+        pipeinum= mView.findViewById(R.id.pipeinum);
         customers_recyclerview_项目列表.setLayoutManager(new LinearLayoutManager(getContext()));
 
 
             adapter = new PipeiliebiaoAdapter(getContext(), R.layout.activity_pipeiliebiao, dataList);
 
             customers_recyclerview_项目列表.setAdapter(adapter);
+            pipeinum.setText("匹配项目列表("+dataList.size()+")");
 
 
 

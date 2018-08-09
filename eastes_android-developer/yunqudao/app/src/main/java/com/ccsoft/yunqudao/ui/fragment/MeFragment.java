@@ -5,6 +5,7 @@ import android.Manifest;
 import android.annotation.TargetApi;
 import android.content.ContentUris;
 import android.content.ContentValues;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -157,6 +158,9 @@ public class MeFragment extends Fragment implements View.OnClickListener  {
         this.mMe_text_yunsuan_id = mView.findViewById(R.id.me_text_yunsuan_id);
         this.mMe_item_text_authentication = mView.findViewById(R.id.me_item_text_authentication);
         this.mMe_item_text_versions = mView.findViewById(R.id.me_item_text_versions);
+
+
+        mMe_item_text_versions.setText(getVerName(getContext()));
     }
 
     /**
@@ -744,6 +748,21 @@ public class MeFragment extends Fragment implements View.OnClickListener  {
                     }
                 });
     }
-
+    /**
+     * 获取版本号名称
+     *
+     * @param context 上下文
+     * @return
+     */
+    public static String getVerName(Context context) {
+        String verName = "";
+        try {
+            verName = context.getPackageManager().
+                    getPackageInfo(context.getPackageName(), 0).versionName;
+        } catch (PackageManager.NameNotFoundException e) {
+            e.printStackTrace();
+        }
+        return verName;
+    }
 
 }

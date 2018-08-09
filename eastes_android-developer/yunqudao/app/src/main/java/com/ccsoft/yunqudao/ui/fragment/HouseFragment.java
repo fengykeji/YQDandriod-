@@ -1,5 +1,6 @@
 package com.ccsoft.yunqudao.ui.fragment;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.drawable.AnimationDrawable;
 import android.os.Bundle;
@@ -18,6 +19,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.PopupWindow;
@@ -50,6 +52,7 @@ import com.ccsoft.yunqudao.ui.mian.LoginActivity;
 import com.ccsoft.yunqudao.ui.mian.MainActivity;
 import com.ccsoft.yunqudao.utils.BaseCallBack;
 import com.ccsoft.yunqudao.utils.HideIMEUtil;
+import com.ccsoft.yunqudao.utils.ItemsDialogFragment;
 import com.ccsoft.yunqudao.utils.JsonUtil;
 import com.ccsoft.yunqudao.utils.OkHttpManager;
 import com.ccsoft.yunqudao.utils.SpUtil;
@@ -116,6 +119,10 @@ public class HouseFragment extends Fragment implements View.OnClickListener ,Hou
     private ImageView yunsuan;
     private int agent_id;
 
+    // 选择二手房和租房
+
+    private TextView choosehousetype;
+
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         /**
          * 填充布局
@@ -144,6 +151,7 @@ public class HouseFragment extends Fragment implements View.OnClickListener ,Hou
         content_更多 = mView.findViewById(R.id.content_更多);
         et_search = mView.findViewById(R.id.et_search);
         yunsuan = mView.findViewById(R.id.yunsuan);
+        choosehousetype = mView.findViewById(R.id.house_text_housetype);
         yunsuan.setImageResource(R.drawable.animation_refresh);
         anim = (AnimationDrawable) yunsuan.getDrawable();
 
@@ -169,6 +177,7 @@ public class HouseFragment extends Fragment implements View.OnClickListener ,Hou
         content_区域.setOnClickListener(this);
         content_更多.setOnClickListener(this);
         this.mCustomers_swiperefreshlayout.setOnRefreshListener(this);
+        choosehousetype.setOnClickListener(this);
 
         adapter.setOnItemClickListner(new BaseRecyclerAdapter.OnItemClickListner() {
             @Override
@@ -230,6 +239,9 @@ public class HouseFragment extends Fragment implements View.OnClickListener ,Hou
             case R.id.content_更多:
                 showPopupWindow3();
                 backgroundAlpha((float) 0.5);
+                break;
+            case R.id.house_text_housetype:
+                showItemsDialogFragment();
                 break;
         }
     }
@@ -350,6 +362,32 @@ public class HouseFragment extends Fragment implements View.OnClickListener ,Hou
                 adapter.footerHolder.setData(FooterHolder.KEY_NORMAL);
             }
         });
+    }
+
+
+    public void showItemsDialogFragment() {
+        ItemsDialogFragment itemsDialogFragment = new ItemsDialogFragment();
+        String[] items = {"新房", "二手房","租房","取消" };
+        itemsDialogFragment.show("", items, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                switch (which){
+                    case 0:
+
+                        break;
+                    case 1:
+
+                        break;
+                    case 2:
+
+                        break;
+                    case 3:
+                        itemsDialogFragment.dismiss();
+                        break;
+
+                }
+            }
+        }, getFragmentManager());
     }
 
     private void showPopupWindow() {
@@ -514,8 +552,11 @@ public class HouseFragment extends Fragment implements View.OnClickListener ,Hou
         });
     }
 
+    boolean flag = true;
+
     private void showPopupWindow3() {
         PeizhiBean peizhiBean = MainActivity.savePeizhi();
+        List<PeizhiBean.DataBean._$15Bean.ParamBeanXXXXXXXXXXXXXX> datalist = peizhiBean.getData().get_$15().getParam();
 
         View view = LayoutInflater.from(getContext()).inflate(R.layout.popuwindowmore,null);
         RecyclerView recyclerView =  view.findViewById(R.id.tese);
@@ -534,7 +575,7 @@ public class HouseFragment extends Fragment implements View.OnClickListener ,Hou
         recyclerView1.setLayoutManager(new GridLayoutManager(getContext(),4));
 
 
-        ScoreTeamAdapter3 scoreTeamAdapter = new ScoreTeamAdapter3(getContext(),R.layout.item_more_activity,peizhiBean.getData().get_$15().getParam());
+        ScoreTeamAdapter3 scoreTeamAdapter = new ScoreTeamAdapter3(getContext(),R.layout.item_more_activity,datalist);
         recyclerView.setAdapter(scoreTeamAdapter);
         recyclerView.setNestedScrollingEnabled(false);
 
@@ -545,12 +586,12 @@ public class HouseFragment extends Fragment implements View.OnClickListener ,Hou
         PopupWindow popupWindow = new PopupWindow(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
         popupWindow.setContentView(view);
         popupWindow.setFocusable(true);
-//        popupWindow.showAsDropDown(content_更多);
+        popupWindow.showAsDropDown(content_更多);
 
         textView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                backgroundAlpha(1);
+                backgroundAlpha(0);
                 popupWindow.dismiss();
             }
         });
@@ -558,9 +599,18 @@ public class HouseFragment extends Fragment implements View.OnClickListener ,Hou
         scoreTeamAdapter.setOnItemClickListner(new BaseRecyclerAdapter.OnItemClickListner() {
             @Override
             public void onItemClickListner(View v, int position) {
+                TextView checkBox = v.findViewById(R.id.biaoqian);
+               checkBox.setBackgroundResource(R.color.liji_material_blue_500);
+                scoreTeamAdapter.notifyDataSetChanged();
 
             }
+        });
 
+        popupWindow.setOnDismissListener(new PopupWindow.OnDismissListener() {
+            @Override
+            public void onDismiss() {
+                backgroundAlpha(1);
+            }
         });
     }
 

@@ -102,7 +102,8 @@
             android:layout_height="wrap_content"
             >
             <Button
-                android:gravity=""
+                android:gravity="center_vertical"
+                android:paddingRight="30dp"
                 android:id="@+id/me_button_register"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -112,7 +113,6 @@
                 android:textSize="15sp"
                 />
             <Button
-
                 android:gravity="center_vertical"
                 android:paddingLeft="30dp"
                 android:id="@+id/me_button_repassword"

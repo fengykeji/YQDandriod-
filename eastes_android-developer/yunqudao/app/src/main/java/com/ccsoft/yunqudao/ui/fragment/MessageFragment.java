@@ -1,7 +1,10 @@
 package com.ccsoft.yunqudao.ui.fragment;
 
 import android.app.Activity;
+import android.content.ContentValues;
 import android.content.Context;
+import android.database.Cursor;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -18,9 +21,11 @@ import com.ccsoft.yunqudao.http.HttpAdress;
 import com.ccsoft.yunqudao.ui.message.SystemMessageActivity;
 import com.ccsoft.yunqudao.ui.message.WorkMessageActivity;
 import com.ccsoft.yunqudao.utils.JsonUtil;
+import com.ccsoft.yunqudao.utils.SpUtil;
 import com.lzy.okhttputils.OkHttpUtils;
 import com.lzy.okhttputils.callback.StringCallback;
 
+import org.greenrobot.eventbus.EventBus;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -56,9 +61,17 @@ public class MessageFragment extends Fragment implements View.OnClickListener {
 
     }
 
+    //把传递进来的activity对象释放掉
+    @Override
+    public void onDetach() {
+        super.onDetach();
+        callBackValue = null;
+    }
+
     @Override
     public void onStart() {
         super.onStart();
+
         initData();
     }
 
@@ -122,6 +135,8 @@ public class MessageFragment extends Fragment implements View.OnClickListener {
                                 mMessage_text_未读工作消息条数.setText("未读消息" + noread1 + "条");
                             }
                             callBackValue.SendMessageValue(noread1+"");
+                            SpUtil.setString("noread",noread1+"");
+
 
                         }
                     }
@@ -146,4 +161,5 @@ public class MessageFragment extends Fragment implements View.OnClickListener {
     public interface CallBackValue{
         public void SendMessageValue(String strValue);
     }
+
 }

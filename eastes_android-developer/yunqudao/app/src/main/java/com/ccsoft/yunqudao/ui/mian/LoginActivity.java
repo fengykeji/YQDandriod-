@@ -309,7 +309,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         String token;//token
         String gender;//性别
         String name = null;//用户名
-        Log.e("ccccc","sssss1");
+
 
         if (i == Platform.ACTION_USER_INFOR) {
 
@@ -344,11 +344,10 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
     @Override
     public void onError(Platform platform, int i, Throwable throwable) {
-        Log.e("ccccc","sssss2");
     }
 
     @Override
     public void onCancel(Platform platform, int i) {
-        Log.e("ccccc","sssss3");
+
     }
 }

@@ -17,6 +17,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 import com.ccsoft.yunqudao.R;
@@ -25,6 +26,7 @@ import com.ccsoft.yunqudao.adapter.SpeedHourAdapter;
 import com.ccsoft.yunqudao.bean.HouseDetailBean;
 import com.ccsoft.yunqudao.bean.ProjectHuXingXiangQingBean;
 import com.ccsoft.yunqudao.bean.ProjectPiPeiKeHuBean;
+import com.ccsoft.yunqudao.bean.StringBean;
 import com.ccsoft.yunqudao.data.AppConstants;
 import com.ccsoft.yunqudao.http.HttpAdress;
 import com.ccsoft.yunqudao.ui.adapter.ProjectPiPeiAdapter;
@@ -46,6 +48,7 @@ import java.net.MalformedURLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import cn.sharesdk.onekeyshare.OnekeyShare;
 import okhttp3.Call;
 import okhttp3.Response;
 
@@ -81,6 +84,8 @@ public class ProjectHuXingXiangQingActivity extends AppCompatActivity implements
     private ProjectPiPeiKeHuBean piPeiKeHuBean = new ProjectPiPeiKeHuBean();
     private RecyclerView re_pipei;
     private ProjectPiPeiAdapter adapter;
+    private String url;
+    private ImageView a3D;
 
     @Override
     protected void onStart() {
@@ -94,6 +99,7 @@ public class ProjectHuXingXiangQingActivity extends AppCompatActivity implements
         setContentView(R.layout.activity_house_huxingxiangqing);
         initView();
         initData();
+        getUrl();
         initListener();
 
     }
@@ -128,6 +134,7 @@ public class ProjectHuXingXiangQingActivity extends AppCompatActivity implements
         content_tv14 = findViewById(R.id.content_tv14);
         re_pipei = findViewById(R.id.re_pipei);
         recyclerView = findViewById(R.id.re_huxing);
+        a3D = findViewById(R.id.a3D);
 
 
 
@@ -225,6 +232,7 @@ public class ProjectHuXingXiangQingActivity extends AppCompatActivity implements
                             fragment.setArguments(bundle);
                             mTitles.add(imgInfoBean.getType());
                         }else if(imgInfoBean.getType().equals("3D图")){
+
                             ProjectTu3DFragment fragment = new ProjectTu3DFragment();
                             fragments.add(fragment);
                             bundle.putSerializable("list", (Serializable) bean.getData().getImgInfo());
@@ -272,7 +280,7 @@ public class ProjectHuXingXiangQingActivity extends AppCompatActivity implements
                 break;
 
             case R.id.house_button_分享:
-                Toast.makeText(this, "你分享了该户型", Toast.LENGTH_SHORT).show();
+                showShare();
                 break;
 
             case R.id.house_button_平面图:
@@ -363,6 +371,49 @@ public class ProjectHuXingXiangQingActivity extends AppCompatActivity implements
                     }
                 });
     }
+    private void showShare() {
+        OnekeyShare oks = new OnekeyShare();
+//关闭sso授权
+        oks.disableSSOWhenAuthorize();
 
+// title标题，印象笔记、邮箱、信息、微信、人人网和QQ空间等使用
+        oks.setTitle("云渠道");
+// titleUrl是标题的网络链接，QQ和QQ空间等使用
+        oks.setTitleUrl(url);
+// text是分享文本，所有平台都需要这个字段
+        oks.setText("房地产分销渠道平台");
+// imagePath是图片的本地路径，Linked-In以外的平台都支持此参数
+//oks.setImagePath("/sdcard/test.jpg");//确保SDcard下面存在此张图片
+// url仅在微信（包括好友和朋友圈）中使用
+        oks.setImageUrl(AppConstants.URL+"assets/img/logo.jpg");
+// comment是我对这条分享的评论，仅在人人网和QQ空间使用
+//        oks.setComment("我是测试评论文本");
+// site是分享此内容的网站名称，仅在QQ空间使用
+        oks.setSite(getString(R.string.app_name));
+// siteUrl是分享此内容的网站地址，仅在QQ空间使用
+//        oks.setSiteUrl("http://sharesdk.cn");
+
+// 启动分享GUI
+        oks.show(this);
+    }
+
+
+    /**
+     * 获取分享链接
+     */
+    private void getUrl(){
+        OkHttpUtils.get(AppConstants.URL+"user/project/getHouseType")
+                .tag(this)
+                .params("house_type_id", id)
+                .execute(new StringCallback() {
+                    @Override
+                    public void onSuccess(String s, Call call, Response response) {
+                        StringBean bean = JsonUtil.jsonToEntity(s,StringBean.class);
+                        if(bean.getCode() == 200){
+                            url = bean.getData().toString();
+                        }
+                    }
+                });
+    }
 
 }

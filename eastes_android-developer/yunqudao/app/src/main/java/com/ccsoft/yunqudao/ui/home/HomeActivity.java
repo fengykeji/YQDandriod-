@@ -45,6 +45,10 @@ import com.ccsoft.yunqudao.utils.SpUtil;
 import com.lzy.okhttputils.OkHttpUtils;
 import com.lzy.okhttputils.callback.StringCallback;
 
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
+
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 
@@ -72,10 +76,11 @@ public class HomeActivity extends AppCompatActivity implements BottomNavigationB
 
 
 
+
+
     private static boolean isExit = false;
 
     Handler mHandler = new Handler() {
-
         @Override
         public void handleMessage(Message msg) {
             super.handleMessage(msg);
@@ -122,10 +127,20 @@ public class HomeActivity extends AppCompatActivity implements BottomNavigationB
         Intent intent = new Intent(context, HomeActivity.class);
         context.startActivity(intent);
     }
+
+
+
+
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         ActivityManager.getInstance().addActivity(this);
         setContentView(R.layout.activity_main);
         judgeVersion();
@@ -134,7 +149,7 @@ public class HomeActivity extends AppCompatActivity implements BottomNavigationB
         ButterKnife.bind(this);
         //底部导航栏
         setBottomNavigationBar();
-//setBottomNavigationBar的选中事件
+        //setBottomNavigationBar的选中事件
         mBottomNavigationBar.setTabSelectedListener(this);
 
         setBadge();
@@ -195,8 +210,12 @@ public class HomeActivity extends AppCompatActivity implements BottomNavigationB
          * 添加导航按钮
          */
 
-//        badgeItem = new TextBadgeItem().setText(noread);
-        mBottomNavigationBar.addItem(new BottomNavigationItem(R.drawable.ic_message_selected, "消息").setActiveColorResource(R.color.qianlan).setInactiveIconResource(R.drawable.ic_message));
+        if(SpUtil.getString("noread","")!=null){
+            noread = SpUtil.getString("noread","");
+        }
+        badgeItem = new TextBadgeItem().setText(noread);
+
+        mBottomNavigationBar.addItem(new BottomNavigationItem(R.drawable.ic_message_selected, "消息").setActiveColorResource(R.color.qianlan).setInactiveIconResource(R.drawable.ic_message).setBadgeItem(badgeItem));
         mBottomNavigationBar.addItem(new BottomNavigationItem(R.drawable.ic_housing_selected, "房源").setActiveColorResource(R.color.qianlan).setInactiveIconResource(R.drawable.ic_housing));
         mBottomNavigationBar.addItem(new BottomNavigationItem(R.drawable.ic_customers_selected, "客源").setActiveColorResource(R.color.qianlan).setInactiveIconResource(R.drawable.ic_customers));
         mBottomNavigationBar.addItem(new BottomNavigationItem(R.drawable.ic_work_selected, "工作").setActiveColorResource(R.color.qianlan).setInactiveIconResource(R.drawable.ic_work2));
@@ -256,26 +275,10 @@ public class HomeActivity extends AppCompatActivity implements BottomNavigationB
         }
     }
 
-    /**
-     * 双击返回键退出
-     */
-//    @Override
-//    public void onBackPressed() {
-//        long secondTime = System.currentTimeMillis();
-//        if (secondTime - firstTime > 2000) {
-//            Toast.makeText(HomeActivity.this, "再按一次退出程序", Toast.LENGTH_SHORT).show();
-//            firstTime = secondTime;
-//        }
-//        else {
-//            System.exit(0);
-//        }
-//    }
-
 
     @Override
     public void SendMessageValue(String strValue) {
         noread = strValue;
-
 
     }
 

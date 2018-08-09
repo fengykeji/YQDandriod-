@@ -1,0 +1,580 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    >
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+
+        android:paddingRight="15dp"
+        >
+        <ImageButton
+            android:id="@+id/work_button_back"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:background="@android:color/transparent"
+            android:paddingBottom="15dp"
+            android:paddingLeft="15dp"
+            android:paddingTop="15dp"
+            android:src="@drawable/ic_leftarrow"
+            />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:text="有效详情"
+            android:textColor="@color/chunhei"
+            android:textSize="16sp"
+            />
+    </RelativeLayout>
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_line"
+        />
+
+
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="9"
+        >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            >
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:padding="10dp"
+        >
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="10dp"
+            android:src="@drawable/ic_blue"
+            />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="抢单信息"
+            android:textColor="@color/chunhei"
+            android:textSize="18sp"
+            />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text=""
+            android:textColor="@color/chunhei"
+            android:textSize="16sp"
+            />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:paddingBottom="10dp"
+        android:paddingLeft="30dp"
+        >
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="抢单时间："
+            android:textColor="@color/chunhei"
+            />
+        <TextView
+            android:id="@+id/work_qiangdan_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text=""
+            android:textColor="@color/miantext"
+            />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:paddingBottom="10dp"
+        android:paddingLeft="30dp"
+        >
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="经济人："
+            android:textColor="@color/chunhei"
+            />
+        <TextView
+            android:id="@+id/work_commend_jingjiren"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text=""
+            android:textColor="@color/miantext"
+            />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:paddingBottom="10dp"
+        android:paddingLeft="30dp"
+        >
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="联系电话："
+            android:textColor="@color/chunhei"
+            />
+        <TextView
+            android:id="@+id/work_commend_phonenumber"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text=""
+            android:textColor="@color/miantext"
+            />
+
+    </LinearLayout>
+
+    <!--失效倒计时-->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:paddingBottom="20dp"
+        >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingBottom="10dp"
+            android:paddingLeft="30dp"
+            >
+            <TextView
+
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="房源真实性判断失效倒计时:"
+                android:textColor="@android:color/black"
+                android:textSize="15sp"
+                />
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            >
+            <TextView
+                android:id="@+id/date_day"
+                android:layout_width="45dp"
+                android:layout_height="45dp"
+                android:background="@drawable/shape_button"
+                android:gravity="center"
+                android:padding="10dp"
+                android:textSize="20sp"
+                android:textColor="@color/white"
+                />
+            <TextView
+                android:layout_marginLeft="3dp"
+                android:layout_marginRight="3dp"
+                android:textColor="@color/juse"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text=":"
+                android:textSize="30dp"
+                />
+            <TextView
+                android:id="@+id/date_hour"
+                android:layout_width="45dp"
+                android:layout_height="45dp"
+                android:background="@drawable/shape_button"
+                android:gravity="center"
+                android:padding="10dp"
+                android:textSize="20sp"
+                android:textColor="@color/white"
+
+                />
+            <TextView
+                android:layout_marginLeft="3dp"
+                android:layout_marginRight="3dp"
+                android:textColor="@color/juse"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text=":"
+                android:textSize="30dp"
+                />
+            <TextView
+                android:id="@+id/date_minute"
+                android:layout_width="45dp"
+                android:layout_height="45dp"
+                android:background="@drawable/shape_button"
+                android:gravity="center"
+                android:padding="10dp"
+                android:textSize="20sp"
+                android:textColor="@color/white"
+
+                />
+            <TextView
+                android:layout_marginLeft="3dp"
+                android:layout_marginRight="3dp"
+                android:textColor="@color/juse"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text=":"
+                android:textSize="30dp"
+                />
+            <TextView
+                android:id="@+id/date_seconds"
+                android:layout_width="45dp"
+                android:layout_height="45dp"
+                android:background="@drawable/shape_button"
+                android:gravity="center"
+                android:padding="10dp"
+                android:textSize="20sp"
+                android:textColor="@color/white"
+
+                />
+            <!--FFA51D-->
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="10dp"
+        android:background="@drawable/ic_line"
+        />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:padding="10dp"
+        >
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="10dp"
+            android:src="@drawable/ic_blue"
+            />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="报备信息"
+            android:textColor="@color/chunhei"
+            android:textSize="18sp"
+            />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text=""
+            android:textColor="@color/chunhei"
+            android:textSize="16sp"
+            />
+
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:padding="10dp"
+        >
+
+        <TextView
+            android:layout_marginLeft="10dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="天鹅湖小区"
+            android:textColor="@color/chunhei"
+            android:textSize="16sp"
+            />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text=""
+            android:textColor="@color/chunhei"
+            android:textSize="16sp"
+            />
+
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:paddingBottom="10dp"
+        android:paddingLeft="30dp"
+        >
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="房源编号："
+            android:textColor="@color/chunhei"
+            />
+        <TextView
+            android:id="@+id/work_commend_number"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text=""
+            android:textColor="@color/miantext"
+            />
+
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:paddingBottom="10dp"
+        android:paddingLeft="30dp"
+        >
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="归属门店："
+            android:textColor="@color/chunhei"
+            />
+        <TextView
+            android:id="@+id/work_commend_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text=""
+            android:textColor="@color/miantext"
+            />
+
+
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:paddingBottom="10dp"
+        android:paddingLeft="30dp"
+        >
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="联系人："
+            android:textColor="@color/chunhei"
+            />
+        <TextView
+            android:id="@+id/work_commend_people"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text=""
+            android:textColor="@color/miantext"
+            />
+
+
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:paddingBottom="10dp"
+        android:paddingLeft="30dp"
+        >
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="性别："
+            android:textColor="@color/chunhei"
+            />
+        <TextView
+            android:id="@+id/work_commend_tel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text=""
+            android:textColor="@color/miantext"
+            />
+
+
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:paddingBottom="10dp"
+        android:paddingLeft="30dp"
+        >
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="身份证号码："
+            android:textColor="@color/chunhei"
+            />
+        <TextView
+            android:id="@+id/work_commend_project"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text=""
+            android:textColor="@color/miantext"
+            />
+
+
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:paddingBottom="10dp"
+        android:paddingLeft="30dp"
+        >
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="联系电话："
+            android:textColor="@color/chunhei"
+            />
+        <TextView
+            android:id="@+id/work_commend_project_address"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text=""
+            android:textColor="@color/miantext"
+            />
+
+
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:paddingBottom="10dp"
+        android:paddingLeft="30dp"
+        >
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="与业主关系："
+            android:textColor="@color/chunhei"
+            />
+        <TextView
+            android:id="@+id/work_commend_client_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text=""
+            android:textColor="@color/miantext"
+            />
+
+
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:paddingBottom="10dp"
+        android:paddingLeft="30dp"
+        >
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="报备时间："
+            android:textColor="@color/chunhei"
+            />
+        <TextView
+            android:id="@+id/work_commend_client_sex"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text=""
+            android:textColor="@color/miantext"
+            />
+
+
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:paddingBottom="10dp"
+        android:paddingLeft="30dp"
+        >
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="备注："
+            android:textColor="@color/chunhei"
+            />
+        <TextView
+            android:id="@+id/work_commend_client_tel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text=""
+            android:textColor="@color/miantext"
+            />
+
+
+    </LinearLayout>
+        </LinearLayout>
+    </ScrollView>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        >
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:orientation="horizontal"
+            android:weightSum="10"
+            >
+            <Button
+                android:id="@+id/tv_shensu"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="4"
+                android:background="@android:color/darker_gray"
+                android:text="房源无效"
+                android:textColor="@color/chunbai"
+                />
+            <Button
+                android:id="@+id/tv_retuijian"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="6"
+                android:background="@color/qianlan"
+                android:text="房源有效"
+                android:textColor="@color/chunbai"
+                />
+
+        </LinearLayout>
+    </RelativeLayout>
+
+
+</LinearLayout>

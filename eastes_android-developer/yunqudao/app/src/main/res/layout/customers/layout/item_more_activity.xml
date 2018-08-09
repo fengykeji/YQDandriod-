@@ -17,6 +17,10 @@
         android:text="学区房"
         android:textColor="@color/chunhei"
         android:layout_width="80dp"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+
+        />
+
+
 
 </LinearLayout>

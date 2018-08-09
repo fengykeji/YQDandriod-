@@ -37,7 +37,7 @@ public class GuanZhuAdapter extends BaseRecyclerAdapter<GuanZhuBean.DataBean> {
         holder.setText(R.id.title_tv1, bean.getProject_name());
 
         if (bean.getGuarantee_brokerage()==2) {
-            holder.setText(R.id.content_tv1, "荐");
+            holder.setImageResource(R.id.content_tv1,R.drawable.tui);
         }else if(bean.getGuarantee_brokerage()==1){
             holder.setText(R.id.content_tv4, "保证结佣");
         }

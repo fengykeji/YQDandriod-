@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
@@ -54,11 +55,22 @@ public class Test2Adapter extends PagerAdapter {
     @Override
     public Object instantiateItem (ViewGroup container, int position) {
 
-        ImageView iv = new ImageView(mContext);
+        View view = LayoutInflater.from(mContext).inflate(R.layout.item_xiangce_imageview,container,false);
+
+        ImageView iv ;
+        ImageView iv2 ;
+
+        iv = view.findViewById(R.id.iv);
+        iv2 = view.findViewById(R.id.iv2);
+
             Picasso.with(mContext).load(AppConstants.URL+mPaths.get(position).getImg_url())
                     .fit()
                     .error(R.drawable.default_3)
                     .into(iv);//载入bitmap
+
+        if(!mPaths.get(position).getImg_url_3d().equals("")){
+            iv2.setVisibility(View.VISIBLE);
+        }
 
         iv.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -69,8 +81,8 @@ public class Test2Adapter extends PagerAdapter {
                 mContext.startActivity(intent);
             }
         });
-        ((ViewPager)container).addView(iv, 0);
-        return iv;
+        ((ViewPager)container).addView(view, 0);
+        return view;
     }
 
     @Override

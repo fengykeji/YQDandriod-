@@ -12,7 +12,6 @@ import android.view.animation.Animation;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import com.ccsoft.yunqudao.R;
-import com.ccsoft.yunqudao.bean.AppealBean;
 import com.ccsoft.yunqudao.bean.WorkBean;
 import com.ccsoft.yunqudao.data.api.ApiSubscriber;
 import com.ccsoft.yunqudao.data.model.viewmodel.WorkModel;
@@ -23,6 +22,10 @@ import com.ccsoft.yunqudao.ui.mian.LoginActivity;
 import com.ccsoft.yunqudao.ui.work.WorkChengJiaoKeHuActivity;
 import com.ccsoft.yunqudao.ui.work.WorkReportActivity;
 import com.ccsoft.yunqudao.ui.work.WorkRecommendActivity;
+import com.ccsoft.yunqudao.ui.work.secondhandhouse.WorkSecondCompactDaiGouActivity;
+import com.ccsoft.yunqudao.ui.work.secondhandhouse.WorkSecondProspectActivity;
+import com.ccsoft.yunqudao.ui.work.secondhandhouse.WorkSecondBaoBeiActivity;
+import com.ccsoft.yunqudao.ui.work.secondhandhouse.WorkSecondProspectMaintainActivity;
 import com.ccsoft.yunqudao.utils.BaseCallBack;
 import com.ccsoft.yunqudao.utils.LogUtil;
 import com.ccsoft.yunqudao.utils.OkHttpManager;
@@ -48,7 +51,8 @@ import okhttp3.Response;
 public class WorkFragment extends Fragment implements View.OnClickListener{
 
     private RelativeLayout  mWork_list_item1;
-    private RelativeLayout  mWork_list_item2,mWork_list_item3;
+    private RelativeLayout  mWork_list_item2,mWork_list_item3,work_list_second_item1,work_list_second_item2,work_list_second_item3,
+    work_list_second_item4,work_list_second_item5,work_list_renting_item1,work_list_renting_item2,work_list_renting_item3,work_list_renting_item4,work_list_renting_item5;
     private TextView    mWork_list_total_recommend;
     private TextView    mWork_list_value_recommend;
     private TextView    mWork_list_disabled_recommend;
@@ -105,6 +109,16 @@ public class WorkFragment extends Fragment implements View.OnClickListener{
         mWork_list_item1 = mView.findViewById(R.id.work_list_item1);
         mWork_list_item2 = mView.findViewById(R.id.work_list_item2);
         mWork_list_item3 = mView.findViewById(R.id.work_list_item3);
+        work_list_second_item1 = mView.findViewById(R.id.work_list_second_item1);
+        work_list_second_item2 = mView.findViewById(R.id.work_list_second_item2);
+        work_list_second_item3 = mView.findViewById(R.id.work_list_second_item3);
+        work_list_second_item4 = mView.findViewById(R.id.work_list_second_item4);
+        work_list_second_item5 = mView.findViewById(R.id.work_list_second_item5);
+        work_list_renting_item1 = mView.findViewById(R.id.work_list_renting_item1);
+        work_list_renting_item2 = mView.findViewById(R.id.work_list_renting_item2);
+        work_list_renting_item3 = mView.findViewById(R.id.work_list_renting_item3);
+        work_list_renting_item4 = mView.findViewById(R.id.work_list_renting_item4);
+        work_list_renting_item5 = mView.findViewById(R.id.work_list_renting_item5);
         mWork_list_total_recommend = mView.findViewById(R.id.work_list_total_recommend);
         mWork_list_value_recommend = mView.findViewById(R.id.work_list_value_recommend);
         mWork_list_disabled_recommend = mView.findViewById(R.id.work_list_disabled_recommend);
@@ -122,6 +136,16 @@ public class WorkFragment extends Fragment implements View.OnClickListener{
         this.mWork_list_item1.setOnClickListener(this);
         this.mWork_list_item2.setOnClickListener(this);
         this.mWork_list_item3.setOnClickListener(this);
+        this.work_list_second_item1.setOnClickListener(this);
+        this.work_list_second_item2.setOnClickListener(this);
+        this.work_list_second_item3.setOnClickListener(this);
+        this.work_list_second_item4.setOnClickListener(this);
+        this.work_list_second_item5.setOnClickListener(this);
+        this.work_list_renting_item1.setOnClickListener(this);
+        this.work_list_renting_item2.setOnClickListener(this);
+        this.work_list_renting_item3.setOnClickListener(this);
+        this.work_list_renting_item4.setOnClickListener(this);
+        this.work_list_renting_item5.setOnClickListener(this);
     }
 
 
@@ -218,6 +242,34 @@ public class WorkFragment extends Fragment implements View.OnClickListener{
             case R.id.work_list_item3:
                 Intent intent = new Intent(getContext(), WorkChengJiaoKeHuActivity.class);
                 startActivity(intent);
+                break;
+            case R.id.work_list_second_item1:
+                Intent intent1 = new Intent(getContext(), WorkSecondBaoBeiActivity.class);
+                startActivity(intent1);
+                break;
+            case R.id.work_list_second_item2:
+                Intent intent2 = new Intent(getContext(), WorkSecondProspectActivity.class);
+                startActivity(intent2);
+                break;
+            case R.id.work_list_second_item3:
+                Intent intent3 = new Intent(getContext(), WorkSecondProspectMaintainActivity.class);
+                startActivity(intent3);
+                break;
+            case R.id.work_list_second_item4:
+                Intent intent4 = new Intent(getContext(), WorkSecondCompactDaiGouActivity.class);
+                startActivity(intent4);
+                break;
+            case R.id.work_list_second_item5:
+                break;
+            case R.id.work_list_renting_item1:
+                break;
+            case R.id.work_list_renting_item2:
+                break;
+            case R.id.work_list_renting_item3:
+                break;
+            case R.id.work_list_renting_item4:
+                break;
+            case R.id.work_list_renting_item5:
                 break;
         }
     }

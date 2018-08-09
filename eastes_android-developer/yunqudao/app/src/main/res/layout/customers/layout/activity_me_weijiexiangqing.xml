@@ -24,7 +24,7 @@
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
             android:layout_centerVertical="true"
-            android:text="为结佣金详情"
+            android:text="未结佣金详情"
             android:textColor="@color/chunhei"
             android:textSize="20sp" />
     </RelativeLayout>

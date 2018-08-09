@@ -275,17 +275,7 @@
 
             </ImageView>
 
-            <Button
-                android:visibility="gone"
-                android:id="@+id/button_next"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="18dp"
-                android:background="@drawable/ic_loginbackground"
-                android:text="提交申请"
-                android:textColor="@color/chunbai"
-                android:textSize="20sp"
-                />
+
 
             <RelativeLayout
                 android:layout_width="match_parent"
@@ -294,7 +284,7 @@
                 >
                 <Button
                     android:background="@drawable/ic_loginbackground"
-                    android:id="@+id/me_button_退出登录"
+                    android:id="@+id/button_next"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_alignParentBottom="true"

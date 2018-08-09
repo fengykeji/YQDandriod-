@@ -86,7 +86,7 @@
                 <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="10dp"
+                    android:layout_marginLeft="5dp"
                     android:layout_marginRight="10dp">
                     <LinearLayout
                         android:orientation="horizontal"
@@ -159,6 +159,7 @@
                         android:layout_centerVertical="true"
                         android:layout_marginBottom="10dp"
                         android:layout_marginRight="10dp"
+                        android:paddingLeft="5dp"
                         android:orientation="horizontal">
 
                         <ImageView

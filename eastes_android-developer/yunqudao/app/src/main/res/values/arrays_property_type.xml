@@ -7,6 +7,7 @@
 
     <string-array name="物业类型">
         <item></item>
+        <item>住宅</item>
         <item>公寓</item>
         <item>别墅</item>
         <item>商铺</item>

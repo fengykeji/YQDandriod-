@@ -93,6 +93,7 @@ public class WoDeGuanZhuActivity extends AppCompatActivity implements View.OnCli
                 list.clear();
                 list.addAll(bean.getData());
 
+
                         me_recyclerview_关注列表.setLayoutManager(new LinearLayoutManager(WoDeGuanZhuActivity.this));
                         adapter = new GuanZhuAdapter(WoDeGuanZhuActivity.this,R.layout.house_list_activity, list);
                         me_recyclerview_关注列表.setAdapter(adapter);

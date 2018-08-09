@@ -65,7 +65,7 @@
                     <TextView
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_weight="2.5"
+                        android:layout_weight="3"
                         android:text="项目名称："
                         android:textSize="16sp"
                         />
@@ -74,7 +74,7 @@
                         android:id="@+id/tv_project_name"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_weight="7.5"
+                        android:layout_weight="7"
                         android:text="云算公馆"
                         android:textColor="@color/chunhei"
                         android:textSize="16sp"
@@ -97,7 +97,7 @@
                     <TextView
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_weight="2.5"
+                        android:layout_weight="3"
                         android:text="楼盘状态："
                         android:textSize="16sp"
                         />
@@ -106,7 +106,7 @@
                         android:id="@+id/tv_sale_state"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_weight="7.5"
+                        android:layout_weight="7"
                         android:text="在售"
                         android:textColor="@color/chunhei"
                         android:textSize="16sp"
@@ -129,7 +129,7 @@
                     <TextView
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_weight="2.5"
+                        android:layout_weight="3"
                         android:text="开发商："
                         android:textSize="16sp"
                         />
@@ -138,7 +138,7 @@
                         android:id="@+id/tv_kaifashang"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_weight="7.5"
+                        android:layout_weight="7"
                         android:text="云算股份有限公司"
                         android:textColor="@color/chunhei"
                         android:textSize="16sp"
@@ -161,7 +161,7 @@
                     <TextView
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_weight="2.5"
+                        android:layout_weight="3"
                         android:text="区域位置："
                         android:textSize="16sp"
                         />
@@ -170,7 +170,7 @@
                         android:id="@+id/tv_absolute_address"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_weight="7.5"
+                        android:layout_weight="7"
                         android:text="四川省-成都市-郫都区"
                         android:textColor="@color/chunhei"
                         android:textSize="16sp"
@@ -193,7 +193,7 @@
                     <TextView
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_weight="2.5"
+                        android:layout_weight="3"
                         android:text="设计公司："
                         android:textSize="16sp"
                         />
@@ -202,7 +202,7 @@
                         android:id="@+id/tv_sheji"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_weight="7.5"
+                        android:layout_weight="7"
                         android:text="云算图图设计公司"
                         android:textColor="@color/chunhei"
                         android:textSize="16sp"
@@ -225,7 +225,7 @@
                     <TextView
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_weight="2.5"
+                        android:layout_weight="3"
                         android:text="楼盘地址："
                         android:textSize="16sp"
                         />
@@ -234,7 +234,7 @@
                         android:id="@+id/tv_property_area"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_weight="7.5"
+                        android:layout_weight="7"
                         android:text="近慈路66号（石室中学旁）"
                         android:textColor="@color/chunhei"
                         android:textSize="16sp"
@@ -266,7 +266,7 @@
                         android:id="@+id/tv_shoulouchu"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_weight="7.5"
+                        android:layout_weight="7"
                         android:lineSpacingExtra="2dp"
                         android:text="高新区近慈路66号（石室中学后门石羊派出所旁）"
                         android:textColor="@color/chunhei"
@@ -296,7 +296,7 @@
                     <TextView
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_weight="2.5"
+                        android:layout_weight="3"
                         android:text="建筑类型："
                         android:textSize="16sp"
                         />
@@ -305,7 +305,7 @@
                         android:id="@+id/tv_jianzuleixing"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_weight="7.5"
+                        android:layout_weight="7"
                         android:text="板楼"
                         android:textColor="@color/chunhei"
                         android:textSize="16sp"
@@ -328,7 +328,7 @@
                     <TextView
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_weight="2.5"
+                        android:layout_weight="3"
                         android:text="均价："
                         android:textSize="16sp"
                         />
@@ -337,7 +337,7 @@
                         android:id="@+id/tv_average_price"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_weight="7.5"
+                        android:layout_weight="7"
                         android:text="7000元/㎡"
                         android:textColor="@color/chunhei"
                         android:textSize="16sp"
@@ -360,7 +360,7 @@
                     <TextView
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_weight="2.5"
+                        android:layout_weight="3"
                         android:text="价格区间："
                         android:textSize="16sp"
                         />
@@ -369,7 +369,7 @@
                         android:id="@+id/tv_price_area"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_weight="7.5"
+                        android:layout_weight="7"
                         android:text="50万起"
                         android:textColor="@color/chunhei"
                         android:textSize="16sp"
@@ -392,7 +392,7 @@
                     <TextView
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_weight="2.5"
+                        android:layout_weight="3"
                         android:text="占地面积："
                         android:textSize="16sp"
                         />
@@ -401,7 +401,7 @@
                         android:id="@+id/tv_area"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_weight="7.5"
+                        android:layout_weight="7"
                         android:text="100000㎡"
                         android:textColor="@color/chunhei"
                         android:textSize="16sp"
@@ -424,7 +424,7 @@
                     <TextView
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_weight="2.5"
+                        android:layout_weight="3"
                         android:text="装修标准："
                         android:textSize="16sp"
                         />
@@ -433,7 +433,7 @@
                         android:id="@+id/tv_zhuangxiubiaozhun"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_weight="7.5"
+                        android:layout_weight="7"
                         android:text="毛坯、简装"
                         android:textColor="@color/chunhei"
                         android:textSize="16sp"
@@ -456,7 +456,7 @@
                     <TextView
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_weight="2.5"
+                        android:layout_weight="3"
                         android:text="建筑面积："
                         android:textSize="16sp"
                         />
@@ -465,7 +465,7 @@
                         android:id="@+id/tv_jianzumianzhi"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_weight="7.5"
+                        android:layout_weight="7"
                         android:text="265.326㎡"
                         android:textColor="@color/chunhei"
                         android:textSize="16sp"
@@ -488,7 +488,7 @@
                     <TextView
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_weight="2.5"
+                        android:layout_weight="3"
                         android:text="容积率："
                         android:textSize="16sp"
                         />
@@ -497,7 +497,7 @@
                         android:id="@+id/tv_rongjilv"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_weight="7.5"
+                        android:layout_weight="7"
                         android:lineSpacingExtra="2dp"
                         android:text="3.00"
                         android:textColor="@color/chunhei"
@@ -519,7 +519,7 @@
                     <TextView
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_weight="2.5"
+                        android:layout_weight="3"
                         android:text="绿化率："
                         android:textSize="16sp"
                         />
@@ -528,7 +528,7 @@
                         android:id="@+id/tv_lvhualv"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_weight="7.5"
+                        android:layout_weight="7"
                         android:lineSpacingExtra="2dp"
                         android:text="40%"
                         android:textColor="@color/chunhei"
@@ -550,7 +550,7 @@
                     <TextView
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_weight="2.5"
+                        android:layout_weight="3"
                         android:text="规划户数："
                         android:textSize="16sp"
                         />
@@ -559,7 +559,7 @@
                         android:id="@+id/tv_huihuanum"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_weight="7.5"
+                        android:layout_weight="7"
                         android:lineSpacingExtra="2dp"
                         android:text="788"
                         android:textColor="@color/chunhei"
@@ -581,7 +581,7 @@
                     <TextView
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_weight="2.5"
+                        android:layout_weight="3"
                         android:text="规划车位："
                         android:textSize="16sp"
                         />
@@ -590,7 +590,7 @@
                         android:id="@+id/tv_huihuachehua"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_weight="7.5"
+                        android:layout_weight="7"
                         android:lineSpacingExtra="2dp"
                         android:text="地下788"
                         android:textColor="@color/chunhei"
@@ -622,7 +622,7 @@
                     <TextView
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_weight="2.5"
+                        android:layout_weight="3"
                         android:text="物业类型："
                         android:textSize="16sp"
                         />
@@ -631,7 +631,7 @@
                         android:id="@+id/tv_wuyeleixing"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_weight="7.5"
+                        android:layout_weight="7"
                         android:text="住宅"
                         android:textColor="@color/chunhei"
                         android:textSize="16sp"
@@ -654,7 +654,7 @@
                     <TextView
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_weight="2.5"
+                        android:layout_weight="3"
                         android:text="物业公司："
                         android:textSize="16sp"
                         />
@@ -663,7 +663,7 @@
                         android:id="@+id/tv_wuyegongsi"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_weight="7.5"
+                        android:layout_weight="7"
                         android:text="杭州中大物业管理有限公司"
                         android:textColor="@color/chunhei"
                         android:textSize="16sp"
@@ -686,7 +686,7 @@
                     <TextView
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_weight="2.5"
+                        android:layout_weight="3"
                         android:text="物业费："
                         android:textSize="16sp"
                         />
@@ -695,7 +695,7 @@
                         android:id="@+id/tv_wuyefei"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_weight="7.5"
+                        android:layout_weight="7"
                         android:text="3.8元/㎡/月"
                         android:textColor="@color/chunhei"
                         android:textSize="16sp"
@@ -718,7 +718,7 @@
                     <TextView
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_weight="2.5"
+                        android:layout_weight="3"
                         android:text="供暖方式："
                         android:textSize="16sp"
                         />
@@ -727,7 +727,7 @@
                         android:id="@+id/tv_gongnuanfangshi"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_weight="7.5"
+                        android:layout_weight="7"
                         android:text="自采暖"
                         android:textColor="@color/chunhei"
                         android:textSize="16sp"
@@ -750,7 +750,7 @@
                     <TextView
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_weight="2.5"
+                        android:layout_weight="3"
                         android:text="供水方式："
                         android:textSize="16sp"
                         />
@@ -759,7 +759,7 @@
                         android:id="@+id/tv_gongshuifangshi"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_weight="7.5"
+                        android:layout_weight="7"
                         android:text="民水"
                         android:textColor="@color/chunhei"
                         android:textSize="16sp"
@@ -782,7 +782,7 @@
                     <TextView
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_weight="2.5"
+                        android:layout_weight="3"
                         android:text="供电方式："
                         android:textSize="16sp"
                         />
@@ -791,7 +791,7 @@
                         android:id="@+id/tv_gongdianfangshi"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_weight="7.5"
+                        android:layout_weight="7"
                         android:text="民电"
                         android:textColor="@color/chunhei"
                         android:textSize="16sp"

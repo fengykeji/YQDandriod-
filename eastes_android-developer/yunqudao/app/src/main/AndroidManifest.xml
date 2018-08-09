@@ -88,6 +88,8 @@
 
 
 
+
+
     <application
         android:name=".App"
         android:allowBackup="true"
@@ -312,6 +314,19 @@
         </activity>
         <activity android:name=".ui.work.WorkChengjiaoDisableDetailActivity">
         </activity>
+        //二手房
+        <activity android:name=".ui.work.secondhandhouse.WorkSecondBaoBeiActivity"></activity>
+        <activity android:name=".ui.work.secondhandhouse.WorkSecondProspectActivity"></activity>
+        <activity android:name=".ui.work.secondhandhouse.WorkSecondProspectMaintainActivity"></activity>
+        <activity android:name=".ui.work.secondhandhouse.WorkSecondCompactDaiGouActivity"></activity>
+        <activity android:name=".ui.work.secondhandhouse.WorkSecondBaoBeiVerfyDetailActivity"></activity>
+        <activity android:name=".ui.work.secondhandhouse.WorkSecondBaoBeiValidDetailActivity"></activity>
+        <activity android:name=".ui.work.secondhandhouse.WorkSecondBaoBeiDisableDetailActivity"></activity>
+        <activity android:name=".ui.work.secondhandhouse.WorkSecondBaoBeiComplainDetailActivity"></activity>
+        <activity android:name=".ui.work.secondhandhouse.WorkSecondProspectVerfyDetailActivity"></activity>
+        <activity android:name=".ui.work.secondhandhouse.WorkSecondProspectValidDetailActivity"></activity>
+        <activity android:name=".ui.work.secondhandhouse.WorkSecondProspectDisableDetailActivity"></activity>
+        <activity android:name=".ui.work.secondhandhouse.WorkSecondProspectFinishDetailActivity"></activity>
 
 
 
