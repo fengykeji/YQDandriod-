@@ -1,11 +1,14 @@
 package com.ccsoft.yunqudao.ui.work.secondhandhouse;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
+import android.view.View;
 import android.widget.ImageButton;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.ccsoft.yunqudao.R;
@@ -20,7 +23,7 @@ import com.ccsoft.yunqudao.utils.HideIMEUtil;
 
 import java.util.ArrayList;
 
-public class WorkSecondProspectFinishDetailActivity extends AppCompatActivity {
+public class WorkSecondProspectFinishDetailActivity extends AppCompatActivity implements View.OnClickListener{
 
     private ImageButton mCustomers_button_back;
     private ImageButton                    mCustomers_button_quick_recommend;
@@ -31,6 +34,7 @@ public class WorkSecondProspectFinishDetailActivity extends AppCompatActivity {
     private TextView                       mCustomers_text_card_type;
     private TextView                       mCustomers_text_card_id;
     private TextView                       mCustomers_text_address;
+    private LinearLayout ll_fangyuanxinxi;
     private TabLayout mCustomers_TabLayout;
     private ViewPagerForScrollView mCustomers_viewpager_xiangqing;
     private ArrayList<Fragment>            fragments;
@@ -43,7 +47,7 @@ public class WorkSecondProspectFinishDetailActivity extends AppCompatActivity {
         setContentView(R.layout.activity_work_second_prospect_finish_details);
         HideIMEUtil.wrap(this);
         initView();
-//        initListener();
+        initListener();
     }
     private void initView(){
         mCustomers_button_back = findViewById(R.id.customers_button_back);
@@ -57,8 +61,13 @@ public class WorkSecondProspectFinishDetailActivity extends AppCompatActivity {
         mCustomers_text_address = findViewById(R.id.customers_text_address);
         mCustomers_TabLayout = findViewById(R.id.customers_TabLayout);
         mCustomers_viewpager_xiangqing = findViewById(R.id.customers_viewpager_xiangqing);
+        ll_fangyuanxinxi = findViewById(R.id.ll_fangyuanxinxi);
         addFragments();
 
+    }
+
+    private void initListener(){
+        ll_fangyuanxinxi.setOnClickListener(this);
     }
 
     /**
@@ -73,5 +82,15 @@ public class WorkSecondProspectFinishDetailActivity extends AppCompatActivity {
         ViewPagerAdapter1 adapter = new ViewPagerAdapter1(fragments, getSupportFragmentManager(), this);
         mCustomers_viewpager_xiangqing.setAdapter(adapter);
         mCustomers_TabLayout.setupWithViewPager(mCustomers_viewpager_xiangqing);
+    }
+
+    @Override
+    public void onClick(View view) {
+        switch (view.getId()){
+            case R.id.ll_fangyuanxinxi:
+                Intent intent = new Intent(this,HouseInfoActivity.class);
+                startActivity(intent);
+                break;
+        }
     }
 }

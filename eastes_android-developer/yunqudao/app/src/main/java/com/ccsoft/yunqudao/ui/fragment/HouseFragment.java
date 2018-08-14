@@ -47,6 +47,7 @@ import com.ccsoft.yunqudao.ui.customers.CustomersXiangQingActivity;
 import com.ccsoft.yunqudao.ui.customers.OpenCityActivity;
 import com.ccsoft.yunqudao.ui.house.ProjectCityChooseActivity;
 import com.ccsoft.yunqudao.ui.house.ProjectXiangQingActivity;
+import com.ccsoft.yunqudao.ui.house.secondhandhouse.SecondHouseListActivity;
 import com.ccsoft.yunqudao.ui.listener.EndlessRecyclerOnScrollListener;
 import com.ccsoft.yunqudao.ui.mian.LoginActivity;
 import com.ccsoft.yunqudao.ui.mian.MainActivity;
@@ -376,7 +377,8 @@ public class HouseFragment extends Fragment implements View.OnClickListener ,Hou
 
                         break;
                     case 1:
-
+                        Intent intent = new Intent(getContext(), SecondHouseListActivity.class);
+                        startActivity(intent);
                         break;
                     case 2:
 

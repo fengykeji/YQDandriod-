@@ -1,9 +1,11 @@
 package com.ccsoft.yunqudao.ui.work.secondhandhouse;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
@@ -31,6 +33,7 @@ public class WorkSecondBaoBeiDisableDetailActivity extends AppCompatActivity {
     private TextView work_qiangdan_time;
     private TextView work_commend_jingjiren;
     private TextView work_commend_phonenumber;
+    private Button tv_shensu;
 
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -42,6 +45,7 @@ public class WorkSecondBaoBeiDisableDetailActivity extends AppCompatActivity {
     private void initView() {
 
         ImageButton back = findViewById(R.id.work_button_back);
+        tv_shensu = findViewById(R.id.tv_shensu);
         mDisableType = findViewById(R.id.work_commend_disable_type);
         mDisableDescribe = findViewById(R.id.work_commend_disable_describe);
         mDisableTime = findViewById(R.id.work_commend_disable_time);
@@ -66,6 +70,14 @@ public class WorkSecondBaoBeiDisableDetailActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 finish();
+            }
+        });
+
+        tv_shensu.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(WorkSecondBaoBeiDisableDetailActivity.this,WorkSecondShenSuActivity.class);
+                startActivity(intent);
             }
         });
     }

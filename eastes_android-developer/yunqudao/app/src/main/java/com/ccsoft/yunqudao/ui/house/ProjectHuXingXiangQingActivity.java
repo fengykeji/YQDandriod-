@@ -210,8 +210,8 @@ public class ProjectHuXingXiangQingActivity extends AppCompatActivity implements
                 if(bean.getCode()==200&&bean.getData()!=null){
 
                     tv_house_type_name.setText(bean.getData().getBaseInfo().getHouse_type_name());
-                    tv_property_area.setText(bean.getData().getBaseInfo().getProperty_area_min()+"m2--"
-                    +bean.getData().getBaseInfo().getProperty_area_max()+"m2");
+                    tv_property_area.setText(bean.getData().getBaseInfo().getProperty_area_min()+"㎡--"
+                    +bean.getData().getBaseInfo().getProperty_area_max()+"㎡");
                     tv_sell_point.setText(bean.getData().getBaseInfo().getSell_point());
 
 

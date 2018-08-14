@@ -327,6 +327,22 @@
         <activity android:name=".ui.work.secondhandhouse.WorkSecondProspectValidDetailActivity"></activity>
         <activity android:name=".ui.work.secondhandhouse.WorkSecondProspectDisableDetailActivity"></activity>
         <activity android:name=".ui.work.secondhandhouse.WorkSecondProspectFinishDetailActivity"></activity>
+        <activity android:name=".ui.work.secondhandhouse.WorkSecondProspectMaintainDetailActivity"></activity>
+        <activity android:name=".ui.work.secondhandhouse.WorkSecondCompactDaiGouVerfyDetailActivity"></activity>
+        <activity android:name=".ui.work.secondhandhouse.WorkSecondCompactDaiGouVaildDetailActivity"></activity>
+        <activity android:name=".ui.work.secondhandhouse.WorkSecondShenSuActivity"></activity>
+        <activity android:name=".ui.work.secondhandhouse.HouseWuXiaoShenQingActivity"></activity>
+        <activity android:name=".ui.work.secondhandhouse.HouseYouXiaoActivity"></activity>
+        <activity android:name=".ui.work.secondhandhouse.WorkSecondProspectBianGengShiJianActivity"></activity>
+        <activity android:name=".ui.work.secondhandhouse.ChaKanBianGengJiLuActivity"></activity>
+        <activity android:name=".ui.work.secondhandhouse.KanChaShiXiaoActivity"></activity>
+        <activity android:name=".ui.work.secondhandhouse.WanChengKanChaActivity"></activity>
+        <activity android:name=".ui.work.secondhandhouse.HouseInfoActivity"></activity>
+        <activity android:name=".ui.work.secondhandhouse.YeZhuInfoActivity"></activity>
+        <activity android:name=".ui.work.secondhandhouse.GenJinJiLuActivity"></activity>
+        <activity android:name=".ui.house.secondhandhouse.SecondHouseListActivity"></activity>
+        <activity android:name=".ui.house.secondhandhouse.SencondHouseFangYuanInfoActivity"></activity>
+
 
 
 

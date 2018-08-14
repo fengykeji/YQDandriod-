@@ -86,7 +86,8 @@ public class WorkSecondProspectMaintainActivity extends AppCompatActivity implem
             @Override
             public void onItemClickListner(View v, int position) {
                 int id = dataList.get(position).client_id;
-                WorkCommendVerifyDetailActivity.start(WorkSecondProspectMaintainActivity.this, id);
+                Intent intent = new Intent(WorkSecondProspectMaintainActivity.this,WorkSecondProspectMaintainDetailActivity.class);
+                startActivity(intent);
             }
         });
         mSwipRefresh.setOnRefreshListener(this);

@@ -69,6 +69,8 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     private ImageButton mMe_button_QQ;
     private ImageButton mMe_button_wechat;
     private LoginData loginData;
+    private String account;
+    private String password;
     private long firstTime = 0;//记录用户首次点击返回键的时间
 
     private PlatformDb platDB; //平台授权数据DB
@@ -99,6 +101,13 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         mMe_button_repassword = findViewById(R.id.me_button_repassword);
         mMe_button_QQ = findViewById(R.id.me_button_QQ);
         mMe_button_wechat = findViewById(R.id.me_button_wechat);
+
+        if(!SpUtil.getString("account","").equals("")){
+            mMe_edittext_account.setText(SpUtil.getString("account",""));
+        }
+        if(!SpUtil.getString("password","").equals("")){
+            mMe_edittext_password.setText(SpUtil.getString("password",""));
+        }
     }
 
     private void initListener() {
@@ -117,8 +126,8 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         switch (v.getId()) {
 
             case R.id.me_button_login:
-                String account = mMe_edittext_account.getText().toString();
-                String password = mMe_edittext_password.getText().toString();
+                 account = mMe_edittext_account.getText().toString();
+                 password = mMe_edittext_password.getText().toString();
                 if (isNext(account, password)) {
                     login(account, password);
                 }
@@ -201,6 +210,8 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                             SpUtil.setToken(loginBean.getData().getToken());
                             SpUtil.setInt("agent_id", loginBean.getData().getAgent_id());//保存agent_id
                             SpUtil.setString("agent_identity",loginBean.getData().getAgent_identity());//保存判断是否为经纪人
+                            SpUtil.setString("account",account);
+                            SpUtil.setString("password",password);
 
                             HttpHeaders headers = new HttpHeaders();
                             headers.put("ACCESS-TOKEN", loginBean.getData().getToken());

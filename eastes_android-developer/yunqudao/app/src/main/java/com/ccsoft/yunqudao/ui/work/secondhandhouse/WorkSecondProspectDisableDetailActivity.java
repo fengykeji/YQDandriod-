@@ -1,9 +1,11 @@
 package com.ccsoft.yunqudao.ui.work.secondhandhouse;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
@@ -31,6 +33,7 @@ public class WorkSecondProspectDisableDetailActivity extends AppCompatActivity {
     private TextView work_qiangdan_time;
     private TextView work_commend_jingjiren;
     private TextView work_commend_phonenumber;
+    private Button tv_shensu;
 
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -61,11 +64,19 @@ public class WorkSecondProspectDisableDetailActivity extends AppCompatActivity {
         work_qiangdan_time = findViewById(R.id.work_qiangdan_time);
         work_commend_jingjiren = findViewById(R.id.work_commend_jingjiren);
         work_commend_phonenumber = findViewById(R.id.work_commend_phonenumber);
+        tv_shensu = findViewById(R.id.tv_shensu);
 
         back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 finish();
+            }
+        });
+        tv_shensu.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(WorkSecondProspectDisableDetailActivity.this,WorkSecondShenSuActivity.class);
+                startActivity(intent);
             }
         });
     }

@@ -74,6 +74,7 @@
                     android:textColor="@color/miantext"
                     />
                 <TextView
+                    android:id="@+id/tv_biangenshijian"
                     android:paddingRight="10dp"
                     android:gravity="right"
                     android:text="变更预约时间"
@@ -114,6 +115,7 @@
                             android:textSize="15sp"
                             />
                         <TextView
+                            android:id="@+id/tv_chakanjilu"
                             android:gravity="right"
                             android:text="查看变更记录"
                             android:layout_width="match_parent"

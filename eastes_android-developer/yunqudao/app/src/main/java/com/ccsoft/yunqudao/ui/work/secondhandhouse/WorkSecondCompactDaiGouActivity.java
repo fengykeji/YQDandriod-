@@ -56,8 +56,8 @@ public class WorkSecondCompactDaiGouActivity extends AppCompatActivity implement
         TabLayout mTabLayout = findViewById(R.id.forward_tab_layout);
         work_button_add_recommend = findViewById(R.id.work_button_add_recommend);
         List<Fragment> fragments = new ArrayList<>();
-        fragments.add(new WorkSecondBaoBeiVerfyFragment());
-        fragments.add(new WorkSecondBaoBeiValidFragment());
+        fragments.add(new WorkSecondCompactDaiGouVerfyFragment());
+        fragments.add(new WorkSecondCompactDaiGouVaildFragment());
         SelectContactsPagerAdapter adapter = new SelectContactsPagerAdapter(fragments, this.getSupportFragmentManager(), this);
         mViewPager.setAdapter(adapter);
         mTabLayout.setupWithViewPager(mViewPager);

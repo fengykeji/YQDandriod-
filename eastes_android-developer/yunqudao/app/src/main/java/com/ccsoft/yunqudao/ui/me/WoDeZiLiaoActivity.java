@@ -212,9 +212,13 @@ public class WoDeZiLiaoActivity extends AppCompatActivity implements View.OnClic
         XutilsHttp.getInstance().gethesder(AppConstants.URL + "agent/user/logOut", null, new XutilsHttp.XCallBack() {
             @Override
             public void onResponse(String result) {
+                Intent intent = new Intent(WoDeZiLiaoActivity.this,LoginActivity.class);
+                intent.putExtra("account",SpUtil.getString("account",""));
+                intent.putExtra("password",SpUtil.getString("password",""));
+                startActivity(intent);
                 SpUtil.clear(AppConstants.SP.TOKEN); //chu
                 ActivityManager.getInstance().finishAllActivity(); //清除掉所有activity
-                LoginActivity.start(WoDeZiLiaoActivity.this);
+
             }
 
             @Override

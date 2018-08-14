@@ -1,15 +1,17 @@
 package com.ccsoft.yunqudao.ui.work.secondhandhouse;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
 import com.ccsoft.yunqudao.R;
 
-public class WorkSecondProspectVerfyDetailActivity extends AppCompatActivity{
+public class WorkSecondProspectVerfyDetailActivity extends AppCompatActivity implements View.OnClickListener{
 
     private TextView work_commend_number;
     private TextView work_commend_time;
@@ -28,6 +30,8 @@ public class WorkSecondProspectVerfyDetailActivity extends AppCompatActivity{
     private TextView work_qiangdan_time;
     private TextView work_commend_jingjiren;
     private TextView work_commend_phonenumber;
+    private Button tv_shensu;
+    private Button tv_retuijian;
 
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -55,6 +59,8 @@ public class WorkSecondProspectVerfyDetailActivity extends AppCompatActivity{
         work_qiangdan_time = findViewById(R.id.work_qiangdan_time);
         work_commend_jingjiren = findViewById(R.id.work_commend_jingjiren);
         work_commend_phonenumber = findViewById(R.id.work_commend_phonenumber);
+        tv_shensu = findViewById(R.id.tv_shensu);
+        tv_retuijian = findViewById(R.id.tv_retuijian);
 
         back.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -62,5 +68,19 @@ public class WorkSecondProspectVerfyDetailActivity extends AppCompatActivity{
                 finish();
             }
         });
+    }
+
+    @Override
+    public void onClick(View view) {
+        switch (view.getId()){
+            case R.id.tv_shensu:
+                Intent intent = new Intent(this,HouseWuXiaoShenQingActivity.class);
+                startActivity(intent);
+                break;
+            case R.id.tv_retuijian:
+                Intent intent1 = new Intent(this,HouseYouXiaoActivity.class);
+                startActivity(intent1);
+                break;
+        }
     }
 }
