@@ -55,6 +55,9 @@ public class MessageChengjiaoVailddetailActivity extends AppCompatActivity {
     private int client_id;
     private int message_id;
 
+    private TextView work_commend_client_zhiye;
+    private LinearLayout ll_zhiyeguwen;
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -108,6 +111,8 @@ public class MessageChengjiaoVailddetailActivity extends AppCompatActivity {
 //        mWork_condition_image2 = findViewById(R.id.work_condition_image2);
 //        mWork_condition_image3 = findViewById(R.id.work_condition_image3);
 
+        work_commend_client_zhiye = findViewById(R.id.work_commend_client_zhiye);
+        ll_zhiyeguwen = findViewById(R.id.ll_zhiyeguwen);
         ll_progress = findViewById(R.id.ll_progress);
 
         back.setOnClickListener(new View.OnClickListener() {
@@ -153,6 +158,12 @@ public class MessageChengjiaoVailddetailActivity extends AppCompatActivity {
                     work_commend_counselor.setText(data.getData().getProperty_advicer_wish());
                     work_commend_verify_people.setText(data.getData().getButter_name());
                     work_commend_verify_people_tel.setText(data.getData().getButter_tel());
+
+                    if (!data.getData().getConsultant_advicer().equals("")) {
+                        work_commend_client_zhiye.setText(data.getData().getConsultant_advicer());
+                    }else {
+                        ll_zhiyeguwen.setVisibility(View.GONE);
+                    }
 
                     tv_work_housenum.setText(data.getData().getHouse_info());
                     tv_work_totalprice.setText(data.getData().getTotal_money()+"元");

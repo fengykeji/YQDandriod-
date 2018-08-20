@@ -18,6 +18,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.ccsoft.yunqudao.R;
+import com.ccsoft.yunqudao.bean.GetHouseTypeDetailBean;
 import com.ccsoft.yunqudao.bean.MessageEvent;
 import com.ccsoft.yunqudao.bean.QuickRecommendBean;
 import com.ccsoft.yunqudao.data.AppConstants;
@@ -33,6 +34,7 @@ import com.ccsoft.yunqudao.ui.customers.AddCustomers1Activity;
 import com.ccsoft.yunqudao.ui.customers.AddCustomers2Activity;
 import com.ccsoft.yunqudao.ui.customers.CustomersXiangQingActivity;
 import com.ccsoft.yunqudao.ui.customers.QuickRecommendActivity;
+import com.ccsoft.yunqudao.ui.house.AdvicerChooseActivity;
 import com.ccsoft.yunqudao.utils.ActivityManager;
 import com.ccsoft.yunqudao.utils.DateUtil;
 import com.ccsoft.yunqudao.utils.InputUtil;
@@ -41,11 +43,13 @@ import com.ccsoft.yunqudao.utils.LogUtil;
 import com.ccsoft.yunqudao.utils.wheelview.TimePickerView;
 import com.google.gson.Gson;
 import com.lzy.okhttputils.OkHttpUtils;
+import com.lzy.okhttputils.callback.StringCallback;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -75,6 +79,7 @@ public class AddWorkActivity extends AppCompatActivity implements View.OnClickLi
     private String name ;
     int project_id;
     private String mCustomers_tel,mCustomers_id,mCustomers_barthday,mCustomers_address;
+    private GetHouseTypeDetailBean bean;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -188,32 +193,7 @@ public class AddWorkActivity extends AppCompatActivity implements View.OnClickLi
 //                intent.putExtra("card_id",mCustomers_edittext_card_id.getText().toString());
 //                intent.putExtra("name", mName);
 
-                OkHttpUtils.post(HttpAdress.ADDANDRECOMMEND)
-                        .tag(this)
-                        .params("name", mName)
-                        .params("sex", String.valueOf(type))
-                        .params("tel", mCustomers_tel)
-                        .params("card_id",mCustomers_id)
-                        .params("birth", mCustomers_barthday)
-                        .params("address",mCustomers_address)
-                        .params("project_id",project_id)
-                        .execute(new MyStringCallBack() {
-                            @Override
-                            public void onSuccess(String s, Call call, Response response) {
-                                super.onSuccess(s, call, response);
-                                Gson gson = new Gson();
-                                ResultData model = gson.fromJson(s, ResultData.class);
-                                Log.e("cccccs",model.code+" "+model.msg);
-                                if(model.code==200){
-                                    Toast.makeText(AddWorkActivity.this, ":快速报备成功", Toast.LENGTH_SHORT).show();
-                                    sendBroadcast(new Intent(AppConstants.REFRESH_CUSTOM_LIST));
-//
-                                    Intent intent = new Intent(AddWorkActivity.this,WorkRecommendActivity.class);
-                                    startActivity(intent);
-                                }
-                                Toast.makeText(AddWorkActivity.this,model.msg,Toast.LENGTH_SHORT).show();
-                            }
-                        });
+                getHouseTypeDatil();
 
                 break;
             case R.id.customers_button_birthday:
@@ -237,6 +217,81 @@ public class AddWorkActivity extends AppCompatActivity implements View.OnClickLi
                 break;
         }
     }
+
+    /**
+     * 获取置业顾问
+     */
+    private void getHouseTypeDatil(){
+
+        OkHttpUtils.get(AppConstants.URL+"user/project/advicer")
+                .tag(this)
+                .params("project_id",project_id)
+                .execute(new StringCallback() {
+                    @Override
+                    public void onSuccess(String s, Call call, Response response) {
+                        bean = JsonUtil.jsonToEntity(s,GetHouseTypeDetailBean.class);
+                        if (bean.getCode() == 200){
+                            if(bean.getData().getTotal().equals("0")){
+                                getRecommend();
+                            }else {
+                                showPopupwindow();
+                            }
+                        }
+                    }
+                });
+    }
+
+    /**
+     * 选择置业顾问
+     */
+    private void showPopupwindow(){
+        Bundle bundle = new Bundle();
+        bundle.putSerializable("list", (Serializable) bean.getData().getRows());
+        Intent intent = new Intent(AddWorkActivity.this, AdvicerChooseActivity.class);
+        intent.putExtra("project_id",project_id);
+        intent.putExtra("name",mName);
+        intent.putExtra("sex",String.valueOf(type));
+        intent.putExtra("tel",mCustomers_tel);
+        intent.putExtra("card_id",mCustomers_id);
+        intent.putExtra("barthday", mCustomers_barthday);
+        intent.putExtra("address", mCustomers_address);
+        intent.putExtra("aaaa",1);
+        intent.putExtras(bundle);
+        startActivity(intent);
+
+    }
+
+    /**
+     * 推荐
+     */
+    private void getRecommend(){
+        OkHttpUtils.post(HttpAdress.ADDANDRECOMMEND)
+                .tag(this)
+                .params("name", mName)
+                .params("sex", String.valueOf(type))
+                .params("tel", mCustomers_tel)
+                .params("card_id",mCustomers_id)
+                .params("birth", mCustomers_barthday)
+                .params("address",mCustomers_address)
+                .params("project_id",project_id)
+                .execute(new MyStringCallBack() {
+                    @Override
+                    public void onSuccess(String s, Call call, Response response) {
+                        super.onSuccess(s, call, response);
+                        Gson gson = new Gson();
+                        ResultData model = gson.fromJson(s, ResultData.class);
+                        if(model.code==200){
+                            Toast.makeText(AddWorkActivity.this, ":快速报备成功", Toast.LENGTH_SHORT).show();
+                            sendBroadcast(new Intent(AppConstants.REFRESH_CUSTOM_LIST));
+//
+                            Intent intent = new Intent(AddWorkActivity.this,WorkRecommendActivity.class);
+                            startActivity(intent);
+                        }
+                        Toast.makeText(AddWorkActivity.this,model.msg,Toast.LENGTH_SHORT).show();
+                    }
+                });
+    }
+
 
     /**
      * 设置项目名称

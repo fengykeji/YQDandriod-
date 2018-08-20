@@ -8,6 +8,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageButton;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.ccsoft.yunqudao.R;
@@ -57,6 +58,8 @@ public class WorkDealVerifydetailActivity extends AppCompatActivity {
     private ImageButton work_button_back;
     private TextView mCommentNumber;
 
+    private TextView work_commend_client_zhiye;
+    private LinearLayout ll_zhiyeguwen;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -93,6 +96,8 @@ public class WorkDealVerifydetailActivity extends AppCompatActivity {
         date_seconds = findViewById(R.id.date_seconds);
         work_button_back = findViewById(R.id.work_button_back);
         mCommentNumber = findViewById(R.id.work_commend_number);
+        work_commend_client_zhiye = findViewById(R.id.work_commend_client_zhiye);
+        ll_zhiyeguwen = findViewById(R.id.ll_zhiyeguwen);
 
         work_button_back.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -150,6 +155,12 @@ public class WorkDealVerifydetailActivity extends AppCompatActivity {
 
         finishTime = workReportVerifyDetailData.getData().getTimeLimit();
         handler.post(runnable);
+
+        if (!workReportVerifyDetailData.getData().getConsultant_advicer().equals("")) {
+            work_commend_client_zhiye.setText(workReportVerifyDetailData.getData().getConsultant_advicer());
+        }else {
+            ll_zhiyeguwen.setVisibility(View.GONE);
+        }
 
 
     }

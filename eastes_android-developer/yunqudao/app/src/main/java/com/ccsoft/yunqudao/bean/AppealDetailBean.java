@@ -93,6 +93,16 @@ public class AppealDetailBean {
         private String property_advicer_wish;
         private String butter_name;
         private String butter_tel;
+        public String consultant_advicer;
+
+        public void setConsultant_advicer(String consultant_advicer) {
+            this.consultant_advicer = consultant_advicer;
+        }
+
+        public String getConsultant_advicer() {
+
+            return consultant_advicer;
+        }
 
         public String getConfirm_name() {
             return confirm_name;

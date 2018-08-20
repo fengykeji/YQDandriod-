@@ -9,6 +9,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageButton;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import com.ccsoft.yunqudao.R;
 import com.ccsoft.yunqudao.data.api.ApiSubscriber;
@@ -49,6 +50,8 @@ public class WorkCommendVerifyDetailActivity extends AppCompatActivity {
     private TextView date_hour;
     private TextView date_minute;
     private TextView date_seconds;
+    private TextView work_commend_client_zhiye;
+    private LinearLayout ll_zhiyeguwen;
 
     @Override
     protected void onStart() {
@@ -62,7 +65,6 @@ public class WorkCommendVerifyDetailActivity extends AppCompatActivity {
         setContentView(R.layout.activity_work_commend_verify_details);
         initView();
         initData();
-
     }
 
     public static void start(Context context, int id) {
@@ -86,6 +88,8 @@ public class WorkCommendVerifyDetailActivity extends AppCompatActivity {
         work_commend_client_name = findViewById(R.id.work_commend_client_name);
         work_commend_client_sex = findViewById(R.id.work_commend_client_sex);
         work_commend_client_tel = findViewById(R.id.work_commend_client_tel);
+        work_commend_client_zhiye = findViewById(R.id.work_commend_client_zhiye);
+        ll_zhiyeguwen = findViewById(R.id.ll_zhiyeguwen);
         date_day = findViewById(R.id.date_day);
         date_hour = findViewById(R.id.date_hour);
         date_minute = findViewById(R.id.date_minute);
@@ -139,6 +143,11 @@ public class WorkCommendVerifyDetailActivity extends AppCompatActivity {
                                 finishTime = data.timeLimit;
                                 handler.post(runnable);
 
+                                if (!data.consultant_advicer.equals("")) {
+                                    work_commend_client_zhiye.setText(data.consultant_advicer);
+                                }else {
+                                    ll_zhiyeguwen.setVisibility(View.GONE);
+                                }
                             }
 
                         }

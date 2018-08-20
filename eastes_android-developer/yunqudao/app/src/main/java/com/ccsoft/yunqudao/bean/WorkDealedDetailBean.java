@@ -103,6 +103,16 @@ public class WorkDealedDetailBean {
         private String city_name;
         private String district_name;
         private String property_type;
+        private String consultant_advicer;
+
+        public void setConsultant_advicer(String consultant_advicer) {
+            this.consultant_advicer = consultant_advicer;
+        }
+
+        public String getConsultant_advicer() {
+
+            return consultant_advicer;
+        }
         private List<ProcessBean> process;
 
         public int getClient_id() {

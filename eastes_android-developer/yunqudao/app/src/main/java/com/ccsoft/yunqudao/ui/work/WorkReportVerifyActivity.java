@@ -8,6 +8,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageButton;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import com.ccsoft.yunqudao.R;
 import com.ccsoft.yunqudao.data.AppConstants;
@@ -60,6 +61,9 @@ public class WorkReportVerifyActivity extends AppCompatActivity {
     private ImageButton work_button_back;
     private TextView mCommentNumber;
 
+    private TextView work_commend_client_zhiye;
+    private LinearLayout ll_zhiyeguwen;
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -96,6 +100,9 @@ public class WorkReportVerifyActivity extends AppCompatActivity {
         date_seconds = findViewById(R.id.date_seconds);
         work_button_back = findViewById(R.id.work_button_back);
         mCommentNumber = findViewById(R.id.work_commend_number);
+
+        ll_zhiyeguwen = findViewById(R.id.ll_zhiyeguwen);
+        work_commend_client_zhiye = findViewById(R.id.work_commend_client_zhiye);
 
         work_button_back.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -148,10 +155,15 @@ public class WorkReportVerifyActivity extends AppCompatActivity {
         mPeople_TelTv.setText(workReportVerifyDetailData.getData().getButter_tel());
         mCommentNumber.setText(workReportVerifyDetailData.getData().getClient_id()+"");
 
+
+        if (!workReportVerifyDetailData.getData().getConsultant_advicer().equals("")) {
+            work_commend_client_zhiye.setText(workReportVerifyDetailData.getData().getConsultant_advicer());
+        }else {
+            ll_zhiyeguwen.setVisibility(View.GONE);
+        }
+
         finishTime = workReportVerifyDetailData.getData().getTimeLimit();
         handler.post(runnable);
-
-
     }
 
     int finishTime;

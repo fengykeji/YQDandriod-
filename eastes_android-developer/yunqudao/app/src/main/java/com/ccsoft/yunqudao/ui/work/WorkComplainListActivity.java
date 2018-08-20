@@ -68,6 +68,8 @@ public class WorkComplainListActivity extends AppCompatActivity implements View.
     private AppealDetailBean bean;
     private LinearLayout ll_progress,ll_gone,ll_chengjiaoxingxi;
     private String gone ;
+    private TextView work_commend_client_zhiye;
+    private LinearLayout ll_zhiyeguwen;
 
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -117,6 +119,9 @@ public class WorkComplainListActivity extends AppCompatActivity implements View.
         ll_gone = findViewById(R.id.ll_gone);
         ll_chengjiaoxingxi = findViewById(R.id.ll_chengjiaoxinxi);
 
+        work_commend_client_zhiye = findViewById(R.id.work_commend_client_zhiye);
+        ll_zhiyeguwen = findViewById(R.id.ll_zhiyeguwen);
+
         appeal_id = getIntent().getStringExtra("appeal_id");
         gone = getIntent().getStringExtra("gone");
         if(gone.equals("gone")){
@@ -165,35 +170,6 @@ public class WorkComplainListActivity extends AppCompatActivity implements View.
     }
     private void ininData(){
 
-
-//        OkHttpUtils.get(HttpAdress.APPEALDETAIL)
-//                .tag(this)
-//                .params("appeal_id",appeal_id)
-//                .execute(new StringCallback() {
-//                    @Override
-//                    public void onSuccess(String s, Call call, Response response) {
-//                        int code = 0;
-//                        String data = null;
-//                        try {
-//                            JSONObject jsonObject = new JSONObject(s);
-//                            code = jsonObject.getInt("code");
-//                            data = jsonObject.getString("data");
-//                        } catch (JSONException e) {
-//                            e.printStackTrace();
-//                        }
-//                        if (code == 200 && data != null) {
-//                            AppealDetailBean bean = JsonUtil.jsonToEntity(s,AppealDetailBean.class);
-//
-//                        }
-//                    }
-//                });
-
-
-
-
-
-
-
         OkHttpManager.getInstance().get(HttpAdress.APPEALDETAIL+"?appeal_id="+appeal_id, new BaseCallBack() {
             @Override
             public void onSuccess(Call call, Response response, Object obj) throws MalformedURLException {
@@ -232,6 +208,12 @@ public class WorkComplainListActivity extends AppCompatActivity implements View.
                     tv_zhiyeguwen.setText(bean.getData().getProperty_advicer_wish());
                     tv_daofangsurepeople.setText(bean.getData().getButter_name());
                     tv_daofangsurenum.setText(bean.getData().getButter_tel());
+
+                    if (!bean.getData().getConsultant_advicer().equals("")) {
+                        work_commend_client_zhiye.setText(bean.getData().getConsultant_advicer());
+                    }else {
+                        ll_zhiyeguwen.setVisibility(View.GONE);
+                    }
 
                     for (int i=0;i<bean.getData().getProcess().size();i++) {
                         AppealDetailBean.DataBean.ProcessBean processBean = bean.getData().getProcess().get(i);

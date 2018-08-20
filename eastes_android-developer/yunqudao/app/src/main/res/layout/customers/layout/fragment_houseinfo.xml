@@ -146,7 +146,16 @@
                     android:textColor="@color/chunhei"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content" />
+
             </LinearLayout>
+            <TextView
+                android:id="@+id/tv_xiangmufenxi"
+                android:paddingRight="10dp"
+                android:layout_marginTop="20dp"
+                android:layout_alignParentRight="true"
+                android:text="编辑"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
         </RelativeLayout>
 
         <LinearLayout

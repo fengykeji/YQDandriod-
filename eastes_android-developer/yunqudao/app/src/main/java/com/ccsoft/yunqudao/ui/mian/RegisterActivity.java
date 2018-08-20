@@ -26,6 +26,7 @@ import com.ccsoft.yunqudao.model.StringModel;
 import com.ccsoft.yunqudao.rx.RxSchedulers;
 import com.ccsoft.yunqudao.ui.me.PactActivity;
 import com.ccsoft.yunqudao.utils.ActivityManager;
+import com.ccsoft.yunqudao.utils.HideIMEUtil;
 import com.ccsoft.yunqudao.utils.InputUtil;
 import com.ccsoft.yunqudao.utils.JsonUtil;
 import com.ccsoft.yunqudao.utils.LogUtil;
@@ -60,6 +61,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
         super.onCreate(savedInstanceState);
         ActivityManager.getInstance().addActivity(this);
         setContentView(R.layout.activity_me_sign_in);
+        HideIMEUtil.wrap(this);
         initView();
         initListener();
     }
@@ -114,7 +116,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
                 String captcha = mMe_edittext_验证码.getText().toString();
                 String password = mMe_edittext_密码.getText().toString();
                 String againpassword = mMe_edittext_再次输入密码.getText().toString();
-//                String consultant_tel = mMe_edittext_邀请号码.getText().toString();
+                String consultant_tel = mMe_edittext_邀请号码.getText().toString();
 
                 if (TextUtils.isEmpty(account)) {
                     Toast.makeText(this, "手机号不能为空", Toast.LENGTH_SHORT).show();
@@ -160,12 +162,16 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
 //                    Toast.makeText(this, "同意云算平台使用条例", Toast.LENGTH_SHORT).show();
 //                    return;
 //                }
-//                if (!isMoble(consultant_tel)) {
-//                    Toast.makeText(this, "请输入正确的手机号", Toast.LENGTH_SHORT).show();
-//                    return;
-//                }
+                if(!consultant_tel.equals("")) {
+                    if (!isMoble(consultant_tel)) {
+                        Toast.makeText(this, "请输入正确的手机号", Toast.LENGTH_SHORT).show();
+                        return;
+                    }
+                    registerwithconsultant(account, password, againpassword, captcha,consultant_tel);
+                }else {
 
-                register(account, password, againpassword, captcha);
+                    register(account, password, againpassword, captcha);
+                }
 
                 break;
         }
@@ -218,23 +224,6 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
      */
     private void register(String account, String password, String againpassword, String captcha) {
 
-//        ClientManager.getInstance().regist(account, password, againpassword, captcha).compose(RxSchedulers.<BaseData>io_main()).subscribe(new ApiSubscriber<BaseData>(this) {
-//            @Override
-//            protected void _onNext(BaseData baseData) {
-//                Toast.makeText(RegisterActivity.this, ":注册成功", Toast.LENGTH_SHORT).show();
-//                finish();
-//            }
-//
-//            @Override
-//            protected void _onError(String message) {
-//                Toast.makeText(RegisterActivity.this, "注册失败:" + message, Toast.LENGTH_SHORT).show();
-//            }
-//
-//            @Override
-//            protected void _onCompleted() {
-//
-//            }
-//        });
         OkHttpUtils.post(HttpAdress.regiest)
                 .tag(this)
                 .params("account", account)
@@ -252,10 +241,38 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
                         Toast.makeText(RegisterActivity.this,model.getMsg(),Toast.LENGTH_SHORT).show();
                     }
                 });
-
-
-
     }
+
+    /**
+     * 带邀请电话注册
+     * @param account
+     * @param password
+     * @param againpassword
+     * @param captcha
+     * @param consultant
+     */
+
+    private void registerwithconsultant(String account, String password, String againpassword, String captcha, String consultant){
+        OkHttpUtils.post(HttpAdress.regiest)
+                .tag(this)
+                .params("account", account)
+                .params("password", password)
+                .params("password_verify", againpassword)
+                .params("captcha", captcha)
+                .params("code",consultant)
+                .execute(new StringCallback() {
+                    @Override
+                    public void onSuccess(String s, Call call, Response response) {
+                        StringModel model = JsonUtil.jsonToEntity(s,StringModel.class);
+                        if(model.getCode()==200){
+                            Toast.makeText(RegisterActivity.this,"注册成功",Toast.LENGTH_LONG).show();
+                            finish();
+                        }
+                        Toast.makeText(RegisterActivity.this,model.getMsg(),Toast.LENGTH_SHORT).show();
+                    }
+                });
+    }
+
 
     public static boolean isMoble(String telnumber) {
 

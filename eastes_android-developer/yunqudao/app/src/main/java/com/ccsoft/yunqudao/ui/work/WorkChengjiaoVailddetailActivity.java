@@ -58,6 +58,8 @@ public class WorkChengjiaoVailddetailActivity extends AppCompatActivity{
     private ImageView    mWork_condition_image3;
     private LinearLayout ll_progress;
     private TextView tv_work_housenum,tv_work_totalprice,tv_work_area,tv_work_dealstata,tv_work_dealtime;
+    private TextView work_commend_client_zhiye;
+    private LinearLayout ll_zhiyeguwen;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -109,6 +111,8 @@ public class WorkChengjiaoVailddetailActivity extends AppCompatActivity{
 //        mWork_condition_image2 = findViewById(R.id.work_condition_image2);
 //        mWork_condition_image3 = findViewById(R.id.work_condition_image3);
 
+        work_commend_client_zhiye = findViewById(R.id.work_commend_client_zhiye);
+        ll_zhiyeguwen = findViewById(R.id.ll_zhiyeguwen);
         ll_progress = findViewById(R.id.ll_progress);
 
         back.setOnClickListener(new View.OnClickListener() {
@@ -208,6 +212,14 @@ public class WorkChengjiaoVailddetailActivity extends AppCompatActivity{
                     tv_work_dealstata.setText(data.getData().getCurrent_state());
                     tv_work_dealtime.setText(data.getData().getUpdate_time());
                     work_commend_time2.setText(data.getData().getVisit_time());
+
+
+                    if (!data.getData().getConsultant_advicer().equals("")) {
+                        work_commend_client_zhiye.setText(data.getData().getConsultant_advicer());
+                    }else {
+                        ll_zhiyeguwen.setVisibility(View.GONE);
+                    }
+
                     if(data.getData().getProcess()==null){
                         return;
                     }else {

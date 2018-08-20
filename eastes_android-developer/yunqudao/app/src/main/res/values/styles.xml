@@ -70,7 +70,10 @@
         <item name="android:windowAnimationStyle">@android:style/Animation.Dialog</item>
         <!--背景是否模糊显示-->
         <item name="android:backgroundDimEnabled">true</item>
+
     </style>
+
+
 
     <style name="AppTheme1" parent="android:Theme.Light">
 

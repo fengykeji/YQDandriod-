@@ -148,5 +148,7 @@ public class HttpAdress {
     public static String getFocusProjectList = AppConstants.URL+"agent/personal/getFocusProjectList";
     /*催佣*/
     public static String urge = AppConstants.URL+"agent/personal/urge";
+    /*我的团队*/
+    public static String myTeamList = AppConstants.URL+"agent/personal/myTeamList";
 
 }

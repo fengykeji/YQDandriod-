@@ -9,6 +9,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageButton;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.ccsoft.yunqudao.R;
@@ -49,6 +50,9 @@ public class MessageCommendVerifyDetailActivity extends AppCompatActivity {
     private int client_id;
     private int message_id;
 
+    private TextView work_commend_client_zhiye;
+    private LinearLayout ll_zhiyeguwen;
+
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         ActivityManager.getInstance().addActivity(this);
@@ -84,6 +88,9 @@ public class MessageCommendVerifyDetailActivity extends AppCompatActivity {
         date_hour = findViewById(R.id.date_hour);
         date_minute = findViewById(R.id.date_minute);
         date_seconds = findViewById(R.id.date_seconds);
+
+        work_commend_client_zhiye = findViewById(R.id.work_commend_client_zhiye);
+        ll_zhiyeguwen = findViewById(R.id.ll_zhiyeguwen);
 
         back.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -133,6 +140,12 @@ public class MessageCommendVerifyDetailActivity extends AppCompatActivity {
 
                                 finishTime = data.timeLimit;
                                 handler.post(runnable);
+
+                                if (!data.consultant_advicer.equals("")) {
+                                    work_commend_client_zhiye.setText(data.consultant_advicer);
+                                }else {
+                                    ll_zhiyeguwen.setVisibility(View.GONE);
+                                }
 
                             }
 

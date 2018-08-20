@@ -79,6 +79,15 @@ public class WorkCommendDisableData extends BaseData {
         private String province_name;
         private String city_name;
         private String district_name;
+        private String consultant_advicer;
+
+        public String getConsultant_advicer() {
+            return consultant_advicer;
+        }
+
+        public void setConsultant_advicer(String consultant_advicer) {
+            this.consultant_advicer = consultant_advicer;
+        }
 
         public int getClient_id() { return client_id;}
 

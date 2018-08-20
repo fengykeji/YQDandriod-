@@ -87,6 +87,16 @@ public class WorkReportVerifyDetailData extends BaseData {
         private String district_name;
         private int    timeLimit;
         private String property_type;
+        private String consultant_advicer;
+
+        public void setConsultant_advicer(String consultant_advicer) {
+            this.consultant_advicer = consultant_advicer;
+        }
+
+        public String getConsultant_advicer() {
+
+            return consultant_advicer;
+        }
 
         public int getClient_id() { return client_id;}
 

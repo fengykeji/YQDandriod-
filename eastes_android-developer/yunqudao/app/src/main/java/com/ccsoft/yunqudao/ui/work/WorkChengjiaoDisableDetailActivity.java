@@ -7,6 +7,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -45,6 +46,8 @@ public class WorkChengjiaoDisableDetailActivity extends AppCompatActivity {
     private int      id;
 
     private ImageButton work_button_back;
+    private TextView work_commend_client_zhiye;
+    private LinearLayout ll_zhiyeguwen;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -78,6 +81,8 @@ public class WorkChengjiaoDisableDetailActivity extends AppCompatActivity {
         mDisableDescribe = findViewById(R.id.work_commend_disable_describe);
         mDisableTime = findViewById(R.id.work_commend_disable_time);
         button = findViewById(R.id.button_sure);
+        work_commend_client_zhiye = findViewById(R.id.work_commend_client_zhiye);
+        ll_zhiyeguwen = findViewById(R.id.ll_zhiyeguwen);
 
         work_button_back = findViewById(R.id.work_button_back);
         button.setOnClickListener(new View.OnClickListener() {
@@ -142,5 +147,10 @@ public class WorkChengjiaoDisableDetailActivity extends AppCompatActivity {
         mDisableTpye.setText(workReportDisableDetailsData.getData().getDisabled_state());
         mDisableDescribe.setText(workReportDisableDetailsData.getData().getDisabled_reason());
         mDisableTime.setText(workReportDisableDetailsData.getData().getDisabled_time());
+        if (!workReportDisableDetailsData.getData().getConsultant_advicer().equals("")) {
+            work_commend_client_zhiye.setText(workReportDisableDetailsData.getData().getConsultant_advicer());
+        }else {
+            ll_zhiyeguwen.setVisibility(View.GONE);
+        }
     }
 }

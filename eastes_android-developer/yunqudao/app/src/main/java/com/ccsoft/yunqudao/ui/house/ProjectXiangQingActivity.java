@@ -164,6 +164,7 @@ public class ProjectXiangQingActivity extends AppCompatActivity implements View.
 //关闭sso授权
         oks.disableSSOWhenAuthorize();
 
+        oks.setUrl(AppConstants.URL+url);
 // title标题，印象笔记、邮箱、信息、微信、人人网和QQ空间等使用
         oks.setTitle("云渠道");
 // titleUrl是标题的网络链接，QQ和QQ空间等使用

@@ -352,6 +352,7 @@
         android:src="@drawable/ic_line"></ImageView>
 
     <LinearLayout
+        android:id="@+id/ll_addlianxiren"
         android:padding="20dp"
         android:gravity="center"
         android:layout_width="match_parent"

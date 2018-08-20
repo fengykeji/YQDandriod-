@@ -60,6 +60,7 @@ public class ValueDetailData extends BaseData{
     public String            province_name;
     public String            city_name;
     public String            district_name;
+    public String            consultant_advicer;
     public List<ProcessBean> process;
 
     public class ProcessBean {

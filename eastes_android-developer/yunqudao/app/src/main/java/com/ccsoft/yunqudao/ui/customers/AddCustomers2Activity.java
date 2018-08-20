@@ -27,6 +27,7 @@ import android.widget.Toast;
 
 
 import com.ccsoft.yunqudao.R;
+import com.ccsoft.yunqudao.bean.GetHouseTypeDetailBean;
 import com.ccsoft.yunqudao.bean.MessageEvent;
 
 import com.ccsoft.yunqudao.bean.Province;
@@ -40,6 +41,7 @@ import com.ccsoft.yunqudao.model.StringModel;
 
 
 import com.ccsoft.yunqudao.ui.home.HomeActivity;
+import com.ccsoft.yunqudao.ui.house.AdvicerChooseActivity;
 import com.ccsoft.yunqudao.ui.mian.MainActivity;
 import com.ccsoft.yunqudao.utils.ActivityManager;
 import com.ccsoft.yunqudao.utils.HideIMEUtil;
@@ -61,6 +63,7 @@ import org.jaaksi.pickerview.picker.OptionPicker;
 import org.jaaksi.pickerview.widget.PickerView;
 
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Date;
@@ -115,7 +118,7 @@ public class AddCustomers2Activity extends AppCompatActivity implements View.OnC
     private int pay_type;
     private int price;
     private int area;
-    private String intent;
+    private String intent3;
     private String urgency;
     private String comment = "";
     private List<String> list = new ArrayList<>();
@@ -137,6 +140,7 @@ public class AddCustomers2Activity extends AppCompatActivity implements View.OnC
     private Province province;
     private OpenCityData         openCityData;
     private List<OpenCityData.DataBean> mDataBeans = new ArrayList<>();
+    private GetHouseTypeDetailBean  bean;
 
 
 
@@ -399,9 +403,9 @@ public class AddCustomers2Activity extends AppCompatActivity implements View.OnC
                         }
 
                 if (mCustomers_text_seekbar1.getText()==null) {
-                    intent = "";
+                    intent3 = "";
                 } else {
-                    intent = mCustomers_text_seekbar1.getText().toString();
+                    intent3 = mCustomers_text_seekbar1.getText().toString();
                 }
                 if (mCustomers_text_seekbar2.getText()==null) {
                     urgency = "";
@@ -429,69 +433,13 @@ public class AddCustomers2Activity extends AppCompatActivity implements View.OnC
                 Log.e("cccccw",name+"name "+sex+"sex  "+tel+"tel  "+birth+"bir  "+
                 card_id+"card  "+address+"address  "+property_type+"pro  "+price+"m3  "+
                 area+"m4  "+house_type+" house "+floor_min+"min  "+floor_max+"max  "+
-                decorate+"dec  "+buy_purpose+"buy  "+pay_type+"pay  "+intent+"int  "+
+                decorate+"dec  "+buy_purpose+"buy  "+pay_type+"pay  "+intent3+"int  "+
                 urgency+"urg  "+need_tags+"need "+comment+"comment"+provinceId+"provinceId"
                 +cityId +"cityId"+countyId+"countyId"+"region"+region);
 
                 if(fastR!=null&&fastR.equals("fastR")){
 
-                    OkHttpUtils.post(HttpAdress.addAndRecommend)
-                            .tag(this)
-                            .params("project_id",project_id)
-                            .params("name", name)
-                            .params("sex", sex)
-                            .params("tel", tel)
-                            .params("birth", birth)
-                            .params("card_type",card_type)
-                            .params("card_id", card_id)
-                            .params("address", address)
-                            .params("property_type", property_type)
-                            .params("total_price", price)
-                            .params("area", area)
-                            .params("house_type", house_type)
-                            .params("floor_min", floor_min)
-                            .params("floor_max", floor_max)
-                            .params("decorate", decorate)
-                            .params("buy_purpose", buy_purpose)
-                            .params("pay_type", pay_type)
-                            .params("intent", intent)
-                            .params("urgency", urgency)
-                            .params("need_tags", need_tags)
-                            .params("comment", comment)
-                            .execute(new StringCallback() {
-                                @Override
-                                public void onSuccess(String s, Call call, Response response) {
-                                    ResultData resultData = JsonUtil.jsonToEntity(s, ResultData.class);
-                                    if (resultData.code == 200) {
-                                        AlertDialog.Builder builder = new AlertDialog.Builder(AddCustomers2Activity.this);
-                                        builder.setTitle("推荐成功");
-                                        builder.setMessage(resultData.msg);
-                                        builder.setNegativeButton("确定", new DialogInterface.OnClickListener() {
-                                            @Override
-                                            public void onClick(DialogInterface dialogInterface, int i) {
-                                                finish();
-                                            }
-                                        });
-                                        AlertDialog dialog = builder.create();
-                                        dialog.show();
-
-
-                                    } else {
-                                        AlertDialog.Builder builder = new AlertDialog.Builder(AddCustomers2Activity.this);
-                                        builder.setTitle("推荐失败");
-                                        builder.setMessage(resultData.msg);
-                                        builder.setNegativeButton("确定", new DialogInterface.OnClickListener() {
-                                            @Override
-                                            public void onClick(DialogInterface dialogInterface, int i) {
-
-                                            }
-                                        });
-                                        AlertDialog dialog = builder.create();
-                                        dialog.show();
-                                    }
-
-                                    }
-                            });
+                    getHouseTypeDatil(project_id);
 
                     return;
                 }
@@ -519,7 +467,7 @@ public class AddCustomers2Activity extends AppCompatActivity implements View.OnC
                         .params("decorate", decorate)
                         .params("buy_purpose", buy_purpose)
                         .params("pay_type", pay_type)
-                        .params("intent", intent)
+                        .params("intent", intent3)
                         .params("urgency", urgency)
                         .params("need_tags", need_tags)
                         .params("comment", comment)
@@ -543,6 +491,129 @@ public class AddCustomers2Activity extends AppCompatActivity implements View.OnC
 
                 break;
         }
+    }
+
+
+    /**
+     * 获取置业顾问
+     */
+    private void getHouseTypeDatil(int project_id){
+        OkHttpUtils.get(AppConstants.URL+"user/project/advicer")
+                .tag(this)
+                .params("project_id",project_id)
+                .execute(new StringCallback() {
+                    @Override
+                    public void onSuccess(String s, Call call, Response response) {
+                        bean = JsonUtil.jsonToEntity(s,GetHouseTypeDetailBean.class);
+                        if (bean.getCode() == 200){
+                            if(bean.getData().getTotal().equals("0")){
+                                getRecommend(project_id);
+                            }else {
+                                showPopupwindow(project_id);
+                            }
+                        }
+                    }
+                });
+    }
+
+    /**
+     * 选择置业顾问
+     * @param project_id
+     */
+    private void showPopupwindow(int project_id){
+        Bundle bundle = new Bundle();
+        bundle.putSerializable("list", (Serializable) bean.getData().getRows());
+        Intent intent = new Intent(AddCustomers2Activity
+                .this, AdvicerChooseActivity.class);
+        intent.putExtra("project_id",project_id);
+
+        intent.putExtra("name",name);
+        intent.putExtra("sex",sex);
+        intent.putExtra("tel",tel);
+        intent.putExtra("barthday",birth);
+        intent.putExtra("card_type",card_type);
+        intent.putExtra("card_id",card_id);
+        intent.putExtra("address",address);
+        intent.putExtra("property_type",property_type);
+        intent.putExtra("price",price);
+        intent.putExtra("area",area);
+        intent.putExtra("house_type",house_type);
+        intent.putExtra("floor_min",floor_min);
+        intent.putExtra("floor_max",floor_max);
+        intent.putExtra("decorate",decorate);
+        intent.putExtra("buy_purpose",buy_purpose);
+        intent.putExtra("pay_type",pay_type);
+        intent.putExtra("intent",intent3);
+        intent.putExtra("urgency",urgency);
+        intent.putExtra("need_tags",need_tags);
+        intent.putExtra("comment",comment);
+        intent.putExtras(bundle);
+        startActivity(intent);
+
+    }
+
+    /**
+     * 推荐
+     * @param project_id
+     */
+    private void getRecommend(int project_id ){
+        OkHttpUtils.post(HttpAdress.addAndRecommend)
+                .tag(this)
+                .params("project_id",project_id)
+                .params("name", name)
+                .params("sex", sex)
+                .params("tel", tel)
+                .params("birth", birth)
+                .params("card_type",card_type)
+                .params("card_id", card_id)
+                .params("address", address)
+                .params("property_type", property_type)
+                .params("total_price", price)
+                .params("area", area)
+                .params("house_type", house_type)
+                .params("floor_min", floor_min)
+                .params("floor_max", floor_max)
+                .params("decorate", decorate)
+                .params("buy_purpose", buy_purpose)
+                .params("pay_type", pay_type)
+                .params("intent", intent3)
+                .params("urgency", urgency)
+                .params("need_tags", need_tags)
+                .params("comment", comment)
+                .execute(new StringCallback() {
+                    @Override
+                    public void onSuccess(String s, Call call, Response response) {
+                        ResultData resultData = JsonUtil.jsonToEntity(s, ResultData.class);
+                        if (resultData.code == 200) {
+                            AlertDialog.Builder builder = new AlertDialog.Builder(AddCustomers2Activity.this);
+                            builder.setTitle("推荐成功");
+                            builder.setMessage(resultData.msg);
+                            builder.setNegativeButton("确定", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialogInterface, int i) {
+                                    finish();
+                                }
+                            });
+                            AlertDialog dialog = builder.create();
+                            dialog.show();
+
+
+                        } else {
+                            AlertDialog.Builder builder = new AlertDialog.Builder(AddCustomers2Activity.this);
+                            builder.setTitle("推荐失败");
+                            builder.setMessage(resultData.msg);
+                            builder.setNegativeButton("确定", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialogInterface, int i) {
+
+                                }
+                            });
+                            AlertDialog dialog = builder.create();
+                            dialog.show();
+                        }
+
+                    }
+                });
     }
 
     public static void start(Context context) {

@@ -66,6 +66,9 @@ public class MessageReportVerifyActivity extends AppCompatActivity {
     private LinearLayout ll_progress;
     private int client_id;
     private int message_id;
+    private TextView work_commend_client_zhiye;
+    private LinearLayout ll_zhiyeguwen;
+
 
 
     @Override
@@ -107,6 +110,8 @@ public class MessageReportVerifyActivity extends AppCompatActivity {
         work_commend_counselor = findViewById(R.id.work_commend_counselor);
         work_commend_verify_people = findViewById(R.id.work_commend_verify_people);
         work_commend_verify_people_tel = findViewById(R.id.work_commend_verify_people_tel);
+        work_commend_client_zhiye = findViewById(R.id.work_commend_client_zhiye);
+        ll_zhiyeguwen = findViewById(R.id.ll_zhiyeguwen);
 
         ll_progress = findViewById(R.id.ll_progress);
 
@@ -170,6 +175,11 @@ public class MessageReportVerifyActivity extends AppCompatActivity {
                                 work_commend_verify_people.setText(data.butter_name);
                                 work_commend_verify_people_tel.setText(data.butter_tel);
 
+                                if (!data.consultant_advicer.equals("")) {
+                                    work_commend_client_zhiye.setText(data.consultant_advicer);
+                                }else {
+                                    ll_zhiyeguwen.setVisibility(View.GONE);
+                                }
 
                                 for (int i=0;i<data.process.size();i++) {
                                     ValueDetailData.ProcessBean processBean = data.process.get(i);

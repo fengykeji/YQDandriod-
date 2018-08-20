@@ -18,6 +18,7 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
 import com.ccsoft.yunqudao.R;
+import com.ccsoft.yunqudao.bean.GetHouseTypeDetailBean;
 import com.ccsoft.yunqudao.bean.QuickRecommendBean;
 import com.ccsoft.yunqudao.data.AppConstants;
 import com.ccsoft.yunqudao.data.base.BaseRecyclerAdapter;
@@ -30,6 +31,7 @@ import com.ccsoft.yunqudao.http.HttpAdress;
 import com.ccsoft.yunqudao.http.XutilsHttp;
 import com.ccsoft.yunqudao.model.ClientListModel;
 import com.ccsoft.yunqudao.ui.adapter.QuickRecommendAdapter;
+import com.ccsoft.yunqudao.ui.house.AdvicerChooseActivity;
 import com.ccsoft.yunqudao.ui.listener.EndlessRecyclerOnScrollListener;
 import com.ccsoft.yunqudao.ui.work.AddWorkActivity;
 import com.ccsoft.yunqudao.ui.work.WrokCommendDisableDetailsActivity;
@@ -52,6 +54,7 @@ import com.yyydjk.library.DropDownMenu;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.Serializable;
 import java.io.UnsupportedEncodingException;
 import java.lang.reflect.Type;
 import java.net.MalformedURLException;
@@ -83,6 +86,7 @@ public class QuickRecommendActivity extends AppCompatActivity implements View.On
     private SwipeRefreshLayout mSwipRefresh;
     private QuickRecommendBean quickRecommendBean;
     private String  mName,mCustomers_tel,mCustomers_id,mCustomers_barthday,mCustomers_address;
+    private GetHouseTypeDetailBean  bean;
 
 
     @Override
@@ -151,49 +155,8 @@ public class QuickRecommendActivity extends AppCompatActivity implements View.On
                     if(id!=0&&mClienId!=0) {
                         QuickRecommendViewModel data = dataList.get(position);
                         int project_id = data.project_id;
-                        Map<String, String> map = new HashMap<>();
-                        map.put("project_id", String.valueOf(project_id));
-                        map.put("client_need_id", String.valueOf(id));
-                        map.put("client_id", String.valueOf(mClienId));
-                        XutilsHttp.getInstance().postheader(AppConstants.URL + "agent/client/recommend", map, new XutilsHttp.XCallBack() {
-                            @Override
-                            public void onResponse(String result) {
-                                Gson gson = new Gson();
-                                ResultData resultData = gson.fromJson(result, ResultData.class);
-                                if (resultData.code == 200) {
-                                    AlertDialog.Builder builder = new AlertDialog.Builder(QuickRecommendActivity.this);
-                                    builder.setTitle("推荐成功");
-                                    builder.setMessage(resultData.msg);
-                                    builder.setNegativeButton("确定", new DialogInterface.OnClickListener() {
-                                        @Override
-                                        public void onClick(DialogInterface dialogInterface, int i) {
-                                            finish();
-                                        }
-                                    });
-                                    AlertDialog dialog = builder.create();
-                                    dialog.show();
+                        getHouseTypeDatil(project_id,id,mClienId);
 
-
-                                } else {
-                                    AlertDialog.Builder builder = new AlertDialog.Builder(QuickRecommendActivity.this);
-                                    builder.setTitle("推荐失败");
-                                    builder.setMessage(resultData.msg);
-                                    builder.setNegativeButton("确定", new DialogInterface.OnClickListener() {
-                                        @Override
-                                        public void onClick(DialogInterface dialogInterface, int i) {
-
-                                        }
-                                    });
-                                    AlertDialog dialog = builder.create();
-                                    dialog.show();
-                                }
-                            }
-
-                            @Override
-                            public void error(String message) {
-                                Log.d("666666------》", message);
-                            }
-                        });
                     }else if(id==0&&mClienId==0) {
                         Intent intent = new Intent(QuickRecommendActivity.this,AddWorkActivity.class);
                         intent.putExtra("project_name",dataList.get(position).project_name);
@@ -212,6 +175,99 @@ public class QuickRecommendActivity extends AppCompatActivity implements View.On
             @Override
             public void onRefresh() {
                 initData(city,1);
+            }
+        });
+    }
+
+    /**
+     * 获取置业顾问
+     */
+    private void getHouseTypeDatil(int project_id, int need_id,int client_id){
+        OkHttpUtils.get(AppConstants.URL+"user/project/advicer")
+                .tag(this)
+                .params("project_id",project_id)
+                .execute(new StringCallback() {
+                    @Override
+                    public void onSuccess(String s, Call call, Response response) {
+                       bean = JsonUtil.jsonToEntity(s,GetHouseTypeDetailBean.class);
+                        if (bean.getCode() == 200){
+                            if(bean.getData().getTotal().equals("0")){
+                                getRecommend(project_id,need_id,client_id);
+                            }else {
+                                showPopupwindow(project_id,need_id,client_id);
+                            }
+                        }
+                    }
+                });
+    }
+
+    /**
+     * 选择置业顾问
+     * @param project_id
+     * @param need_id
+     * @param client_id
+     */
+    private void showPopupwindow(int project_id, int need_id,int client_id){
+        Bundle bundle = new Bundle();
+        bundle.putSerializable("list", (Serializable) bean.getData().getRows());
+        Intent intent = new Intent(QuickRecommendActivity.this, AdvicerChooseActivity.class);
+        intent.putExtra("project_id",project_id);
+        intent.putExtra("client_need_id",need_id);
+        intent.putExtra("client_id",client_id);
+
+        intent.putExtras(bundle);
+        startActivity(intent);
+
+    }
+
+    /**
+     * 推荐
+     * @param project_id
+     * @param id
+     * @param mClienId
+     */
+    private void getRecommend(int project_id,int id,int mClienId ){
+        Map<String, String> map = new HashMap<>();
+        map.put("project_id", String.valueOf(project_id));
+        map.put("client_need_id", String.valueOf(id));
+        map.put("client_id", String.valueOf(mClienId));
+        XutilsHttp.getInstance().postheader(AppConstants.URL + "agent/client/recommend", map, new XutilsHttp.XCallBack() {
+            @Override
+            public void onResponse(String result) {
+                Gson gson = new Gson();
+                ResultData resultData = gson.fromJson(result, ResultData.class);
+                if (resultData.code == 200) {
+                    AlertDialog.Builder builder = new AlertDialog.Builder(QuickRecommendActivity.this);
+                    builder.setTitle("推荐成功");
+                    builder.setMessage(resultData.msg);
+                    builder.setNegativeButton("确定", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialogInterface, int i) {
+                            finish();
+                        }
+                    });
+                    AlertDialog dialog = builder.create();
+                    dialog.show();
+
+
+                } else {
+                    AlertDialog.Builder builder = new AlertDialog.Builder(QuickRecommendActivity.this);
+                    builder.setTitle("推荐失败");
+                    builder.setMessage(resultData.msg);
+                    builder.setNegativeButton("确定", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialogInterface, int i) {
+
+                        }
+                    });
+                    AlertDialog dialog = builder.create();
+                    dialog.show();
+                }
+            }
+
+            @Override
+            public void error(String message) {
+                Log.d("666666------》", message);
             }
         });
     }

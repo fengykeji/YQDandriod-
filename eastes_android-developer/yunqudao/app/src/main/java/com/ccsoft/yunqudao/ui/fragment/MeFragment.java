@@ -49,6 +49,7 @@ import com.ccsoft.yunqudao.ui.me.GongSiRenZheng1Activity;
 import com.ccsoft.yunqudao.ui.me.GongSiRenZhengWanActivity;
 import com.ccsoft.yunqudao.ui.me.GongSiRenZhengZhongActivity;
 import com.ccsoft.yunqudao.ui.me.GongZuoJingLiActivity;
+import com.ccsoft.yunqudao.ui.me.MyTeamActivity;
 import com.ccsoft.yunqudao.ui.me.PactActivity;
 import com.ccsoft.yunqudao.ui.me.WoDeErWeiMaActivity;
 import com.ccsoft.yunqudao.ui.me.WoDeGuanZhuActivity;
@@ -106,6 +107,7 @@ public class MeFragment extends Fragment implements View.OnClickListener  {
     private LinearLayout mMe_Item_linearlayout_attention;
     private LinearLayout mMe_Item_linearlayout_opinion;
     private LinearLayout mMe_Item_linearlayout_about_yunsuan;
+    private LinearLayout mMe_item_linearlayout_team;
     private TextView     mMe_item_text_authentication;
     private TextView     mMe_item_text_versions;
     private PersonCenterModel.Data data;
@@ -154,6 +156,7 @@ public class MeFragment extends Fragment implements View.OnClickListener  {
         this.mMe_Item_linearlayout_attention = mView.findViewById(R.id.me_item_linearlayout_attention);
         this.mMe_Item_linearlayout_opinion = mView.findViewById(R.id.me_item_linearlayout_opinion);
         this.mMe_Item_linearlayout_about_yunsuan = mView.findViewById(R.id.me_item_linearlayout_about_yunsuan);
+        this.mMe_item_linearlayout_team = mView.findViewById(R.id.me_item_linearlayout_team);
         this.mImage = mView.findViewById(R.id.me_icon_icon);
         this.mMe_text_yunsuan_id = mView.findViewById(R.id.me_text_yunsuan_id);
         this.mMe_item_text_authentication = mView.findViewById(R.id.me_item_text_authentication);
@@ -179,6 +182,7 @@ public class MeFragment extends Fragment implements View.OnClickListener  {
         this.mMe_text_yunsuan_id.setOnClickListener(this);
         this.mMe_item_text_authentication.setOnClickListener(this);
         this.mMe_item_text_versions.setOnClickListener(this);
+        this.mMe_item_linearlayout_team.setOnClickListener(this);
     }
 
     /**
@@ -264,6 +268,10 @@ public class MeFragment extends Fragment implements View.OnClickListener  {
                 break;
             case R.id.me_icon_icon:
                 showItemsDialogFragment();
+                break;
+            case R.id.me_item_linearlayout_team:
+                Intent intent = new Intent(getContext(), MyTeamActivity.class);
+                startActivity(intent);
                 break;
         }
     }

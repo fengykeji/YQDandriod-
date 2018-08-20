@@ -142,8 +142,6 @@ public class WorkMessageActivity extends AppCompatActivity implements View.OnCli
                     intent.putExtra("message_id", bean.getData().getData().get(position).getMessage_id());
                     startActivity(intent);
                 }
-
-
             }
         });
 

@@ -293,14 +293,14 @@
     	Id="29"
         SortId="29"
         AppId="yx0d9a9f9088ea44d78680f3274da1765f"
-        BypassApproval="true"
+        BypassApproval="false"
         Enable="true" />
 	
 	<YixinMoments
     	Id="30"
         SortId="30"
         AppId="yx0d9a9f9088ea44d78680f3274da1765f"
-        BypassApproval="true"
+        BypassApproval="false"
         Enable="true" />
 
 	<Mingdao

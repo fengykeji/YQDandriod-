@@ -10,6 +10,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.ccsoft.yunqudao.R;
@@ -64,6 +65,9 @@ public class MessageCommendDisableDetailsActivity extends AppCompatActivity impl
     private int client_id1;
     private int message_id;
 
+    private TextView work_commend_client_zhiye;
+    private LinearLayout ll_zhiyeguwen;
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -90,6 +94,8 @@ public class MessageCommendDisableDetailsActivity extends AppCompatActivity impl
         work_commend_client_sex = findViewById(R.id.work_commend_client_sex);
         work_commend_client_tel = findViewById(R.id.work_commend_client_tel);
         work_commend_client_name = findViewById(R.id.work_commend_client_name);
+        work_commend_client_zhiye = findViewById(R.id.work_commend_client_zhiye);
+        ll_zhiyeguwen = findViewById(R.id.ll_zhiyeguwen);
         tv_shensu = findViewById(R.id.tv_shensu);
         tv_retuijian = findViewById(R.id.tv_retuijian);
         work_button_back = findViewById(R.id.work_button_back);
@@ -147,6 +153,12 @@ public class MessageCommendDisableDetailsActivity extends AppCompatActivity impl
             mNumTv.setText(String.valueOf(workCommendDisableData.getData().getClient_id()));
             work_commend_time.setText(workCommendDisableData.getData().getCreate_time());
             work_commend_people.setText(workCommendDisableData.getData().getBroker_name());
+
+            if (!workCommendDisableData.getData().getConsultant_advicer().equals("")) {
+                work_commend_client_zhiye.setText(workCommendDisableData.getData().getConsultant_advicer());
+            }else {
+                ll_zhiyeguwen.setVisibility(View.GONE);
+            }
 
             work_commend_people.setText(workCommendDisableData.getData().getBroker_name());
             work_commend_tel.setText(workCommendDisableData.getData().getBroker_tel());

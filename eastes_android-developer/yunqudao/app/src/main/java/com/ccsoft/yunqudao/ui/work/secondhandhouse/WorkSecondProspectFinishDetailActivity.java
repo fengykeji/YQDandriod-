@@ -1,5 +1,6 @@
 package com.ccsoft.yunqudao.ui.work.secondhandhouse;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -20,6 +21,7 @@ import com.ccsoft.yunqudao.ui.customers.XuQiuXingXiFragment;
 import com.ccsoft.yunqudao.ui.view.ViewPagerForScrollView;
 import com.ccsoft.yunqudao.utils.ActivityManager;
 import com.ccsoft.yunqudao.utils.HideIMEUtil;
+import com.ccsoft.yunqudao.utils.ItemsDialogFragment;
 
 import java.util.ArrayList;
 
@@ -67,7 +69,9 @@ public class WorkSecondProspectFinishDetailActivity extends AppCompatActivity im
     }
 
     private void initListener(){
+
         ll_fangyuanxinxi.setOnClickListener(this);
+        mCustomers_button_quick_recommend.setOnClickListener(this);
     }
 
     /**
@@ -91,6 +95,35 @@ public class WorkSecondProspectFinishDetailActivity extends AppCompatActivity im
                 Intent intent = new Intent(this,HouseInfoActivity.class);
                 startActivity(intent);
                 break;
+            case R.id.customers_button_quick_recommend:
+                showItemsDialogFragment();
+                break;
         }
+    }
+
+    public void showItemsDialogFragment() {
+        ItemsDialogFragment itemsDialogFragment = new ItemsDialogFragment();
+        String[] items = {"转合同", "转代购","下架房源","取消" };
+        itemsDialogFragment.show("", items, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                switch (which){
+                    case 0:
+
+                        break;
+                    case 1:
+                        Intent intent = new Intent(WorkSecondProspectFinishDetailActivity.this,ZhuanDaiGouActivity.class);
+                        startActivity(intent);
+                        break;
+                    case 2:
+
+                        break;
+                    case 3:
+                        itemsDialogFragment.dismiss();
+                        break;
+
+                }
+            }
+        }, getSupportFragmentManager());
     }
 }

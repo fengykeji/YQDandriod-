@@ -73,6 +73,7 @@ import com.ccsoft.yunqudao.adapter.HouseHuXing_RecyclerViewAdapter;
 import com.ccsoft.yunqudao.adapter.Speed2HourAdapter;
 import com.ccsoft.yunqudao.adapter.SpeedHourAdapter;
 import com.ccsoft.yunqudao.adapter.TestAdapter;
+import com.ccsoft.yunqudao.bean.GetHouseTypeDetailBean;
 import com.ccsoft.yunqudao.bean.HouseDetailBean;
 import com.ccsoft.yunqudao.bean.PeizhiBean;
 import com.ccsoft.yunqudao.bean.ProjectPiPeiKeHuBean;
@@ -177,6 +178,9 @@ public class ProjectXiangQingFragment extends Fragment implements View.OnClickLi
 
     private int client_need_id0,client_need_id1,client_id0,client_id1;
     private static final int MY_PERMISSIONS_REQUEST_CALL_PHONE = 1;
+
+    private GetHouseTypeDetailBean bean1;
+
 
 
 
@@ -403,10 +407,11 @@ public class ProjectXiangQingFragment extends Fragment implements View.OnClickLi
 
                 break;
             case R.id.house_button_推荐1:
-                getRecommend(project_id,client_need_id0,client_id0);
+                getHouseTypeDatil(1);
                 break;
             case R.id.house_button_推荐2:
-                getRecommend(project_id,client_need_id1,client_id1);
+                getHouseTypeDatil(2);
+
                 break;
             case R.id.house_button_电话咨询:
                 getPermiission();
@@ -861,6 +866,66 @@ public class ProjectXiangQingFragment extends Fragment implements View.OnClickLi
 
     }
 
+
+    /**
+     * 获取置业顾问
+     */
+    private void getHouseTypeDatil(int flag){
+
+        OkHttpUtils.get(AppConstants.URL+"user/project/advicer")
+                .tag(this)
+                .params("project_id",project_id)
+                .execute(new StringCallback() {
+                    @Override
+                    public void onSuccess(String s, Call call, Response response) {
+                        bean1 = JsonUtil.jsonToEntity(s,GetHouseTypeDetailBean.class);
+                        if (bean1.getCode() == 200){
+                            if(bean1.getData().getTotal().equals("0")){
+                                if(flag == 1){
+                                    getRecommend(project_id,client_need_id0,client_id0);
+                                }else if(flag == 2){
+                                    getRecommend(project_id,client_need_id1,client_id1);
+                                }
+
+                            }else {
+                                if(flag == 1) {
+                                    showPopupwindow();
+                                }else if(flag == 2){
+                                    showPopupwindow2();
+                                }
+                            }
+                        }
+                    }
+                });
+    }
+
+    /**
+     * 选择置业顾问
+     */
+    private void showPopupwindow(){
+        Bundle bundle = new Bundle();
+        bundle.putSerializable("list", (Serializable) bean1.getData().getRows());
+        Intent intent = new Intent(getContext(), AdvicerChooseActivity.class);
+        intent.putExtra("project_id",project_id);
+        intent.putExtra("client_need_id",client_need_id0);
+        intent.putExtra("client_id",client_id0);
+        intent.putExtras(bundle);
+        getActivity().startActivity(intent);
+    }
+
+    /**
+     * 选择置业顾问
+     */
+    private void showPopupwindow2(){
+        Bundle bundle = new Bundle();
+        bundle.putSerializable("list", (Serializable) bean1.getData().getRows());
+        Intent intent = new Intent(getContext(), AdvicerChooseActivity.class);
+        intent.putExtra("project_id",project_id);
+        intent.putExtra("client_need_id",client_need_id1);
+        intent.putExtra("client_id",client_id1);
+        intent.putExtras(bundle);
+        getActivity().startActivity(intent);
+    }
 
     /**
      * 推荐

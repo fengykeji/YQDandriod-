@@ -2,11 +2,14 @@ package com.ccsoft.yunqudao.ui.adapter;
 
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
+import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.util.Log;
 import android.view.View;
 
 import com.ccsoft.yunqudao.R;
+import com.ccsoft.yunqudao.bean.GetHouseTypeDetailBean;
 import com.ccsoft.yunqudao.bean.PeizhiBean;
 import com.ccsoft.yunqudao.bean.ProjectPiPeiKeHuBean;
 import com.ccsoft.yunqudao.data.AppConstants;
@@ -14,15 +17,26 @@ import com.ccsoft.yunqudao.data.base.BaseRecyclerAdapter;
 import com.ccsoft.yunqudao.data.base.BaseViewHolder;
 import com.ccsoft.yunqudao.data.model.response.ResultData;
 import com.ccsoft.yunqudao.http.XutilsHttp;
+import com.ccsoft.yunqudao.ui.house.AdvicerChooseActivity;
 import com.ccsoft.yunqudao.ui.mian.MainActivity;
+import com.ccsoft.yunqudao.utils.JsonUtil;
 import com.google.gson.Gson;
+import com.lzy.okhttputils.OkHttpUtils;
+import com.lzy.okhttputils.callback.StringCallback;
 
+import java.io.Serializable;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import okhttp3.Call;
+import okhttp3.Response;
+
 public class ProjectPiPeiAdapter extends BaseRecyclerAdapter<ProjectPiPeiKeHuBean.DataBean> {
     private int project_id;
+    private int client_id;
+    private int need_id;
+    private GetHouseTypeDetailBean bean;
     public ProjectPiPeiAdapter(Context context, int layoutId, List<ProjectPiPeiKeHuBean.DataBean> data ,int project_id) {
         super(context, layoutId, data);
         this.project_id = project_id;
@@ -47,13 +61,46 @@ public class ProjectPiPeiAdapter extends BaseRecyclerAdapter<ProjectPiPeiKeHuBea
         holder.setText(R.id.tv_urgency,bean.getUrgency()+"");
         holder.setText(R.id.tv_pepeidu,bean.getScore()+"%");
         holder.setText(R.id.tv_telnum1,bean.getTel());
+        client_id = bean.getClient_id();
+        need_id = bean.getNeed_id();
         holder.setOnclick(R.id.house_button_推荐1, new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-               getRecommend(project_id,bean.getNeed_id(),bean.getClient_id());
+
+                getHouseTypeDatil();
+
             }
         });
 
+    }
+    private void getHouseTypeDatil(){
+        OkHttpUtils.get(AppConstants.URL+"user/project/advicer")
+                .tag(this)
+                .params("project_id",project_id)
+                .execute(new StringCallback() {
+                    @Override
+                    public void onSuccess(String s, Call call, Response response) {
+                        bean = JsonUtil.jsonToEntity(s,GetHouseTypeDetailBean.class);
+                        if (bean.getCode() == 200){
+                            if(bean.getData().getTotal().equals("0")){
+                                getRecommend(project_id,need_id,client_id);
+                            }else {
+                                showPopupwindow();
+                            }
+                        }
+                    }
+                });
+    }
+
+    private void showPopupwindow(){
+        Bundle bundle = new Bundle();
+        bundle.putSerializable("list", (Serializable) bean.getData().getRows());
+        Intent intent = new Intent(context, AdvicerChooseActivity.class);
+        intent.putExtra("project_id",project_id);
+        intent.putExtra("client_need_id",need_id);
+        intent.putExtra("client_id",client_id);
+        intent.putExtras(bundle);
+        context.startActivity(intent);
     }
 
     private void getRecommend(int project_id,int id,int mClienId ){

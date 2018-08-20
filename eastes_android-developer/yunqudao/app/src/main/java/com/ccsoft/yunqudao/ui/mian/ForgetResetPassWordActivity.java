@@ -20,6 +20,7 @@ import com.ccsoft.yunqudao.http.XutilsHttp;
 import com.ccsoft.yunqudao.model.StringModel;
 import com.ccsoft.yunqudao.utils.ActivityManager;
 import com.ccsoft.yunqudao.utils.BaseCallBack;
+import com.ccsoft.yunqudao.utils.HideIMEUtil;
 import com.ccsoft.yunqudao.utils.InputUtil;
 import com.ccsoft.yunqudao.utils.JsonUtil;
 import com.ccsoft.yunqudao.utils.OkHttpManager;
@@ -52,6 +53,7 @@ public class ForgetResetPassWordActivity extends AppCompatActivity implements Vi
         super.onCreate(savedInstanceState);
         ActivityManager.getInstance().addActivity(this);
         setContentView(R.layout.activity_me_reset_password_wangji);
+        HideIMEUtil.wrap(this);
         initView();
         initListener();
     }

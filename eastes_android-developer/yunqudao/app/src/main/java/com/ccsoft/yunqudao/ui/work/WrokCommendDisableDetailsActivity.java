@@ -10,6 +10,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -62,6 +63,9 @@ public class WrokCommendDisableDetailsActivity extends AppCompatActivity impleme
     private String   mwork_commend_client_name,mwork_commend_project,mwork_commend_project_address,
             DisableTime;
 
+    private TextView work_commend_client_zhiye;
+    private LinearLayout ll_zhiyeguwen;
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -87,6 +91,8 @@ public class WrokCommendDisableDetailsActivity extends AppCompatActivity impleme
         work_commend_client_sex = findViewById(R.id.work_commend_client_sex);
         work_commend_client_tel = findViewById(R.id.work_commend_client_tel);
         work_commend_client_name = findViewById(R.id.work_commend_client_name);
+        ll_zhiyeguwen = findViewById(R.id.ll_zhiyeguwen);
+        work_commend_client_zhiye = findViewById(R.id.work_commend_client_zhiye);
         tv_shensu = findViewById(R.id.tv_shensu);
         tv_retuijian = findViewById(R.id.tv_retuijian);
         work_button_back = findViewById(R.id.work_button_back);
@@ -162,6 +168,14 @@ public class WrokCommendDisableDetailsActivity extends AppCompatActivity impleme
                 workCommendDisableData.getData().getDistrict_name()+
                 workCommendDisableData.getData().getAbsolute_address();
         DisableTime = workCommendDisableData.getData().getDisabled_time();
+
+
+        if (!workCommendDisableData.getData().getConsultant_advicer().equals("")) {
+            work_commend_client_zhiye.setText(workCommendDisableData.getData().getConsultant_advicer());
+        }else {
+            ll_zhiyeguwen.setVisibility(View.GONE);
+        }
+
     }
 
     @Override

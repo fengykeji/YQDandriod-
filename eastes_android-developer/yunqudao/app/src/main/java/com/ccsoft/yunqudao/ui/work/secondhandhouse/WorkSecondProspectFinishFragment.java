@@ -101,7 +101,6 @@ public class WorkSecondProspectFinishFragment extends Fragment implements View.O
             }
         });
         mSwipRefresh.setOnRefreshListener(this) ;
-
     }
 
     @Override

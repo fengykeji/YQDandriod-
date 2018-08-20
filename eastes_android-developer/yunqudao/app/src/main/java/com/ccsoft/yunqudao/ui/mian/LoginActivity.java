@@ -30,6 +30,7 @@ import com.ccsoft.yunqudao.rx.RxSchedulers;
 import com.ccsoft.yunqudao.ui.home.HomeActivity;
 import com.ccsoft.yunqudao.utils.ActivityManager;
 import com.ccsoft.yunqudao.utils.CommonPopupWindow;
+import com.ccsoft.yunqudao.utils.HideIMEUtil;
 import com.ccsoft.yunqudao.utils.InputUtil;
 import com.ccsoft.yunqudao.utils.JsonUtil;
 import com.ccsoft.yunqudao.utils.SpUtil;
@@ -79,7 +80,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         super.onCreate(savedInstanceState);
         ActivityManager.getInstance().addActivity(this);
         setContentView(R.layout.activity_me_log_in);
-
+        HideIMEUtil.wrap(this);
         initView();
         initListener();
     }

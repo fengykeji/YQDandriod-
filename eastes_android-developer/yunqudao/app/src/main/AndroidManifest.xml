@@ -172,8 +172,7 @@
 
 
 
-        android:theme="@style/AppTheme">
-         Theme.AppCompat.Light.NoActionBar
+
 
         <activity
             android:name=".ui.mian.MainActivity"
@@ -244,6 +243,8 @@
         <activity android:name=".ui.house.ProjectDanYuanActivity"
             android:theme="@style/dialogstyle"></activity>
         <activity android:name=".ui.house.ProjectXiangCeVebViewActivity"></activity>
+       <activity android:name=".ui.house.AdvicerChooseActivity"
+           android:theme="@style/AppTheme.NoActionBarWindowhBackGround"></activity>
 
 
         <!--客源模块-->
@@ -342,6 +343,7 @@
         <activity android:name=".ui.work.secondhandhouse.GenJinJiLuActivity"></activity>
         <activity android:name=".ui.house.secondhandhouse.SecondHouseListActivity"></activity>
         <activity android:name=".ui.house.secondhandhouse.SencondHouseFangYuanInfoActivity"></activity>
+        <activity android:name=".ui.work.secondhandhouse.ModificatyProjectFenXiActivity"></activity>
 
 
 
@@ -404,6 +406,8 @@
         <activity android:name=".ui.me.GongSiRenZhengZhongActivity"></activity>
         <activity android:name=".ui.me.GongSiRenZhengWanActivity"></activity>
         <activity android:name=".ui.me.WeiJieYongJinXiangQingActivity"></activity>
+        <activity android:name=".ui.me.YaoQingJiangLiActivity"></activity>
+        <activity android:name=".ui.me.MyTeamActivity"></activity>
 
     </application>
 

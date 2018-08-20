@@ -35,23 +35,7 @@ public class ProjectYongjinAdapter extends BaseRecyclerAdapter<ProjectGetRuleBea
     protected void convert(BaseViewHolder holder, ProjectGetRuleBean.DataBean.PersonBean bean ,int position) {
 
 
-//        for (ProjectGetRuleBean.DataBean dataBean : list) {
-//            holder.setText(R.id.tv_yongjinguize, dataBean.getDescribe());
-//            holder.setText(R.id.tv_paiming, "第" + dataBean.getStandard() + "名");
-//
-//            if(dataBean.getPerson()!=null) {
-//                for (ProjectGetRuleBean.DataBean.PersonBean personBean : dataBean.getPerson()) {
-//
-//                    if (personBean.getAct_end().equals("2037-12-31 23:59:59")) {
-//                        holder.setText(R.id.tv_startTime, personBean.getAct_start() + "起");
-//                    } else {
-//                        holder.setText(R.id.tv_startTime, personBean.getAct_start() + "至" +
-//                                bean.getAct_end());
-//                    }
-//                    holder.setText(R.id.tv_jieyong, personBean.getCommission_describe());
-//                }
-//            }
-//        }
+
 
 
         if(position==0){
@@ -110,10 +94,12 @@ public class ProjectYongjinAdapter extends BaseRecyclerAdapter<ProjectGetRuleBea
                         holder.setText(R.id.tv_startTime, list.get(i).getPerson().get(i1).getAct_start() + "至" +
                                 bean.getAct_end());
                     }
-                    holder.setText(R.id.tv_jieyong, list.get(i).getPerson().get(position).getCommission_describe());
+                    holder.setText(R.id.tv_jieyong, list.get(i).getPerson().get(i1).getCommission_describe());
+
                 }
             }
         }
+
 
 
             holder.setVisible(R.id.ll_showguize,position == expandPosition ? View.VISIBLE : View.GONE);

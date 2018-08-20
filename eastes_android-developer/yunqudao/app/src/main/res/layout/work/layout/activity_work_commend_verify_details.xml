@@ -389,8 +389,30 @@
             android:text=""
             android:textColor="@color/chunhei"
             />
+    </LinearLayout>
 
+    <LinearLayout
+        android:id="@+id/ll_zhiyeguwen"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:paddingBottom="10dp"
+        android:paddingLeft="30dp"
+        >
 
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="指定置业顾问："
+            android:textColor="@color/chunhei"
+            />
+        <TextView
+            android:id="@+id/work_commend_client_zhiye"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text=""
+            android:textColor="@color/chunhei"
+            />
     </LinearLayout>
 
 
