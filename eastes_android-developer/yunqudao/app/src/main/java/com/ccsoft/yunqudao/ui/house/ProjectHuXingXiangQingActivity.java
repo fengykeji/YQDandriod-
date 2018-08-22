@@ -26,7 +26,9 @@ import com.ccsoft.yunqudao.adapter.SpeedHourAdapter;
 import com.ccsoft.yunqudao.bean.HouseDetailBean;
 import com.ccsoft.yunqudao.bean.ProjectHuXingXiangQingBean;
 import com.ccsoft.yunqudao.bean.ProjectPiPeiKeHuBean;
+import com.ccsoft.yunqudao.bean.ShowUrlBean;
 import com.ccsoft.yunqudao.bean.StringBean;
+import com.ccsoft.yunqudao.bean.UrlBean;
 import com.ccsoft.yunqudao.data.AppConstants;
 import com.ccsoft.yunqudao.http.HttpAdress;
 import com.ccsoft.yunqudao.ui.adapter.ProjectPiPeiAdapter;
@@ -376,7 +378,7 @@ public class ProjectHuXingXiangQingActivity extends AppCompatActivity implements
 //关闭sso授权
         oks.disableSSOWhenAuthorize();
 
-        oks.setUrl(AppConstants.URL+url);
+        oks.setUrl(url);
 // title标题，印象笔记、邮箱、信息、微信、人人网和QQ空间等使用
         oks.setTitle("云渠道");
 // titleUrl是标题的网络链接，QQ和QQ空间等使用
@@ -409,10 +411,12 @@ public class ProjectHuXingXiangQingActivity extends AppCompatActivity implements
                 .execute(new StringCallback() {
                     @Override
                     public void onSuccess(String s, Call call, Response response) {
-                        StringBean bean = JsonUtil.jsonToEntity(s,StringBean.class);
+                        ShowUrlBean bean = JsonUtil.jsonToEntity(s,ShowUrlBean.class);
                         if(bean.getCode() == 200){
-                            url = bean.getData().toString();
+                            url = bean.getData().getUrl().toString();
+
                         }
+
                     }
                 });
     }

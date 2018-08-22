@@ -16,8 +16,8 @@ public class AppConstants {
      */
 
 //    public static final String URL = "http://47.106.39.169:2797/";//演示
-//    public static final String URL = "http://120.78.69.178:2902/";//线上环境
-    public static final String URL = "http://120.27.21.136:2798/";//测试环境
+    public static final String URL = "http://120.78.69.178:2902/";//线上环境
+//    public static final String URL = "http://120.27.21.136:2798/";//测试环境
 
     /**
      * sp常量池

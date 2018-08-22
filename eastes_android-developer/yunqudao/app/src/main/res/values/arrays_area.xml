@@ -12,5 +12,15 @@
 
     </string-array>
 
+    <string-array name="与业主关系">
+        <item></item>
+        <item>业主-主权益人</item>
+        <item>业主-副权益人</item>
+        <item>业主亲属</item>
+        <item>业主好友</item>
+        <item>业主经纪人</item>
+        <item>其他</item>
+    </string-array>
+
 
 </resources>

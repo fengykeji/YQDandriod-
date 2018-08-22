@@ -698,7 +698,7 @@ public class ResetClientNeedActivity extends AppCompatActivity implements View.O
             }
         }
 
-        for (PeizhiBean.DataBean._$25Bean.ParamBeanXXXXXXXXXXXXXXXXXXXXXXX bean1 : peizhiBean.getData().get_$25().getParam()) {
+        for (PeizhiBean.DataBean._$25Bean.ParamBeanXXXXXXXXXXXXXXXXXXXXXXXX bean1 : peizhiBean.getData().get_$25().getParam()) {
             if (bean1.getId() == totalPrice) {
                 setSpinnerItemSelectedByValue(mSpinner_total_price,bean1.getParam());
             }

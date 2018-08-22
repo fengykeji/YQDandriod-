@@ -12,6 +12,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.TextView;
 import android.widget.Toast;
 import com.ccsoft.yunqudao.R;
 import com.ccsoft.yunqudao.bean.StringBean;
@@ -54,6 +55,7 @@ public class ProjectXiangQingActivity extends AppCompatActivity implements View.
     private int color,color1;
     private int project_id;
     private String url;
+    private TextView tv_xian,tv_xian1,tv_xian2;
 
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -86,6 +88,9 @@ public class ProjectXiangQingActivity extends AppCompatActivity implements View.
         mHouse_button_分析 = findViewById(R.id.house_button_分析);
         mHouse_button_分享 = findViewById(R.id.house_button_分享);
         mHouse_viewpager_分类 = findViewById(R.id.house_viewpager_分类);
+        tv_xian = findViewById(R.id.tv_xian);
+        tv_xian1 = findViewById(R.id.tv_xian1);
+        tv_xian2 = findViewById(R.id.tv_xian2);
         mList = new ArrayList<>();
         mList.add(new ProjectXiangQingFragment());
         mList.add(new ProjectYongJinFragment());
@@ -120,18 +125,27 @@ public class ProjectXiangQingActivity extends AppCompatActivity implements View.
                 mHouse_button_项目.setTextColor(color);
                 mHouse_button_佣金.setTextColor(color1);
                 mHouse_button_分析.setTextColor(color1);
+                tv_xian.setVisibility(View.VISIBLE);
+                tv_xian1.setVisibility(View.GONE);
+                tv_xian2.setVisibility(View.GONE);
                 break;
             case R.id.house_button_佣金:
                 mHouse_viewpager_分类.setCurrentItem(1);
                 mHouse_button_项目.setTextColor(color1);
                 mHouse_button_佣金.setTextColor(color);
                 mHouse_button_分析.setTextColor(color1);
+                tv_xian.setVisibility(View.GONE);
+                tv_xian2.setVisibility(View.GONE);
+                tv_xian1.setVisibility(View.VISIBLE);
                 break;
             case R.id.house_button_分析:
                 mHouse_viewpager_分类.setCurrentItem(2);
                 mHouse_button_项目.setTextColor(color1);
                 mHouse_button_佣金.setTextColor(color1);
                 mHouse_button_分析.setTextColor(color);
+                tv_xian.setVisibility(View.GONE);
+                tv_xian1.setVisibility(View.GONE);
+                tv_xian2.setVisibility(View.VISIBLE);
                 break;
             case R.id.house_button_分享:
 
@@ -164,7 +178,7 @@ public class ProjectXiangQingActivity extends AppCompatActivity implements View.
 //关闭sso授权
         oks.disableSSOWhenAuthorize();
 
-        oks.setUrl(AppConstants.URL+url);
+        oks.setUrl(url);
 // title标题，印象笔记、邮箱、信息、微信、人人网和QQ空间等使用
         oks.setTitle("云渠道");
 // titleUrl是标题的网络链接，QQ和QQ空间等使用

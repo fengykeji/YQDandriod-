@@ -23,6 +23,11 @@
             android:src="@drawable/ic_leftarrow"
             />
 
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1">
         <Button
             android:textColor="@color/liji_material_blue_500"
             android:id="@+id/house_button_项目"
@@ -33,6 +38,18 @@
             android:text="项目"
             android:textSize="18sp"
             />
+            <TextView
+                android:layout_marginLeft="12dp"
+                android:id="@+id/tv_xian"
+                android:background="@color/liji_material_blue_500"
+                android:layout_width="50dp"
+                android:layout_height="1dp" />
+        </LinearLayout>
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1">
         <Button
             android:id="@+id/house_button_佣金"
             android:layout_width="match_parent"
@@ -42,6 +59,19 @@
             android:text="渠道"
             android:textSize="18sp"
             />
+            <TextView
+                android:layout_marginLeft="12dp"
+                android:id="@+id/tv_xian1"
+                android:visibility="gone"
+                android:background="@color/liji_material_blue_500"
+                android:layout_width="50dp"
+                android:layout_height="1dp" />
+        </LinearLayout>
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1">
         <Button
             android:id="@+id/house_button_分析"
             android:layout_width="match_parent"
@@ -51,7 +81,14 @@
             android:text="分析"
             android:textSize="18sp"
             />
-
+        <TextView
+            android:layout_marginLeft="12dp"
+            android:id="@+id/tv_xian2"
+            android:visibility="gone"
+            android:background="@color/liji_material_blue_500"
+            android:layout_width="50dp"
+            android:layout_height="1dp" />
+    </LinearLayout>
 
         <ImageButton
 

@@ -13,10 +13,12 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 
 import com.ccsoft.yunqudao.R;
+import com.ccsoft.yunqudao.bean.WaitGrabBean;
 import com.ccsoft.yunqudao.data.base.BaseRecyclerAdapter;
 import com.ccsoft.yunqudao.data.base.FooterHolder;
 import com.ccsoft.yunqudao.data.model.response.BrokerWaitConfirmData;
 import com.ccsoft.yunqudao.http.HttpAdress;
+import com.ccsoft.yunqudao.ui.adapter.WaitGrabAdapter;
 import com.ccsoft.yunqudao.ui.adapter.WorkRecommendVerifyAdapter;
 import com.ccsoft.yunqudao.ui.listener.EndlessRecyclerOnScrollListener;
 import com.ccsoft.yunqudao.ui.work.WorkCommendVerifyDetailActivity;
@@ -42,11 +44,12 @@ public class WorkSecondBaoBeiVerfyFragment extends Fragment implements View.OnCl
     private View mView;
     private WorkRecommendVerifyFragment mWorkRecommendVerifyFragment;
     private RecyclerView mWork_recyclerview_verify;
-    private WorkRecommendVerifyAdapter mAdapter;
+    private WaitGrabAdapter mAdapter;
     private SmartRefreshLayout mSwipRefresh;
-    private List<BrokerWaitConfirmData.WaitConfirmData> dataList = new ArrayList<>();
+    private List<WaitGrabBean.DataBean> dataList = new ArrayList<>();
     private AnimationDrawable anim;
     private ImageView yunsuan;
+    private WaitGrabBean brokerWaitConfirmData;
 
     @Override
     public void onStart() {
@@ -76,7 +79,7 @@ public class WorkSecondBaoBeiVerfyFragment extends Fragment implements View.OnCl
         yunsuan.setImageResource(R.drawable.animation_refresh);
         anim = (AnimationDrawable) yunsuan.getDrawable();
         mWork_recyclerview_verify.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false));
-        mAdapter = new WorkRecommendVerifyAdapter(getActivity(), R.layout.item_work_recom, dataList);
+        mAdapter = new WaitGrabAdapter(getActivity(), R.layout.item_waitgrab, dataList);
         mWork_recyclerview_verify.setAdapter(mAdapter);
         mWork_recyclerview_verify.addOnScrollListener(endlessRecyclerOnScrollListener);
     }
@@ -89,6 +92,7 @@ public class WorkSecondBaoBeiVerfyFragment extends Fragment implements View.OnCl
             @Override
             public void onItemClickListner(View v, int position) {
                 Intent intent = new Intent(getContext(),WorkSecondBaoBeiVerfyDetailActivity.class);
+                intent.putExtra("record_id",brokerWaitConfirmData.getData().get(position).getRecord_id());
                 startActivity(intent);
 
             }
@@ -107,8 +111,9 @@ public class WorkSecondBaoBeiVerfyFragment extends Fragment implements View.OnCl
         mSwipRefresh.finishRefresh(900);
     }
     private void initData() {
-        OkHttpUtils.get(HttpAdress.workwaitConfirm)
+        OkHttpUtils.get(HttpAdress.waitGrab)
                 .tag(this)
+                .params("page",curPage)
                 .execute(new StringCallback() {
                     @Override
                     public void onSuccess(String s, Call call, Response response) {
@@ -122,11 +127,13 @@ public class WorkSecondBaoBeiVerfyFragment extends Fragment implements View.OnCl
                             e.printStackTrace();
                         }
                         if (code == 200 && data1 != null) {
-                            BrokerWaitConfirmData brokerWaitConfirmData = JsonUtil.jsonToEntity(data1, BrokerWaitConfirmData.class);
-                            totalPage = brokerWaitConfirmData.last_page;
+                             brokerWaitConfirmData = JsonUtil.jsonToEntity(data1, WaitGrabBean.class);
+
                             curPage = 2;
                             dataList.clear();
-                            dataList.addAll(brokerWaitConfirmData.data);
+                            if(brokerWaitConfirmData.getData()!=null) {
+                                dataList.addAll(brokerWaitConfirmData.getData());
+                            }
                             mAdapter.notifyDataSetChanged();
                         }
                     }
@@ -143,7 +150,7 @@ public class WorkSecondBaoBeiVerfyFragment extends Fragment implements View.OnCl
 
     }
 
-    int curPage;
+    int curPage = 1;
     int totalPage;
     private void loadNextData() {
         OkHttpUtils.get(HttpAdress.waitConfirm)
@@ -163,8 +170,8 @@ public class WorkSecondBaoBeiVerfyFragment extends Fragment implements View.OnCl
                         }
                         if (code == 200 && data != null) {
                             curPage++;
-                            BrokerWaitConfirmData brokerWaitConfirmData = JsonUtil.jsonToEntity(data, BrokerWaitConfirmData.class);
-                            dataList.addAll(brokerWaitConfirmData.data);
+                            WaitGrabBean brokerWaitConfirmData = JsonUtil.jsonToEntity(data, WaitGrabBean.class);
+                            dataList.addAll(brokerWaitConfirmData.getData());
                             mAdapter.notifyDataSetChanged();
                         }
 
@@ -184,7 +191,7 @@ public class WorkSecondBaoBeiVerfyFragment extends Fragment implements View.OnCl
             if (mAdapter.footerHolder == null || mAdapter.footerHolder.getmState() == FooterHolder.KEY_LOADING) {
                 return;
             }
-            if (curPage < totalPage) {
+            if (curPage < 100) {
                 mAdapter.footerHolder.setData(FooterHolder.KEY_LOADING);
                 loadNextData();
             } else {

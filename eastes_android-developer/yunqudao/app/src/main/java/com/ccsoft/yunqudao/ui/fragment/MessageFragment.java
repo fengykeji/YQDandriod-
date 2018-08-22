@@ -3,6 +3,7 @@ package com.ccsoft.yunqudao.ui.fragment;
 import android.app.Activity;
 import android.content.ContentValues;
 import android.content.Context;
+import android.content.Intent;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
@@ -18,6 +19,7 @@ import android.widget.TextView;
 import com.ccsoft.yunqudao.R;
 import com.ccsoft.yunqudao.bean.GetUnreadBean;
 import com.ccsoft.yunqudao.http.HttpAdress;
+import com.ccsoft.yunqudao.ui.message.QiangDanListActivity;
 import com.ccsoft.yunqudao.ui.message.SystemMessageActivity;
 import com.ccsoft.yunqudao.ui.message.WorkMessageActivity;
 import com.ccsoft.yunqudao.utils.JsonUtil;
@@ -46,6 +48,8 @@ public class MessageFragment extends Fragment implements View.OnClickListener {
     private RecyclerView mMessage_recyclerview_系统消息列表;
     private LinearLayout mMessage_item_linearlayout_工作消息;
     private TextView     mMessage_text_未读工作消息条数;
+    private LinearLayout message_item_linearlayout_勘察抢单;
+    private TextView message_text_未读抢单消息条数;
     CallBackValue callBackValue;
     int total;
     int read;
@@ -95,6 +99,8 @@ public class MessageFragment extends Fragment implements View.OnClickListener {
         this.mMessage_recyclerview_系统消息列表 = mView.findViewById(R.id.message_recyclerview_系统消息列表);
         this.mMessage_item_linearlayout_工作消息 = mView.findViewById(R.id.message_item_linearlayout_工作消息);
         this.mMessage_text_未读工作消息条数 = mView.findViewById(R.id.message_text_未读工作消息条数);
+        this.message_item_linearlayout_勘察抢单 = mView.findViewById(R.id.message_item_linearlayout_勘察抢单);
+        this.message_text_未读抢单消息条数 = mView.findViewById(R.id.message_text_未读抢单消息条数);
     }
 
     private void initListener() {
@@ -103,6 +109,7 @@ public class MessageFragment extends Fragment implements View.OnClickListener {
          */
         this.mMssage_item_linearlayout_系统消息.setOnClickListener(this);
         this.mMessage_item_linearlayout_工作消息.setOnClickListener(this);
+        this.message_item_linearlayout_勘察抢单.setOnClickListener(this);
     }
 
     private void initData(){
@@ -153,6 +160,10 @@ public class MessageFragment extends Fragment implements View.OnClickListener {
                 break;
             case R.id.message_item_linearlayout_工作消息:
                 WorkMessageActivity.start(getActivity());
+                break;
+            case R.id.message_item_linearlayout_勘察抢单:
+                Intent intent = new Intent(getContext(), QiangDanListActivity.class);
+                getActivity().startActivity(intent);
                 break;
         }
     }

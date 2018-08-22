@@ -60,6 +60,7 @@
                 android:textSize="16sp" />
 
             <TextView
+                android:visibility="gone"
                 android:layout_alignParentRight="true"
                 android:id="@+id/tv_sale_state"
                 android:layout_width="wrap_content"
@@ -127,6 +128,7 @@
                         android:textSize="16sp" />
 
                     <ImageButton
+                        android:visibility="gone"
                         android:id="@+id/im_dianzan"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -153,6 +155,7 @@
                     android:layout_weight="1"
                     android:layout_height="wrap_content">
                     <TextView
+                        android:id="@+id/tv_shoujia"
                         android:text="16"
                         android:textColor="@color/liji_material_blue_500"
                         android:layout_width="wrap_content"
@@ -176,6 +179,7 @@
                     android:layout_weight="1"
                     android:layout_height="wrap_content">
                     <TextView
+                        android:id="@+id/tv_huxing"
                         android:text="16"
                         android:textColor="@color/liji_material_blue_500"
                         android:layout_width="wrap_content"
@@ -198,6 +202,7 @@
                     android:layout_weight="1"
                     android:layout_height="wrap_content">
                     <TextView
+                        android:id="@+id/tv_chanquanmianji"
                         android:text="16"
                         android:textColor="@color/liji_material_blue_500"
                         android:layout_width="wrap_content"
@@ -249,6 +254,71 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 
+                <HorizontalScrollView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                <LinearLayout
+                    android:id="@+id/ll_property1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:visibility="visible">
+
+                    <TextView
+                        android:id="@+id/icon_iv4"
+                        android:textSize="16sp"
+                        android:textColor="#40a9ff"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="#d5f2ff"
+                        android:visibility="gone"
+                        />
+
+                </LinearLayout>
+                </HorizontalScrollView>
+                <HorizontalScrollView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                    <LinearLayout
+                        android:id="@+id/ll_project_tags"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:visibility="visible">
+
+                        <TextView
+                            android:id="@+id/icon_iv11"
+                            android:textSize="16sp"
+                            android:textColor="#737373"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:background="@color/check_bg"
+                            android:visibility="gone"
+                            />
+                        <TextView
+                            android:id="@+id/icon_iv12"
+                            android:textSize="16sp"
+                            android:layout_marginLeft="6dp"
+                            android:textColor="#737373"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:background="@drawable/ic_schooldistrictroom"
+                            android:visibility="gone"
+                            />
+                        <TextView
+                            android:id="@+id/icon_iv13"
+                            android:textSize="16sp"
+                            android:layout_marginLeft="6dp"
+                            android:textColor="#737373"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:background="@drawable/ic_subwayroom"
+                            android:visibility="gone"
+                            />
+
+                    </LinearLayout>
+                </HorizontalScrollView>
+
                 <LinearLayout
                     android:orientation="horizontal"
                     android:layout_width="match_parent"
@@ -269,6 +339,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content" />
                             <TextView
+                                android:id="@+id/tv_kandangfangshi"
                                 android:textColor="@color/miantext"
                                 android:text="1234："
                                 android:layout_width="wrap_content"
@@ -285,6 +356,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content" />
                             <TextView
+                                android:id="@+id/tv_chanquanmianji1"
                                 android:textColor="@color/miantext"
                                 android:text="1234："
                                 android:layout_width="wrap_content"
@@ -301,6 +373,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content" />
                             <TextView
+                                android:id="@+id/tv_chaoxiang"
                                 android:textColor="@color/miantext"
                                 android:text="1234："
                                 android:layout_width="wrap_content"
@@ -317,6 +390,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content" />
                             <TextView
+                                android:id="@+id/tv_maifangyiyuan"
                                 android:textColor="@color/miantext"
                                 android:text="1234："
                                 android:layout_width="wrap_content"
@@ -330,7 +404,6 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content">
                         <LinearLayout
-                            android:layout_marginTop="10dp"
                             android:orientation="horizontal"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content">
@@ -340,6 +413,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content" />
                             <TextView
+                                android:id="@+id/tv_danjia"
                                 android:textColor="@color/miantext"
                                 android:text="1234："
                                 android:layout_width="wrap_content"
@@ -356,6 +430,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content" />
                             <TextView
+                                android:id="@+id/tv_zhuangxiu"
                                 android:textColor="@color/miantext"
                                 android:text="1234："
                                 android:layout_width="wrap_content"
@@ -368,10 +443,11 @@
                             android:layout_height="wrap_content">
                             <TextView
                                 android:textColor="@color/miantext"
-                                android:text="卖房意愿度："
+                                android:text="卖房紧迫度："
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content" />
                             <TextView
+                                android:id="@+id/tv_maifangjinpo"
                                 android:textColor="@color/miantext"
                                 android:text="1234："
                                 android:layout_width="wrap_content"
@@ -486,6 +562,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
                 <TextView
+                    android:id="@+id/tv_project_name1"
                     android:textColor="@color/miantext"
                     android:text="云算公馆"
                     android:layout_width="wrap_content"
@@ -525,6 +602,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content" />
                     <TextView
+                        android:id="@+id/tv_junjia"
                         android:textColor="@color/miantext"
                         android:text="1234"
                         android:layout_width="wrap_content"
@@ -543,6 +621,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content" />
                         <TextView
+                            android:id="@+id/tv_loudongzongshu"
                             android:textColor="@color/miantext"
                             android:text="1234"
                             android:layout_width="wrap_content"
@@ -560,6 +639,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content" />
                         <TextView
+                            android:id="@+id/tv_fangwuzongshu"
                             android:textColor="@color/miantext"
                             android:text="1234"
                             android:layout_width="wrap_content"
@@ -575,6 +655,7 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content">
                     <ImageView
+                        android:id="@+id/tv_project_img"
                         android:src="@drawable/ic_launcher_background"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content" />

@@ -6,10 +6,11 @@ import java.util.List;
 
 public class PeizhiBean {
 
+
     /**
      * code : 200
      * msg : 查询成功
-     * data : {"1":{"type":"银行类型","param":[{"id":1,"param":"中国农业银行"},{"id":2,"param":"中国建设银行"},{"id":3,"param":"中国工商银行"},{"id":4,"param":"中国银行"},{"id":5,"param":"交通银行"},{"id":6,"param":"招商银行"},{"id":7,"param":"邮政储蓄银行"},{"id":8,"param":"光大银行"},{"id":9,"param":"民生银行"},{"id":10,"param":"平安银行"},{"id":11,"param":"浦发银行"},{"id":12,"param":"中心银行"},{"id":13,"param":"兴业银行"},{"id":14,"param":"华夏银行"},{"id":15,"param":"北京银行"},{"id":16,"param":"成都农商银行"},{"id":71,"param":"中国招商银行"}]},"2":{"type":"证件类型","param":[{"id":17,"param":"身份证"}]},"3":{"type":"提成方式","param":[{"id":18,"param":"固定金额X套数"},{"id":19,"param":"销售价格X比例"},{"id":20,"param":"面积X单价"}]},"4":{"type":"投诉类型","param":[{"id":21,"param":"客源无效"},{"id":22,"param":"其他"}]},"5":{"type":"投诉解决类型","param":[{"id":23,"param":"客源有效"},{"id":24,"param":"其他"}]},"6":{"type":"合同终止原因","param":[{"id":25,"param":"合同到期"},{"id":26,"param":"强制终止"}]},"7":{"type":"禁用类型","param":[{"id":27,"param":"非法交易"},{"id":28,"param":"利用漏洞"}]},"8":{"type":"房龄","param":[{"id":29,"param":"一年以内"},{"id":30,"param":"三年以内"},{"id":31,"param":"十年以内"}]},"9":{"type":"住房类型","param":[{"id":32,"param":"3室2厅2卫"},{"id":33,"param":"1室1厅2卫"},{"id":106,"param":"1室1厅1卫"},{"id":141,"param":"3室2厅1卫"},{"id":142,"param":"2室2卫1厅"}]},"10":{"type":"货币类型","param":[{"id":34,"param":"人民币"},{"id":35,"param":"美元"},{"id":36,"param":"日元"},{"id":37,"param":"港币"},{"id":38,"param":"英镑"},{"id":39,"param":"欧元"}]},"11":{"type":"开盘方式","param":[{"id":40,"param":"网上开盘"},{"id":41,"param":"线下开盘"},{"id":42,"param":"其他"}]},"12":{"type":"置业目的","param":[{"id":43,"param":"投资"},{"id":44,"param":"自住"},{"id":45,"param":"投资兼自住"}]},"13":{"type":"付款方式","param":[{"id":46,"param":"一次性付款"},{"id":47,"param":"公积金贷款"},{"id":48,"param":"综合贷款"},{"id":49,"param":"银行按揭贷款"},{"id":50,"param":"分期付款"}]},"14":{"type":"项目图片类型","param":[{"id":52,"param":"3D图"},{"id":53,"param":"效果图"},{"id":54,"param":"平面图"},{"id":55,"param":"实景图"}]},"15":{"type":"项目标签","param":[{"id":56,"param":"学区房"},{"id":57,"param":"五证齐全"},{"id":58,"param":"地铁房"},{"id":104,"param":"车位充足"},{"id":105,"param":"品牌房企"},{"id":125,"param":"涪江畔"},{"id":126,"param":"三幼旁"},{"id":127,"param":"大社区"},{"id":130,"param":"农产品批发"},{"id":131,"param":"综合体购物"},{"id":132,"param":"地铁8号线"},{"id":134,"param":"高铁站前"},{"id":135,"param":"5.1米跃层微墅"},{"id":136,"param":"全时商业潮圣地"},{"id":137,"param":"欢乐海底世界"}]},"16":{"type":"物业类型","param":[{"id":59,"param":"住宅"},{"id":60,"param":"公寓"},{"id":61,"param":"别墅"},{"id":62,"param":"商铺"},{"id":63,"param":"写字楼"},{"id":64,"param":"车位"},{"id":138,"param":"微墅"},{"id":139,"param":"商墅"}]},"17":{"type":"建筑类型","param":[{"id":66,"param":"板楼"},{"id":65,"param":"钢混"},{"id":67,"param":"砖混"},{"id":68,"param":"砖木"},{"id":69,"param":"钢结构"},{"id":70,"param":"其他"},{"id":124,"param":"框剪"},{"id":133,"param":"剪力墙"}]},"18":{"type":"用户失效类型","param":[{"id":72,"param":"自然失效"},{"id":73,"param":"置业顾问判断无效"},{"id":74,"param":"销售业内判断无效"},{"id":110,"param":"开发商判断无效"}]},"19":{"type":"朝向","param":[{"id":75,"param":"西南"},{"id":76,"param":"东南"},{"id":77,"param":"西北"}]},"20":{"type":"梯户比","param":[{"id":78,"param":"1：1"},{"id":79,"param":"1：2"}]},"21":{"type":"装修标准","param":[{"id":80,"param":"毛坯"},{"id":81,"param":"简装"},{"id":82,"param":"精装"}]},"22":{"type":"均价","param":[{"id":85,"param":"10000-15000"},{"id":83,"param":"5000-8000"},{"id":84,"param":"8000-1000"}]},"23":{"type":"跟进方式","param":[{"id":86,"param":"电话"},{"id":87,"param":"QQ"},{"id":88,"param":"微信"},{"id":89,"param":"面谈"},{"id":90,"param":"其他"}]},"25":{"type":"总价","param":[{"id":91,"param":"50"},{"id":92,"param":"50-80"},{"id":93,"param":"80-120"},{"id":94,"param":"120-200"},{"id":95,"param":"200"}]},"24":{"type":"申述类型","param":[{"id":108,"param":"申述类型2"},{"id":109,"param":"申述类型3"},{"id":107,"param":"申述类型1"}]},"26":{"type":"面积","param":[{"id":96,"param":"50"},{"id":97,"param":"50-90"},{"id":98,"param":"90-130"},{"id":99,"param":"130-150"},{"id":100,"param":"150"}]},"27":{"type":"佣金结算失败原因","param":[{"id":101,"param":"缺少银行卡信息"},{"id":102,"param":"银行卡打款失败"},{"id":103,"param":"其他"}]},"28":{"type":"客服电话","param":[{"id":128,"param":"15082245107"},{"id":129,"param":"15983804767"}]}}
+     * data : {"1":{"type":"银行类型","param":[{"id":1,"param":"中国农业银行"},{"id":2,"param":"中国建设银行"},{"id":3,"param":"中国工商银行"},{"id":4,"param":"中国银行"},{"id":5,"param":"交通银行"},{"id":6,"param":"招商银行"},{"id":7,"param":"邮政储蓄银行"},{"id":8,"param":"光大银行"},{"id":9,"param":"民生银行"},{"id":10,"param":"平安银行"},{"id":11,"param":"浦发银行"},{"id":12,"param":"中心银行"},{"id":13,"param":"兴业银行"},{"id":14,"param":"华夏银行"},{"id":15,"param":"北京银行"},{"id":16,"param":"成都农商银行"},{"id":71,"param":"中国招商银行"}]},"2":{"type":"证件类型","param":[{"id":17,"param":"身份证"}]},"3":{"type":"提成方式","param":[{"id":18,"param":"固定金额X套数"},{"id":19,"param":"销售价格X比例"},{"id":20,"param":"面积X单价"}]},"4":{"type":"投诉类型","param":[{"id":21,"param":"客源无效"},{"id":22,"param":"其他"}]},"5":{"type":"投诉解决类型","param":[{"id":23,"param":"客源有效"},{"id":24,"param":"其他"}]},"6":{"type":"合同终止原因","param":[{"id":25,"param":"合同到期"},{"id":26,"param":"强制终止"}]},"7":{"type":"禁用类型","param":[{"id":27,"param":"非法交易"},{"id":28,"param":"利用漏洞"}]},"8":{"type":"房龄","param":[{"id":29,"param":"一年以内"},{"id":30,"param":"三年以内"},{"id":31,"param":"十年以内"}]},"9":{"type":"住房类型","param":[{"id":32,"param":"3室2厅2卫"},{"id":33,"param":"1室1厅2卫"},{"id":106,"param":"1室1厅1卫"},{"id":141,"param":"3室2厅1卫"},{"id":142,"param":"2室2卫1厅"}]},"10":{"type":"货币类型","param":[{"id":34,"param":"人民币"},{"id":35,"param":"美元"},{"id":36,"param":"日元"},{"id":37,"param":"港币"},{"id":38,"param":"英镑"},{"id":39,"param":"欧元"}]},"11":{"type":"开盘方式","param":[{"id":40,"param":"网上开盘"},{"id":41,"param":"线下开盘"},{"id":42,"param":"其他"}]},"12":{"type":"置业目的","param":[{"id":43,"param":"投资"},{"id":44,"param":"自住"},{"id":45,"param":"投资兼自住"}]},"13":{"type":"付款方式","param":[{"id":46,"param":"一次性付款"},{"id":47,"param":"公积金贷款"},{"id":48,"param":"综合贷款"},{"id":49,"param":"银行按揭贷款"},{"id":50,"param":"分期付款"}]},"14":{"type":"项目图片类型","param":[{"id":52,"param":"3D图"},{"id":53,"param":"效果图"},{"id":54,"param":"平面图"},{"id":55,"param":"实景图"}]},"15":{"type":"项目标签","param":[{"id":56,"param":"学区房"},{"id":57,"param":"五证齐全"},{"id":58,"param":"地铁房"},{"id":104,"param":"车位充足"},{"id":105,"param":"品牌房企"},{"id":125,"param":"涪江畔"},{"id":126,"param":"三幼旁"},{"id":127,"param":"大社区"},{"id":130,"param":"农产品批发"},{"id":131,"param":"综合体购物"},{"id":132,"param":"地铁8号线"},{"id":134,"param":"高铁站前"},{"id":135,"param":"5.1米跃层微墅"},{"id":136,"param":"全时商业潮圣地"},{"id":137,"param":"欢乐海底世界"},{"id":144,"param":"五星级"},{"id":145,"param":"景区房"},{"id":146,"param":"度假村"}]},"16":{"type":"物业类型","param":[{"id":59,"param":"住宅"},{"id":60,"param":"公寓"},{"id":61,"param":"别墅"},{"id":62,"param":"商铺"},{"id":63,"param":"写字楼"},{"id":64,"param":"车位"},{"id":138,"param":"微墅"},{"id":139,"param":"商墅"},{"id":162,"param":"办公"}]},"17":{"type":"建筑类型","param":[{"id":66,"param":"板楼"},{"id":65,"param":"钢混"},{"id":67,"param":"砖混"},{"id":68,"param":"砖木"},{"id":69,"param":"钢结构"},{"id":70,"param":"其他"},{"id":124,"param":"框剪"},{"id":133,"param":"剪力墙"},{"id":143,"param":"商住一体"}]},"18":{"type":"用户失效类型","param":[{"id":72,"param":"自然失效"},{"id":73,"param":"置业顾问判断无效"},{"id":74,"param":"销售业内判断无效"},{"id":110,"param":"开发商判断无效"}]},"19":{"type":"朝向","param":[{"id":75,"param":"西南"},{"id":76,"param":"东南"},{"id":77,"param":"西北"}]},"20":{"type":"梯户比","param":[{"id":78,"param":"1：1"},{"id":79,"param":"1：2"}]},"21":{"type":"装修标准","param":[{"id":80,"param":"毛坯"},{"id":81,"param":"简装"},{"id":82,"param":"精装"}]},"22":{"type":"均价","param":[{"id":85,"param":"10000-15000"},{"id":83,"param":"5000-8000"},{"id":84,"param":"8000-10000"}]},"23":{"type":"跟进方式","param":[{"id":86,"param":"电话"},{"id":87,"param":"QQ"},{"id":88,"param":"微信"},{"id":89,"param":"面谈"},{"id":90,"param":"其他"}]},"24":{"type":"申述类型","param":[{"id":108,"param":"申述类型2"},{"id":109,"param":"申述类型3"},{"id":107,"param":"申述类型1"}]},"25":{"type":"总价","param":[{"id":91,"param":"50"},{"id":92,"param":"50-80"},{"id":93,"param":"80-120"},{"id":94,"param":"120-200"},{"id":95,"param":"200"}]},"26":{"type":"面积","param":[{"id":96,"param":"50"},{"id":97,"param":"50-90"},{"id":98,"param":"90-130"},{"id":99,"param":"130-150"},{"id":100,"param":"150"}]},"27":{"type":"佣金结算失败原因","param":[{"id":101,"param":"缺少银行卡信息"},{"id":102,"param":"银行卡打款失败"},{"id":103,"param":"其他"}]},"28":{"type":"客服电话","param":[{"id":128,"param":"15082245107"},{"id":129,"param":"15983804767"}]},"29":{"type":"有效来访判断失效类型","param":[{"id":147,"param":"到访信息不符"},{"id":148,"param":"到访信息不完善"}]},"30":{"type":"房源报备联系人类型","param":[{"id":149,"param":"业主-主权益人"},{"id":150,"param":"业主-副权益人"},{"id":151,"param":"业主亲属"},{"id":152,"param":"业主好友"},{"id":153,"param":"业主经理人"},{"id":154,"param":"其他"}]},"31":{"type":"看房方式","param":[{"id":155,"param":"预约看房"},{"id":156,"param":"随时看房"},{"id":157,"param":"钥匙在其他门店"},{"id":158,"param":"其他"}]},"32":{"type":"报备失效类型","param":[{"id":159,"param":"客户不想卖了"},{"id":160,"param":"房源已售出"},{"id":161,"param":"信息有误"},{"id":169,"param":"未在时限内进行确认"}]},"33":{"type":"房源下架原因","param":[{"id":163,"param":"房源已出售"},{"id":164,"param":"业主不售房"}]},"34":{"type":"二手房标签","param":[{"id":165,"param":"房东人很好"},{"id":166,"param":"高性价比"}]},"35":{"type":"公司拒绝类型","param":[{"id":167,"param":"资料不全"},{"id":168,"param":"其他"}]}}
      */
 
     private int code;
@@ -56,20 +57,27 @@ public class PeizhiBean {
          * 12 : {"type":"置业目的","param":[{"id":43,"param":"投资"},{"id":44,"param":"自住"},{"id":45,"param":"投资兼自住"}]}
          * 13 : {"type":"付款方式","param":[{"id":46,"param":"一次性付款"},{"id":47,"param":"公积金贷款"},{"id":48,"param":"综合贷款"},{"id":49,"param":"银行按揭贷款"},{"id":50,"param":"分期付款"}]}
          * 14 : {"type":"项目图片类型","param":[{"id":52,"param":"3D图"},{"id":53,"param":"效果图"},{"id":54,"param":"平面图"},{"id":55,"param":"实景图"}]}
-         * 15 : {"type":"项目标签","param":[{"id":56,"param":"学区房"},{"id":57,"param":"五证齐全"},{"id":58,"param":"地铁房"},{"id":104,"param":"车位充足"},{"id":105,"param":"品牌房企"},{"id":125,"param":"涪江畔"},{"id":126,"param":"三幼旁"},{"id":127,"param":"大社区"},{"id":130,"param":"农产品批发"},{"id":131,"param":"综合体购物"},{"id":132,"param":"地铁8号线"},{"id":134,"param":"高铁站前"},{"id":135,"param":"5.1米跃层微墅"},{"id":136,"param":"全时商业潮圣地"},{"id":137,"param":"欢乐海底世界"}]}
-         * 16 : {"type":"物业类型","param":[{"id":59,"param":"住宅"},{"id":60,"param":"公寓"},{"id":61,"param":"别墅"},{"id":62,"param":"商铺"},{"id":63,"param":"写字楼"},{"id":64,"param":"车位"},{"id":138,"param":"微墅"},{"id":139,"param":"商墅"}]}
-         * 17 : {"type":"建筑类型","param":[{"id":66,"param":"板楼"},{"id":65,"param":"钢混"},{"id":67,"param":"砖混"},{"id":68,"param":"砖木"},{"id":69,"param":"钢结构"},{"id":70,"param":"其他"},{"id":124,"param":"框剪"},{"id":133,"param":"剪力墙"}]}
+         * 15 : {"type":"项目标签","param":[{"id":56,"param":"学区房"},{"id":57,"param":"五证齐全"},{"id":58,"param":"地铁房"},{"id":104,"param":"车位充足"},{"id":105,"param":"品牌房企"},{"id":125,"param":"涪江畔"},{"id":126,"param":"三幼旁"},{"id":127,"param":"大社区"},{"id":130,"param":"农产品批发"},{"id":131,"param":"综合体购物"},{"id":132,"param":"地铁8号线"},{"id":134,"param":"高铁站前"},{"id":135,"param":"5.1米跃层微墅"},{"id":136,"param":"全时商业潮圣地"},{"id":137,"param":"欢乐海底世界"},{"id":144,"param":"五星级"},{"id":145,"param":"景区房"},{"id":146,"param":"度假村"}]}
+         * 16 : {"type":"物业类型","param":[{"id":59,"param":"住宅"},{"id":60,"param":"公寓"},{"id":61,"param":"别墅"},{"id":62,"param":"商铺"},{"id":63,"param":"写字楼"},{"id":64,"param":"车位"},{"id":138,"param":"微墅"},{"id":139,"param":"商墅"},{"id":162,"param":"办公"}]}
+         * 17 : {"type":"建筑类型","param":[{"id":66,"param":"板楼"},{"id":65,"param":"钢混"},{"id":67,"param":"砖混"},{"id":68,"param":"砖木"},{"id":69,"param":"钢结构"},{"id":70,"param":"其他"},{"id":124,"param":"框剪"},{"id":133,"param":"剪力墙"},{"id":143,"param":"商住一体"}]}
          * 18 : {"type":"用户失效类型","param":[{"id":72,"param":"自然失效"},{"id":73,"param":"置业顾问判断无效"},{"id":74,"param":"销售业内判断无效"},{"id":110,"param":"开发商判断无效"}]}
          * 19 : {"type":"朝向","param":[{"id":75,"param":"西南"},{"id":76,"param":"东南"},{"id":77,"param":"西北"}]}
          * 20 : {"type":"梯户比","param":[{"id":78,"param":"1：1"},{"id":79,"param":"1：2"}]}
          * 21 : {"type":"装修标准","param":[{"id":80,"param":"毛坯"},{"id":81,"param":"简装"},{"id":82,"param":"精装"}]}
-         * 22 : {"type":"均价","param":[{"id":85,"param":"10000-15000"},{"id":83,"param":"5000-8000"},{"id":84,"param":"8000-1000"}]}
+         * 22 : {"type":"均价","param":[{"id":85,"param":"10000-15000"},{"id":83,"param":"5000-8000"},{"id":84,"param":"8000-10000"}]}
          * 23 : {"type":"跟进方式","param":[{"id":86,"param":"电话"},{"id":87,"param":"QQ"},{"id":88,"param":"微信"},{"id":89,"param":"面谈"},{"id":90,"param":"其他"}]}
-         * 25 : {"type":"总价","param":[{"id":91,"param":"50"},{"id":92,"param":"50-80"},{"id":93,"param":"80-120"},{"id":94,"param":"120-200"},{"id":95,"param":"200"}]}
          * 24 : {"type":"申述类型","param":[{"id":108,"param":"申述类型2"},{"id":109,"param":"申述类型3"},{"id":107,"param":"申述类型1"}]}
+         * 25 : {"type":"总价","param":[{"id":91,"param":"50"},{"id":92,"param":"50-80"},{"id":93,"param":"80-120"},{"id":94,"param":"120-200"},{"id":95,"param":"200"}]}
          * 26 : {"type":"面积","param":[{"id":96,"param":"50"},{"id":97,"param":"50-90"},{"id":98,"param":"90-130"},{"id":99,"param":"130-150"},{"id":100,"param":"150"}]}
          * 27 : {"type":"佣金结算失败原因","param":[{"id":101,"param":"缺少银行卡信息"},{"id":102,"param":"银行卡打款失败"},{"id":103,"param":"其他"}]}
          * 28 : {"type":"客服电话","param":[{"id":128,"param":"15082245107"},{"id":129,"param":"15983804767"}]}
+         * 29 : {"type":"有效来访判断失效类型","param":[{"id":147,"param":"到访信息不符"},{"id":148,"param":"到访信息不完善"}]}
+         * 30 : {"type":"房源报备联系人类型","param":[{"id":149,"param":"业主-主权益人"},{"id":150,"param":"业主-副权益人"},{"id":151,"param":"业主亲属"},{"id":152,"param":"业主好友"},{"id":153,"param":"业主经理人"},{"id":154,"param":"其他"}]}
+         * 31 : {"type":"看房方式","param":[{"id":155,"param":"预约看房"},{"id":156,"param":"随时看房"},{"id":157,"param":"钥匙在其他门店"},{"id":158,"param":"其他"}]}
+         * 32 : {"type":"报备失效类型","param":[{"id":159,"param":"客户不想卖了"},{"id":160,"param":"房源已售出"},{"id":161,"param":"信息有误"},{"id":169,"param":"未在时限内进行确认"}]}
+         * 33 : {"type":"房源下架原因","param":[{"id":163,"param":"房源已出售"},{"id":164,"param":"业主不售房"}]}
+         * 34 : {"type":"二手房标签","param":[{"id":165,"param":"房东人很好"},{"id":166,"param":"高性价比"}]}
+         * 35 : {"type":"公司拒绝类型","param":[{"id":167,"param":"资料不全"},{"id":168,"param":"其他"}]}
          */
 
         @SerializedName("1")
@@ -118,16 +126,30 @@ public class PeizhiBean {
         private _$22Bean _$22;
         @SerializedName("23")
         private _$23Bean _$23;
-        @SerializedName("25")
-        private _$25Bean _$25;
         @SerializedName("24")
         private _$24Bean _$24;
+        @SerializedName("25")
+        private _$25Bean _$25;
         @SerializedName("26")
         private _$26Bean _$26;
         @SerializedName("27")
         private _$27Bean _$27;
         @SerializedName("28")
         private _$28Bean _$28;
+        @SerializedName("29")
+        private _$29Bean _$29;
+        @SerializedName("30")
+        private _$30Bean _$30;
+        @SerializedName("31")
+        private _$31Bean _$31;
+        @SerializedName("32")
+        private _$32Bean _$32;
+        @SerializedName("33")
+        private _$33Bean _$33;
+        @SerializedName("34")
+        private _$34Bean _$34;
+        @SerializedName("35")
+        private _$35Bean _$35;
 
         public _$1Bean get_$1() {
             return _$1;
@@ -313,20 +335,20 @@ public class PeizhiBean {
             this._$23 = _$23;
         }
 
-        public _$25Bean get_$25() {
-            return _$25;
-        }
-
-        public void set_$25(_$25Bean _$25) {
-            this._$25 = _$25;
-        }
-
         public _$24Bean get_$24() {
             return _$24;
         }
 
         public void set_$24(_$24Bean _$24) {
             this._$24 = _$24;
+        }
+
+        public _$25Bean get_$25() {
+            return _$25;
+        }
+
+        public void set_$25(_$25Bean _$25) {
+            this._$25 = _$25;
         }
 
         public _$26Bean get_$26() {
@@ -351,6 +373,62 @@ public class PeizhiBean {
 
         public void set_$28(_$28Bean _$28) {
             this._$28 = _$28;
+        }
+
+        public _$29Bean get_$29() {
+            return _$29;
+        }
+
+        public void set_$29(_$29Bean _$29) {
+            this._$29 = _$29;
+        }
+
+        public _$30Bean get_$30() {
+            return _$30;
+        }
+
+        public void set_$30(_$30Bean _$30) {
+            this._$30 = _$30;
+        }
+
+        public _$31Bean get_$31() {
+            return _$31;
+        }
+
+        public void set_$31(_$31Bean _$31) {
+            this._$31 = _$31;
+        }
+
+        public _$32Bean get_$32() {
+            return _$32;
+        }
+
+        public void set_$32(_$32Bean _$32) {
+            this._$32 = _$32;
+        }
+
+        public _$33Bean get_$33() {
+            return _$33;
+        }
+
+        public void set_$33(_$33Bean _$33) {
+            this._$33 = _$33;
+        }
+
+        public _$34Bean get_$34() {
+            return _$34;
+        }
+
+        public void set_$34(_$34Bean _$34) {
+            this._$34 = _$34;
+        }
+
+        public _$35Bean get_$35() {
+            return _$35;
+        }
+
+        public void set_$35(_$35Bean _$35) {
+            this._$35 = _$35;
         }
 
         public static class _$1Bean {
@@ -1084,7 +1162,7 @@ public class PeizhiBean {
         public static class _$15Bean {
             /**
              * type : 项目标签
-             * param : [{"id":56,"param":"学区房"},{"id":57,"param":"五证齐全"},{"id":58,"param":"地铁房"},{"id":104,"param":"车位充足"},{"id":105,"param":"品牌房企"},{"id":125,"param":"涪江畔"},{"id":126,"param":"三幼旁"},{"id":127,"param":"大社区"},{"id":130,"param":"农产品批发"},{"id":131,"param":"综合体购物"},{"id":132,"param":"地铁8号线"},{"id":134,"param":"高铁站前"},{"id":135,"param":"5.1米跃层微墅"},{"id":136,"param":"全时商业潮圣地"},{"id":137,"param":"欢乐海底世界"}]
+             * param : [{"id":56,"param":"学区房"},{"id":57,"param":"五证齐全"},{"id":58,"param":"地铁房"},{"id":104,"param":"车位充足"},{"id":105,"param":"品牌房企"},{"id":125,"param":"涪江畔"},{"id":126,"param":"三幼旁"},{"id":127,"param":"大社区"},{"id":130,"param":"农产品批发"},{"id":131,"param":"综合体购物"},{"id":132,"param":"地铁8号线"},{"id":134,"param":"高铁站前"},{"id":135,"param":"5.1米跃层微墅"},{"id":136,"param":"全时商业潮圣地"},{"id":137,"param":"欢乐海底世界"},{"id":144,"param":"五星级"},{"id":145,"param":"景区房"},{"id":146,"param":"度假村"}]
              */
 
             private String type;
@@ -1106,7 +1184,7 @@ public class PeizhiBean {
                 this.param = param;
             }
 
-            public static class ParamBeanXXXXXXXXXXXXXX implements ISelect {
+            public static class ParamBeanXXXXXXXXXXXXXX {
                 /**
                  * id : 56
                  * param : 学区房
@@ -1114,7 +1192,6 @@ public class PeizhiBean {
 
                 private int id;
                 private String param;
-                private boolean isSelected;
 
                 public int getId() {
                     return id;
@@ -1131,23 +1208,13 @@ public class PeizhiBean {
                 public void setParam(String param) {
                     this.param = param;
                 }
-
-                @Override
-                public boolean isSelected() {
-                    return false;
-                }
-
-                @Override
-                public void setSelected(boolean selected) {
-                    isSelected = selected;
-                }
             }
         }
 
         public static class _$16Bean {
             /**
              * type : 物业类型
-             * param : [{"id":59,"param":"住宅"},{"id":60,"param":"公寓"},{"id":61,"param":"别墅"},{"id":62,"param":"商铺"},{"id":63,"param":"写字楼"},{"id":64,"param":"车位"},{"id":138,"param":"微墅"},{"id":139,"param":"商墅"}]
+             * param : [{"id":59,"param":"住宅"},{"id":60,"param":"公寓"},{"id":61,"param":"别墅"},{"id":62,"param":"商铺"},{"id":63,"param":"写字楼"},{"id":64,"param":"车位"},{"id":138,"param":"微墅"},{"id":139,"param":"商墅"},{"id":162,"param":"办公"}]
              */
 
             private String type;
@@ -1199,7 +1266,7 @@ public class PeizhiBean {
         public static class _$17Bean {
             /**
              * type : 建筑类型
-             * param : [{"id":66,"param":"板楼"},{"id":65,"param":"钢混"},{"id":67,"param":"砖混"},{"id":68,"param":"砖木"},{"id":69,"param":"钢结构"},{"id":70,"param":"其他"},{"id":124,"param":"框剪"},{"id":133,"param":"剪力墙"}]
+             * param : [{"id":66,"param":"板楼"},{"id":65,"param":"钢混"},{"id":67,"param":"砖混"},{"id":68,"param":"砖木"},{"id":69,"param":"钢结构"},{"id":70,"param":"其他"},{"id":124,"param":"框剪"},{"id":133,"param":"剪力墙"},{"id":143,"param":"商住一体"}]
              */
 
             private String type;
@@ -1459,7 +1526,7 @@ public class PeizhiBean {
         public static class _$22Bean {
             /**
              * type : 均价
-             * param : [{"id":85,"param":"10000-15000"},{"id":83,"param":"5000-8000"},{"id":84,"param":"8000-1000"}]
+             * param : [{"id":85,"param":"10000-15000"},{"id":83,"param":"5000-8000"},{"id":84,"param":"8000-10000"}]
              */
 
             private String type;
@@ -1560,10 +1627,10 @@ public class PeizhiBean {
             }
         }
 
-        public static class _$25Bean {
+        public static class _$24Bean {
             /**
-             * type : 总价
-             * param : [{"id":91,"param":"50"},{"id":92,"param":"50-80"},{"id":93,"param":"80-120"},{"id":94,"param":"120-200"},{"id":95,"param":"200"}]
+             * type : 申述类型
+             * param : [{"id":108,"param":"申述类型2"},{"id":109,"param":"申述类型3"},{"id":107,"param":"申述类型1"}]
              */
 
             private String type;
@@ -1587,8 +1654,8 @@ public class PeizhiBean {
 
             public static class ParamBeanXXXXXXXXXXXXXXXXXXXXXXX {
                 /**
-                 * id : 91
-                 * param : 50
+                 * id : 108
+                 * param : 申述类型2
                  */
 
                 private int id;
@@ -1612,10 +1679,10 @@ public class PeizhiBean {
             }
         }
 
-        public static class _$24Bean {
+        public static class _$25Bean {
             /**
-             * type : 申述类型
-             * param : [{"id":108,"param":"申述类型2"},{"id":109,"param":"申述类型3"},{"id":107,"param":"申述类型1"}]
+             * type : 总价
+             * param : [{"id":91,"param":"50"},{"id":92,"param":"50-80"},{"id":93,"param":"80-120"},{"id":94,"param":"120-200"},{"id":95,"param":"200"}]
              */
 
             private String type;
@@ -1639,8 +1706,8 @@ public class PeizhiBean {
 
             public static class ParamBeanXXXXXXXXXXXXXXXXXXXXXXXX {
                 /**
-                 * id : 108
-                 * param : 申述类型2
+                 * id : 91
+                 * param : 50
                  */
 
                 private int id;
@@ -1797,6 +1864,370 @@ public class PeizhiBean {
                 /**
                  * id : 128
                  * param : 15082245107
+                 */
+
+                private int id;
+                private String param;
+
+                public int getId() {
+                    return id;
+                }
+
+                public void setId(int id) {
+                    this.id = id;
+                }
+
+                public String getParam() {
+                    return param;
+                }
+
+                public void setParam(String param) {
+                    this.param = param;
+                }
+            }
+        }
+
+        public static class _$29Bean {
+            /**
+             * type : 有效来访判断失效类型
+             * param : [{"id":147,"param":"到访信息不符"},{"id":148,"param":"到访信息不完善"}]
+             */
+
+            private String type;
+            private List<ParamBeanXXXXXXXXXXXXXXXXXXXXXXXXXXXX> param;
+
+            public String getType() {
+                return type;
+            }
+
+            public void setType(String type) {
+                this.type = type;
+            }
+
+            public List<ParamBeanXXXXXXXXXXXXXXXXXXXXXXXXXXXX> getParam() {
+                return param;
+            }
+
+            public void setParam(List<ParamBeanXXXXXXXXXXXXXXXXXXXXXXXXXXXX> param) {
+                this.param = param;
+            }
+
+            public static class ParamBeanXXXXXXXXXXXXXXXXXXXXXXXXXXXX {
+                /**
+                 * id : 147
+                 * param : 到访信息不符
+                 */
+
+                private int id;
+                private String param;
+
+                public int getId() {
+                    return id;
+                }
+
+                public void setId(int id) {
+                    this.id = id;
+                }
+
+                public String getParam() {
+                    return param;
+                }
+
+                public void setParam(String param) {
+                    this.param = param;
+                }
+            }
+        }
+
+        public static class _$30Bean {
+            /**
+             * type : 房源报备联系人类型
+             * param : [{"id":149,"param":"业主-主权益人"},{"id":150,"param":"业主-副权益人"},{"id":151,"param":"业主亲属"},{"id":152,"param":"业主好友"},{"id":153,"param":"业主经理人"},{"id":154,"param":"其他"}]
+             */
+
+            private String type;
+            private List<ParamBeanXXXXXXXXXXXXXXXXXXXXXXXXXXXXX> param;
+
+            public String getType() {
+                return type;
+            }
+
+            public void setType(String type) {
+                this.type = type;
+            }
+
+            public List<ParamBeanXXXXXXXXXXXXXXXXXXXXXXXXXXXXX> getParam() {
+                return param;
+            }
+
+            public void setParam(List<ParamBeanXXXXXXXXXXXXXXXXXXXXXXXXXXXXX> param) {
+                this.param = param;
+            }
+
+            public static class ParamBeanXXXXXXXXXXXXXXXXXXXXXXXXXXXXX {
+                /**
+                 * id : 149
+                 * param : 业主-主权益人
+                 */
+
+                private int id;
+                private String param;
+
+                public int getId() {
+                    return id;
+                }
+
+                public void setId(int id) {
+                    this.id = id;
+                }
+
+                public String getParam() {
+                    return param;
+                }
+
+                public void setParam(String param) {
+                    this.param = param;
+                }
+            }
+        }
+
+        public static class _$31Bean {
+            /**
+             * type : 看房方式
+             * param : [{"id":155,"param":"预约看房"},{"id":156,"param":"随时看房"},{"id":157,"param":"钥匙在其他门店"},{"id":158,"param":"其他"}]
+             */
+
+            private String type;
+            private List<ParamBeanXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX> param;
+
+            public String getType() {
+                return type;
+            }
+
+            public void setType(String type) {
+                this.type = type;
+            }
+
+            public List<ParamBeanXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX> getParam() {
+                return param;
+            }
+
+            public void setParam(List<ParamBeanXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX> param) {
+                this.param = param;
+            }
+
+            public static class ParamBeanXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX {
+                /**
+                 * id : 155
+                 * param : 预约看房
+                 */
+
+                private int id;
+                private String param;
+
+                public int getId() {
+                    return id;
+                }
+
+                public void setId(int id) {
+                    this.id = id;
+                }
+
+                public String getParam() {
+                    return param;
+                }
+
+                public void setParam(String param) {
+                    this.param = param;
+                }
+            }
+        }
+
+        public static class _$32Bean {
+            /**
+             * type : 报备失效类型
+             * param : [{"id":159,"param":"客户不想卖了"},{"id":160,"param":"房源已售出"},{"id":161,"param":"信息有误"},{"id":169,"param":"未在时限内进行确认"}]
+             */
+
+            private String type;
+            private List<ParamBeanXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX> param;
+
+            public String getType() {
+                return type;
+            }
+
+            public void setType(String type) {
+                this.type = type;
+            }
+
+            public List<ParamBeanXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX> getParam() {
+                return param;
+            }
+
+            public void setParam(List<ParamBeanXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX> param) {
+                this.param = param;
+            }
+
+            public static class ParamBeanXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX {
+                /**
+                 * id : 159
+                 * param : 客户不想卖了
+                 */
+
+                private int id;
+                private String param;
+
+                public int getId() {
+                    return id;
+                }
+
+                public void setId(int id) {
+                    this.id = id;
+                }
+
+                public String getParam() {
+                    return param;
+                }
+
+                public void setParam(String param) {
+                    this.param = param;
+                }
+            }
+        }
+
+        public static class _$33Bean {
+            /**
+             * type : 房源下架原因
+             * param : [{"id":163,"param":"房源已出售"},{"id":164,"param":"业主不售房"}]
+             */
+
+            private String type;
+            private List<ParamBeanXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX> param;
+
+            public String getType() {
+                return type;
+            }
+
+            public void setType(String type) {
+                this.type = type;
+            }
+
+            public List<ParamBeanXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX> getParam() {
+                return param;
+            }
+
+            public void setParam(List<ParamBeanXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX> param) {
+                this.param = param;
+            }
+
+            public static class ParamBeanXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX {
+                /**
+                 * id : 163
+                 * param : 房源已出售
+                 */
+
+                private int id;
+                private String param;
+
+                public int getId() {
+                    return id;
+                }
+
+                public void setId(int id) {
+                    this.id = id;
+                }
+
+                public String getParam() {
+                    return param;
+                }
+
+                public void setParam(String param) {
+                    this.param = param;
+                }
+            }
+        }
+
+        public static class _$34Bean {
+            /**
+             * type : 二手房标签
+             * param : [{"id":165,"param":"房东人很好"},{"id":166,"param":"高性价比"}]
+             */
+
+            private String type;
+            private List<ParamBeanXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX> param;
+
+            public String getType() {
+                return type;
+            }
+
+            public void setType(String type) {
+                this.type = type;
+            }
+
+            public List<ParamBeanXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX> getParam() {
+                return param;
+            }
+
+            public void setParam(List<ParamBeanXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX> param) {
+                this.param = param;
+            }
+
+            public static class ParamBeanXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX {
+                /**
+                 * id : 165
+                 * param : 房东人很好
+                 */
+
+                private int id;
+                private String param;
+
+                public int getId() {
+                    return id;
+                }
+
+                public void setId(int id) {
+                    this.id = id;
+                }
+
+                public String getParam() {
+                    return param;
+                }
+
+                public void setParam(String param) {
+                    this.param = param;
+                }
+            }
+        }
+
+        public static class _$35Bean {
+            /**
+             * type : 公司拒绝类型
+             * param : [{"id":167,"param":"资料不全"},{"id":168,"param":"其他"}]
+             */
+
+            private String type;
+            private List<ParamBeanXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX> param;
+
+            public String getType() {
+                return type;
+            }
+
+            public void setType(String type) {
+                this.type = type;
+            }
+
+            public List<ParamBeanXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX> getParam() {
+                return param;
+            }
+
+            public void setParam(List<ParamBeanXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX> param) {
+                this.param = param;
+            }
+
+            public static class ParamBeanXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX {
+                /**
+                 * id : 167
+                 * param : 资料不全
                  */
 
                 private int id;

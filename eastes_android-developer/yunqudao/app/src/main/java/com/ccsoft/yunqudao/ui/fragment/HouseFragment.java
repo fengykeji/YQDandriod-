@@ -27,6 +27,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.baidu.mapapi.SDKInitializer;
 import com.ccsoft.yunqudao.R;
 import com.ccsoft.yunqudao.adapter.HouseList_RecyclerViewAdapter;
 import com.ccsoft.yunqudao.bean.CustomersGetInfoBean;
@@ -45,6 +46,7 @@ import com.ccsoft.yunqudao.ui.adapter.ScoreTeamAdapter3;
 import com.ccsoft.yunqudao.ui.adapter.ScoreTeamAdapter4;
 import com.ccsoft.yunqudao.ui.customers.CustomersXiangQingActivity;
 import com.ccsoft.yunqudao.ui.customers.OpenCityActivity;
+import com.ccsoft.yunqudao.ui.home.HomeActivity;
 import com.ccsoft.yunqudao.ui.house.ProjectCityChooseActivity;
 import com.ccsoft.yunqudao.ui.house.ProjectXiangQingActivity;
 import com.ccsoft.yunqudao.ui.house.secondhandhouse.SecondHouseListActivity;
@@ -121,22 +123,20 @@ public class HouseFragment extends Fragment implements View.OnClickListener ,Hou
     private int agent_id;
 
     // 选择二手房和租房
-
     private TextView choosehousetype;
 
+
+
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        /**
-         * 填充布局
-         */
+        SDKInitializer.initialize(getContext().getApplicationContext());
         mView = inflater.inflate(R.layout.fragment_house, container, false);
-        HideIMEUtil.wrap(getActivity());
-        mHouseFragment = new HouseFragment();
-        Fresco.initialize(getContext());
+//        HideIMEUtil.wrap(getActivity());
         initView();
         initListener();
         loadFangyuanList();
         return mView;
     }
+
 
     private void initView() {
         /**
@@ -377,8 +377,10 @@ public class HouseFragment extends Fragment implements View.OnClickListener ,Hou
 
                         break;
                     case 1:
-                        Intent intent = new Intent(getContext(), SecondHouseListActivity.class);
-                        startActivity(intent);
+//                        Intent intent = new Intent(getContext(), HomeActivity.class);
+//                        intent.putExtra("city_code",city_code);
+//                        startActivity(intent);
+
                         break;
                     case 2:
 
@@ -571,7 +573,7 @@ public class HouseFragment extends Fragment implements View.OnClickListener ,Hou
 //            TextView textView = buildLabel(peizhiBean.getData().get_$15().getParam().get(i).getParam());
 //            flowLayout.addView(textView);
 //        }
-        
+
 
         recyclerView.setLayoutManager(new GridLayoutManager(getContext(),4));
         recyclerView1.setLayoutManager(new GridLayoutManager(getContext(),4));
@@ -640,7 +642,7 @@ public class HouseFragment extends Fragment implements View.OnClickListener ,Hou
         return TypedValue.applyDimension(
                 TypedValue.COMPLEX_UNIT_DIP, dp, getResources().getDisplayMetrics());
     }
-
+//
     /**
      * 下拉刷新
      */

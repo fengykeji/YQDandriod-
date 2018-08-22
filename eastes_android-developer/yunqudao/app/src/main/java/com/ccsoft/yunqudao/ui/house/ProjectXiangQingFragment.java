@@ -184,6 +184,7 @@ public class ProjectXiangQingFragment extends Fragment implements View.OnClickLi
 
 
 
+
     @Override
     public void onResume() {
         super.onResume();
@@ -208,6 +209,8 @@ public class ProjectXiangQingFragment extends Fragment implements View.OnClickLi
         SDKInitializer.initialize(getContext().getApplicationContext());
         mView = inflater.inflate(R.layout.fragment_house_xiangmuxiangqing_xiangmu, container, false);
 
+
+        //注册监听函数
         initView();
         initData();
         initListener();
@@ -535,8 +538,9 @@ public class ProjectXiangQingFragment extends Fragment implements View.OnClickLi
                             Gson gson = builder.create();
                              bean = gson.fromJson(data,HouseDetailBean.DataBean.class);
                              dataList = bean.getHouse_type();
-                            initAdapter();
 
+                            location();
+                            initAdapter();
 //                            ImageUtil.load(Uri.parse(AppConstants.URL + bean.getProject_basic_info().getTotal_float_url_phone()), mHouse_imageview_项目图册, 540, 275);
                             tv_project_name.setText(bean.getProject_basic_info().getProject_name());
                             tv_sale_state.setText(bean.getProject_basic_info().getSale_state());
@@ -656,10 +660,6 @@ public class ProjectXiangQingFragment extends Fragment implements View.OnClickLi
                                     }
                                 }
                             }
-
-
-
-                            location();
 
                         }
                     }

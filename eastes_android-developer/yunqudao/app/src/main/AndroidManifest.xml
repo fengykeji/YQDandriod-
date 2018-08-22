@@ -56,6 +56,15 @@
     <uses-permission android:name="android.permission.BLUETOOTH" />
     <uses-permission android:name="android.permission.BLUETOOTH_ADMIN" />
 
+    //地图权限
+    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <!--网络定位-->
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <!--GPS定位-->
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+
 
     //极光权限
     <!-- Required -->
@@ -216,6 +225,7 @@
         <activity android:name=".ui.message.MessageChengjiaoVailddetailActivity"></activity>
         <activity android:name=".ui.message.MessageCommendDisableDetailsActivity"></activity>
         <activity android:name=".ui.message.MessageReportDisableActivity"></activity>
+        <activity android:name=".ui.message.QiangDanListActivity"></activity>
 
         <!--房源模块-->
         <activity android:name=".ui.house.ProjectDanYuanXiangQingActivity">
@@ -315,6 +325,8 @@
         </activity>
         <activity android:name=".ui.work.WorkChengjiaoDisableDetailActivity">
         </activity>
+
+
         //二手房
         <activity android:name=".ui.work.secondhandhouse.WorkSecondBaoBeiActivity"></activity>
         <activity android:name=".ui.work.secondhandhouse.WorkSecondProspectActivity"></activity>
@@ -344,6 +356,11 @@
         <activity android:name=".ui.house.secondhandhouse.SecondHouseListActivity"></activity>
         <activity android:name=".ui.house.secondhandhouse.SencondHouseFangYuanInfoActivity"></activity>
         <activity android:name=".ui.work.secondhandhouse.ModificatyProjectFenXiActivity"></activity>
+        <activity android:name=".ui.work.secondhandhouse.AddBaoBeiActivity"></activity>
+        <activity android:name=".ui.work.secondhandhouse.CommitBaoBeiActivity"></activity>
+        <activity android:name=".ui.house.secondhandhouse.SecondHouseXiangQingActivity"></activity>
+        <activity android:name=".ui.house.secondhandhouse.XiaoQuhouseActivity"></activity>
+        <activity android:name=".ui.work.secondhandhouse.XiaoQuXiangQingActivity"></activity>
 
 
 
@@ -408,6 +425,7 @@
         <activity android:name=".ui.me.WeiJieYongJinXiangQingActivity"></activity>
         <activity android:name=".ui.me.YaoQingJiangLiActivity"></activity>
         <activity android:name=".ui.me.MyTeamActivity"></activity>
+        <activity android:name=".ui.me.YaoQingErWeiMaActivity"></activity>
 
     </application>
 

@@ -49,7 +49,7 @@ public class SecondHouseXiangQingActivity extends AppCompatActivity implements V
         setContentView(R.layout.activity_secondhousexiangqing);
         initView();
 //        initData();
-//        initListener();
+        initListener();
 
     }
 
@@ -147,7 +147,7 @@ public class SecondHouseXiangQingActivity extends AppCompatActivity implements V
 //关闭sso授权
         oks.disableSSOWhenAuthorize();
 
-        oks.setUrl(AppConstants.URL+url);
+        oks.setUrl(url);
 // title标题，印象笔记、邮箱、信息、微信、人人网和QQ空间等使用
         oks.setTitle("云渠道");
 // titleUrl是标题的网络链接，QQ和QQ空间等使用

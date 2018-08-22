@@ -13,6 +13,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 
 import com.ccsoft.yunqudao.R;
+import com.ccsoft.yunqudao.bean.WaitGrabBean;
 import com.ccsoft.yunqudao.data.api.ApiSubscriber;
 import com.ccsoft.yunqudao.data.base.BaseRecyclerAdapter;
 import com.ccsoft.yunqudao.data.base.FooterHolder;
@@ -20,6 +21,7 @@ import com.ccsoft.yunqudao.data.model.response.BrrokerValueData;
 import com.ccsoft.yunqudao.http.HttpAdress;
 import com.ccsoft.yunqudao.manager.ClientManager;
 import com.ccsoft.yunqudao.rx.RxSchedulers;
+import com.ccsoft.yunqudao.ui.adapter.WaitGrabAdapter;
 import com.ccsoft.yunqudao.ui.adapter.WorkRecommendValidAdapter;
 import com.ccsoft.yunqudao.ui.listener.EndlessRecyclerOnScrollListener;
 import com.ccsoft.yunqudao.ui.work.WorkCommendValidDetailActivity;
@@ -46,11 +48,13 @@ public class WorkSecondBaoBeiValidFragment extends Fragment implements View.OnCl
     private WorkRecommendValidFragment mWorkRecommendValidFragment;
     private RecyclerView mWork_recyclerview_Valid;
     private SmartRefreshLayout mSwipRefresh;
-    private WorkRecommendValidAdapter mAdapter;
+    private WaitGrabAdapter mAdapter;
 
-    private List<BrrokerValueData.ValueData> dataList = new ArrayList<>();
+    private List<WaitGrabBean.DataBean> dataList = new ArrayList<>();
     private AnimationDrawable anim;
     private ImageView yunsuan;
+    private WaitGrabBean brokerWaitConfirmData;
+
 
 
     @Override
@@ -78,7 +82,7 @@ public class WorkSecondBaoBeiValidFragment extends Fragment implements View.OnCl
         mSwipRefresh = mView.findViewById(R.id.mSwipRefresh);
         this.mWork_recyclerview_Valid = mView.findViewById(R.id.work_recyclerview_valid);
         mWork_recyclerview_Valid.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false));
-        mAdapter = new WorkRecommendValidAdapter(getContext(),R.layout.item_work_value, dataList);
+        mAdapter = new WaitGrabAdapter(getContext(),R.layout.item_waitgrabvaild, dataList);
         mWork_recyclerview_Valid.setAdapter(mAdapter);
         mWork_recyclerview_Valid.addOnScrollListener(endlessRecyclerOnScrollListener);
         yunsuan = mView.findViewById(R.id.yunsuan);
@@ -95,6 +99,7 @@ public class WorkSecondBaoBeiValidFragment extends Fragment implements View.OnCl
             @Override
             public void onItemClickListner(View v, int position) {
                 Intent intent = new Intent(getContext(),WorkSecondBaoBeiValidDetailActivity.class);
+                intent.putExtra("record_id",brokerWaitConfirmData.getData().get(position).getRecord_id());
                 startActivity(intent);
             }
         });
@@ -103,26 +108,38 @@ public class WorkSecondBaoBeiValidFragment extends Fragment implements View.OnCl
     }
 
     private void initData() {
-        ClientManager.getInstance().getBrokerValue().compose(RxSchedulers.<BrrokerValueData>io_main()).subscribe(new ApiSubscriber<BrrokerValueData>(getActivity()) {
-            @Override
-            protected void _onNext(BrrokerValueData brokerWaitConfirmData) {
-                dataList.clear();
-                dataList.addAll(brokerWaitConfirmData.data);
-                curPage = 2;
-                totalPage = brokerWaitConfirmData.last_page;
-                mAdapter.notifyDataSetChanged();
-            }
+        OkHttpUtils.get(HttpAdress.waitGrabDetail)
+                .tag(this)
+                .params("page",curPage)
+                .execute(new StringCallback() {
+                    @Override
+                    public void onSuccess(String s, Call call, Response response) {
+                        int code = 0;
+                        String data1 = null;
+                        try {
+                            JSONObject jsonObject = new JSONObject(s);
+                            code = jsonObject.getInt("code");
+                            data1 = jsonObject.getString("data");
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                        if (code == 200 && data1 != null) {
+                            brokerWaitConfirmData = JsonUtil.jsonToEntity(data1, WaitGrabBean.class);
 
-            @Override
-            protected void _onError(String message) {
-                LogUtil.e(message);
-            }
+                            curPage = 2;
+                            dataList.clear();
+                            if(brokerWaitConfirmData.getData()!=null) {
+                                dataList.addAll(brokerWaitConfirmData.getData());
+                            }
+                            mAdapter.notifyDataSetChanged();
+                        }
+                    }
+                    @Override
+                    public void onAfter(@Nullable String s, @Nullable Exception e) {
+                        super.onAfter(s, e);
 
-            @Override
-            protected void _onCompleted() {
-
-            }
-        });
+                    }
+                });
     }
 
     @Override
@@ -133,7 +150,7 @@ public class WorkSecondBaoBeiValidFragment extends Fragment implements View.OnCl
     int curPage;
     int totalPage;
     private void loadNextData() {
-        OkHttpUtils.get(HttpAdress.value)
+        OkHttpUtils.get(HttpAdress.recordValue)
                 .tag(getActivity())
                 .params("page", curPage)
                 .execute(new StringCallback() {
@@ -150,8 +167,8 @@ public class WorkSecondBaoBeiValidFragment extends Fragment implements View.OnCl
                         }
                         if (code == 200 && data != null) {
                             curPage++;
-                            BrrokerValueData brokerWaitConfirmData = JsonUtil.jsonToEntity(data, BrrokerValueData.class);
-                            dataList.addAll(brokerWaitConfirmData.data);
+                            WaitGrabBean brokerWaitConfirmData = JsonUtil.jsonToEntity(data, WaitGrabBean.class);
+                            dataList.addAll(brokerWaitConfirmData.getData());
                             mAdapter.notifyDataSetChanged();
                         }
 

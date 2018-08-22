@@ -91,7 +91,7 @@ public class WorkSecondBaoBeiActivity extends AppCompatActivity implements View.
     public void onClick(View view) {
         switch (view.getId()){
             case R.id.work_button_add_recommend:
-                Intent intent = new Intent(this,AddWorkActivity.class);
+                Intent intent = new Intent(this,AddBaoBeiActivity.class);
                 startActivity(intent);
                 break;
         }

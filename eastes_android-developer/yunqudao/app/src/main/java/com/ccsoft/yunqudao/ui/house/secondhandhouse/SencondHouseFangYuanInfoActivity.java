@@ -12,7 +12,7 @@ public class SencondHouseFangYuanInfoActivity extends AppCompatActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         ActivityManager.getInstance().addActivity(this);
-        setContentView(R.layout.activity_secondhousexiangqing);
+        setContentView(R.layout.activity_secondhousefangyuaninfo);
         initView();
 //        initData();
 //        initListener();

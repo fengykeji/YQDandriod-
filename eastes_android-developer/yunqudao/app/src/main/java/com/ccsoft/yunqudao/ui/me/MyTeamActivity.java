@@ -63,6 +63,7 @@ public class MyTeamActivity extends AppCompatActivity implements OnRefreshListen
     private TextView house_button_分享;
     private MyTeamListBean bean;
     private LinearLayout ll_tuijianren,ll_wodetuijian;
+    private String name = "";
 
 
     @Override
@@ -172,6 +173,7 @@ public class MyTeamActivity extends AppCompatActivity implements OnRefreshListen
                             tv_jinrituijian.setText(bean.getData().getRecommend().getToday()+"");
                             tv_suoyuochengyuan.setText(bean.getData().getRecommend().getTotal()+"");
                             tv_name.setText(bean.getData().getPerson().getName());
+                            name = bean.getData().getPerson().getName();
                             tv_dengji.setText(bean.getData().getPerson().getGrade());
                             Picasso.with(MyTeamActivity.this).load(AppConstants.URL+bean.getData().getPerson().getHead_img())
                                     .error(R.drawable.ic_def_head)
@@ -218,7 +220,9 @@ public class MyTeamActivity extends AppCompatActivity implements OnRefreshListen
         switch (view.getId()){
             case R.id.house_button_分享:
                 Intent intent = new Intent(MyTeamActivity.this,YaoQingErWeiMaActivity.class);
-                intent.putExtra("name",bean.getData().getPerson().getName());
+
+                    intent.putExtra("name", name);
+
                 startActivity(intent);
                 break;
             case R.id.ll_tuijianren:

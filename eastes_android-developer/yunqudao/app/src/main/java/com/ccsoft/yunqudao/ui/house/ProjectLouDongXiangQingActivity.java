@@ -240,12 +240,13 @@ public class ProjectLouDongXiangQingActivity extends AppCompatActivity implement
         itemsDialogFragment.show(bean.getData().get(position).getBuild_info().getBuild_name()+"单元选择", items, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-               Intent intent = new Intent(ProjectLouDongXiangQingActivity.this,
-                       ProjectDanYuanXiangQingActivity.class);
+               Intent intent = new Intent(ProjectLouDongXiangQingActivity.this, ProjectDanYuanXiangQingActivity.class);
 
                 intent.putExtra("project_id",project_id);
                 intent.putExtra("build_id",bean.getData().get(position).getBuild_info().getYs_build_id());
+                intent.putExtra("build_name",bean.getData().get(position).getBuild_info().getBuild_name());
                 intent.putExtra("unit_id",bean.getData().get(position).getDYLIST().get(which).getDYID());
+                intent.putExtra("unit_name",bean.getData().get(position).getDYLIST().get(which).getDYMC());
                startActivity(intent);
             }
         }, getSupportFragmentManager());

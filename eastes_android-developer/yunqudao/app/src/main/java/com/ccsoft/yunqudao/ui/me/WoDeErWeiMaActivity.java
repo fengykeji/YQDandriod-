@@ -36,6 +36,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 import com.ccsoft.yunqudao.R;
 import com.ccsoft.yunqudao.bean.ErWeiMaBean;
+import com.ccsoft.yunqudao.bean.ShowUrlBean;
 import com.ccsoft.yunqudao.bean.StringBean;
 import com.ccsoft.yunqudao.bean.UpLoadBean;
 import com.ccsoft.yunqudao.data.AppConstants;
@@ -535,7 +536,6 @@ public class WoDeErWeiMaActivity extends AppCompatActivity implements View.OnCli
                 .execute(new StringCallback() {
                     @Override
                     public void onSuccess(String s, Call call, Response response) {
-                        Log.e("cccccws", s+"ssss");
                         int code = 0;
                         String data = null;
                         try {
@@ -558,7 +558,7 @@ public class WoDeErWeiMaActivity extends AppCompatActivity implements View.OnCli
 //关闭sso授权
         oks.disableSSOWhenAuthorize();
 
-        oks.setUrl(AppConstants.URL+url);
+        oks.setUrl(url);
 // title标题，印象笔记、邮箱、信息、微信、人人网和QQ空间等使用
         oks.setTitle("云渠道");
 // titleUrl是标题的网络链接，QQ和QQ空间等使用
@@ -575,7 +575,6 @@ public class WoDeErWeiMaActivity extends AppCompatActivity implements View.OnCli
         oks.setSite(getString(R.string.app_name));
 // siteUrl是分享此内容的网站地址，仅在QQ空间使用
 //        oks.setSiteUrl("http://sharesdk.cn");
-
 // 启动分享GUI
         oks.show(this);
     }
@@ -591,9 +590,9 @@ public class WoDeErWeiMaActivity extends AppCompatActivity implements View.OnCli
                 .execute(new StringCallback() {
                     @Override
                     public void onSuccess(String s, Call call, Response response) {
-                        StringBean bean = JsonUtil.jsonToEntity(s,StringBean.class);
+                        ShowUrlBean bean = JsonUtil.jsonToEntity(s,ShowUrlBean.class);
                         if(bean.getCode() == 200){
-                            url = bean.getData().toString();
+                            url = bean.getData().getUrl().toString();
                         }
                     }
                 });

@@ -150,29 +150,6 @@ if(bean.getProperty_tags()!=null){
             return;
         }
         String[] b = ss.split(",");
-//        for (int i = 0; i < peizhiBean.getData().get_$15().getParam().size(); i++) {
-//            if (bean.getProject_tags().length() > 0) {
-//                for (int j = 0; j < b.length; j++) {
-//                    int h = Integer.parseInt(b[j]);
-//                    if (peizhiBean.getData().get_$15().getParam().get(i).getId() == h) {
-//
-//                        imageView = new ImageView(context);
-//                        if (peizhiBean.getData().get_$15().getParam().get(i).getId() == 56) {
-//                            imageView.setImageResource(R.drawable.ic_elevatorroom);
-//                            linearLayout1.addView(imageView,layoutParams);
-//                        } else if (peizhiBean.getData().get_$15().getParam().get(i).getId() == 57) {
-//                            imageView.setImageResource(R.drawable.ic_schooldistrictroom);
-//                            linearLayout1.addView(imageView, layoutParams);
-//                        } else if (peizhiBean.getData().get_$15().getParam().get(i).getId() == 58) {
-//                            imageView.setImageResource(R.drawable.ic_subwayroom);
-//                            linearLayout1.addView(imageView, layoutParams);
-//                        }
-//                    }
-//                }
-//            }
-//
-//        }
-
         List<PeizhiBean.DataBean._$15Bean.ParamBeanXXXXXXXXXXXXXX> list = peizhiBean.getData().get_$15().getParam();
         for (String s : b) {
             for (PeizhiBean.DataBean._$15Bean.ParamBeanXXXXXXXXXXXXXX bean3 : list) {

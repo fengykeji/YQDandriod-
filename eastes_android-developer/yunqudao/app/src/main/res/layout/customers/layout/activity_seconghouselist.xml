@@ -19,7 +19,15 @@
             android:orientation="horizontal"
             android:weightSum="10"
             >
+            <ImageButton
+                android:id="@+id/customers_button_back"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:background="@android:color/transparent"
+                android:src="@drawable/ic_leftarrow"
+                />
             <TextView
+                android:visibility="gone"
                 android:gravity="center_vertical"
                 android:id="@+id/house_text_城市"
                 android:layout_width="wrap_content"
@@ -80,6 +88,7 @@
         </RelativeLayout>
 
         <LinearLayout
+            android:visibility="gone"
             android:gravity="center"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -120,6 +129,7 @@
     </LinearLayout>
 
     <LinearLayout
+        android:visibility="gone"
         android:orientation="horizontal"
         android:maxEms="2"
         android:layout_width="match_parent"
@@ -131,6 +141,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content">
             <TextView
+                android:id="@+id/tv_xiaoqufangyuan"
                 android:text="小区房源"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />

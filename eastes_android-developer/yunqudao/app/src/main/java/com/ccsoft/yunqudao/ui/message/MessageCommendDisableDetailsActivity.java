@@ -68,6 +68,10 @@ public class MessageCommendDisableDetailsActivity extends AppCompatActivity impl
     private TextView work_commend_client_zhiye;
     private LinearLayout ll_zhiyeguwen;
 
+    private int NumTv;
+    private String   mwork_commend_client_name,mwork_commend_project,mwork_commend_project_address,
+            DisableTime;
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -176,7 +180,18 @@ public class MessageCommendDisableDetailsActivity extends AppCompatActivity impl
             } else if (workCommendDisableData.getData().getSex() == 2) {
                 work_commend_client_sex.setText("女");
             }
+
             work_commend_client_tel.setText(workCommendDisableData.getData().getTel());
+
+            NumTv = workCommendDisableData.getData().getClient_id();
+            mwork_commend_client_name = workCommendDisableData.getData().getName();
+            mwork_commend_project = workCommendDisableData.getData().getProject_name();
+            mwork_commend_project_address = workCommendDisableData.getData().getProvince_name()+"-"+
+                    workCommendDisableData.getData().getCity_name()+"-"+
+                    workCommendDisableData.getData().getDistrict_name()+
+                    workCommendDisableData.getData().getAbsolute_address();
+            DisableTime = workCommendDisableData.getData().getDisabled_time();
+
         }
     }
 
@@ -204,9 +219,9 @@ public class MessageCommendDisableDetailsActivity extends AppCompatActivity impl
                                     if (model.getCode() == 200) {
                                         AlertDialog.Builder builder = new AlertDialog.Builder(MessageCommendDisableDetailsActivity.this);
                                         builder.setTitle("推荐成功");
-                                        builder.setMessage("推荐编号:" + mNumTv + "\n客户:" + work_commend_client_name
-                                                + "\n项目名字:" + work_commend_project + "\n项目地址:" + work_commend_project_address
-                                                + "\n失效时间:" + mDisableTime);
+                                        builder.setMessage("推荐编号:"+NumTv+"\n客户:"+mwork_commend_client_name
+                                                +"\n项目名字:"+mwork_commend_project+"\n项目地址:"+mwork_commend_project_address
+                                                +"\n失效时间:"+DisableTime);
                                         builder.setNegativeButton("确定", new DialogInterface.OnClickListener() {
                                             @Override
                                             public void onClick(DialogInterface dialogInterface, int i) {

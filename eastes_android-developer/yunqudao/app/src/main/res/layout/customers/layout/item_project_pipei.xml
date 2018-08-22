@@ -34,6 +34,7 @@
                         android:orientation="horizontal">
 
                         <TextView
+                            android:layout_marginLeft="5dp"
                             android:id="@+id/tv_name1"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
@@ -70,7 +71,7 @@
                             android:id="@+id/tv_zongjia1"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="xx-xx万"
+                            android:text=""
                             android:textSize="13sp" />
 
                     </LinearLayout>
@@ -93,7 +94,7 @@
                             android:id="@+id/tv_huxin1"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="x室x厅x卫"
+                            android:text=""
                             android:textSize="13sp" />
 
                     </LinearLayout>
@@ -116,7 +117,7 @@
                             android:id="@+id/tv_quyu1"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="xx区-xx大道"
+                            android:text=""
                             android:textSize="13sp" />
 
                     </LinearLayout>
@@ -143,11 +144,12 @@
                                 android:textSize="13sp" />
 
                             <TextView
+                                android:textColor="@color/juse"
                                 android:id="@+id/tv_intents1"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_marginRight="10dp"
-                                android:text="xx"
+                                android:text=""
                                 android:textSize="13sp" />
                         </LinearLayout>
 
@@ -166,11 +168,12 @@
                                 android:textSize="13sp" />
 
                             <TextView
+                                android:textColor="@color/juse"
                                 android:id="@+id/tv_urgency"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_marginRight="10dp"
-                                android:text="xx"
+                                android:text=""
                                 android:textSize="13sp" />
                         </LinearLayout>
 
@@ -213,12 +216,12 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="3dp"
-                        android:text="电话：xxxxxxxxxxx" />
+                        android:text="xxxxxxxxxxx" />
 
                     <Button
                         android:id="@+id/house_button_推荐1"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
+                        android:layout_height="30dp"
                         android:background="@color/shenlan"
                         android:text="推荐"
                         android:textColor="@color/chunbai" />

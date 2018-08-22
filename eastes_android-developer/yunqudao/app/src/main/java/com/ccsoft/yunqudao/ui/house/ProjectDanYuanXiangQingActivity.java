@@ -60,6 +60,7 @@ public class ProjectDanYuanXiangQingActivity extends AppCompatActivity implement
     private ProjectDanYuanBean.DataBean.LISTBean mUNIT;
     private String ldid;
     private String dyid;
+    private String unit_name,build_name;
 
     private int action;
 
@@ -103,6 +104,8 @@ public class ProjectDanYuanXiangQingActivity extends AppCompatActivity implement
         project_id = getIntent().getIntExtra("project_id",0);
         build_id = getIntent().getIntExtra("build_id",0);
         unit_id = getIntent().getStringExtra("unit_id");
+        unit_name = getIntent().getStringExtra("unit_name");
+        build_name = getIntent().getStringExtra("build_name");
         Bundle bundle = getIntent().getExtras();
         ProjectLouDongChooseBean.DataBean.BuildInfoBean bean = (ProjectLouDongChooseBean.DataBean.BuildInfoBean) bundle.getSerializable("data");
 
@@ -216,6 +219,11 @@ public class ProjectDanYuanXiangQingActivity extends AppCompatActivity implement
                                         Bundle bundle = new Bundle();
                                         bundle.putSerializable("list",bean.getData().get(row).getLIST().get(column));
                                         Intent intent = new Intent(ProjectDanYuanXiangQingActivity.this, ProjectDanYuanActivity.class);
+                                        intent.putExtra("project_id",project_id);
+                                        intent.putExtra("build_id",build_id);
+                                        intent.putExtra("build_name",build_name);
+                                        intent.putExtra("unit_id",unit_id);
+                                        intent.putExtra("unit_name",unit_name);
                                         intent.putExtras(bundle);
                                         startActivity(intent);
                                     }

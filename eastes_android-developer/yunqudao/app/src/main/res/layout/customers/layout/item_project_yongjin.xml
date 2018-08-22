@@ -127,19 +127,16 @@
                         android:id="@+id/im_dian1"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginRight="5dp"
                         android:src="@drawable/ic_lightning_2"
                         />
                     <ImageView
                         android:id="@+id/im_dian2"
-
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:src="@drawable/ic_lightning_3"
                         />
                     <ImageView
                         android:id="@+id/im_dian3"
-
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:src="@drawable/ic_lightning_3"
@@ -323,7 +320,6 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text=""
-                            android:textColor="@color/chunhei"
                             android:textSize="15sp"
                             />
 

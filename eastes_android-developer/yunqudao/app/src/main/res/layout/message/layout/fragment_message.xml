@@ -133,7 +133,58 @@
         android:layout_height="wrap_content"
         android:src="@drawable/ic_line"
         />
+        <LinearLayout
+            android:visibility="gone"
+            android:id="@+id/message_item_linearlayout_勘察抢单"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:background="@color/chunbai"
+            >
+
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_gravity="center_vertical"
+                android:layout_margin="15dp"
+                android:src="@drawable/ic_worknews"
+                />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center|left"
+                android:orientation="vertical"
+                >
+                <TextView
+                    android:textColor="@color/chunhei"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="勘察抢单"
+                    android:lines="1"
+                    android:ellipsize="end"
+                    android:textSize="15sp"
+                    />
+                <TextView
+                    android:id="@+id/message_text_未读抢单消息条数"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="未读消息1条"
+                    android:lines="1"
+                    android:ellipsize="end"
+                    android:textSize="13sp"
+                    />
+            </LinearLayout>
+        </LinearLayout>
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_line"
+            />
     </LinearLayout>
+
+
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/message_recyclerview_消息列表"

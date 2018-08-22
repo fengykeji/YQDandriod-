@@ -463,7 +463,8 @@ public class AdvicerChooseActivity extends Activity {
                             builder.setNegativeButton("确定", new DialogInterface.OnClickListener() {
                                 @Override
                                 public void onClick(DialogInterface dialogInterface, int i) {
-                                    finish();
+                                    Intent intent = new Intent(AdvicerChooseActivity.this,WorkRecommendActivity.class);
+                                    startActivity(intent);
                                 }
                             });
                             AlertDialog dialog = builder.create();
@@ -516,7 +517,8 @@ public class AdvicerChooseActivity extends Activity {
                             builder.setNegativeButton("确定", new DialogInterface.OnClickListener() {
                                 @Override
                                 public void onClick(DialogInterface dialogInterface, int i) {
-                                    finish();
+                                    Intent intent = new Intent(AdvicerChooseActivity.this,WorkRecommendActivity.class);
+                                    startActivity(intent);
                                 }
                             });
                             AlertDialog dialog = builder.create();

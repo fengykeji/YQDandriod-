@@ -29,7 +29,7 @@ public class YaoQingErWeiMaActivity extends AppCompatActivity {
     private Button me_button_二维码分享;
     private String url;
     private ImageView mMe_image_二维码;
-    private String name ;
+    private String name ="";
 
 
     @Override
@@ -72,11 +72,11 @@ public class YaoQingErWeiMaActivity extends AppCompatActivity {
 //关闭sso授权
         oks.disableSSOWhenAuthorize();
 
-        oks.setUrl(AppConstants.URL+url);
+        oks.setUrl(url);
 // title标题，印象笔记、邮箱、信息、微信、人人网和QQ空间等使用
         oks.setTitle(name+"邀请你加入他的团队");
 // titleUrl是标题的网络链接，QQ和QQ空间等使用
-        oks.setTitleUrl(AppConstants.URL+url);
+        oks.setTitleUrl(url);
 // text是分享文本，所有平台都需要这个字段
         oks.setText("加入云渠道，享受便捷佣金赚取之道");
 // imagePath是图片的本地路径，Linked-In以外的平台都支持此参数
@@ -108,7 +108,7 @@ public class YaoQingErWeiMaActivity extends AppCompatActivity {
                         if(bean.getCode() == 200){
                             url = bean.getData().toString();
 
-                            String content = AppConstants.URL+url;
+                            String content = url;
 //                            Bitmap bitmap = ZXingUtils.createQRImage(content, 400, 400);
                             Bitmap bitmap = QRCode.createQRCodeWithLogo(content, 800,
                                     BitmapFactory.decodeResource(getResources(), R.drawable.ic_logo));

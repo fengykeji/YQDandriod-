@@ -13,6 +13,8 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 
 import com.ccsoft.yunqudao.R;
+import com.ccsoft.yunqudao.bean.DisabledListBean;
+import com.ccsoft.yunqudao.bean.WaitGrabBean;
 import com.ccsoft.yunqudao.data.api.ApiSubscriber;
 import com.ccsoft.yunqudao.data.base.BaseRecyclerAdapter;
 import com.ccsoft.yunqudao.data.base.FooterHolder;
@@ -20,6 +22,7 @@ import com.ccsoft.yunqudao.data.model.response.BrrokerDisabledData;
 import com.ccsoft.yunqudao.http.HttpAdress;
 import com.ccsoft.yunqudao.manager.ClientManager;
 import com.ccsoft.yunqudao.rx.RxSchedulers;
+import com.ccsoft.yunqudao.ui.adapter.DisabledListAdapter;
 import com.ccsoft.yunqudao.ui.adapter.WorkRecommendDisableAdapter;
 import com.ccsoft.yunqudao.ui.listener.EndlessRecyclerOnScrollListener;
 import com.ccsoft.yunqudao.ui.work.WorkRecommendDisableFragment;
@@ -45,11 +48,12 @@ public class WorkSecondBaoBeiDisableFragment extends Fragment implements View.On
     private View mView;
     private WorkRecommendDisableFragment mWorkRecommendDisableFragment;
     private RecyclerView mWork_recyclerview_disable;
-    private WorkRecommendDisableAdapter mAdapter;
-    private List<BrrokerDisabledData.DisabledData> dataList = new ArrayList<>();
+    private DisabledListAdapter mAdapter;
+    private List<DisabledListBean.DataBean> dataList = new ArrayList<>();
     private SmartRefreshLayout mSwipRefresh;
     private AnimationDrawable anim;
     private ImageView yunsuan;
+    private DisabledListBean brokerWaitConfirmData;
 
     @Nullable
     @Override
@@ -71,7 +75,7 @@ public class WorkSecondBaoBeiDisableFragment extends Fragment implements View.On
         mSwipRefresh = mView.findViewById(R.id.mSwipRefresh);
         this.mWork_recyclerview_disable = mView.findViewById(R.id.work_recyclerview_disable);
         mWork_recyclerview_disable.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false));
-        mAdapter = new WorkRecommendDisableAdapter(getContext(),R.layout.item_work_value, dataList);
+        mAdapter = new DisabledListAdapter(getContext(),R.layout.item_work_value, dataList);
         mWork_recyclerview_disable.setAdapter(mAdapter);
         mWork_recyclerview_disable.addOnScrollListener(endlessRecyclerOnScrollListener);
         yunsuan = mView.findViewById(R.id.yunsuan);
@@ -86,9 +90,9 @@ public class WorkSecondBaoBeiDisableFragment extends Fragment implements View.On
         mAdapter.setOnItemClickListner(new BaseRecyclerAdapter.OnItemClickListner() {
             @Override
             public void onItemClickListner(View v, int position) {
-                BrrokerDisabledData.DisabledData data = dataList.get(position);
+
                 Intent intent = new Intent(getActivity(),WorkSecondBaoBeiDisableDetailActivity.class);
-                intent.putExtra("id",data.client_id);
+                intent.putExtra("record_id",brokerWaitConfirmData.getData().get(position).getRecord_id());
                 startActivity(intent);
             }
         });
@@ -98,26 +102,38 @@ public class WorkSecondBaoBeiDisableFragment extends Fragment implements View.On
     }
 
     private void initData() {
-        ClientManager.getInstance().getBrokerDisabled().compose(RxSchedulers.<BrrokerDisabledData>io_main()).subscribe(new ApiSubscriber<BrrokerDisabledData>(getActivity()) {
-            @Override
-            protected void _onNext(BrrokerDisabledData brokerWaitConfirmData) {
-                curPage = 2;
-                totalPage = brokerWaitConfirmData.last_page;
-                dataList.clear();
-                dataList.addAll(brokerWaitConfirmData.data);
-                mAdapter.notifyDataSetChanged();
-            }
+        OkHttpUtils.get(HttpAdress.waitGrabDetail)
+                .tag(this)
+                .params("page",curPage)
+                .execute(new StringCallback() {
+                    @Override
+                    public void onSuccess(String s, Call call, Response response) {
+                        int code = 0;
+                        String data1 = null;
+                        try {
+                            JSONObject jsonObject = new JSONObject(s);
+                            code = jsonObject.getInt("code");
+                            data1 = jsonObject.getString("data");
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                        if (code == 200 && data1 != null) {
+                            brokerWaitConfirmData = JsonUtil.jsonToEntity(data1, DisabledListBean.class);
 
-            @Override
-            protected void _onError(String message) {
-                LogUtil.e(message);
-            }
+                            curPage = 2;
+                            dataList.clear();
+                            if(brokerWaitConfirmData.getData()!=null) {
+                                dataList.addAll(brokerWaitConfirmData.getData());
+                            }
+                            mAdapter.notifyDataSetChanged();
+                        }
+                    }
+                    @Override
+                    public void onAfter(@Nullable String s, @Nullable Exception e) {
+                        super.onAfter(s, e);
 
-            @Override
-            protected void _onCompleted() {
-//                mSwipRefresh.setRefreshing(false);
-            }
-        });
+                    }
+                });
     }
 
     @Override
@@ -145,8 +161,8 @@ public class WorkSecondBaoBeiDisableFragment extends Fragment implements View.On
                         }
                         if (code == 200 && data != null) {
                             curPage++;
-                            BrrokerDisabledData brokerWaitConfirmData = JsonUtil.jsonToEntity(data, BrrokerDisabledData.class);
-                            dataList.addAll(brokerWaitConfirmData.data);
+                            DisabledListBean brokerWaitConfirmData = JsonUtil.jsonToEntity(data, DisabledListBean.class);
+                            dataList.addAll(brokerWaitConfirmData.getData());
                             mAdapter.notifyDataSetChanged();
                         }
 

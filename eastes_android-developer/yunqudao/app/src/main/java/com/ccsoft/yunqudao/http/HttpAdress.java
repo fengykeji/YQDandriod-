@@ -43,6 +43,10 @@ public class HttpAdress {
     public static String DisabledDetail = AppConstants.URL+"agent/message/work/disabledDetail";
     /*项目消息无效*/
     public static String projectDisabledDetail = AppConstants.URL+"agent/message/work/projectDisabledDetail";
+    /*抢单列表*/
+    public static String qiangdanList = AppConstants.URL+"agent/house/record/list";
+    /*抢单*/
+    public static String grabRecord = AppConstants.URL+"agent/house/grabRecord";
 
     /*房源展示列表*/
     public static String HOUSELIST = AppConstants.URL+"user/project/list";
@@ -120,6 +124,15 @@ public class HttpAdress {
     /*工作推荐确认中列表*/
     public static String workwaitConfirm = AppConstants.URL+"agent/work/broker/waitConfirm";
 
+    /*待抢单列表*/
+    public static String waitGrab = AppConstants.URL+"agent/house/survey/waitGrab";
+    /*待抢单详情*/
+    public static String waitGrabDetail = AppConstants.URL+"agent/house/record/waitGrab/detail";
+    /*有效列表*/
+    public static String recordValue = AppConstants.URL+"agent/house/record/value";
+    /*有效详情*/
+    public static String recordValueDetail = AppConstants.URL+"agent/house/record/value/detail";
+
 
 
     /*我的公司认证*/
@@ -151,4 +164,15 @@ public class HttpAdress {
     /*我的团队*/
     public static String myTeamList = AppConstants.URL+"agent/personal/myTeamList";
 
+
+    /*二手房源列表*/
+    public static String secondHouseList = AppConstants.URL+"user/house/house/list";
+    /*二手房详情*/
+    public static String secondHouseDetail = AppConstants.URL+"user/house/house/detail";
+    /*二手房提交报备*/
+    public static String secondHouseRecord = AppConstants.URL+"agent/house/record";
+    /*二手房小区列表*/
+    public static String xiaoquHouseList = AppConstants.URL+"user/house/project/list";
+    /*二手房小区详情*/
+    public static String xiaoquHouseDetail = AppConstants.URL+"user/house/project/detail";
 }

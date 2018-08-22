@@ -63,12 +63,18 @@
             android:textSize="15sp"
             android:text="所属公司"/>
         <TextView
+            android:layout_marginRight="15dp"
             android:layout_alignParentRight="true"
             android:id="@+id/tv_company"
             android:text=""
             android:textColor="#333333"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
+            <ImageView
+                android:layout_alignParentRight="true"
+                android:src="@drawable/rightarrow1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
         </RelativeLayout>
 
     </LinearLayout>
@@ -138,6 +144,7 @@
 
 
             <LinearLayout
+                android:visibility="gone"
         android:padding="15dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -227,6 +234,7 @@
                 android:textSize="15sp"
                 android:text="入职\申请时间"/>
             <TextView
+                android:layout_marginRight="15dp"
                 android:id="@+id/tv_tuzhitime"
                 android:textColor="#333333"
                 android:layout_alignParentRight="true"
@@ -234,6 +242,11 @@
                 android:layout_height="wrap_content"
                 android:textSize="18sp"
                 android:text=""/>
+            <ImageView
+                android:layout_alignParentRight="true"
+                android:src="@drawable/rightarrow1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
         </RelativeLayout>
 
 

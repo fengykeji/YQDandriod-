@@ -34,11 +34,14 @@ import com.ashokvarma.bottomnavigation.TextBadgeItem;
 import com.ccsoft.yunqudao.R;
 import com.ccsoft.yunqudao.bean.GetVersionBean;
 import com.ccsoft.yunqudao.data.AppConstants;
+import com.ccsoft.yunqudao.ui.fragment.AllHouseFragment;
 import com.ccsoft.yunqudao.ui.fragment.CustomersFragment;
 import com.ccsoft.yunqudao.ui.fragment.HouseFragment;
 import com.ccsoft.yunqudao.ui.fragment.MeFragment;
 import com.ccsoft.yunqudao.ui.fragment.MessageFragment;
 import com.ccsoft.yunqudao.ui.fragment.WorkFragment;
+import com.ccsoft.yunqudao.ui.house.secondhandhouse.SecondHouseFenXiFragment;
+import com.ccsoft.yunqudao.ui.house.secondhandhouse.SecondHouseListActivity;
 import com.ccsoft.yunqudao.utils.ActivityManager;
 import com.ccsoft.yunqudao.utils.JsonUtil;
 import com.ccsoft.yunqudao.utils.SpUtil;
@@ -64,10 +67,12 @@ public class HomeActivity extends AppCompatActivity implements BottomNavigationB
     BottomNavigationBar mBottomNavigationBar;
     private FragmentTransaction mFragmentTransaction;
     private CustomersFragment   mCustomersFragment;
-    private HouseFragment       mHouseFragment;
+    public HouseFragment       mHouseFragment;
+    private AllHouseFragment   allHouseFragment;
     private MessageFragment     mMessageFragment;
     private MeFragment          mMeFragment;
     private WorkFragment        mWorkFragment;
+    private SecondHouseListActivity secondHouseListActivity;
     private Fragment            mFragment;//当前显示的Fragment
     private long firstTime = 0;//记录用户首次点击返回键的时间
     private int fid;
@@ -164,13 +169,18 @@ public class HomeActivity extends AppCompatActivity implements BottomNavigationB
         mCustomersFragment = new CustomersFragment();
         mWorkFragment = new WorkFragment();
         mMeFragment = new MeFragment();
+        allHouseFragment = new AllHouseFragment();
+
+
 
         mFragmentTransaction = getSupportFragmentManager().beginTransaction();
 //        mFragmentTransaction.replace(R.id.frameLayout,mCustomersFragment)
+
+
         if(fid == 1){
-            mFragmentTransaction.replace(R.id.frameLayout, mHouseFragment)
+            mFragmentTransaction.replace(R.id.frameLayout, allHouseFragment)
                     .commit();
-            mFragment = mHouseFragment;
+            mFragment = allHouseFragment;
 
         }else if(fid == 2){
             mFragmentTransaction.replace(R.id.frameLayout, mCustomersFragment)
@@ -215,7 +225,11 @@ public class HomeActivity extends AppCompatActivity implements BottomNavigationB
         }
         badgeItem = new TextBadgeItem().setText(noread);
 
-        mBottomNavigationBar.addItem(new BottomNavigationItem(R.drawable.ic_message_selected, "消息").setActiveColorResource(R.color.qianlan).setInactiveIconResource(R.drawable.ic_message).setBadgeItem(badgeItem));
+        if(!noread.equals("0")) {
+            mBottomNavigationBar.addItem(new BottomNavigationItem(R.drawable.ic_message_selected, "消息").setActiveColorResource(R.color.qianlan).setInactiveIconResource(R.drawable.ic_message).setBadgeItem(badgeItem));
+        }else {
+            mBottomNavigationBar.addItem(new BottomNavigationItem(R.drawable.ic_message_selected, "消息").setActiveColorResource(R.color.qianlan).setInactiveIconResource(R.drawable.ic_message));
+        }
         mBottomNavigationBar.addItem(new BottomNavigationItem(R.drawable.ic_housing_selected, "房源").setActiveColorResource(R.color.qianlan).setInactiveIconResource(R.drawable.ic_housing));
         mBottomNavigationBar.addItem(new BottomNavigationItem(R.drawable.ic_customers_selected, "客源").setActiveColorResource(R.color.qianlan).setInactiveIconResource(R.drawable.ic_customers));
         mBottomNavigationBar.addItem(new BottomNavigationItem(R.drawable.ic_work_selected, "工作").setActiveColorResource(R.color.qianlan).setInactiveIconResource(R.drawable.ic_work2));
@@ -242,7 +256,7 @@ public class HomeActivity extends AppCompatActivity implements BottomNavigationB
                 switchFragment(mMessageFragment);
                 break;
             case 1:
-                switchFragment(mHouseFragment);
+                switchFragment(allHouseFragment);
                 break;
             case 2:
                 switchFragment(mCustomersFragment);
@@ -336,9 +350,9 @@ public class HomeActivity extends AppCompatActivity implements BottomNavigationB
                                  builder.setPositiveButton("确定",new DialogInterface.OnClickListener() {
                                      @Override
                                      public void onClick(DialogInterface dialogInterface, int i) {
-                                         Uri uri = Uri.parse("https://www.baidu.com");
-                                         Intent intent = new Intent(Intent.ACTION_VIEW, uri);
-                                         startActivity(intent);
+//                                         Uri uri = Uri.parse("https://www.baidu.com");
+//                                         Intent intent = new Intent(Intent.ACTION_VIEW, uri);
+//                                         startActivity(intent);
                                      }
                                  });
 

@@ -213,7 +213,7 @@ public class QuickRecommendAdapter extends BaseRecyclerAdapter<QuickRecommendVie
         holder.setText(R.id.title_tv1, bean.project_name);
 
         if (bean.sort != 0 && bean.cycle != 0) {
-            holder.setText(R.id.content_tv1, "荐");
+            holder.setImageResource(R.id.content_tv1, R.drawable.tui);
         }
         if(bean.guarantee_brokerage==1){
             holder.setText(R.id.content_tv4, "保证结佣");
