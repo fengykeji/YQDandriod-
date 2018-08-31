@@ -125,17 +125,56 @@
             android:layout_height="wrap_content"
             android:textSize="15sp"
             android:text="角色"/>
-        <TextView
-            android:textColor="#333333"
-            android:layout_alignParentRight="true"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="15sp"
-            android:text="经纪人"/>
+            <Spinner
+                android:layout_alignParentRight="true"
+                android:id="@+id/customers_spinner_card_type"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:dropDownVerticalOffset="35dp"
+                android:dropDownWidth="1080px"
+                android:entries="@array/公司认证"
+                />
         </RelativeLayout>
 
     </LinearLayout>
 
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@drawable/ic_line"
+                />
+
+            <LinearLayout
+                android:id="@+id/ll_company1"
+                android:padding="15dp"
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="15sp"
+                        android:text="所属项目"/>
+                    <TextView
+                        android:layout_marginRight="15dp"
+                        android:layout_alignParentRight="true"
+                        android:id="@+id/tv_company1"
+                        android:text=""
+                        android:textColor="#333333"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+                    <ImageView
+                        android:layout_alignParentRight="true"
+                        android:src="@drawable/rightarrow1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+                </RelativeLayout>
+
+            </LinearLayout>
             <ImageView
                 android:layout_width="match_parent"
                 android:layout_height="1dp"

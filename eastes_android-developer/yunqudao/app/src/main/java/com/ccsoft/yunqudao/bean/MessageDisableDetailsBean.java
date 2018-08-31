@@ -84,15 +84,21 @@ public class MessageDisableDetailsBean {
         private String province_name;
         private String city_name;
         private String district_name;
-        private String consultant_advicer;
+        private String comsulatent_advicer;
 
-        public void setConsultant_advicer(String consultant_advicer) {
-            this.consultant_advicer = consultant_advicer;
+        public String recommend_type;
+        public String client_comment;
+
+        public String getComsultant_advicer() {
+            return comsulatent_advicer;
         }
 
-        public String getConsultant_advicer() {
+        public String getRecommend_type() {
+            return recommend_type;
+        }
 
-            return consultant_advicer;
+        public String getClient_comment() {
+            return client_comment;
         }
 
         public int getClient_id() {

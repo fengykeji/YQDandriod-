@@ -63,6 +63,8 @@ public class WorkReportVerifyActivity extends AppCompatActivity {
 
     private TextView work_commend_client_zhiye;
     private LinearLayout ll_zhiyeguwen;
+    private TextView work_commend_leibie,work_commend_client_comment;
+
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -103,6 +105,8 @@ public class WorkReportVerifyActivity extends AppCompatActivity {
 
         ll_zhiyeguwen = findViewById(R.id.ll_zhiyeguwen);
         work_commend_client_zhiye = findViewById(R.id.work_commend_client_zhiye);
+        work_commend_leibie = findViewById(R.id.work_commend_leibie);
+        work_commend_client_comment = findViewById(R.id.work_commend_client_comment);
 
         work_button_back.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -155,9 +159,12 @@ public class WorkReportVerifyActivity extends AppCompatActivity {
         mPeople_TelTv.setText(workReportVerifyDetailData.getData().getButter_tel());
         mCommentNumber.setText(workReportVerifyDetailData.getData().getClient_id()+"");
 
+        work_commend_leibie.setText(workReportVerifyDetailData.getData().getRecommend_type());
+        work_commend_client_comment.setText(workReportVerifyDetailData.getData().getClient_comment());
+        if (!workReportVerifyDetailData.getData().getComsultant_advicer().equals("")) {
+            work_commend_client_zhiye.setText(workReportVerifyDetailData.getData().getComsultant_advicer()
+                    );
 
-        if (!workReportVerifyDetailData.getData().getConsultant_advicer().equals("")) {
-            work_commend_client_zhiye.setText(workReportVerifyDetailData.getData().getConsultant_advicer());
         }else {
             ll_zhiyeguwen.setVisibility(View.GONE);
         }

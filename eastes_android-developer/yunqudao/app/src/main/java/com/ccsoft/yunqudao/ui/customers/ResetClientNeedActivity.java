@@ -43,7 +43,9 @@ import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 import org.jaaksi.pickerview.dataset.OptionDataSet;
+import org.jaaksi.pickerview.picker.BasePicker;
 import org.jaaksi.pickerview.picker.OptionPicker;
+import org.jaaksi.pickerview.widget.PickerView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -500,22 +502,36 @@ public class ResetClientNeedActivity extends AppCompatActivity implements View.O
         province = LocalJsonResolutionUtils.JsonToObject(foodJson, Province.class);
 
         mPicker = new OptionPicker.Builder(this, 2, this).create();
+        mPicker = new OptionPicker.Builder(this, 2, this)
+                .setInterceptor(new BasePicker.Interceptor() {
+                    @Override
+                    public void intercept(PickerView pickerView) {
+                        int color = getResources().getColor(R.color.gray);
+                        pickerView.setTextSize(16,18);
+                        pickerView.setColor(0xFF000000,color);
+
+                    }
+                })
+                .create();
         mPicker.getTopBar().getTitleView().setText("请选择城市");
+        mPicker.getTopBar().getTopBarView().setBackgroundColor(0xFF666666);
+        mPicker.getTopBar().getTitleView().setBackgroundColor(0xFF666666);
         int color = getResources().getColor(R.color.gray);
         int color1 = getResources().getColor(R.color.liji_material_blue_500);
-        mPicker.getTopBar().getTopBarView().setBackgroundColor(color);
+//        mPicker.getTopBar().getTopBarView().setBackgroundColor(color);
 
         List<Province.DynamicBean.CityBean> data1 = new ArrayList<>() ;
         Province.DynamicBean s;
         for (Province.DynamicBean dynamicBean : province.getDynamic()) {
-            if(dynamicBean.getName().equals("四川省")){
                 s = dynamicBean;
                 for (Province.DynamicBean.CityBean cityBean : s.getCity()) {
                     for (OpenCityData.DataBean mDataBean : mDataBeans) {
                         if(cityBean.getCode().equals(mDataBean.getCity_code())){
+                            if(cityBean.getCode().equals("500100")){
+                                cityBean.setName("重庆市");
+                            }
                             data1.add(cityBean);
                         }
-                    }
                 }
             }
         }

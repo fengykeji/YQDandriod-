@@ -419,6 +419,10 @@ public class AddCustomers2Activity extends AppCompatActivity implements View.OnC
                     comment = et_comment.getText().toString();
                 }
 
+
+
+
+
                 if(provinceId.equals("null")&&cityId.equals("null")){
                     provinceId = "";
                     cityId ="";
@@ -667,14 +671,15 @@ public class AddCustomers2Activity extends AppCompatActivity implements View.OnC
         List<Province.DynamicBean.CityBean> data1 = new ArrayList<>() ;
         Province.DynamicBean s;
         for (Province.DynamicBean dynamicBean : province.getDynamic()) {
-            if(dynamicBean.getName().equals("四川省")){
                  s = dynamicBean;
                 for (Province.DynamicBean.CityBean cityBean : s.getCity()) {
                     for (OpenCityData.DataBean mDataBean : mDataBeans) {
                         if(cityBean.getCode().equals(mDataBean.getCity_code())){
+                            if(cityBean.getCode().equals("500100")){
+                                cityBean.setName("重庆市");
+                            }
                             data1.add(cityBean);
                         }
-                    }
                 }
             }
         }

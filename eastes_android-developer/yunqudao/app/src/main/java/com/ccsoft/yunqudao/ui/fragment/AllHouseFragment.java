@@ -48,12 +48,12 @@ public class AllHouseFragment extends Fragment implements View.OnClickListener {
     private HouseProjectFragmentPagerAdapter mHouseProjectFragmentPagerAdapter;
     private AllHouseFragment allHouseFragment;
     private TextView house_text_housetype,house_text_城市;
-    private String city_name = "成都",city_code = 510100+"";
+    private String city_name = "定位中" ,city_code ;
 
     public LocationClient mLocationClient = null;
     private MyLocationListener myListener = new MyLocationListener();
 
-    private Handler handler,handler1;
+
 
 
 
@@ -68,7 +68,7 @@ public class AllHouseFragment extends Fragment implements View.OnClickListener {
         mLocationClient = new LocationClient(getActivity().getApplicationContext());
         //声明LocationClient类
         mLocationClient.registerLocationListener(myListener);
-        requestPower();
+
         initView();
         initListener();
 
@@ -86,18 +86,7 @@ public class AllHouseFragment extends Fragment implements View.OnClickListener {
         mLocationClient.setLocOption(option);
         mLocationClient.start();
 
-        handler = new Handler(){
-            public void handleMessage(Message msg) {
-                super.handleMessage(msg);
-                city_name = (String) msg.obj;
 
-            }};
-        handler1 = new Handler(){
-            public void handleMessage(Message msg) {
-                super.handleMessage(msg);
-                city_code = (String) msg.obj;
-
-            }};
 
 
 
@@ -108,12 +97,7 @@ public class AllHouseFragment extends Fragment implements View.OnClickListener {
         mList.add(new HouseFragment());
         mList.add(new SecondHouseListActivity());
 
-        if( getActivity().getIntent().getStringExtra("city_name")!=null) {
-            city_name = getActivity().getIntent().getStringExtra("city_name");
-            city_code = getActivity().getIntent().getStringExtra("city_code");
 
-        }
-        house_text_城市.setText(city_name);
 
         mHouse_viewpager_分类.setScanScroll(false);
         mHouseProjectFragmentPagerAdapter = new HouseProjectFragmentPagerAdapter(getFragmentManager(), mList);
@@ -169,26 +153,12 @@ public class AllHouseFragment extends Fragment implements View.OnClickListener {
         }
     }
 
-    public void requestPower() {
-        //判断是否已经赋予权限
-        if (ContextCompat.checkSelfPermission(getContext(),
-                Manifest.permission.ACCESS_COARSE_LOCATION)
-                != PackageManager.PERMISSION_GRANTED) {
-            //如果应用之前请求过此权限但用户拒绝了请求，此方法将返回 true。
-            if (ActivityCompat.shouldShowRequestPermissionRationale(getActivity(),
-                    Manifest.permission.ACCESS_COARSE_LOCATION)) {//这里可以写个对话框之类的项向用户解释为什么要申请权限，并在对话框的确认键后续再次申请权限
-            } else {
-                //申请权限，字符串数组内是一个或多个要申请的权限，1是申请权限结果的返回参数，在onRequestPermissionsResult可以得知申请结果
-                ActivityCompat.requestPermissions(getActivity(),
-                        new String[]{Manifest.permission.ACCESS_COARSE_LOCATION,}, 1);
-            }
-        }
-    }
+
 
     class MyLocationListener implements BDLocationListener {
         public String addr;
         public String city;
-        public String city_code;
+        public String city_code1;
 
         @Override
         public void onReceiveLocation(BDLocation location) {
@@ -200,15 +170,13 @@ public class AllHouseFragment extends Fragment implements View.OnClickListener {
             String district = location.getDistrict();    //获取区县
             String street = location.getStreet();
             city_code = location.getCityCode();
+            city_name = city;
+            if( getActivity().getIntent().getStringExtra("city_name")!=null) {
+                city_name = getActivity().getIntent().getStringExtra("city_name");
+                city_code = getActivity().getIntent().getStringExtra("city_code");
 
-
-            Message message = handler.obtainMessage();
-            message.obj = city;
-            handler.sendMessage(message);
-
-            Message message1 = handler1.obtainMessage();
-            message1.obj = city_code;
-            handler1.sendMessage(message1);
+            }
+            house_text_城市.setText(city_name);
 
         }
 

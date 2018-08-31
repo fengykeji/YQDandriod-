@@ -13,6 +13,9 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.ccsoft.yunqudao.R;
+import com.ccsoft.yunqudao.bean.ProspectBean;
+import com.ccsoft.yunqudao.bean.ProspectFinishBean;
+import com.ccsoft.yunqudao.http.HttpAdress;
 import com.ccsoft.yunqudao.ui.adapter.ViewPagerAdapter;
 import com.ccsoft.yunqudao.ui.adapter.ViewPagerAdapter1;
 import com.ccsoft.yunqudao.ui.customers.ClientFollowFragment;
@@ -22,8 +25,14 @@ import com.ccsoft.yunqudao.ui.view.ViewPagerForScrollView;
 import com.ccsoft.yunqudao.utils.ActivityManager;
 import com.ccsoft.yunqudao.utils.HideIMEUtil;
 import com.ccsoft.yunqudao.utils.ItemsDialogFragment;
+import com.ccsoft.yunqudao.utils.JsonUtil;
+import com.lzy.okhttputils.OkHttpUtils;
+import com.lzy.okhttputils.callback.StringCallback;
 
 import java.util.ArrayList;
+
+import okhttp3.Call;
+import okhttp3.Response;
 
 public class WorkSecondProspectFinishDetailActivity extends AppCompatActivity implements View.OnClickListener{
 
@@ -41,6 +50,8 @@ public class WorkSecondProspectFinishDetailActivity extends AppCompatActivity im
     private ViewPagerForScrollView mCustomers_viewpager_xiangqing;
     private ArrayList<Fragment>            fragments;
 
+    private int house_id;
+
 
 
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -50,8 +61,12 @@ public class WorkSecondProspectFinishDetailActivity extends AppCompatActivity im
         HideIMEUtil.wrap(this);
         initView();
         initListener();
+        initData();
     }
     private void initView(){
+
+        house_id = getIntent().getIntExtra("house_id",0);
+
         mCustomers_button_back = findViewById(R.id.customers_button_back);
         mCustomers_button_quick_recommend = findViewById(R.id.customers_button_quick_recommend);
         mCustomers_text_name = findViewById(R.id.customers_text_name);
@@ -64,6 +79,7 @@ public class WorkSecondProspectFinishDetailActivity extends AppCompatActivity im
         mCustomers_TabLayout = findViewById(R.id.customers_TabLayout);
         mCustomers_viewpager_xiangqing = findViewById(R.id.customers_viewpager_xiangqing);
         ll_fangyuanxinxi = findViewById(R.id.ll_fangyuanxinxi);
+
         addFragments();
 
     }
@@ -72,6 +88,23 @@ public class WorkSecondProspectFinishDetailActivity extends AppCompatActivity im
 
         ll_fangyuanxinxi.setOnClickListener(this);
         mCustomers_button_quick_recommend.setOnClickListener(this);
+    }
+
+    private void initData(){
+        OkHttpUtils.get(HttpAdress.houseSurveyDetail)
+                .tag(this)
+                .params("house_id",house_id)
+                .execute(new StringCallback() {
+                    @Override
+                    public void onSuccess(String s, Call call, Response response) {
+                        ProspectFinishBean bean = JsonUtil.jsonToEntity(s,ProspectFinishBean.class);
+                        if(bean.getCode() == 200){
+                            mCustomers_text_name.setText(bean.getData().getHouse().getProject_name());
+                            mCustomers_text_sex.setText(bean.getData().getHouse().getPrice());
+                            mCustomers_text_birthday.setText(bean.getData().getHouse().getMinimum());
+                        }
+                    }
+                });
     }
 
     /**

@@ -12,13 +12,15 @@ public class MyLocationListener implements BDLocationListener {
     @Override
     public void onReceiveLocation(BDLocation location) {
 
-         addr = location.getAddrStr();    //获取详细地址信息
-        String country = location.getCountry();    //获取国家
-        String province = location.getProvince();    //获取省份
-         city = location.getCity();    //获取城市
-        String district = location.getDistrict();    //获取区县
-        String street = location.getStreet();
-        city_code = location.getCityCode();
-
+//         addr = location.getAddrStr();    //获取详细地址信息
+//        String country = location.getCountry();    //获取国家
+//        String province = location.getProvince();    //获取省份
+//         city = location.getCity();    //获取城市
+//        String district = location.getDistrict();    //获取区县
+//        String street = location.getStreet();
+//        city_code = location.getCityCode();
+//        Log.e("cccccw",city+" "+city_code);
     }
+
+
 }

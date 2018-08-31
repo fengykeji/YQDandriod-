@@ -41,21 +41,23 @@
         >
 
         <RelativeLayout
-            android:id="@+id/me_button_relativelayout_搜索"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             >
 
-            <TextView
+            <EditText
+                android:background="@null"
+                android:id="@+id/et_search"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
                 android:padding="10dp"
-                android:text="请输入公司名称/营业执照号查询"
+                android:hint="请输入公司名称/营业执照号查询"
                 android:textSize="14sp"
                 />
 
             <ImageView
+                android:id="@+id/me_button_relativelayout_搜索"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
@@ -70,6 +72,7 @@
 
 
     <LinearLayout
+        android:visibility="gone"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
@@ -180,6 +183,27 @@
         android:layout_height="1dp"
         android:src="@drawable/ic_line"
         />
+    <com.scwang.smartrefresh.layout.SmartRefreshLayout
+        android:id="@+id/customers_swiperefreshlayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+    <LinearLayout
+        android:padding="10dp"
+        android:gravity="center"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <ImageView
+            android:id="@+id/yunsuan"
+            android:src="@drawable/animation_refresh"
+            android:layout_width="50dp"
+            android:layout_height="50dp" />
+        <TextView
+            android:layout_marginLeft="10dp"
+            android:text="人算不如云算"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+    </LinearLayout>
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/me_recyclerview_公司列表"
@@ -188,6 +212,11 @@
         >
 
     </android.support.v7.widget.RecyclerView>
+
+
+
+
+    </com.scwang.smartrefresh.layout.SmartRefreshLayout>
 
 
 </LinearLayout>

@@ -103,16 +103,32 @@ public class WorkDealedDetailBean {
         private String city_name;
         private String district_name;
         private String property_type;
-        private String consultant_advicer;
+        private String comsulatent_advicer;
+        public String recommend_type;
+        public String comsulatent_advicer_tel;
+        public String comsulatent_advicer_company;
+        public String client_comment;
 
-        public void setConsultant_advicer(String consultant_advicer) {
-            this.consultant_advicer = consultant_advicer;
+        public String getRecommend_type() {
+            return recommend_type;
         }
 
-        public String getConsultant_advicer() {
-
-            return consultant_advicer;
+        public String getComsulatent_advicer_tel() {
+            return comsulatent_advicer_tel;
         }
+
+        public String getComsulatent_advicer_company() {
+            return comsulatent_advicer_company;
+        }
+
+        public String getClient_comment() {
+            return client_comment;
+        }
+
+        public String getComsultant_advicer() {
+            return comsulatent_advicer;
+        }
+
         private List<ProcessBean> process;
 
         public int getClient_id() {

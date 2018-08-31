@@ -60,6 +60,8 @@ public class WorkChengjiaoVailddetailActivity extends AppCompatActivity{
     private TextView tv_work_housenum,tv_work_totalprice,tv_work_area,tv_work_dealstata,tv_work_dealtime;
     private TextView work_commend_client_zhiye;
     private LinearLayout ll_zhiyeguwen;
+    private TextView work_commend_leibie,work_commend_client_comment;
+
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -113,6 +115,8 @@ public class WorkChengjiaoVailddetailActivity extends AppCompatActivity{
 
         work_commend_client_zhiye = findViewById(R.id.work_commend_client_zhiye);
         ll_zhiyeguwen = findViewById(R.id.ll_zhiyeguwen);
+        work_commend_leibie = findViewById(R.id.work_commend_leibie);
+        work_commend_client_comment = findViewById(R.id.work_commend_client_comment);
         ll_progress = findViewById(R.id.ll_progress);
 
         back.setOnClickListener(new View.OnClickListener() {
@@ -213,9 +217,12 @@ public class WorkChengjiaoVailddetailActivity extends AppCompatActivity{
                     tv_work_dealtime.setText(data.getData().getUpdate_time());
                     work_commend_time2.setText(data.getData().getVisit_time());
 
+                    work_commend_leibie.setText(data.getData().getRecommend_type());
+                    work_commend_client_comment.setText(data.getData().getClient_comment());
+                    if (!data.getData().getComsultant_advicer().equals("")) {
+                        work_commend_client_zhiye.setText(data.getData().getComsultant_advicer()
+                                );
 
-                    if (!data.getData().getConsultant_advicer().equals("")) {
-                        work_commend_client_zhiye.setText(data.getData().getConsultant_advicer());
                     }else {
                         ll_zhiyeguwen.setVisibility(View.GONE);
                     }

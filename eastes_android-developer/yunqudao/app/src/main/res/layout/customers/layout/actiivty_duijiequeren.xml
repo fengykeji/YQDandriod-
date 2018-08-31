@@ -1,0 +1,240 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/bgcolcor"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:background="@color/chunbai"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+
+        android:paddingRight="15dp"
+        >
+        <ImageButton
+            android:id="@+id/work_button_back"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:background="@android:color/transparent"
+            android:paddingBottom="15dp"
+            android:paddingLeft="15dp"
+            android:paddingTop="15dp"
+            android:src="@drawable/ic_leftarrow"
+            />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:text="确认中详情"
+            android:textColor="@color/chunhei"
+            android:textSize="16sp"
+            />
+    </RelativeLayout>
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_line"
+        />
+
+    <LinearLayout
+        android:padding="20dp"
+        android:background="@color/chunbai"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+
+    <!--客户-->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:paddingBottom="20dp"
+        android:weightSum="10"
+        >
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="3"
+            android:padding="10dp"
+            android:text="客户："
+            android:textColor="@color/chunhei"
+            android:textSize="15sp"
+            />
+        <EditText
+            android:id="@+id/customers_edittext_kehu"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="7"
+            android:background="@drawable/shape_case"
+            android:digits="0123456789X"
+            android:hint=""
+            android:inputType="number"
+            android:maxLength="18"
+            android:padding="10dp"
+            android:textSize="15sp"
+            />
+    </LinearLayout>
+
+    <!--联系电话-->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:paddingBottom="20dp"
+        android:weightSum="10"
+        >
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="3"
+            android:padding="10dp"
+            android:text="联系电话："
+            android:textColor="@color/chunhei"
+            android:textSize="15sp"
+            />
+        <EditText
+            android:id="@+id/customers_edittext_tel"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="7"
+            android:background="@drawable/shape_case"
+            android:digits="0123456789X"
+            android:hint=""
+            android:inputType="number"
+            android:maxLength="18"
+            android:padding="10dp"
+            android:textSize="15sp"
+            />
+    </LinearLayout>
+
+
+    <!--到访人数-->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:paddingBottom="20dp"
+        android:weightSum="10"
+        >
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_weight="3"
+            android:padding="10dp"
+            android:text="到访人数："
+            android:textColor="@color/chunhei"
+            android:textSize="15sp"
+            />
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_weight="7"
+            android:background="@drawable/shape_case"
+            android:gravity="center"
+            android:padding="10dp"
+            android:weightSum="10"
+            >
+            <Spinner
+                android:id="@+id/customers_spinner_card_type"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:dropDownVerticalOffset="35dp"
+                android:dropDownWidth="1080px"
+                android:entries="@array/到访人数"
+
+                />
+        </LinearLayout>
+    </LinearLayout>
+
+    <!--置业顾问-->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:paddingBottom="20dp"
+            android:weightSum="10"
+            >
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_weight="3"
+                android:padding="10dp"
+                android:text="置业顾问："
+                android:textColor="@color/chunhei"
+                android:textSize="15sp"
+                />
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_weight="7"
+                android:background="@drawable/shape_case"
+                android:gravity="center"
+                android:weightSum="10"
+                android:orientation="vertical"
+                >
+
+                <TextView
+                    android:id="@+id/customers_edittext_zhiye"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="7"
+                    android:background="@drawable/shape_case"
+                    android:hint=""
+                    android:maxLength="30"
+                    android:padding="10dp"
+                    android:textSize="15sp"
+                    />
+            </LinearLayout>
+
+        </LinearLayout>
+        <ImageView
+            android:src="@drawable/ic_line"
+            android:layout_width="match_parent"
+            android:layout_height="3dp" />
+        <EditText
+            android:id="@+id/et_comment"
+            android:gravity="top"
+            android:background="@null"
+            android:hint="备注..."
+            android:layout_width="match_parent"
+            android:layout_height="100dp" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_margin="20dp"
+        >
+        <Button
+            android:layout_gravity="bottom"
+            android:id="@+id/button_next"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/ic_loginbackground"
+            android:text="确定"
+            android:textColor="@color/chunbai"
+            android:textSize="15sp"
+            />
+
+
+    </LinearLayout>
+
+
+</LinearLayout>

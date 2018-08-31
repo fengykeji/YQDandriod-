@@ -151,6 +151,12 @@ public class ClientManager {
     public Observable<ValueDetailData> getValueDetail(int id) {
         return ClientRepository.getInstance().getValueDetail(id);
     }
+    /**
+     * 对接人无效列表
+     */
+    public Observable<BrrokerDisabledData> getDuiJieBrokerDisabled() {
+        return ClientRepository.getInstance().getBrokerDisabled();
+    }
 
     /**
      * 获取报备确认中

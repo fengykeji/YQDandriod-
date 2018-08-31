@@ -142,6 +142,7 @@ public class WorkChengjiaoVerifyFragment extends Fragment implements View.OnClic
                 int client_id = data.getClient_id();
                 Intent intent = new Intent(getActivity(),WorkDealVerifydetailActivity.class);
                 intent.putExtra("id",client_id);
+                intent.putExtra("chengjiao",1);
                 getActivity().startActivity(intent);
             }
         });

@@ -67,6 +67,8 @@ public class MessageCommendDisableDetailsActivity extends AppCompatActivity impl
 
     private TextView work_commend_client_zhiye;
     private LinearLayout ll_zhiyeguwen;
+    private TextView work_commend_leibie,work_commend_client_comment;
+
 
     private int NumTv;
     private String   mwork_commend_client_name,mwork_commend_project,mwork_commend_project_address,
@@ -102,6 +104,8 @@ public class MessageCommendDisableDetailsActivity extends AppCompatActivity impl
         ll_zhiyeguwen = findViewById(R.id.ll_zhiyeguwen);
         tv_shensu = findViewById(R.id.tv_shensu);
         tv_retuijian = findViewById(R.id.tv_retuijian);
+        work_commend_leibie = findViewById(R.id.work_commend_leibie);
+        work_commend_client_comment = findViewById(R.id.work_commend_client_comment);
         work_button_back = findViewById(R.id.work_button_back);
         work_button_back.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -115,31 +119,45 @@ public class MessageCommendDisableDetailsActivity extends AppCompatActivity impl
 
     private void initData() {
 
+//
+//        OkHttpManager.getInstance().get(HttpAdress.DisabledDetail + "?client_id="+client_id1+"&message_id="+message_id, new BaseCallBack() {
+//            @Override
+//            public void onSuccess(Call call, Response response, Object obj) throws MalformedURLException {
+//                Type type = new TypeToken<MessageDisableDetailsBean>(){}.getType();
+//                MessageDisableDetailsBean bean = new Gson().fromJson(obj.toString(),MessageDisableDetailsBean.class);
+//
+//
+//            }
+//
+//            @Override
+//            public void onFailure(Call call, Exception e) {
+//
+//            }
+//
+//            @Override
+//            public void onError(Response response, int errorCode) {
+//
+//            }
+//
+//            @Override
+//            public void onRequestBefore() {
+//
+//            }
+//        });
 
-        OkHttpManager.getInstance().get(HttpAdress.DisabledDetail + "?client_id="+client_id1+"&message_id="+message_id, new BaseCallBack() {
-            @Override
-            public void onSuccess(Call call, Response response, Object obj) throws MalformedURLException {
-                Type type = new TypeToken<MessageDisableDetailsBean>(){}.getType();
-                MessageDisableDetailsBean bean = new Gson().fromJson(obj.toString(),MessageDisableDetailsBean.class);
-                setInfo(bean);
 
-            }
-
-            @Override
-            public void onFailure(Call call, Exception e) {
-
-            }
-
-            @Override
-            public void onError(Response response, int errorCode) {
-
-            }
-
-            @Override
-            public void onRequestBefore() {
-
-            }
-        });
+        OkHttpUtils.get(HttpAdress.DisabledDetail)
+                .params("client_id",client_id1)
+                .params("message_id",message_id)
+                .execute(new StringCallback() {
+                    @Override
+                    public void onSuccess(String s, Call call, Response response) {
+                        MessageDisableDetailsBean bean = JsonUtil.jsonToEntity(s,MessageDisableDetailsBean.class);
+                        if(bean.getCode() == 200){
+                            setInfo(bean);
+                        }
+                    }
+                });
     }
 
 
@@ -158,8 +176,12 @@ public class MessageCommendDisableDetailsActivity extends AppCompatActivity impl
             work_commend_time.setText(workCommendDisableData.getData().getCreate_time());
             work_commend_people.setText(workCommendDisableData.getData().getBroker_name());
 
-            if (!workCommendDisableData.getData().getConsultant_advicer().equals("")) {
-                work_commend_client_zhiye.setText(workCommendDisableData.getData().getConsultant_advicer());
+            work_commend_leibie.setText(workCommendDisableData.getData().getRecommend_type());
+            work_commend_client_comment.setText(workCommendDisableData.getData().getClient_comment());
+            if (!workCommendDisableData.getData().getComsultant_advicer().equals("")) {
+                work_commend_client_zhiye.setText(workCommendDisableData.getData().getComsultant_advicer()
+                );
+
             }else {
                 ll_zhiyeguwen.setVisibility(View.GONE);
             }

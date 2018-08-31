@@ -9,10 +9,13 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.Animation;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import com.ccsoft.yunqudao.R;
 import com.ccsoft.yunqudao.bean.WorkBean;
+import com.ccsoft.yunqudao.bean.duijierentongjibean;
+import com.ccsoft.yunqudao.data.AppConstants;
 import com.ccsoft.yunqudao.data.api.ApiSubscriber;
 import com.ccsoft.yunqudao.data.model.viewmodel.WorkModel;
 import com.ccsoft.yunqudao.http.HttpAdress;
@@ -22,13 +25,16 @@ import com.ccsoft.yunqudao.ui.mian.LoginActivity;
 import com.ccsoft.yunqudao.ui.work.WorkChengJiaoKeHuActivity;
 import com.ccsoft.yunqudao.ui.work.WorkReportActivity;
 import com.ccsoft.yunqudao.ui.work.WorkRecommendActivity;
+import com.ccsoft.yunqudao.ui.work.duijierentuijian.WorkDuiJieRecommendActivity;
 import com.ccsoft.yunqudao.ui.work.secondhandhouse.WorkSecondCompactDaiGouActivity;
 import com.ccsoft.yunqudao.ui.work.secondhandhouse.WorkSecondProspectActivity;
 import com.ccsoft.yunqudao.ui.work.secondhandhouse.WorkSecondBaoBeiActivity;
 import com.ccsoft.yunqudao.ui.work.secondhandhouse.WorkSecondProspectMaintainActivity;
 import com.ccsoft.yunqudao.utils.BaseCallBack;
+import com.ccsoft.yunqudao.utils.JsonUtil;
 import com.ccsoft.yunqudao.utils.LogUtil;
 import com.ccsoft.yunqudao.utils.OkHttpManager;
+import com.ccsoft.yunqudao.utils.SpUtil;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.lzy.okhttputils.OkHttpUtils;
@@ -59,7 +65,8 @@ public class WorkFragment extends Fragment implements View.OnClickListener{
     private TextView    mWork_list_count_preparation;
     private TextView    mWork_list_value_preparation;
     private TextView    mWork_list_disabled_preparation;
-    private TextView    mWork_list_count_deal,mWork_list_value_deal,mWork_list_disabled_deal;
+    private TextView    mWork_list_count_deal,mWork_list_value_deal,mWork_list_disabled_deal
+            ,work_list_total_recommend11,work_list_value_recommend11,work_list_disabled_recommend11;
     private WorkModel  mWorkModel;
 
 
@@ -67,6 +74,9 @@ public class WorkFragment extends Fragment implements View.OnClickListener{
     private int            i;
     private boolean isGetData = false;
     private WorkBean workBean;
+
+    private RelativeLayout work_list_item11;
+    private LinearLayout ll_jinjirentuijian;
 
 
     @Override
@@ -128,6 +138,21 @@ public class WorkFragment extends Fragment implements View.OnClickListener{
         mWork_list_count_deal = mView.findViewById(R.id.work_list_count_deal);
         mWork_list_value_deal = mView.findViewById(R.id.work_list_value_deal);
         mWork_list_disabled_deal = mView.findViewById(R.id.work_list_disabled_deal);
+
+
+        //对接人：
+        work_list_item11 = mView.findViewById(R.id.work_list_item11);
+        ll_jinjirentuijian = mView.findViewById(R.id.ll_jinjirentuijian);
+        work_list_disabled_recommend11 = mView.findViewById(R.id.work_list_disabled_recommend11);
+        work_list_value_recommend11 = mView.findViewById(R.id.work_list_value_recommend11);
+        work_list_total_recommend11 = mView.findViewById(R.id.work_list_total_recommend11);
+
+
+        if(SpUtil.getString("agent_identity","").equals(1+"")){
+            work_list_item11.setVisibility(View.GONE);
+        }else if(SpUtil.getString("agent_identity","").equals(2+"")){
+            ll_jinjirentuijian.setVisibility(View.GONE);
+        }
     }
 
 
@@ -146,6 +171,7 @@ public class WorkFragment extends Fragment implements View.OnClickListener{
         this.work_list_renting_item3.setOnClickListener(this);
         this.work_list_renting_item4.setOnClickListener(this);
         this.work_list_renting_item5.setOnClickListener(this);
+        this.work_list_item11.setOnClickListener(this);
     }
 
 
@@ -167,6 +193,19 @@ public class WorkFragment extends Fragment implements View.OnClickListener{
 
             }
         });
+
+        OkHttpUtils.get(AppConstants.URL+"agent/work/butter/count")
+                .execute(new StringCallback() {
+                    @Override
+                    public void onSuccess(String s, Call call, Response response) {
+                        duijierentongjibean bean = JsonUtil.jsonToEntity(s,duijierentongjibean.class);
+                        if (bean.getCode() == 200){
+                            work_list_total_recommend11.setText("累计推荐" + bean.getData().getRecommend_count() + ",");
+                            work_list_value_recommend11.setText("有效" + bean.getData().getValue() + ",");
+                            work_list_disabled_recommend11.setText("无效" + bean.getData().getValueDisabled());
+                        }
+                    }
+                });
 
         OkHttpManager.getInstance().get(HttpAdress.COUNT, new BaseCallBack() {
             @Override
@@ -233,6 +272,10 @@ public class WorkFragment extends Fragment implements View.OnClickListener{
     public void onClick(View v) {
 
         switch (v.getId()){
+            case R.id.work_list_item11:
+                Intent intent11 = new Intent(getContext(), WorkDuiJieRecommendActivity.class);
+                startActivity(intent11);
+                break;
             case R.id.work_list_item1:
                 WorkRecommendActivity.start(getActivity());
                 break;

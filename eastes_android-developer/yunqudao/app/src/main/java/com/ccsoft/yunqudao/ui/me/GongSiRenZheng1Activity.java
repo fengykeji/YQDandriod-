@@ -29,12 +29,14 @@ import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -43,6 +45,7 @@ import com.ccsoft.yunqudao.bean.GongSiRenZhengBean;
 import com.ccsoft.yunqudao.data.AppConstants;
 import com.ccsoft.yunqudao.http.HttpAdress;
 import com.ccsoft.yunqudao.model.StringModel;
+import com.ccsoft.yunqudao.ui.customers.IntentServiceResult;
 import com.ccsoft.yunqudao.utils.ActivityManager;
 import com.ccsoft.yunqudao.utils.DateUtil;
 import com.ccsoft.yunqudao.utils.HideIMEUtil;
@@ -52,7 +55,12 @@ import com.ccsoft.yunqudao.utils.wheelview.TimePickerView;
 import com.lljjcoder.citypickerview.widget.CityPicker;
 import com.lzy.okhttputils.OkHttpUtils;
 import com.lzy.okhttputils.callback.StringCallback;
+import com.lzy.okhttputils.request.GetRequest;
+import com.lzy.okhttputils.request.PostRequest;
 
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -72,16 +80,22 @@ import okhttp3.Response;
 public class GongSiRenZheng1Activity extends AppCompatActivity implements View.OnClickListener{
 
     private Button button_nex;
-    private TextView tv_company,tv_tuzhitime;
+    private TextView tv_company,tv_tuzhitime,tv_company1;
     private EditText et_suoshubumen,et_zhiwei,et_gonghao;
     private ImageButton me_button_返回;
-    private LinearLayout ll_compamy;
+    private LinearLayout ll_compamy,ll_company1;
     private String companyname;
     private int companyId  = 0;
     private RelativeLayout ll_timeshow;
     private Uri photoUri;
     private int chongxin = 0;
     private int bId = 0;
+    private int role =1;
+    private String stringrole;
+    private Spinner customers_spinner_card_type;
+    private int project_id=0;
+    private String project_name;
+    private PostRequest getRequest;
 
     public static final int TAKE_PHOTO = 1;//启动相机标识
     public static final int SELECT_PHOTO = 2;//启动相册标识
@@ -111,19 +125,32 @@ public class GongSiRenZheng1Activity extends AppCompatActivity implements View.O
     //调用照相机返回图片文件
     private File tempFile;
 
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void doThis(SendMessage sendMessage) {
+        project_id = sendMessage.getProject_id();
+        project_name = sendMessage.getProject_name();
+
+        if (project_name==null){
+            tv_company1.setText("");
+        }else {
+            tv_company1.setText(project_name + "");
+        }
+    }
+
 
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         ActivityManager.getInstance().addActivity(this);
         setContentView(R.layout.gongsirenzheng1_activity);
         HideIMEUtil.wrap(this);//键盘管理，点击除editText外区域收起键盘
+        EventBus.getDefault().register(this);
         initView();
         initlistener();
         initData();
     }
 
     private void initView(){
-
+//        project_id = getIntent().getIntExtra("project_id",0);
         me_button_返回 = findViewById(R.id.me_button_返回);
         button_nex = findViewById(R.id.button_next);
         tv_company = findViewById(R.id.tv_company);
@@ -132,16 +159,38 @@ public class GongSiRenZheng1Activity extends AppCompatActivity implements View.O
         et_zhiwei = findViewById(R.id.et_zhiwei);
         mImage = findViewById(R.id.ib_photo);
         ll_compamy = findViewById(R.id.ll_company);
+        ll_company1 = findViewById(R.id.ll_company1);
         et_gonghao = findViewById(R.id.et_gonghao);
         ll_timeshow = findViewById(R.id.ll_timeshow);
+        customers_spinner_card_type = findViewById(R.id.customers_spinner_card_type);
+        tv_company1 = findViewById(R.id.tv_company1);
+
+
 
         companyname = getIntent().getStringExtra("companyname");
         companyId = getIntent().getIntExtra("companyId",0);
 
         chongxin = getIntent().getIntExtra("chongxin",0);
         bId = getIntent().getIntExtra("bId",0);
+        customers_spinner_card_type.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                String[] languages = getResources().getStringArray(R.array.公司认证);
+                stringrole = languages[i];
+                if (stringrole.equals("经纪人")) {
+                    role = 1;
+                }
+                else if(stringrole.equals("对接人")){
+                    role = 2;
+                }
+            }
 
-        Log.e("ccccca",chongxin+"sss"+bId);
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
+            }
+        });
+
 
         tv_company.setText(companyname);
 
@@ -157,6 +206,7 @@ public class GongSiRenZheng1Activity extends AppCompatActivity implements View.O
         mImage.setOnClickListener(this);
         ll_compamy.setOnClickListener(this);
         ll_timeshow.setOnClickListener(this);
+        ll_company1.setOnClickListener(this);
     }
 
     private void initData(){
@@ -177,15 +227,19 @@ public class GongSiRenZheng1Activity extends AppCompatActivity implements View.O
 
 
                 if(chongxin==123) {
-                    OkHttpUtils.post(AppConstants.URL + "agent/personal/reAuth")
+                   getRequest = OkHttpUtils.post(AppConstants.URL + "agent/personal/reAuth")
                             .params("company_id", companyId)
                             .params("work_code", et_gonghao.getText().toString())
-                            .params("role", 1)
+                            .params("role", role)
                             .params("department", et_suoshubumen.getText().toString())
                             .params("position", et_zhiwei.getText().toString())
                             .params("entry_time", tv_tuzhitime.getText().toString())
-                            .params("before_id", bId)
-                            .execute(new StringCallback() {
+                            .params("before_id", bId);
+                   if(project_id!=0){
+                       Log.e("cccc",project_id+"");
+                       getRequest.params("project_id",project_id);
+                   }
+                   getRequest.execute(new StringCallback() {
                                 @Override
                                 public void onSuccess(String s, Call call, Response response) {
                                     StringModel model = JsonUtil.jsonToEntity(s, StringModel.class);
@@ -199,14 +253,17 @@ public class GongSiRenZheng1Activity extends AppCompatActivity implements View.O
                 }
 
 
-                    OkHttpUtils.post(HttpAdress.addAuthInfo)
+                    getRequest =OkHttpUtils.post(HttpAdress.addAuthInfo)
                             .params("company_id", companyId)
                             .params("work_code", et_gonghao.getText().toString())
-                            .params("role", 1)
+                            .params("role", role)
                             .params("department", et_suoshubumen.getText().toString())
                             .params("position", et_zhiwei.getText().toString())
-                            .params("entry_time", tv_tuzhitime.getText().toString())
-                            .execute(new StringCallback() {
+                            .params("entry_time", tv_tuzhitime.getText().toString());
+                if(project_id!=0){
+                    getRequest.params("project_id",project_id);
+                }
+                getRequest.execute(new StringCallback() {
                                 @Override
                                 public void onSuccess(String s, Call call, Response response) {
                                     StringModel model = JsonUtil.jsonToEntity(s, StringModel.class);
@@ -231,6 +288,19 @@ public class GongSiRenZheng1Activity extends AppCompatActivity implements View.O
                 break;
             case R.id.ib_photo:
                 showItemsDialogFragment();
+                break;
+            case R.id.ll_company1:
+                if (role == 1){
+                    Toast.makeText(this,"到访确认人才能选择项目",Toast.LENGTH_SHORT).show();
+                    return;
+                }else if(companyId == 0){
+                    Toast.makeText(this,"请选择公司",Toast.LENGTH_SHORT).show();
+                }
+                else {
+                    Intent intent1 = new Intent(this,XuanZheXiangMuActivity.class);
+                    intent1.putExtra("company_id",companyId);
+                    startActivity(intent1);
+                }
                 break;
         }
     }
@@ -485,6 +555,7 @@ public class GongSiRenZheng1Activity extends AppCompatActivity implements View.O
         } else {
             orc_bitmap = null;
         }
+        EventBus.getDefault().unregister(this);
     }
 
 

@@ -57,5 +57,7 @@ public class ConfirmDetailData extends BaseData {
     public String district_name;
     public int    timeLimit;
     public String property_type;
-    public String consultant_advicer;
+    public String comsulatent_advicer;
+    public String recommend_type;
+    public String client_comment;
 }

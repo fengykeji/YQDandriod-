@@ -138,7 +138,8 @@ public class WoDeZiLiaoActivity extends AppCompatActivity implements View.OnClic
                                     mMe_text_性别.setText("女");
                                 }
                                 mMe_text_出生年月.setText(data.getBirth());
-                                mMe_text_住址.setText(data.getAbsolute_address());
+                                mMe_text_住址.setText(data.getProvince()+"-"
+                                        +data.getCity()+"-"+data.getDistrict()+"-"+data.getAbsolute_address());
                             }
                         }
                     }

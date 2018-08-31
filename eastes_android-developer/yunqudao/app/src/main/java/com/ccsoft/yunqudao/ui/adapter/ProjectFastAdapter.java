@@ -58,7 +58,11 @@ public class ProjectFastAdapter extends BaseRecyclerAdapter<ProjectFastRecommend
     @Override
     protected void convert(BaseViewHolder holder,ProjectFastRecommendListBean.DataBeanX.DataBean  bean, int position) {
         holder.setText(R.id.tv_name1,bean.getName());
-        holder.setText(R.id.tv_zongjia1,bean.getPrice()+"万");
+        if(bean.getPrice()==null){
+            holder.setText(R.id.tv_zongjia1,"");
+        }else {
+            holder.setText(R.id.tv_zongjia1, bean.getPrice() + "万");
+        }
         tuijian = (Button) holder.getView(R.id.house_button_推荐1);
 
         PeizhiBean peizhiBean = MainActivity.savePeizhi();

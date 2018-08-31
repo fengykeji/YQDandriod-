@@ -65,7 +65,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="9.5"
-            android:text="成都市-郫都区"
+            android:text=""
             android:textColor="@color/chunhei"
             android:textSize="15sp"
             />
@@ -102,9 +102,10 @@
             android:background="@drawable/shape_case"
             >
             <EditText
+                android:gravity="top"
                 android:id="@+id/me_edittext_详细地址"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:background="@android:color/transparent"
                 android:hint="请输入详细地址"
                 android:lineSpacingExtra="3dp"

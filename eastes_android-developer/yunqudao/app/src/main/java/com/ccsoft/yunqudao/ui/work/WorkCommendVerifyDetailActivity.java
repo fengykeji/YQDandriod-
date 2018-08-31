@@ -51,6 +51,7 @@ public class WorkCommendVerifyDetailActivity extends AppCompatActivity {
     private TextView date_minute;
     private TextView date_seconds;
     private TextView work_commend_client_zhiye;
+    private TextView work_commend_leibie,work_commend_client_comment;
     private LinearLayout ll_zhiyeguwen;
 
     @Override
@@ -94,6 +95,8 @@ public class WorkCommendVerifyDetailActivity extends AppCompatActivity {
         date_hour = findViewById(R.id.date_hour);
         date_minute = findViewById(R.id.date_minute);
         date_seconds = findViewById(R.id.date_seconds);
+        work_commend_leibie = findViewById(R.id.work_commend_leibie);
+        work_commend_client_comment = findViewById(R.id.work_commend_client_comment);
 
         back.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -121,6 +124,7 @@ public class WorkCommendVerifyDetailActivity extends AppCompatActivity {
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
+                        Log.e("ccccc",data1);
                         if (code == 200 && data1 != null) {
                             ConfirmDetailData data = JsonUtil.jsonToEntity(data1,ConfirmDetailData.class);
                             if (data != null) {
@@ -143,8 +147,10 @@ public class WorkCommendVerifyDetailActivity extends AppCompatActivity {
                                 finishTime = data.timeLimit;
                                 handler.post(runnable);
 
-                                if (!data.consultant_advicer.equals("")) {
-                                    work_commend_client_zhiye.setText(data.consultant_advicer);
+                                work_commend_leibie.setText(data.recommend_type);
+                                work_commend_client_comment.setText(data.client_comment);
+                                if (!data.comsulatent_advicer.equals("")) {
+                                    work_commend_client_zhiye.setText(data.comsulatent_advicer);
                                 }else {
                                     ll_zhiyeguwen.setVisibility(View.GONE);
                                 }

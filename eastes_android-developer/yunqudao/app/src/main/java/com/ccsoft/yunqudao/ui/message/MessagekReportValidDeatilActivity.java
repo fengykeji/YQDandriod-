@@ -66,6 +66,8 @@ public class MessagekReportValidDeatilActivity extends AppCompatActivity {
 
     private TextView work_commend_client_zhiye;
     private LinearLayout ll_zhiyeguwen;
+    private TextView work_commend_leibie,work_commend_client_comment;
+
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -120,6 +122,8 @@ public class MessagekReportValidDeatilActivity extends AppCompatActivity {
 
         work_commend_client_zhiye = findViewById(R.id.work_commend_client_zhiye);
         ll_zhiyeguwen = findViewById(R.id.ll_zhiyeguwen);
+        work_commend_leibie = findViewById(R.id.work_commend_leibie);
+        work_commend_client_comment = findViewById(R.id.work_commend_client_comment);
         ll_progress = findViewById(R.id.ll_progress);
 
         back.setOnClickListener(new View.OnClickListener() {
@@ -169,11 +173,16 @@ public class MessagekReportValidDeatilActivity extends AppCompatActivity {
                                          work_commend_verify_people.setText(data.butter_name);
                                          work_commend_verify_people_tel.setText(data.butter_tel);
 
-                                         if (!data.consultant_advicer.equals("")) {
-                                             work_commend_client_zhiye.setText(data.consultant_advicer);
+                                         work_commend_leibie.setText(data.recommend_type);
+                                         work_commend_client_comment.setText(data.client_comment);
+                                         if (!data.comsulatent_advicer.equals("")) {
+                                             work_commend_client_zhiye.setText(data.comsulatent_advicer
+                                             );
+
                                          }else {
                                              ll_zhiyeguwen.setVisibility(View.GONE);
                                          }
+
 
                                          for (int i=0;i<data.process.size();i++) {
                                              ValueDetailData.ProcessBean processBean = data.process.get(i);

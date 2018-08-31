@@ -325,6 +325,17 @@
         </activity>
         <activity android:name=".ui.work.WorkChengjiaoDisableDetailActivity">
         </activity>
+        <activity android:name=".ui.work.duijierentuijian.WorkDuiJieRecommendActivity">
+        </activity>
+        <activity android:name=".ui.work.duijierentuijian.WorkDuiJieCommendVerifyDetailActivity">
+        </activity>
+        <activity android:name=".ui.work.duijierentuijian.WorkDuiJieCommendValidDetailActivity">
+        </activity>
+        <activity android:name=".ui.work.duijierentuijian.WrokDuiJieCommendDisableDetailsActivity">
+        </activity>
+        <activity android:name=".ui.work.duijierentuijian.DuiJieQueRenActivity"></activity>
+        <activity android:name=".ui.work.duijierentuijian.WeiDaoFangActivity"
+            android:theme="@style/dialogstyle"></activity>
 
 
         //二手房
@@ -426,6 +437,7 @@
         <activity android:name=".ui.me.YaoQingJiangLiActivity"></activity>
         <activity android:name=".ui.me.MyTeamActivity"></activity>
         <activity android:name=".ui.me.YaoQingErWeiMaActivity"></activity>
+        <activity android:name=".ui.me.XuanZheXiangMuActivity"></activity>
 
     </application>
 

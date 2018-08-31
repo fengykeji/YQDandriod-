@@ -65,6 +65,8 @@ public class WrokCommendDisableDetailsActivity extends AppCompatActivity impleme
 
     private TextView work_commend_client_zhiye;
     private LinearLayout ll_zhiyeguwen;
+    private TextView work_commend_leibie,work_commend_client_comment;
+
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -95,6 +97,8 @@ public class WrokCommendDisableDetailsActivity extends AppCompatActivity impleme
         work_commend_client_zhiye = findViewById(R.id.work_commend_client_zhiye);
         tv_shensu = findViewById(R.id.tv_shensu);
         tv_retuijian = findViewById(R.id.tv_retuijian);
+        work_commend_leibie = findViewById(R.id.work_commend_leibie);
+        work_commend_client_comment = findViewById(R.id.work_commend_client_comment);
         work_button_back = findViewById(R.id.work_button_back);
         work_button_back.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -170,8 +174,12 @@ public class WrokCommendDisableDetailsActivity extends AppCompatActivity impleme
         DisableTime = workCommendDisableData.getData().getDisabled_time();
 
 
-        if (!workCommendDisableData.getData().getConsultant_advicer().equals("")) {
-            work_commend_client_zhiye.setText(workCommendDisableData.getData().getConsultant_advicer());
+        work_commend_leibie.setText(workCommendDisableData.getData().getRecommend_type());
+        work_commend_client_comment.setText(workCommendDisableData.getData().getClient_comment());
+        if (!workCommendDisableData.getData().getComsultant_advicer().equals("")) {
+            work_commend_client_zhiye.setText(workCommendDisableData.getData().getComsultant_advicer()
+                    );
+
         }else {
             ll_zhiyeguwen.setVisibility(View.GONE);
         }

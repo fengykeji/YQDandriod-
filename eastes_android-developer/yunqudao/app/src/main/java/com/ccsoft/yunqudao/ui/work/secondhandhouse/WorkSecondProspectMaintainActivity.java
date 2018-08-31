@@ -12,11 +12,13 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 
 import com.ccsoft.yunqudao.R;
+import com.ccsoft.yunqudao.bean.SurveyListBean;
 import com.ccsoft.yunqudao.data.base.BaseRecyclerAdapter;
 import com.ccsoft.yunqudao.data.base.FooterHolder;
 import com.ccsoft.yunqudao.data.model.response.BrokerWaitConfirmData;
 import com.ccsoft.yunqudao.http.HttpAdress;
 import com.ccsoft.yunqudao.ui.adapter.WorkRecommendVerifyAdapter;
+import com.ccsoft.yunqudao.ui.adapter.WorkSecondprospectMaintainAdapter;
 import com.ccsoft.yunqudao.ui.home.HomeActivity;
 import com.ccsoft.yunqudao.ui.listener.EndlessRecyclerOnScrollListener;
 import com.ccsoft.yunqudao.ui.work.AddWorkActivity;
@@ -45,9 +47,9 @@ public class WorkSecondProspectMaintainActivity extends AppCompatActivity implem
     private ImageButton mWork_button_back,work_button_add_recommend;
 
     private RecyclerView mWork_recyclerview_verify;
-    private WorkRecommendVerifyAdapter mAdapter;
+    private WorkSecondprospectMaintainAdapter mAdapter;
     private SmartRefreshLayout mSwipRefresh;
-    private List<BrokerWaitConfirmData.WaitConfirmData> dataList = new ArrayList<>();
+    private List<SurveyListBean.DataBeanX.DataBean> dataList = new ArrayList<>();
     private AnimationDrawable anim;
     private ImageView yunsuan;
 
@@ -73,7 +75,7 @@ public class WorkSecondProspectMaintainActivity extends AppCompatActivity implem
         yunsuan.setImageResource(R.drawable.animation_refresh);
         anim = (AnimationDrawable) yunsuan.getDrawable();
         mWork_recyclerview_verify.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
-        mAdapter = new WorkRecommendVerifyAdapter(this, R.layout.item_work_recom, dataList);
+        mAdapter = new WorkSecondprospectMaintainAdapter(this, R.layout.item_work_recom, dataList);
         mWork_recyclerview_verify.setAdapter(mAdapter);
         mWork_recyclerview_verify.addOnScrollListener(endlessRecyclerOnScrollListener);
     }
@@ -85,7 +87,7 @@ public class WorkSecondProspectMaintainActivity extends AppCompatActivity implem
         mAdapter.setOnItemClickListner(new BaseRecyclerAdapter.OnItemClickListner() {
             @Override
             public void onItemClickListner(View v, int position) {
-                int id = dataList.get(position).client_id;
+                int id = dataList.get(position).getHouse_id();
                 Intent intent = new Intent(WorkSecondProspectMaintainActivity.this,WorkSecondProspectMaintainDetailActivity.class);
                 startActivity(intent);
             }
@@ -114,7 +116,7 @@ public class WorkSecondProspectMaintainActivity extends AppCompatActivity implem
         mSwipRefresh.finishRefresh(900);
     }
     private void initData() {
-        OkHttpUtils.get(HttpAdress.workwaitConfirm)
+        OkHttpUtils.get(HttpAdress.surveyList)
                 .tag(this)
                 .execute(new StringCallback() {
                     @Override
@@ -129,11 +131,11 @@ public class WorkSecondProspectMaintainActivity extends AppCompatActivity implem
                             e.printStackTrace();
                         }
                         if (code == 200 && data1 != null) {
-                            BrokerWaitConfirmData brokerWaitConfirmData = JsonUtil.jsonToEntity(data1, BrokerWaitConfirmData.class);
-                            totalPage = brokerWaitConfirmData.last_page;
+                            SurveyListBean brokerWaitConfirmData = JsonUtil.jsonToEntity(s, SurveyListBean.class);
+                            totalPage = brokerWaitConfirmData.getData().getLast_page();
                             curPage = 2;
                             dataList.clear();
-                            dataList.addAll(brokerWaitConfirmData.data);
+                            dataList.addAll(brokerWaitConfirmData.getData().getData());
                             mAdapter.notifyDataSetChanged();
                         }
                     }
@@ -175,8 +177,8 @@ public class WorkSecondProspectMaintainActivity extends AppCompatActivity implem
                         }
                         if (code == 200 && data != null) {
                             curPage++;
-                            BrokerWaitConfirmData brokerWaitConfirmData = JsonUtil.jsonToEntity(data, BrokerWaitConfirmData.class);
-                            dataList.addAll(brokerWaitConfirmData.data);
+                            SurveyListBean brokerWaitConfirmData = JsonUtil.jsonToEntity(s, SurveyListBean.class);
+                            dataList.addAll(brokerWaitConfirmData.getData().getData());
                             mAdapter.notifyDataSetChanged();
                         }
 

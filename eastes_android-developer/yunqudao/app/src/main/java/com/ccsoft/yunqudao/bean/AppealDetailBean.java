@@ -93,16 +93,50 @@ public class AppealDetailBean {
         private String property_advicer_wish;
         private String butter_name;
         private String butter_tel;
-        public String consultant_advicer;
 
-        public void setConsultant_advicer(String consultant_advicer) {
-            this.consultant_advicer = consultant_advicer;
+        public String getComsultant_advicer() {
+            return comsulatent_advicer;
         }
 
-        public String getConsultant_advicer() {
+        public String comsulatent_advicer;
+        public String recommend_type;
+        public String comsulatent_advicer_tel;
+        public String comsulatent_advicer_company;
+        public String client_comment;
 
-            return consultant_advicer;
+        public void setRecommend_type(String recommend_type) {
+            this.recommend_type = recommend_type;
         }
+
+        public void setComsulatent_advicer_tel(String comsulatent_advicer_tel) {
+            this.comsulatent_advicer_tel = comsulatent_advicer_tel;
+        }
+
+        public void setComsulatent_advicer_company(String comsulatent_advicer_company) {
+            this.comsulatent_advicer_company = comsulatent_advicer_company;
+        }
+
+        public void setClient_comment(String client_comment) {
+            this.client_comment = client_comment;
+        }
+
+        public String getRecommend_type() {
+
+            return recommend_type;
+        }
+
+        public String getComsulatent_advicer_tel() {
+            return comsulatent_advicer_tel;
+        }
+
+        public String getComsulatent_advicer_company() {
+            return comsulatent_advicer_company;
+        }
+
+        public String getClient_comment() {
+            return client_comment;
+        }
+
 
         public String getConfirm_name() {
             return confirm_name;

@@ -60,6 +60,9 @@ public class WorkDealVerifydetailActivity extends AppCompatActivity {
 
     private TextView work_commend_client_zhiye;
     private LinearLayout ll_zhiyeguwen;
+    private TextView work_commend_leibie,work_commend_client_comment,tv_tetil;
+    private int chengjiao = 0;
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -75,6 +78,7 @@ public class WorkDealVerifydetailActivity extends AppCompatActivity {
 
     private void initView() {
 //        mNumTv = findViewById(R.id.num_tv);
+        chengjiao = getIntent().getIntExtra("chengjiao",0);
         mTime_Tv = findViewById(R.id.work_commend_time);
         mPeople1Tv = findViewById(R.id.work_commend_people);
         mTelTv = findViewById(R.id.work_commend_tel);
@@ -98,6 +102,13 @@ public class WorkDealVerifydetailActivity extends AppCompatActivity {
         mCommentNumber = findViewById(R.id.work_commend_number);
         work_commend_client_zhiye = findViewById(R.id.work_commend_client_zhiye);
         ll_zhiyeguwen = findViewById(R.id.ll_zhiyeguwen);
+        work_commend_leibie = findViewById(R.id.work_commend_leibie);
+        work_commend_client_comment = findViewById(R.id.work_commend_client_comment);
+        tv_tetil = findViewById(R.id.tv_tetil);
+
+        if(chengjiao == 1) {
+            tv_tetil.setText("待成交详情");
+        }
 
         work_button_back.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -156,8 +167,12 @@ public class WorkDealVerifydetailActivity extends AppCompatActivity {
         finishTime = workReportVerifyDetailData.getData().getTimeLimit();
         handler.post(runnable);
 
-        if (!workReportVerifyDetailData.getData().getConsultant_advicer().equals("")) {
-            work_commend_client_zhiye.setText(workReportVerifyDetailData.getData().getConsultant_advicer());
+        work_commend_leibie.setText(workReportVerifyDetailData.getData().getRecommend_type());
+        work_commend_client_comment.setText(workReportVerifyDetailData.getData().getClient_comment());
+        if (!workReportVerifyDetailData.getData().getComsultant_advicer().equals("")) {
+            work_commend_client_zhiye.setText(workReportVerifyDetailData.getData().getComsultant_advicer()
+                   );
+
         }else {
             ll_zhiyeguwen.setVisibility(View.GONE);
         }

@@ -103,7 +103,6 @@ public class GongSiRenZhengWanActivity extends AppCompatActivity implements View
                             et_zhiwei.setText(bean.getData().getPosition()+"");
                             tv_tuzhitime.setText(bean.getData().getCreate_time());
                             ib_photo.setImageURI(Uri.parse(AppConstants.URL+bean.getData().getImg_url()));
-
                         }
                     }
                 });

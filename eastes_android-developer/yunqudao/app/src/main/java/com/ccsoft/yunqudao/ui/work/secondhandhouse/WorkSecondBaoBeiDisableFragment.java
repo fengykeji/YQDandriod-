@@ -102,7 +102,7 @@ public class WorkSecondBaoBeiDisableFragment extends Fragment implements View.On
     }
 
     private void initData() {
-        OkHttpUtils.get(HttpAdress.waitGrabDetail)
+        OkHttpUtils.get(HttpAdress.disabledList)
                 .tag(this)
                 .params("page",curPage)
                 .execute(new StringCallback() {
@@ -144,9 +144,8 @@ public class WorkSecondBaoBeiDisableFragment extends Fragment implements View.On
     int curPage;
     int totalPage;
     private void loadNextData() {
-        OkHttpUtils.get(HttpAdress.disabled)
+        OkHttpUtils.get(HttpAdress.disabledList)
                 .tag(getActivity())
-                .params("page", curPage)
                 .execute(new StringCallback() {
                     @Override
                     public void onSuccess(String s, Call call, Response response) {

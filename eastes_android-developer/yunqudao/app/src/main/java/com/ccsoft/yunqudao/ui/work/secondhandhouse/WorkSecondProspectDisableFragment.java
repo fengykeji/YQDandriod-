@@ -13,6 +13,8 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 
 import com.ccsoft.yunqudao.R;
+import com.ccsoft.yunqudao.bean.SurveyDisabledBean;
+import com.ccsoft.yunqudao.bean.SurveyWaitConfirm;
 import com.ccsoft.yunqudao.data.api.ApiSubscriber;
 import com.ccsoft.yunqudao.data.base.BaseRecyclerAdapter;
 import com.ccsoft.yunqudao.data.base.FooterHolder;
@@ -21,6 +23,7 @@ import com.ccsoft.yunqudao.http.HttpAdress;
 import com.ccsoft.yunqudao.manager.ClientManager;
 import com.ccsoft.yunqudao.rx.RxSchedulers;
 import com.ccsoft.yunqudao.ui.adapter.WorkRecommendDisableAdapter;
+import com.ccsoft.yunqudao.ui.adapter.WorkSecondProspectDisableAdapter;
 import com.ccsoft.yunqudao.ui.listener.EndlessRecyclerOnScrollListener;
 import com.ccsoft.yunqudao.ui.work.WorkRecommendDisableFragment;
 import com.ccsoft.yunqudao.utils.JsonUtil;
@@ -45,8 +48,8 @@ public class WorkSecondProspectDisableFragment extends Fragment implements View.
     private View mView;
     private WorkRecommendDisableFragment mWorkRecommendDisableFragment;
     private RecyclerView mWork_recyclerview_disable;
-    private WorkRecommendDisableAdapter mAdapter;
-    private List<BrrokerDisabledData.DisabledData> dataList = new ArrayList<>();
+    private WorkSecondProspectDisableAdapter mAdapter;
+    private List<SurveyDisabledBean.DataBean> dataList = new ArrayList<>();
     private SmartRefreshLayout mSwipRefresh;
     private AnimationDrawable anim;
     private ImageView yunsuan;
@@ -71,7 +74,7 @@ public class WorkSecondProspectDisableFragment extends Fragment implements View.
         mSwipRefresh = mView.findViewById(R.id.mSwipRefresh);
         this.mWork_recyclerview_disable = mView.findViewById(R.id.work_recyclerview_disable);
         mWork_recyclerview_disable.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false));
-        mAdapter = new WorkRecommendDisableAdapter(getContext(),R.layout.item_work_value, dataList);
+        mAdapter = new WorkSecondProspectDisableAdapter(getContext(),R.layout.item_work_value, dataList);
         mWork_recyclerview_disable.setAdapter(mAdapter);
         mWork_recyclerview_disable.addOnScrollListener(endlessRecyclerOnScrollListener);
         yunsuan = mView.findViewById(R.id.yunsuan);
@@ -86,9 +89,9 @@ public class WorkSecondProspectDisableFragment extends Fragment implements View.
         mAdapter.setOnItemClickListner(new BaseRecyclerAdapter.OnItemClickListner() {
             @Override
             public void onItemClickListner(View v, int position) {
-                BrrokerDisabledData.DisabledData data = dataList.get(position);
+                SurveyDisabledBean.DataBean data = dataList.get(position);
                 Intent intent = new Intent(getActivity(),WorkSecondProspectDisableDetailActivity.class);
-                intent.putExtra("id",data.client_id);
+                intent.putExtra("survey_id",data.getSurvey_id());
                 startActivity(intent);
             }
         });
@@ -98,26 +101,40 @@ public class WorkSecondProspectDisableFragment extends Fragment implements View.
     }
 
     private void initData() {
-        ClientManager.getInstance().getBrokerDisabled().compose(RxSchedulers.<BrrokerDisabledData>io_main()).subscribe(new ApiSubscriber<BrrokerDisabledData>(getActivity()) {
-            @Override
-            protected void _onNext(BrrokerDisabledData brokerWaitConfirmData) {
-                curPage = 2;
-                totalPage = brokerWaitConfirmData.last_page;
-                dataList.clear();
-                dataList.addAll(brokerWaitConfirmData.data);
-                mAdapter.notifyDataSetChanged();
-            }
-
-            @Override
-            protected void _onError(String message) {
-                LogUtil.e(message);
-            }
-
-            @Override
-            protected void _onCompleted() {
-//                mSwipRefresh.setRefreshing(false);
-            }
-        });
+//        ClientManager.getInstance().getBrokerDisabled().compose(RxSchedulers.<BrrokerDisabledData>io_main()).subscribe(new ApiSubscriber<BrrokerDisabledData>(getActivity()) {
+//            @Override
+//            protected void _onNext(BrrokerDisabledData brokerWaitConfirmData) {
+//                curPage = 2;
+//                totalPage = brokerWaitConfirmData.last_page;
+//                dataList.clear();
+//                dataList.addAll(brokerWaitConfirmData.data);
+//                mAdapter.notifyDataSetChanged();
+//            }
+//
+//            @Override
+//            protected void _onError(String message) {
+//                LogUtil.e(message);
+//            }
+//
+//            @Override
+//            protected void _onCompleted() {
+////                mSwipRefresh.setRefreshing(false);
+//            }
+//        });
+        OkHttpUtils.get(HttpAdress.surveyDisabled)
+                .tag(this)
+                .execute(new StringCallback() {
+                    @Override
+                    public void onSuccess(String s, Call call, Response response) {
+                        SurveyDisabledBean bean = JsonUtil.jsonToEntity(s,SurveyDisabledBean.class);
+                        if(bean.getCode() == 200) {
+                            dataList.clear();
+                            dataList.addAll(bean.getData());
+                            curPage = 2;
+                            mAdapter.notifyDataSetChanged();
+                        }
+                    }
+                });
     }
 
     @Override
@@ -128,7 +145,7 @@ public class WorkSecondProspectDisableFragment extends Fragment implements View.
     int curPage;
     int totalPage;
     private void loadNextData() {
-        OkHttpUtils.get(HttpAdress.disabled)
+        OkHttpUtils.get(HttpAdress.surveyDisabled)
                 .tag(getActivity())
                 .params("page", curPage)
                 .execute(new StringCallback() {
@@ -145,8 +162,8 @@ public class WorkSecondProspectDisableFragment extends Fragment implements View.
                         }
                         if (code == 200 && data != null) {
                             curPage++;
-                            BrrokerDisabledData brokerWaitConfirmData = JsonUtil.jsonToEntity(data, BrrokerDisabledData.class);
-                            dataList.addAll(brokerWaitConfirmData.data);
+                            SurveyDisabledBean brokerWaitConfirmData = JsonUtil.jsonToEntity(s, SurveyDisabledBean.class);
+                            dataList.addAll(brokerWaitConfirmData.getData());
                             mAdapter.notifyDataSetChanged();
                         }
 

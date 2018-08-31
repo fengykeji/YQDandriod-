@@ -52,6 +52,8 @@ public class MessageCommendVerifyDetailActivity extends AppCompatActivity {
 
     private TextView work_commend_client_zhiye;
     private LinearLayout ll_zhiyeguwen;
+    private TextView work_commend_leibie,work_commend_client_comment;
+
 
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -91,6 +93,8 @@ public class MessageCommendVerifyDetailActivity extends AppCompatActivity {
 
         work_commend_client_zhiye = findViewById(R.id.work_commend_client_zhiye);
         ll_zhiyeguwen = findViewById(R.id.ll_zhiyeguwen);
+        work_commend_leibie = findViewById(R.id.work_commend_leibie);
+        work_commend_client_comment = findViewById(R.id.work_commend_client_comment);
 
         back.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -141,8 +145,12 @@ public class MessageCommendVerifyDetailActivity extends AppCompatActivity {
                                 finishTime = data.timeLimit;
                                 handler.post(runnable);
 
-                                if (!data.consultant_advicer.equals("")) {
-                                    work_commend_client_zhiye.setText(data.consultant_advicer);
+                                work_commend_leibie.setText(data.recommend_type);
+                                work_commend_client_comment.setText(data.client_comment);
+                                if (!data.comsulatent_advicer.equals("")) {
+                                    work_commend_client_zhiye.setText(data.comsulatent_advicer
+                                    );
+
                                 }else {
                                     ll_zhiyeguwen.setVisibility(View.GONE);
                                 }

@@ -78,6 +78,11 @@ public class GetHouseTypeDetailBean implements Serializable{
             private String RYXM;
             private String RYDH;
             private String RYTP;
+            private String GSMC;
+
+            public String getGSMC() {
+                return GSMC;
+            }
 
             public String getID() {
                 return ID;

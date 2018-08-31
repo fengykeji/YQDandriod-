@@ -32,8 +32,10 @@ import com.ashokvarma.bottomnavigation.BottomNavigationBar;
 import com.ashokvarma.bottomnavigation.BottomNavigationItem;
 import com.ashokvarma.bottomnavigation.TextBadgeItem;
 import com.ccsoft.yunqudao.R;
+import com.ccsoft.yunqudao.bean.GetUnreadBean;
 import com.ccsoft.yunqudao.bean.GetVersionBean;
 import com.ccsoft.yunqudao.data.AppConstants;
+import com.ccsoft.yunqudao.http.HttpAdress;
 import com.ccsoft.yunqudao.ui.fragment.AllHouseFragment;
 import com.ccsoft.yunqudao.ui.fragment.CustomersFragment;
 import com.ccsoft.yunqudao.ui.fragment.HouseFragment;
@@ -42,6 +44,7 @@ import com.ccsoft.yunqudao.ui.fragment.MessageFragment;
 import com.ccsoft.yunqudao.ui.fragment.WorkFragment;
 import com.ccsoft.yunqudao.ui.house.secondhandhouse.SecondHouseFenXiFragment;
 import com.ccsoft.yunqudao.ui.house.secondhandhouse.SecondHouseListActivity;
+import com.ccsoft.yunqudao.ui.mian.LoginActivity;
 import com.ccsoft.yunqudao.utils.ActivityManager;
 import com.ccsoft.yunqudao.utils.JsonUtil;
 import com.ccsoft.yunqudao.utils.SpUtil;
@@ -51,6 +54,8 @@ import com.lzy.okhttputils.callback.StringCallback;
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
@@ -62,25 +67,35 @@ import java.lang.reflect.Method;
 public class HomeActivity extends AppCompatActivity implements BottomNavigationBar.OnTabSelectedListener,MessageFragment.CallBackValue {
 
     @BindView(R.id.frameLayout)
-    FrameLayout         frameLayout;
+    FrameLayout frameLayout;
     @BindView(R.id.bottom_navigation_bar)
     BottomNavigationBar mBottomNavigationBar;
     private FragmentTransaction mFragmentTransaction;
-    private CustomersFragment   mCustomersFragment;
-    public HouseFragment       mHouseFragment;
-    private AllHouseFragment   allHouseFragment;
-    private MessageFragment     mMessageFragment;
-    private MeFragment          mMeFragment;
-    private WorkFragment        mWorkFragment;
+    private CustomersFragment mCustomersFragment;
+    public HouseFragment mHouseFragment;
+    private AllHouseFragment allHouseFragment;
+    private MessageFragment mMessageFragment;
+    private MeFragment mMeFragment;
+    private WorkFragment mWorkFragment;
     private SecondHouseListActivity secondHouseListActivity;
-    private Fragment            mFragment;//当前显示的Fragment
+    private Fragment mFragment;//当前显示的Fragment
     private long firstTime = 0;//记录用户首次点击返回键的时间
     private int fid;
-    private String noread;
+    //    private String noread = "0";
     private TextBadgeItem badgeItem;
+    private Boolean flag = true;
+    private Handler handler = new Handler() {
+        public void handleMessage(Message msg) {
+            super.handleMessage(msg);
+        }
+    };
 
-
-
+    int total;
+    int read;
+    int noread;
+    int total1;
+    int read1;
+    int noread1;
 
 
     private static boolean isExit = false;
@@ -117,7 +132,6 @@ public class HomeActivity extends AppCompatActivity implements BottomNavigationB
     }
 
 
-
     protected void requestPermission(int requestCode) {
         // TODO Auto-generated method stub
         // 6.0以上系统才可以判断权限
@@ -126,7 +140,9 @@ public class HomeActivity extends AppCompatActivity implements BottomNavigationB
         startActivity(intent);
     }
 
-    public HomeActivity() {}
+    public HomeActivity() {
+    }
+
     public static void start(Context context) {
 
         Intent intent = new Intent(context, HomeActivity.class);
@@ -134,14 +150,12 @@ public class HomeActivity extends AppCompatActivity implements BottomNavigationB
     }
 
 
-
-
-
     @Override
     protected void onStart() {
         super.onStart();
 
     }
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -151,11 +165,12 @@ public class HomeActivity extends AppCompatActivity implements BottomNavigationB
         judgeVersion();
         MultiDex.install(this);
         initView();
+        initData();
         ButterKnife.bind(this);
-        //底部导航栏
+//底部导航栏
         setBottomNavigationBar();
         //setBottomNavigationBar的选中事件
-        mBottomNavigationBar.setTabSelectedListener(this);
+        mBottomNavigationBar.setTabSelectedListener(HomeActivity.this);
 
         setBadge();
 
@@ -163,7 +178,7 @@ public class HomeActivity extends AppCompatActivity implements BottomNavigationB
     }
 
     private void initView() {
-         fid= getIntent().getIntExtra("fid",0);
+        fid = getIntent().getIntExtra("fid", 0);
         mMessageFragment = new MessageFragment();
         mHouseFragment = new HouseFragment();
         mCustomersFragment = new CustomersFragment();
@@ -172,32 +187,66 @@ public class HomeActivity extends AppCompatActivity implements BottomNavigationB
         allHouseFragment = new AllHouseFragment();
 
 
-
         mFragmentTransaction = getSupportFragmentManager().beginTransaction();
 //        mFragmentTransaction.replace(R.id.frameLayout,mCustomersFragment)
 
 
-        if(fid == 1){
+        if (fid == 1) {
             mFragmentTransaction.replace(R.id.frameLayout, allHouseFragment)
                     .commit();
             mFragment = allHouseFragment;
 
-        }else if(fid == 2){
+        } else if (fid == 2) {
             mFragmentTransaction.replace(R.id.frameLayout, mCustomersFragment)
                     .commit();
             mFragment = mCustomersFragment;
-        }else if(fid == 3){
+        } else if (fid == 3) {
             mFragmentTransaction.replace(R.id.frameLayout, mWorkFragment)
                     .commit();
             mFragment = mWorkFragment;
-        }
-        else {
+        } else {
             mFragmentTransaction.replace(R.id.frameLayout, mMessageFragment)
                     .commit();
             mFragment = mMessageFragment;
         }
 //        mFragment = mCustomersFragment;
     }
+
+    private void initData() {
+        OkHttpUtils.get(HttpAdress.getUnread)
+                .tag(this)
+                .execute(new StringCallback() {
+                    @Override
+                    public void onSuccess(String s, Call call, Response response) {
+                        int code = 0;
+                        String data = null;
+                        try {
+                            JSONObject jsonObject = new JSONObject(s);
+                            code = jsonObject.getInt("code");
+                            data = jsonObject.getString("data");
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                        if (code == 200 && data != null) {
+                            GetUnreadBean bean = JsonUtil.jsonToEntity(s, GetUnreadBean.class);
+                            total = bean.getData().getSystem().getTotal();
+                            read = bean.getData().getSystem().getRead();
+                            noread = total - read;
+                            total1 = bean.getData().getWork().getTotal();
+                            read1 = bean.getData().getWork().getRead();
+                            noread1 = total1 - read1;
+
+                        }
+                        else if(code == 401){
+                            Intent intent = new Intent(HomeActivity.this, LoginActivity.class);
+                            startActivity(intent);
+                            Toast.makeText(HomeActivity.this,"token失效，请重新登陆",Toast.LENGTH_SHORT);
+                        }
+                    }
+                });
+    }
+
+
 
     private void setBottomNavigationBar() {
 
@@ -220,12 +269,18 @@ public class HomeActivity extends AppCompatActivity implements BottomNavigationB
          * 添加导航按钮
          */
 
-        if(SpUtil.getString("noread","")!=null){
-            noread = SpUtil.getString("noread","");
-        }
-        badgeItem = new TextBadgeItem().setText(noread);
+//        if(SpUtil.getString("noread","")!=null){
+//            noread = SpUtil.getString("noread","");
+//        }
 
-        if(!noread.equals("0")) {
+
+        if(noread1<0){
+            noread1=0;
+        }
+        badgeItem = new TextBadgeItem().setText(noread1+"");
+
+
+        if(noread1!=0) {
             mBottomNavigationBar.addItem(new BottomNavigationItem(R.drawable.ic_message_selected, "消息").setActiveColorResource(R.color.qianlan).setInactiveIconResource(R.drawable.ic_message).setBadgeItem(badgeItem));
         }else {
             mBottomNavigationBar.addItem(new BottomNavigationItem(R.drawable.ic_message_selected, "消息").setActiveColorResource(R.color.qianlan).setInactiveIconResource(R.drawable.ic_message));
@@ -292,7 +347,7 @@ public class HomeActivity extends AppCompatActivity implements BottomNavigationB
 
     @Override
     public void SendMessageValue(String strValue) {
-        noread = strValue;
+//        noread = strValue;
 
     }
 

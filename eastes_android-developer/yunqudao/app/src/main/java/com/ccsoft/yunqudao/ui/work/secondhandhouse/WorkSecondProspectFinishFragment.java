@@ -15,9 +15,11 @@ import android.widget.ImageView;
 import com.ccsoft.yunqudao.R;
 import com.ccsoft.yunqudao.adapter.WorkComplainAdapter;
 import com.ccsoft.yunqudao.bean.AppealBean;
+import com.ccsoft.yunqudao.bean.SurveyFinishBean;
 import com.ccsoft.yunqudao.data.base.BaseRecyclerAdapter;
 import com.ccsoft.yunqudao.data.base.FooterHolder;
 import com.ccsoft.yunqudao.http.HttpAdress;
+import com.ccsoft.yunqudao.ui.adapter.WorkSecondPropectFinismAdapter;
 import com.ccsoft.yunqudao.ui.listener.EndlessRecyclerOnScrollListener;
 import com.ccsoft.yunqudao.ui.work.WorkRecommendComplainFragment;
 import com.ccsoft.yunqudao.utils.BaseCallBack;
@@ -46,10 +48,10 @@ public class WorkSecondProspectFinishFragment extends Fragment implements View.O
     private View mView;
     private WorkRecommendComplainFragment mWorkXinFangTuiJianShenSuFragment;
     private RecyclerView mWork_recyclerview_complain;
-    private AppealBean appealBean;
-    private List<AppealBean.DataBeanX.DataBean> datalist = new ArrayList<>();
+    private SurveyFinishBean appealBean;
+    private List<SurveyFinishBean.DataBean> datalist = new ArrayList<>();
     private SmartRefreshLayout mSwipRefresh;
-    private WorkComplainAdapter adapter;
+    private WorkSecondPropectFinismAdapter adapter;
     private AnimationDrawable anim;
     private ImageView yunsuan;
 
@@ -79,7 +81,7 @@ public class WorkSecondProspectFinishFragment extends Fragment implements View.O
         this.mWork_recyclerview_complain = mView.findViewById(R.id.work_recyclerview_complain);
         mSwipRefresh = mView.findViewById(R.id.mSwipRefresh);
         mWork_recyclerview_complain.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false));
-        adapter = new WorkComplainAdapter(getContext(),R.layout.item_work_complain,datalist);
+        adapter = new WorkSecondPropectFinismAdapter(getContext(),R.layout.item_work_complain,datalist);
         mWork_recyclerview_complain.setAdapter(adapter);
         mWork_recyclerview_complain.addOnScrollListener(endlessRecyclerOnScrollListener);
         yunsuan = mView.findViewById(R.id.yunsuan);
@@ -95,7 +97,7 @@ public class WorkSecondProspectFinishFragment extends Fragment implements View.O
             @Override
             public void onItemClickListner(View v, int position) {
                 Intent intent = new Intent(getContext(),WorkSecondProspectFinishDetailActivity.class);
-                intent.putExtra("appeal_id",datalist.get(position).getAppeal_id()+"");
+                intent.putExtra("house_id",datalist.get(position).getHouse_id()+"");
                 intent.putExtra("gone","gone");
                 startActivity(intent);
             }
@@ -109,16 +111,15 @@ public class WorkSecondProspectFinishFragment extends Fragment implements View.O
         }
     }
     private void initData() {
-        OkHttpManager.getInstance().get(HttpAdress.APPEAL, new BaseCallBack() {
+        OkHttpManager.getInstance().get(HttpAdress.surveyFinish, new BaseCallBack() {
             @Override
             public void onSuccess(Call call, Response response, Object obj) throws MalformedURLException {
-                Type type = new TypeToken<AppealBean>() {}.getType();
+                Type type = new TypeToken<SurveyFinishBean>() {}.getType();
                 appealBean = new Gson().fromJson(obj.toString(),type);
                 if(appealBean.getCode()==200&&appealBean.getData()!=null){
                     datalist.clear();
-                    datalist.addAll(appealBean.getData().getData());
+                    datalist.addAll(appealBean.getData());
                     curPage = 2;
-                    totalPage = appealBean.getData().getLast_page();
                     adapter.notifyDataSetChanged();
 //                    mSwipRefresh.setRefreshing(false);
                 }
@@ -144,7 +145,7 @@ public class WorkSecondProspectFinishFragment extends Fragment implements View.O
     int curPage;
     int totalPage;
     private void loadNextData(){
-        OkHttpUtils.get(HttpAdress.APPEAL)
+        OkHttpUtils.get(HttpAdress.surveyFinish)
                 .tag(getActivity())
                 .params("page", curPage)
                 .execute(new StringCallback() {
@@ -161,8 +162,8 @@ public class WorkSecondProspectFinishFragment extends Fragment implements View.O
                         }
                         if (code == 200 && data != null) {
                             curPage++;
-                            AppealBean bean = JsonUtil.jsonToEntity(s, AppealBean.class);
-                            datalist.addAll(bean.getData().getData());
+                            SurveyFinishBean bean = JsonUtil.jsonToEntity(s, SurveyFinishBean.class);
+                            datalist.addAll(bean.getData());
                             adapter.notifyDataSetChanged();
                         }
 
@@ -181,7 +182,7 @@ public class WorkSecondProspectFinishFragment extends Fragment implements View.O
             if (adapter.footerHolder == null || adapter.footerHolder.getmState() == FooterHolder.KEY_LOADING) {
                 return;
             }
-            if (curPage < totalPage) {
+            if (curPage < 100) {
                 adapter.footerHolder.setData(FooterHolder.KEY_LOADING);
                 loadNextData();
             } else {

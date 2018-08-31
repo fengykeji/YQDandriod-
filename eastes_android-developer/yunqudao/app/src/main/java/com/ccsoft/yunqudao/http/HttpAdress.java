@@ -124,6 +124,9 @@ public class HttpAdress {
     /*工作推荐确认中列表*/
     public static String workwaitConfirm = AppConstants.URL+"agent/work/broker/waitConfirm";
 
+    /*对接人工作待确认列表*/
+    public static String butterWaitConfirm = AppConstants.URL+"agent/work/butter/waitConfirm";
+
     /*待抢单列表*/
     public static String waitGrab = AppConstants.URL+"agent/house/survey/waitGrab";
     /*待抢单详情*/
@@ -132,6 +135,32 @@ public class HttpAdress {
     public static String recordValue = AppConstants.URL+"agent/house/record/value";
     /*有效详情*/
     public static String recordValueDetail = AppConstants.URL+"agent/house/record/value/detail";
+    /*失效列表*/
+    public static String disabledList = AppConstants.URL+"agent/house/record/disabled/list";
+    /*无效详情*/
+    public static String disabledDetail = AppConstants.URL+"agent/house/record/disabled/detail";
+    /*申诉列表*/
+    public static String appealList = AppConstants.URL+"agent/house/record/appeal/list";
+    /*申诉详情*/
+    public static String appealDetail = AppConstants.URL+"agent/house/record/appeal/detail";
+    /*勘察待确认列表*/
+    public static String surveyWaitConfirm = AppConstants.URL+"agent/house/survey/waitConfirm";
+    /*勘察确认有效列表*/
+    public static String surveyUnderway = AppConstants.URL+"agent/house/survey/underway";
+    /*勘察失效列表*/
+    public static String surveyDisabled = AppConstants.URL+"agent/house/survey/disabled";
+    /*勘察完成列表*/
+    public static String surveyFinish = AppConstants.URL+"agent/house/survey/finish";
+    /*勘察待确认详情*/
+    public static String surveyWaitConfirmDetail = AppConstants.URL+"agent/house/survey/waitConfirm/detail";
+    /*勘察中详情*/
+    public static String surveyUnderwayDetail = AppConstants.URL+"agent/house/survey/underway/detail";
+    /*勘察失效详情*/
+    public static String surveyDisabledDetail = AppConstants.URL+"agent/house/survey/disabled/detail";
+    /*勘察完成详情*/
+    public static String houseSurveyDetail = AppConstants.URL+"agent/house/survey/detail";
+    /*勘察维护列表*/
+    public static String surveyList = AppConstants.URL+"agent/house/survey/list";
 
 
 

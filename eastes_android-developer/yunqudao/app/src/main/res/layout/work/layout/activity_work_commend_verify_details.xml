@@ -40,6 +40,14 @@
         android:src="@drawable/ic_line"
         />
 
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="9">
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -207,7 +215,6 @@
         android:paddingBottom="10dp"
         android:paddingLeft="30dp"
         >
-
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -221,8 +228,27 @@
             android:text=""
             android:textColor="@color/chunhei"
             />
-
-
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:paddingBottom="10dp"
+        android:paddingLeft="30dp"
+        >
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="推荐类别："
+            android:textColor="@color/chunhei"
+            />
+        <TextView
+            android:id="@+id/work_commend_leibie"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text=""
+            android:textColor="@color/chunhei"
+            />
     </LinearLayout>
     <LinearLayout
         android:layout_width="match_parent"
@@ -403,7 +429,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="指定置业顾问："
+            android:text="置业顾问："
             android:textColor="@color/chunhei"
             />
         <TextView
@@ -413,6 +439,55 @@
             android:text=""
             android:textColor="@color/chunhei"
             />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:paddingBottom="10dp"
+        android:paddingLeft="30dp"
+        >
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="备注："
+            android:textColor="@color/chunhei"
+            />
+        <TextView
+            android:id="@+id/work_commend_client_comment"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text=""
+            android:textColor="@color/chunhei"
+            />
+    </LinearLayout>
+        </LinearLayout>
+
+    </ScrollView>
+
+
+    <LinearLayout
+        android:visibility="gone"
+        android:id="@+id/ll_showsure"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:layout_margin="20dp"
+        >
+        <Button
+            android:layout_gravity="bottom"
+            android:id="@+id/button_next"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/ic_loginbackground"
+            android:text="确定"
+            android:textColor="@color/chunbai"
+            android:textSize="15sp"
+            />
+
+
     </LinearLayout>
 
 

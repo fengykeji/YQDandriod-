@@ -98,6 +98,14 @@
                         android:background="@android:color/transparent"
                         android:src="@drawable/ic_downarrow"
                         />
+                    <TextView
+                        android:id="@+id/tv_tel1"
+                        android:textSize="13sp"
+                        android:layout_alignParentRight="true"
+                        android:text="处理完成"
+                        android:textColor="@color/liji_material_blue_500"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
                 </RelativeLayout>
 
                 <LinearLayout
@@ -129,6 +137,30 @@
                             android:textSize="15sp"
                             />
                     </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal"
+                        android:paddingBottom="10dp"
+                        >
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="申诉时间："
+                            android:textColor="@color/chunhei"
+                            android:textSize="15sp"
+                            />
+                        <TextView
+                            android:id="@+id/tv_shensujiegou"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="************"
+                            android:textColor="@color/chunhei"
+                            android:textSize="15sp"
+                            />
+                    </LinearLayout>
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -153,6 +185,7 @@
                             />
                     </LinearLayout>
                     <LinearLayout
+                        android:visibility="gone"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:gravity="center_vertical"
@@ -175,29 +208,7 @@
                             android:textSize="15sp"
                             />
                     </LinearLayout>
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:gravity="center_vertical"
-                        android:orientation="horizontal"
-                        android:paddingBottom="10dp"
-                        >
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="处理结果："
-                            android:textColor="@color/chunhei"
-                            android:textSize="15sp"
-                            />
-                        <TextView
-                            android:id="@+id/tv_shensujiegou"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="************"
-                            android:textColor="@color/chunhei"
-                            android:textSize="15sp"
-                            />
-                    </LinearLayout>
+
                 </LinearLayout>
             </LinearLayout>
             <ImageView
@@ -459,6 +470,7 @@
                 >
 
                 <TextView
+                    android:id="@+id/tv_xiaoqumingzi"
                     android:layout_marginLeft="10dp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"

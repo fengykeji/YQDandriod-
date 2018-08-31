@@ -70,6 +70,9 @@ public class WorkComplainListActivity extends AppCompatActivity implements View.
     private String gone ;
     private TextView work_commend_client_zhiye;
     private LinearLayout ll_zhiyeguwen;
+    private TextView work_commend_leibie,work_commend_client_comment;
+
+
 
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -121,6 +124,9 @@ public class WorkComplainListActivity extends AppCompatActivity implements View.
 
         work_commend_client_zhiye = findViewById(R.id.work_commend_client_zhiye);
         ll_zhiyeguwen = findViewById(R.id.ll_zhiyeguwen);
+        work_commend_leibie = findViewById(R.id.work_commend_leibie);
+        work_commend_client_comment = findViewById(R.id.work_commend_client_comment);
+
 
         appeal_id = getIntent().getStringExtra("appeal_id");
         gone = getIntent().getStringExtra("gone");
@@ -209,8 +215,12 @@ public class WorkComplainListActivity extends AppCompatActivity implements View.
                     tv_daofangsurepeople.setText(bean.getData().getButter_name());
                     tv_daofangsurenum.setText(bean.getData().getButter_tel());
 
-                    if (!bean.getData().getConsultant_advicer().equals("")) {
-                        work_commend_client_zhiye.setText(bean.getData().getConsultant_advicer());
+                    work_commend_leibie.setText(bean.getData().getRecommend_type());
+                    work_commend_client_comment.setText(bean.getData().getClient_comment());
+                    if (!bean.getData().getComsultant_advicer().equals("")) {
+                        work_commend_client_zhiye.setText(bean.getData().getComsultant_advicer()
+                                );
+
                     }else {
                         ll_zhiyeguwen.setVisibility(View.GONE);
                     }

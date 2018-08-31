@@ -68,6 +68,8 @@ public class WorkCommendValidDetailActivity extends AppCompatActivity {
     private LinearLayout ll_progress;
     private TextView work_commend_client_zhiye;
     private LinearLayout ll_zhiyeguwen;
+    private TextView work_commend_leibie,work_commend_client_comment;
+
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -110,6 +112,8 @@ public class WorkCommendValidDetailActivity extends AppCompatActivity {
 
         ll_zhiyeguwen = findViewById(R.id.ll_zhiyeguwen);
         work_commend_client_zhiye = findViewById(R.id.work_commend_client_zhiye);
+        work_commend_leibie = findViewById(R.id.work_commend_leibie);
+        work_commend_client_comment = findViewById(R.id.work_commend_client_comment);
 
         ll_progress = findViewById(R.id.ll_progress);
 
@@ -126,7 +130,6 @@ public class WorkCommendValidDetailActivity extends AppCompatActivity {
     }
 
     private void initData() {
-
 
         ClientManager.getInstance().getValueDetail(id).compose(RxSchedulers.<ValueDetailData>io_main()).subscribe(new ApiSubscriber<ValueDetailData>(this) {
             @Override
@@ -149,7 +152,7 @@ public class WorkCommendValidDetailActivity extends AppCompatActivity {
                     work_commend_project_address.setText(data.province_name + " " + data.city_name + " " + data.district_name+" "+data.absolute_address);
 
                     work_commend_client_tel.setText(data.tel);
-                    work_commend_project_address.setText(data.province_name + " " + data.city_name + " " + data.district_name+" "+data.absolute_address);
+
 
                     work_commend_client_name2.setText(data.confirm_name);
                     work_commend_client_tel2.setText(data.confirm_tel);
@@ -160,8 +163,11 @@ public class WorkCommendValidDetailActivity extends AppCompatActivity {
                     work_commend_verify_people_tel.setText(data.butter_tel);
 
 
-                    if (!data.consultant_advicer.equals("")) {
-                        work_commend_client_zhiye.setText(data.consultant_advicer);
+                    work_commend_leibie.setText(data.recommend_type);
+                    work_commend_client_comment.setText(data.client_comment);
+                    if (!data.comsulatent_advicer.equals("")) {
+                        work_commend_client_zhiye.setText(data.comsulatent_advicer
+                                );
                     }else {
                         ll_zhiyeguwen.setVisibility(View.GONE);
                     }
@@ -198,6 +204,7 @@ public class WorkCommendValidDetailActivity extends AppCompatActivity {
                         }
 
                         ll_progress.addView(view,layoutParams);
+
                     }
                 }
             }

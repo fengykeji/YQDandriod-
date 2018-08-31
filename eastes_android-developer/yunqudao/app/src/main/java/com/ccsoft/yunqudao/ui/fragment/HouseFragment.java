@@ -1,11 +1,15 @@
 package com.ccsoft.yunqudao.ui.fragment;
 
+import android.Manifest;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.graphics.drawable.AnimationDrawable;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
@@ -27,6 +31,10 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.baidu.location.BDLocation;
+import com.baidu.location.BDLocationListener;
+import com.baidu.location.LocationClient;
+import com.baidu.location.LocationClientOption;
 import com.baidu.mapapi.SDKInitializer;
 import com.ccsoft.yunqudao.R;
 import com.ccsoft.yunqudao.adapter.HouseList_RecyclerViewAdapter;
@@ -34,9 +42,12 @@ import com.ccsoft.yunqudao.bean.CustomersGetInfoBean;
 import com.ccsoft.yunqudao.bean.GetDistrictListBean;
 import com.ccsoft.yunqudao.bean.HouseListBean;
 import com.ccsoft.yunqudao.bean.PeizhiBean;
+import com.ccsoft.yunqudao.data.AppConstants;
 import com.ccsoft.yunqudao.data.base.BaseRecyclerAdapter;
 import com.ccsoft.yunqudao.data.base.FooterHolder;
+import com.ccsoft.yunqudao.data.model.response.OpenCityData;
 import com.ccsoft.yunqudao.http.HttpAdress;
+import com.ccsoft.yunqudao.http.XutilsHttp;
 import com.ccsoft.yunqudao.model.ClientListModel;
 import com.ccsoft.yunqudao.ui.adapter.HouseListAdapter;
 import com.ccsoft.yunqudao.ui.adapter.ScoreTeamAdapter;
@@ -109,7 +120,7 @@ public class HouseFragment extends Fragment implements View.OnClickListener ,Hou
     private HouseListAdapter adapter;
     private OkHttpManager okHttpManager = OkHttpManager.getInstance();
     private List<HouseListBean.DataBean> list = new ArrayList<>();
-    private String city_name = "成都",city_code = 510100+"";
+    private String city_name ,city_code ;
     private TextView content_均价,content_类型,content_区域,content_更多;
     private  GetDistrictListBean  getDistrictListBean;
     private String project_name ;
@@ -121,9 +132,13 @@ public class HouseFragment extends Fragment implements View.OnClickListener ,Hou
     private AnimationDrawable anim;
     private ImageView yunsuan;
     private int agent_id;
+    private OpenCityData         openCityData;
+    private List<OpenCityData.DataBean> mDataBeans = new ArrayList<>();
 
     // 选择二手房和租房
     private TextView choosehousetype;
+    public LocationClient mLocationClient = null;
+    private MyLocationListener myListener = new MyLocationListener();
 
 
 
@@ -131,9 +146,14 @@ public class HouseFragment extends Fragment implements View.OnClickListener ,Hou
         SDKInitializer.initialize(getContext().getApplicationContext());
         mView = inflater.inflate(R.layout.fragment_house, container, false);
 //        HideIMEUtil.wrap(getActivity());
+        mLocationClient = new LocationClient(getActivity().getApplicationContext());
+        //声明LocationClient类
+        mLocationClient.registerLocationListener(myListener);
+        requestPower();
+        initData();
         initView();
         initListener();
-        loadFangyuanList();
+        loadFangyuanList(city_code);
         return mView;
     }
 
@@ -142,6 +162,17 @@ public class HouseFragment extends Fragment implements View.OnClickListener ,Hou
         /**
          * 初始化控件
          */
+
+
+        LocationClientOption option = new LocationClientOption();
+
+        option.setIsNeedAddress(true);
+//可选，是否需要地址信息，默认为不需要，即参数为false
+//如果开发者需要获得当前点的地址信息，此处必须为true
+
+        mLocationClient.setLocOption(option);
+        mLocationClient.start();
+
         this.mHouse_button_relativelayout搜索 = mView.findViewById(R.id.house_button_relativelayout搜索);
         this.mCustomers_swiperefreshlayout = mView.findViewById(R.id.customers_swiperefreshlayout);
         recyclerView = mView.findViewById(R.id.house_recyclerview_list);
@@ -157,6 +188,8 @@ public class HouseFragment extends Fragment implements View.OnClickListener ,Hou
         anim = (AnimationDrawable) yunsuan.getDrawable();
 
         agent_id = SpUtil.getInt("agent_id",0);
+
+
         if( getActivity().getIntent().getStringExtra("city_name")!=null) {
             city_name = getActivity().getIntent().getStringExtra("city_name");
             city_code = getActivity().getIntent().getStringExtra("city_code");
@@ -204,7 +237,7 @@ public class HouseFragment extends Fragment implements View.OnClickListener ,Hou
                 }else{
                     search = s.toString();
                 }
-                loadFangyuanList();
+                loadFangyuanList(city_code);
             }
 
             @Override
@@ -247,7 +280,7 @@ public class HouseFragment extends Fragment implements View.OnClickListener ,Hou
         }
     }
 
-    private void loadFangyuanList(){
+    private void loadFangyuanList(String city_code){
 
          getRequest = OkHttpUtils.get(HttpAdress.HOUSELIST)
                 .tag(this)
@@ -418,7 +451,7 @@ public class HouseFragment extends Fragment implements View.OnClickListener ,Hou
                 verage_price = 0;
                 backgroundAlpha(1);
                 popupWindow.dismiss();
-                loadFangyuanList();
+                loadFangyuanList(city_code);
             }
         });
 
@@ -429,7 +462,7 @@ public class HouseFragment extends Fragment implements View.OnClickListener ,Hou
                 verage_price =peizhiBean.getData().get_$22().getParam().get(position).getId();
                 backgroundAlpha(1);
                 popupWindow.dismiss();
-                loadFangyuanList();
+                loadFangyuanList(city_code);
             }
         });
         popupWindow.setOnDismissListener(new PopupWindow.OnDismissListener() {
@@ -464,7 +497,7 @@ public class HouseFragment extends Fragment implements View.OnClickListener ,Hou
                 property_id = 0;
                 backgroundAlpha(1);
                 popupWindow.dismiss();
-                loadFangyuanList();
+                loadFangyuanList(city_code);
             }
         });
 
@@ -475,7 +508,7 @@ public class HouseFragment extends Fragment implements View.OnClickListener ,Hou
                 property_id = peizhiBean.getData().get_$16().getParam().get(position).getId();
                 backgroundAlpha(1);
                 popupWindow.dismiss();
-                loadFangyuanList();
+                loadFangyuanList(city_code);
             }
         });
         popupWindow.setOnDismissListener(new PopupWindow.OnDismissListener() {
@@ -514,7 +547,7 @@ public class HouseFragment extends Fragment implements View.OnClickListener ,Hou
                             district = content_区域.getText().toString();
                             backgroundAlpha(1);
                             popupWindow.dismiss();
-                            loadFangyuanList();
+                            loadFangyuanList(city_code);
                         }
                     });
 
@@ -525,7 +558,7 @@ public class HouseFragment extends Fragment implements View.OnClickListener ,Hou
                             district = getDistrictListBean.getData().get(position).getCode();
                             backgroundAlpha(1);
                             popupWindow.dismiss();
-                            loadFangyuanList();
+                            loadFangyuanList(city_code);
                         }
                     });
 
@@ -649,7 +682,7 @@ public class HouseFragment extends Fragment implements View.OnClickListener ,Hou
 
     @Override
     public void onRefresh(RefreshLayout refreshlayout) {
-        loadFangyuanList();
+        loadFangyuanList(city_code);
         anim.start();
         mCustomers_swiperefreshlayout.finishRefresh(900);
     }
@@ -664,4 +697,79 @@ public class HouseFragment extends Fragment implements View.OnClickListener ,Hou
         lp.alpha = bgAlpha; //0.0-1.0
         getActivity().getWindow().setAttributes(lp);
     }
+
+    /**
+     * 获取数据
+     */
+    private void initData() {
+        XutilsHttp.getInstance().gethesder(AppConstants.URL + "/user/project/openCity", null, new XutilsHttp.XCallBack() {
+            @Override
+            public void onResponse(String result) {
+                Gson gson = new Gson();
+                openCityData = gson.fromJson(result, OpenCityData.class);
+                mDataBeans = openCityData.getData();
+            }
+
+            @Override
+            public void error(String message) {
+                Log.i("msg=========", openCityData.getMsg());
+            }
+        });
+    }
+
+
+    class MyLocationListener implements BDLocationListener {
+        public String addr;
+        public String city;
+        public String city_code1;
+
+        @Override
+        public void onReceiveLocation(BDLocation location) {
+
+            addr = location.getAddrStr();    //获取详细地址信息
+            String country = location.getCountry();    //获取国家
+            String province = location.getProvince();    //获取省份
+            city = location.getCity();    //获取城市
+            String district = location.getDistrict();    //获取区县
+            String street = location.getStreet();
+
+            city_name = city;
+            if( getActivity().getIntent().getStringExtra("city_name")!=null) {
+                city_name = getActivity().getIntent().getStringExtra("city_name");
+                city_code = getActivity().getIntent().getStringExtra("city_code");
+
+            }
+            if(city_code == null) {
+                if(openCityData.getData()!=null) {
+                    for (OpenCityData.DataBean dataBean : openCityData.getData()) {
+                        String aa = dataBean.getCity_name();
+                        if (aa.equals(city_name)) {
+                            loadFangyuanList(dataBean.getCity_code());
+                        }
+                    }
+                }
+
+            }
+            }
+
+    }
+
+
+    public void requestPower() {
+        //判断是否已经赋予权限
+        if (ContextCompat.checkSelfPermission(getContext(),
+                Manifest.permission.ACCESS_COARSE_LOCATION)
+                != PackageManager.PERMISSION_GRANTED) {
+            //如果应用之前请求过此权限但用户拒绝了请求，此方法将返回 true。
+            if (ActivityCompat.shouldShowRequestPermissionRationale(getActivity(),
+                    Manifest.permission.ACCESS_COARSE_LOCATION)) {//这里可以写个对话框之类的项向用户解释为什么要申请权限，并在对话框的确认键后续再次申请权限
+            } else {
+                //申请权限，字符串数组内是一个或多个要申请的权限，1是申请权限结果的返回参数，在onRequestPermissionsResult可以得知申请结果
+                ActivityCompat.requestPermissions(getActivity(),
+                        new String[]{Manifest.permission.ACCESS_COARSE_LOCATION,}, 1);
+            }
+        }
+    }
+
+
 }

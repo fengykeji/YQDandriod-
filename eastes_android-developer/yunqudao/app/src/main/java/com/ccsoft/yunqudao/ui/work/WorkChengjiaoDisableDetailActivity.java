@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
@@ -48,6 +49,8 @@ public class WorkChengjiaoDisableDetailActivity extends AppCompatActivity {
     private ImageButton work_button_back;
     private TextView work_commend_client_zhiye;
     private LinearLayout ll_zhiyeguwen;
+    private TextView work_commend_leibie,work_commend_client_comment;
+
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -83,6 +86,8 @@ public class WorkChengjiaoDisableDetailActivity extends AppCompatActivity {
         button = findViewById(R.id.button_sure);
         work_commend_client_zhiye = findViewById(R.id.work_commend_client_zhiye);
         ll_zhiyeguwen = findViewById(R.id.ll_zhiyeguwen);
+        work_commend_leibie = findViewById(R.id.work_commend_leibie);
+        work_commend_client_comment = findViewById(R.id.work_commend_client_comment);
 
         work_button_back = findViewById(R.id.work_button_back);
         button.setOnClickListener(new View.OnClickListener() {
@@ -109,6 +114,7 @@ public class WorkChengjiaoDisableDetailActivity extends AppCompatActivity {
             public void onResponse(String result) {
                 Gson gson = new Gson();
                 WorkReportDisableDetailsData workReportVerifyDetailData = gson.fromJson(result, WorkReportDisableDetailsData.class);
+
                 setInfo(workReportVerifyDetailData);
             }
 
@@ -147,8 +153,12 @@ public class WorkChengjiaoDisableDetailActivity extends AppCompatActivity {
         mDisableTpye.setText(workReportDisableDetailsData.getData().getDisabled_state());
         mDisableDescribe.setText(workReportDisableDetailsData.getData().getDisabled_reason());
         mDisableTime.setText(workReportDisableDetailsData.getData().getDisabled_time());
-        if (!workReportDisableDetailsData.getData().getConsultant_advicer().equals("")) {
-            work_commend_client_zhiye.setText(workReportDisableDetailsData.getData().getConsultant_advicer());
+        work_commend_leibie.setText(workReportDisableDetailsData.getData().getRecommend_type());
+        work_commend_client_comment.setText(workReportDisableDetailsData.getData().getClient_comment());
+        if (!workReportDisableDetailsData.getData().getComsultant_advicer().equals("")) {
+            work_commend_client_zhiye.setText(workReportDisableDetailsData.getData().getComsultant_advicer()
+                    );
+
         }else {
             ll_zhiyeguwen.setVisibility(View.GONE);
         }

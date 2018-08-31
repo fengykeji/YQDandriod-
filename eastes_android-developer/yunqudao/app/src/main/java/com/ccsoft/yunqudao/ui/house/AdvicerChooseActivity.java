@@ -64,8 +64,8 @@ public class AdvicerChooseActivity extends Activity {
     private int need_id;
     private int card_type = 17,aaaa = 0;
     private String  name,sex,tel,card_id,birth,address,floor_min,floor_max,intent,urgency,comment,need_tags;
-    private int  property_type,price ,area,house_type,decorate,buy_purpose,pay_type
-            ;
+    private int  property_type,price ,area,house_type,decorate,buy_purpose,pay_type;
+    private String ID;
 
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -144,8 +144,10 @@ public class AdvicerChooseActivity extends Activity {
         adapter.setOnItemClickListner(new BaseRecyclerAdapter.OnItemClickListner() {
             @Override
             public void onItemClickListner(View v, int position) {
-                tv_name.setText(datalist.get(position).getRYXM());
+                tv_name.setText(datalist.get(position).getGSMC()+"/"+datalist.get(position).getRYXM()
+                +"/"+datalist.get(position).getRYDH());
                 tv_tel.setText(datalist.get(position).getRYDH());
+                ID = datalist.get(position).getID();
                 recyclerView.setVisibility(View.GONE);
                 ll_nochoose.setVisibility(View.GONE);
             }
@@ -169,17 +171,17 @@ public class AdvicerChooseActivity extends Activity {
                         getRecommend2();
                     }
                     if(!tv_name.getText().toString().equals("不选择") && need_id == 0){
-                        getRecommend2(tv_name.getText().toString(), tv_tel.getText().toString());
+                        getRecommend2(ID);
                     }
                 }else {
                     if (tv_name.getText().toString().equals("不选择") && need_id != 0) {
                         getRecommend(project_id, need_id, client_id);
                     }
                     if (!tv_name.getText().toString().equals("不选择") && need_id != 0) {
-                        getRecommend1(project_id, need_id, client_id, tv_name.getText().toString(), tv_tel.getText().toString());
+                        getRecommend1(project_id, need_id, client_id, ID);
                     }
                     if (!tv_name.getText().toString().equals("不选择") && need_id == 0) {
-                        getRecommend(tv_name.getText().toString(), tv_tel.getText().toString());
+                        getRecommend(ID);
                     }
                     if (tv_name.getText().toString().equals("不选择") && need_id == 0) {
                         getRecommend();
@@ -255,16 +257,14 @@ public class AdvicerChooseActivity extends Activity {
      * @param project_id
      * @param id
      * @param mClienId
-     * @param consultant_advicer
-     * @param consultant_tel
      */
-    private void getRecommend1(int project_id,int id,int mClienId,String consultant_advicer, String consultant_tel ){
+    private void getRecommend1(int project_id,int id,int mClienId,String ID ){
         Map<String, String> map = new HashMap<>();
         map.put("project_id", String.valueOf(project_id));
         map.put("client_need_id", String.valueOf(id));
         map.put("client_id", String.valueOf(mClienId));
-        map.put("consultant_advicer",consultant_advicer);
-        map.put("consultant_tel",consultant_tel);
+        map.put("consultant_advicer_id",ID);
+
         XutilsHttp.getInstance().postheader(AppConstants.URL + "agent/client/recommend", map, new XutilsHttp.XCallBack() {
             @Override
             public void onResponse(String result) {
@@ -309,8 +309,7 @@ public class AdvicerChooseActivity extends Activity {
     /**
      * 添加并带推荐
      */
-    private void getRecommend(String consultant_advicer, String consultant_tel){
-
+    private void getRecommend(String ID){
         OkHttpUtils.post(HttpAdress.addAndRecommend)
                 .tag(this)
                 .params("project_id",project_id)
@@ -334,8 +333,7 @@ public class AdvicerChooseActivity extends Activity {
                 .params("urgency", urgency)
                 .params("need_tags", need_tags)
                 .params("comment", comment)
-                .params("consultant_advicer",consultant_advicer)
-                .params("consultant_tel",consultant_tel)
+                .params("consultant_advicer_id",ID)
                 .execute(new StringCallback() {
                     @Override
                     public void onSuccess(String s, Call call, Response response) {
@@ -492,7 +490,7 @@ public class AdvicerChooseActivity extends Activity {
     /**
      * 工作推荐带置业顾问
      */
-    private void getRecommend2(String consultant_advicer, String consultant_tel){
+    private void getRecommend2(String ID){
         OkHttpUtils.post(HttpAdress.ADDANDRECOMMEND)
                 .tag(this)
                 .params("name", name)
@@ -501,9 +499,9 @@ public class AdvicerChooseActivity extends Activity {
                 .params("card_id",card_id)
                 .params("birth", birth)
                 .params("address",address)
-                .params("consultant_advicer",consultant_advicer)
-                .params("consultant_tel",consultant_tel)
+                .params("consultant_advicer_id",ID)
                 .params("project_id",project_id)
+                .params("comment",comment)
                 .execute(new MyStringCallBack() {
                     @Override
                     public void onSuccess(String s, Call call, Response response) {

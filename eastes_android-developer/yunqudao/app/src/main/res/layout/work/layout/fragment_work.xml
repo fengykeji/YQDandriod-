@@ -63,6 +63,95 @@
         android:background="@drawable/ic_line"
         />
 
+            <RelativeLayout
+                android:background="@color/chunbai"
+                android:id="@+id/work_list_item11"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                >
+
+                <LinearLayout
+                    android:id="@+id/work_button_recommend11"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    >
+                    <ImageView
+                        android:id="@+id/work_list_icon_recommend11"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_margin="10dp"
+                        android:src="@drawable/ic_recommended"
+                        />
+                    <LinearLayout
+                        android:layout_gravity="center_vertical"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        >
+                        <TextView
+                            android:textColor="@color/chunhei"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="新房推荐"
+                            android:textSize="15sp"
+                            />
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:gravity="center_vertical"
+                            android:orientation="horizontal"
+                            >
+                            <TextView
+                                android:id="@+id/work_list_total_recommend11"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginRight="10dp"
+                                android:text=""
+                                android:textSize="13sp"
+                                />
+
+                            <TextView
+                                android:id="@+id/work_list_value_recommend11"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginRight="10dp"
+                                android:text=""
+                                android:textSize="13sp"
+                                />
+
+
+                            <TextView
+                                android:id="@+id/work_list_disabled_recommend11"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text=""
+                                android:textSize="13sp"
+                                />
+
+                        </LinearLayout>
+
+                    </LinearLayout>
+
+                </LinearLayout>
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="15dp"
+                    android:src="@drawable/ic_rightarrow2"
+                    />
+
+            </RelativeLayout>
+<!--经纪人-->
+<LinearLayout
+    android:id="@+id/ll_jinjirentuijian"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
     <RelativeLayout
         android:background="@color/chunbai"
         android:id="@+id/work_list_item1"
@@ -322,6 +411,7 @@
             />
 
     </RelativeLayout>
+        </LinearLayout>
     <ImageView
         android:layout_width="match_parent"
         android:layout_height="1dp"

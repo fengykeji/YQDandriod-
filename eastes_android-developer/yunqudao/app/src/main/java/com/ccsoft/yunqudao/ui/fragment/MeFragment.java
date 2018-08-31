@@ -223,6 +223,7 @@ public class MeFragment extends Fragment implements View.OnClickListener  {
                                     } else {
                                         GongSiRenZhengBean bean = JsonUtil.jsonToEntity(s, GongSiRenZhengBean.class);
 
+
                                         if (bean.getData().getState().equals("认证中")) {
                                             Intent intent = new Intent(getContext(), GongSiRenZhengZhongActivity.class);
                                             intent.putExtra("id", bean.getData().getId());

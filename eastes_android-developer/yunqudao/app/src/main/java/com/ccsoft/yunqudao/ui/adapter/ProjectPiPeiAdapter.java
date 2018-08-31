@@ -45,7 +45,11 @@ public class ProjectPiPeiAdapter extends BaseRecyclerAdapter<ProjectPiPeiKeHuBea
     @Override
     protected void convert(BaseViewHolder holder, ProjectPiPeiKeHuBean.DataBean bean, int position) {
         holder.setText(R.id.tv_name1,bean.getName());
-        holder.setText(R.id.tv_zongjia1,bean.getPrice()+"万");
+        if(bean.getPrice()==null){
+            holder.setText(R.id.tv_zongjia1,"");
+        }else {
+            holder.setText(R.id.tv_zongjia1, bean.getPrice() + "万");
+        }
         PeizhiBean peizhiBean = MainActivity.savePeizhi();
         for (PeizhiBean.DataBean._$9Bean.ParamBeanXXXXXXXX bean1 : peizhiBean.getData().get_$9().getParam()) {
             if(!bean.getHouse_type().equals("")) {

@@ -21,6 +21,7 @@ import com.ccsoft.yunqudao.data.base.BaseRecyclerAdapter;
 import com.ccsoft.yunqudao.data.base.FooterHolder;
 import com.ccsoft.yunqudao.http.HttpAdress;
 import com.ccsoft.yunqudao.ui.adapter.WorkListAdapter;
+import com.ccsoft.yunqudao.ui.home.HomeActivity;
 import com.ccsoft.yunqudao.ui.listener.EndlessRecyclerOnScrollListener;
 import com.ccsoft.yunqudao.utils.ActivityManager;
 import com.ccsoft.yunqudao.utils.JsonUtil;
@@ -111,35 +112,35 @@ public class WorkMessageActivity extends AppCompatActivity implements View.OnCli
         adapter.setOnItemClickListner(new BaseRecyclerAdapter.OnItemClickListner() {
             @Override
             public void onItemClickListner(View v, int position) {
-                if(bean.getData().getData().get(position).getMessage_type()==0){
+                if(dataList.get(position).getMessage_type()==0){
                     Intent intent = new Intent(WorkMessageActivity.this,MessageCommendDisableDetailsActivity.class);
-                    intent.putExtra("client_id",bean.getData().getData().get(position).getClient_id());
-                    intent.putExtra("message_id",bean.getData().getData().get(position).getMessage_id());
+                    intent.putExtra("client_id",dataList.get(position).getClient_id());
+                    intent.putExtra("message_id",dataList.get(position).getMessage_id());
                     startActivity(intent);
-                }else if(bean.getData().getData().get(position).getMessage_type()==1){
+                }else if(dataList.get(position).getMessage_type()==2){
                     Intent intent = new Intent(WorkMessageActivity.this,MessageCommendVerifyDetailActivity.class);
-                    intent.putExtra("client_id",bean.getData().getData().get(position).getClient_id());
-                    intent.putExtra("message_id",bean.getData().getData().get(position).getMessage_id());
+                    intent.putExtra("client_id",dataList.get(position).getClient_id());
+                    intent.putExtra("message_id",dataList.get(position).getMessage_id());
                     startActivity(intent);
-                }else if(bean.getData().getData().get(position).getMessage_type()==2){
+                }else if(dataList.get(position).getMessage_type()==1&&SpUtil.getString("agent_identity","").equals(2+"")){
                     Intent intent = new Intent(WorkMessageActivity.this,MessageReportVerifyActivity.class);
-                    intent.putExtra("client_id",bean.getData().getData().get(position).getClient_id());
-                    intent.putExtra("message_id",bean.getData().getData().get(position).getMessage_id());
+                    intent.putExtra("client_id",dataList.get(position).getClient_id());
+                    intent.putExtra("message_id",dataList.get(position).getMessage_id());
                     startActivity(intent);
-                }else if(bean.getData().getData().get(position).getMessage_type()==3) {
+                }else if(dataList.get(position).getMessage_type()==3) {
                     Intent intent = new Intent(WorkMessageActivity.this, MessagekReportValidDeatilActivity.class);
-                    intent.putExtra("client_id", bean.getData().getData().get(position).getClient_id());
-                    intent.putExtra("message_id", bean.getData().getData().get(position).getMessage_id());
+                    intent.putExtra("client_id", dataList.get(position).getClient_id());
+                    intent.putExtra("message_id", dataList.get(position).getMessage_id());
                     startActivity(intent);
-                }else if(bean.getData().getData().get(position).getMessage_type()==4) {
+                }else if(dataList.get(position).getMessage_type()==4) {
                     Intent intent = new Intent(WorkMessageActivity.this, MessageChengjiaoVailddetailActivity.class);
-                    intent.putExtra("client_id", bean.getData().getData().get(position).getClient_id());
-                    intent.putExtra("message_id", bean.getData().getData().get(position).getMessage_id());
+                    intent.putExtra("client_id", dataList.get(position).getClient_id());
+                    intent.putExtra("message_id", dataList.get(position).getMessage_id());
                     startActivity(intent);
-                }else if(bean.getData().getData().get(position).getMessage_type()==5) {
+                }else if(dataList.get(position).getMessage_type()==5) {
                     Intent intent = new Intent(WorkMessageActivity.this, MessageReportDisableActivity.class);
-                    intent.putExtra("client_id", bean.getData().getData().get(position).getClient_id());
-                    intent.putExtra("message_id", bean.getData().getData().get(position).getMessage_id());
+                    intent.putExtra("client_id", dataList.get(position).getClient_id());
+                    intent.putExtra("message_id", dataList.get(position).getMessage_id());
                     startActivity(intent);
                 }
             }
@@ -225,7 +226,8 @@ public class WorkMessageActivity extends AppCompatActivity implements View.OnCli
 
         switch (v.getId()) {
             case R.id.im_back:
-                finish();
+                Intent intent = new Intent(this,HomeActivity.class);
+                startActivity(intent);
                 break;
         }
     }
@@ -236,7 +238,7 @@ public class WorkMessageActivity extends AppCompatActivity implements View.OnCli
             if (adapter.footerHolder == null || adapter.footerHolder.getmState() == FooterHolder.KEY_LOADING) {
                 return;
             }
-            if (curPage < totalPage) {
+            if (curPage <= totalPage) {
                 adapter.footerHolder.setData(FooterHolder.KEY_LOADING);
                 loadNextData();
             } else {

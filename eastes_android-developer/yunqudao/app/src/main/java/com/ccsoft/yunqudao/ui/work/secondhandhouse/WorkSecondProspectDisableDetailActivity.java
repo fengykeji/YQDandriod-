@@ -10,6 +10,14 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 
 import com.ccsoft.yunqudao.R;
+import com.ccsoft.yunqudao.bean.ProspectBean;
+import com.ccsoft.yunqudao.http.HttpAdress;
+import com.ccsoft.yunqudao.utils.JsonUtil;
+import com.lzy.okhttputils.OkHttpUtils;
+import com.lzy.okhttputils.callback.StringCallback;
+
+import okhttp3.Call;
+import okhttp3.Response;
 
 public class WorkSecondProspectDisableDetailActivity extends AppCompatActivity {
 
@@ -32,17 +40,22 @@ public class WorkSecondProspectDisableDetailActivity extends AppCompatActivity {
     private TextView date_seconds;
     private TextView work_qiangdan_time;
     private TextView work_commend_jingjiren;
-    private TextView work_commend_phonenumber;
+    private TextView work_commend_phonenumber,work_commend_disable_type,work_commend_disable_describe
+            ,work_commend_disable_time;
     private Button tv_shensu;
+
+    private int survey_id;
 
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_work_second_prospect_disable_details);
         initView();
-//        initData();
+        initData();
     }
 
     private void initView() {
+
+        survey_id = getIntent().getIntExtra("survey_id",0);
 
         ImageButton back = findViewById(R.id.work_button_back);
         mDisableType = findViewById(R.id.work_commend_disable_type);
@@ -64,6 +77,9 @@ public class WorkSecondProspectDisableDetailActivity extends AppCompatActivity {
         work_qiangdan_time = findViewById(R.id.work_qiangdan_time);
         work_commend_jingjiren = findViewById(R.id.work_commend_jingjiren);
         work_commend_phonenumber = findViewById(R.id.work_commend_phonenumber);
+        work_commend_disable_type = findViewById(R.id.work_commend_disable_type);
+        work_commend_disable_describe = findViewById(R.id.work_commend_disable_describe);
+        work_commend_disable_time = findViewById(R.id.work_commend_disable_time);
         tv_shensu = findViewById(R.id.tv_shensu);
 
         back.setOnClickListener(new View.OnClickListener() {
@@ -79,5 +95,38 @@ public class WorkSecondProspectDisableDetailActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+    }
+
+    private void initData(){
+        OkHttpUtils.get(HttpAdress.surveyDisabledDetail)
+                .tag(this)
+                .params("survey_id",survey_id)
+                .execute(new StringCallback() {
+                    @Override
+                    public void onSuccess(String s, Call call, Response response) {
+                        ProspectBean bean = JsonUtil.jsonToEntity(s,ProspectBean.class);
+                        if(bean.getCode() == 200){
+                            work_commend_disable_type.setText(bean.getData().getDisabled_state());
+                            work_commend_disable_describe.setText(bean.getData().getDisabled_reason());
+                            work_commend_disable_time.setText(bean.getData().getDisabled_time());
+                            work_qiangdan_time.setText(bean.getData().getSurvey_time());
+                            work_commend_jingjiren.setText(bean.getData().getAgent_tel());
+                            work_commend_phonenumber.setText(bean.getData().getAgent_name());
+                            work_commend_number.setText(survey_id+"");
+                            work_commend_time.setText(bean.getData().getStore_name());
+                            work_commend_people.setText(bean.getData().getName());
+                            if(bean.getData().getSex() == 1){
+                                work_commend_tel.setText("男");
+                            }else if(bean.getData().getSex() == 2){
+                                work_commend_tel.setText("女");
+                            }
+                            work_commend_project.setText(bean.getData().getCard_id());
+                            work_commend_project_address.setText(bean.getData().getTel());
+                            work_commend_client_name.setText(bean.getData().getReport_type());
+                            work_commend_client_sex.setText(bean.getData().getRecord_time());
+                            work_commend_client_tel.setText(bean.getData().getComment());
+                        }
+                    }
+                });
     }
 }

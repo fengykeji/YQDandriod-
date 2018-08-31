@@ -13,6 +13,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 
 import com.ccsoft.yunqudao.R;
+import com.ccsoft.yunqudao.bean.SurveyWaitConfirm;
 import com.ccsoft.yunqudao.data.api.ApiSubscriber;
 import com.ccsoft.yunqudao.data.base.BaseRecyclerAdapter;
 import com.ccsoft.yunqudao.data.base.FooterHolder;
@@ -21,6 +22,7 @@ import com.ccsoft.yunqudao.http.HttpAdress;
 import com.ccsoft.yunqudao.manager.ClientManager;
 import com.ccsoft.yunqudao.rx.RxSchedulers;
 import com.ccsoft.yunqudao.ui.adapter.WorkRecommendValidAdapter;
+import com.ccsoft.yunqudao.ui.adapter.WorkSecondProspectVerfyAdapter;
 import com.ccsoft.yunqudao.ui.listener.EndlessRecyclerOnScrollListener;
 import com.ccsoft.yunqudao.ui.work.WorkRecommendValidFragment;
 import com.ccsoft.yunqudao.utils.JsonUtil;
@@ -46,9 +48,9 @@ public class WorkSecondProspectVerfyFragment extends Fragment implements View.On
     private WorkRecommendValidFragment mWorkRecommendValidFragment;
     private RecyclerView mWork_recyclerview_Valid;
     private SmartRefreshLayout mSwipRefresh;
-    private WorkRecommendValidAdapter mAdapter;
+    private WorkSecondProspectVerfyAdapter mAdapter;
 
-    private List<BrrokerValueData.ValueData> dataList = new ArrayList<>();
+    private List<SurveyWaitConfirm.DataBean> dataList = new ArrayList<>();
     private AnimationDrawable anim;
     private ImageView yunsuan;
 
@@ -78,7 +80,7 @@ public class WorkSecondProspectVerfyFragment extends Fragment implements View.On
         mSwipRefresh = mView.findViewById(R.id.mSwipRefresh);
         this.mWork_recyclerview_Valid = mView.findViewById(R.id.work_recyclerview_valid);
         mWork_recyclerview_Valid.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false));
-        mAdapter = new WorkRecommendValidAdapter(getContext(),R.layout.item_work_value, dataList);
+        mAdapter = new WorkSecondProspectVerfyAdapter(getContext(),R.layout.item_work_value, dataList);
         mWork_recyclerview_Valid.setAdapter(mAdapter);
         mWork_recyclerview_Valid.addOnScrollListener(endlessRecyclerOnScrollListener);
         yunsuan = mView.findViewById(R.id.yunsuan);
@@ -95,6 +97,7 @@ public class WorkSecondProspectVerfyFragment extends Fragment implements View.On
             @Override
             public void onItemClickListner(View v, int position) {
                 Intent intent = new Intent(getContext(),WorkSecondProspectVerfyDetailActivity.class);
+                intent.putExtra("survey_id",dataList.get(position).getSurvey_id());
                 startActivity(intent);
             }
         });
@@ -103,26 +106,21 @@ public class WorkSecondProspectVerfyFragment extends Fragment implements View.On
     }
 
     private void initData() {
-        ClientManager.getInstance().getBrokerValue().compose(RxSchedulers.<BrrokerValueData>io_main()).subscribe(new ApiSubscriber<BrrokerValueData>(getActivity()) {
-            @Override
-            protected void _onNext(BrrokerValueData brokerWaitConfirmData) {
-                dataList.clear();
-                dataList.addAll(brokerWaitConfirmData.data);
-                curPage = 2;
-                totalPage = brokerWaitConfirmData.last_page;
-                mAdapter.notifyDataSetChanged();
-            }
 
-            @Override
-            protected void _onError(String message) {
-                LogUtil.e(message);
-            }
-
-            @Override
-            protected void _onCompleted() {
-
-            }
-        });
+        OkHttpUtils.get(HttpAdress.surveyWaitConfirm)
+                .tag(this)
+                .execute(new StringCallback() {
+                    @Override
+                    public void onSuccess(String s, Call call, Response response) {
+                        SurveyWaitConfirm bean = JsonUtil.jsonToEntity(s,SurveyWaitConfirm.class);
+                        if(bean.getCode() == 200) {
+                            dataList.clear();
+                            dataList.addAll(bean.getData());
+                            curPage = 2;
+                            mAdapter.notifyDataSetChanged();
+                        }
+                    }
+                });
     }
 
     @Override
@@ -133,7 +131,7 @@ public class WorkSecondProspectVerfyFragment extends Fragment implements View.On
     int curPage;
     int totalPage;
     private void loadNextData() {
-        OkHttpUtils.get(HttpAdress.value)
+        OkHttpUtils.get(HttpAdress.surveyWaitConfirm)
                 .tag(getActivity())
                 .params("page", curPage)
                 .execute(new StringCallback() {
@@ -150,8 +148,8 @@ public class WorkSecondProspectVerfyFragment extends Fragment implements View.On
                         }
                         if (code == 200 && data != null) {
                             curPage++;
-                            BrrokerValueData brokerWaitConfirmData = JsonUtil.jsonToEntity(data, BrrokerValueData.class);
-                            dataList.addAll(brokerWaitConfirmData.data);
+                            SurveyWaitConfirm brokerWaitConfirmData = JsonUtil.jsonToEntity(data, SurveyWaitConfirm.class);
+                            dataList.addAll(brokerWaitConfirmData.getData());
                             mAdapter.notifyDataSetChanged();
                         }
 

@@ -54,6 +54,8 @@ public class MessageReportDisableActivity extends AppCompatActivity {
 
     private TextView work_commend_client_zhiye;
     private LinearLayout ll_zhiyeguwen;
+    private TextView work_commend_leibie,work_commend_client_comment;
+
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -91,6 +93,8 @@ public class MessageReportDisableActivity extends AppCompatActivity {
         button = findViewById(R.id.button_sure);
         work_commend_client_zhiye = findViewById(R.id.work_commend_client_zhiye);
         ll_zhiyeguwen = findViewById(R.id.ll_zhiyeguwen);
+        work_commend_leibie = findViewById(R.id.work_commend_leibie);
+        work_commend_client_comment = findViewById(R.id.work_commend_client_comment);
 
         work_button_back = findViewById(R.id.work_button_back);
         button.setOnClickListener(new View.OnClickListener() {
@@ -156,10 +160,15 @@ public class MessageReportDisableActivity extends AppCompatActivity {
         mDisableTpye.setText(workReportDisableDetailsData.getData().getDisabled_state());
         mDisableDescribe.setText(workReportDisableDetailsData.getData().getDisabled_reason());
         mDisableTime.setText(workReportDisableDetailsData.getData().getDisabled_time());
-        if (!workReportDisableDetailsData.getData().getConsultant_advicer().equals("")) {
-            work_commend_client_zhiye.setText(workReportDisableDetailsData.getData().getConsultant_advicer());
+        work_commend_leibie.setText(workReportDisableDetailsData.getData().getRecommend_type());
+        work_commend_client_comment.setText(workReportDisableDetailsData.getData().getClient_comment());
+        if (!workReportDisableDetailsData.getData().getComsultant_advicer().equals("")) {
+            work_commend_client_zhiye.setText(workReportDisableDetailsData.getData().getComsultant_advicer()
+            );
+
         }else {
             ll_zhiyeguwen.setVisibility(View.GONE);
         }
+
     }
 }

@@ -16,6 +16,6 @@ public class RecommendPopupwindowAdapter extends BaseRecyclerAdapter<GetHouseTyp
 
     @Override
     protected void convert(BaseViewHolder holder, GetHouseTypeDetailBean.DataBean.RowsBean bean, int position) {
-        holder.setText(R.id.tv_woye,bean.getRYXM());
+        holder.setText(R.id.tv_woye,bean.getGSMC()+"/"+bean.getRYXM()+"/"+bean.getRYDH());
     }
 }
