@@ -255,6 +255,9 @@
         <activity android:name=".ui.house.ProjectXiangCeVebViewActivity"></activity>
        <activity android:name=".ui.house.AdvicerChooseActivity"
            android:theme="@style/AppTheme.NoActionBarWindowhBackGround"></activity>
+        <activity android:name=".ui.house.RecommendInfoActivity"
+            android:theme="@style/AppTheme.NoActionBarWindowhBackGround"
+            ></activity>
 
 
         <!--客源模块-->
@@ -372,6 +375,7 @@
         <activity android:name=".ui.house.secondhandhouse.SecondHouseXiangQingActivity"></activity>
         <activity android:name=".ui.house.secondhandhouse.XiaoQuhouseActivity"></activity>
         <activity android:name=".ui.work.secondhandhouse.XiaoQuXiangQingActivity"></activity>
+        <activity android:name=".ui.work.secondhandhouse.AddLianXiRenActivity"></activity>
 
 
 

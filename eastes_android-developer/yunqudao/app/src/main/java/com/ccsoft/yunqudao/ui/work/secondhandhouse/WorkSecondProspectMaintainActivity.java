@@ -88,7 +88,9 @@ public class WorkSecondProspectMaintainActivity extends AppCompatActivity implem
             @Override
             public void onItemClickListner(View v, int position) {
                 int id = dataList.get(position).getHouse_id();
-                Intent intent = new Intent(WorkSecondProspectMaintainActivity.this,WorkSecondProspectMaintainDetailActivity.class);
+//                Intent intent = new Intent(WorkSecondProspectMaintainActivity.this,WorkSecondProspectMaintainDetailActivity.class);
+                Intent intent = new Intent(WorkSecondProspectMaintainActivity.this,WorkSecondProspectFinishDetailActivity.class);
+                intent.putExtra("house_id",id);
                 startActivity(intent);
             }
         });

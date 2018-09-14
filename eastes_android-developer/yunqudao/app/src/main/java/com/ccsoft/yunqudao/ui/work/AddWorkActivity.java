@@ -230,14 +230,19 @@ public class AddWorkActivity extends AppCompatActivity implements View.OnClickLi
                     @Override
                     public void onSuccess(String s, Call call, Response response) {
                         bean = JsonUtil.jsonToEntity(s,GetHouseTypeDetailBean.class);
-                        if (bean.getCode() == 200){
-                            if(bean.getData().getTotal().equals("0")){
+                        if (bean.getData().getAdvicer_select() == 0) {
+                            getRecommend();
+                        } else if(bean.getData().getAdvicer_select() == 1){
+                            showPopupwindow();
+                        }else{
+                            if (bean.getData().getTotal().equals("0")) {
                                 getRecommend();
-                            }else {
+                            } else {
                                 showPopupwindow();
                             }
                         }
-                    }
+                        }
+
                 });
     }
 
@@ -255,6 +260,7 @@ public class AddWorkActivity extends AppCompatActivity implements View.OnClickLi
         intent.putExtra("card_id",mCustomers_id);
         intent.putExtra("barthday", mCustomers_barthday);
         intent.putExtra("address", mCustomers_address);
+        intent.putExtra("project_name",bean.getData().getProject_name());
         intent.putExtra("aaaa",1);
         intent.putExtras(bundle);
         startActivity(intent);

@@ -58,6 +58,7 @@ public class WorkDuiJieRecommendVerifyFragment extends Fragment implements View.
     private FragmentManager fragmentManager;
     private int project_id, client_id;
     private String client_name,client_tel;
+    private int tel_complete_state;
 
     @Override
     public void onStart() {
@@ -105,6 +106,7 @@ public class WorkDuiJieRecommendVerifyFragment extends Fragment implements View.
                 project_id = dataList.get(position).getProject_id();
                 client_name = dataList.get(position).getName();
                  client_tel = dataList.get(position).getTel();
+                tel_complete_state = dataList.get(position).getTel_complete_state();
 //                WorkDuiJieCommendVerifyDetailActivity.start(getActivity(), id);
                 Intent intent = new Intent(getContext(),WorkDuiJieCommendVerifyDetailActivity.class);
                 intent.putExtra("project_id",project_id);
@@ -113,7 +115,7 @@ public class WorkDuiJieRecommendVerifyFragment extends Fragment implements View.
                 intent.putExtra("client_id",client_id);
                 startActivity(intent);
 
-                TextView textView = v.findViewById(R.id.tv_sure);
+                ImageView textView = v.findViewById(R.id.tv_sure);
                 textView.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
@@ -236,6 +238,7 @@ public class WorkDuiJieRecommendVerifyFragment extends Fragment implements View.
                         intent.putExtra("client_name",client_name);
                         intent.putExtra("client_tel",client_tel);
                         intent.putExtra("client_id",client_id);
+                        intent.putExtra("tel_complete_state",tel_complete_state);
                         intent.putExtra("daofangid",3);
                         startActivity(intent);
                         break;

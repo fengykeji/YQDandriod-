@@ -502,7 +502,7 @@ public class AddCustomers2Activity extends AppCompatActivity implements View.OnC
      * 获取置业顾问
      */
     private void getHouseTypeDatil(int project_id){
-        OkHttpUtils.get(AppConstants.URL+"user/project/advicer")
+        OkHttpUtils.get(AppConstants.URL+"agent/project/advicer")
                 .tag(this)
                 .params("project_id",project_id)
                 .execute(new StringCallback() {
@@ -510,10 +510,16 @@ public class AddCustomers2Activity extends AppCompatActivity implements View.OnC
                     public void onSuccess(String s, Call call, Response response) {
                         bean = JsonUtil.jsonToEntity(s,GetHouseTypeDetailBean.class);
                         if (bean.getCode() == 200){
-                            if(bean.getData().getTotal().equals("0")){
+                            if (bean.getData().getAdvicer_select() == 0) {
                                 getRecommend(project_id);
-                            }else {
+                            } else if(bean.getData().getAdvicer_select() == 1){
                                 showPopupwindow(project_id);
+                            }else{
+                                if (bean.getData().getTotal().equals("0")) {
+                                    getRecommend(project_id);
+                                } else {
+                                    showPopupwindow(project_id);
+                                }
                             }
                         }
                     }
@@ -530,6 +536,8 @@ public class AddCustomers2Activity extends AppCompatActivity implements View.OnC
         Intent intent = new Intent(AddCustomers2Activity
                 .this, AdvicerChooseActivity.class);
         intent.putExtra("project_id",project_id);
+        intent.putExtra("advicer_selected",bean.getData().getAdvicer_select());
+        intent.putExtra("tel_complete_state",bean.getData().getTel_complete_state());
 
         intent.putExtra("name",name);
         intent.putExtra("sex",sex);
@@ -551,6 +559,7 @@ public class AddCustomers2Activity extends AppCompatActivity implements View.OnC
         intent.putExtra("urgency",urgency);
         intent.putExtra("need_tags",need_tags);
         intent.putExtra("comment",comment);
+        intent.putExtra("project_name",bean.getData().getProject_name());
         intent.putExtras(bundle);
         startActivity(intent);
 

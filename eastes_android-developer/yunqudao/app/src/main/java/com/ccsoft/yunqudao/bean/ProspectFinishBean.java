@@ -1,5 +1,6 @@
 package com.ccsoft.yunqudao.bean;
 
+import java.io.Serializable;
 import java.util.List;
 
 public class ProspectFinishBean  {
@@ -504,7 +505,7 @@ public class ProspectFinishBean  {
             }
         }
 
-        public static class ContactBean {
+        public static class ContactBean implements Serializable {
             /**
              * contact_id : 3
              * name : 胡志强

@@ -1,6 +1,7 @@
 package com.ccsoft.yunqudao.ui.work.secondhandhouse;
 
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -10,9 +11,13 @@ import android.widget.TextView;
 import com.ccsoft.yunqudao.R;
 import com.ccsoft.yunqudao.bean.WaitGrabDetailBean;
 import com.ccsoft.yunqudao.http.HttpAdress;
+import com.ccsoft.yunqudao.utils.DataUtils;
 import com.ccsoft.yunqudao.utils.JsonUtil;
 import com.lzy.okhttputils.OkHttpUtils;
 import com.lzy.okhttputils.callback.StringCallback;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import okhttp3.Call;
 import okhttp3.Response;
@@ -92,9 +97,13 @@ public class WorkSecondBaoBeiVerfyDetailActivity extends AppCompatActivity {
                             work_commend_client_name.setText(bean.getData().getReport_type());
                             work_commend_client_sex.setText(bean.getData().getRecord_time());
                             work_commend_client_tel.setText(bean.getData().getComment());
+
                         }
                     }
                 });
     }
+
+
+
 
 }

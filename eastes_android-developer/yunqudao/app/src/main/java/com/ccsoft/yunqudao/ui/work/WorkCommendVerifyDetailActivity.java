@@ -124,7 +124,6 @@ public class WorkCommendVerifyDetailActivity extends AppCompatActivity {
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
-                        Log.e("ccccc",data1);
                         if (code == 200 && data1 != null) {
                             ConfirmDetailData data = JsonUtil.jsonToEntity(data1,ConfirmDetailData.class);
                             if (data != null) {

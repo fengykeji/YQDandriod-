@@ -28,6 +28,7 @@ public class HouseListAdapter extends BaseRecyclerAdapter<HouseListBean.DataBean
     ImageView imageView;
     @Override
     protected void convert(BaseViewHolder holder, HouseListBean.DataBean bean,int position) {
+
 //        holder.setImageResource(R.id.icon_iv, AppConstants.URL + bean.getImg_url());
         ImageView imageView = (ImageView) holder.getView(R.id.icon_iv);
         Picasso.with(context).load(AppConstants.URL + bean.getImg_url())

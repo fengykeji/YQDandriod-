@@ -97,7 +97,7 @@ public class WorkSecondProspectFinishFragment extends Fragment implements View.O
             @Override
             public void onItemClickListner(View v, int position) {
                 Intent intent = new Intent(getContext(),WorkSecondProspectFinishDetailActivity.class);
-                intent.putExtra("house_id",datalist.get(position).getHouse_id()+"");
+                intent.putExtra("house_id",datalist.get(position).getHouse_id());
                 intent.putExtra("gone","gone");
                 startActivity(intent);
             }

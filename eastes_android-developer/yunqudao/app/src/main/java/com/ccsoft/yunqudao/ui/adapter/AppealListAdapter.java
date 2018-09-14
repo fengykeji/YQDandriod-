@@ -26,16 +26,11 @@ public class AppealListAdapter extends BaseRecyclerAdapter<AppealListBean.DataBe
         if(bean.getAppeal_state()==1) {
             TextView textView = (TextView) holder.getView(R.id.status_tv);
             textView.setTextColor(Color.parseColor("#ff5858"));
-            holder.setText(R.id.status_tv, "处理中");
+            holder.setText(R.id.tv_tel1, "处理中");
         }
-        holder.setText(R.id.status_tv, "处理完成");
+        holder.setText(R.id.tv_tel1, "处理完成");
 
 
-        holder.setOnclick(R.id.phone_iv, new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
 
-            }
-        });
     }
 }

@@ -186,7 +186,7 @@
             <TextView
                 android:layout_marginTop="10dp"
                 android:textSize="18sp"
-                android:text="20"
+                android:text="0"
                 android:textColor="@color/chunbai"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
@@ -210,7 +210,7 @@
             <TextView
                 android:layout_marginTop="10dp"
                 android:textSize="18sp"
-                android:text="20"
+                android:text="0"
                 android:textColor="@color/chunbai"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />

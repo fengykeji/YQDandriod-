@@ -405,9 +405,9 @@ public class HomeActivity extends AppCompatActivity implements BottomNavigationB
                                  builder.setPositiveButton("确定",new DialogInterface.OnClickListener() {
                                      @Override
                                      public void onClick(DialogInterface dialogInterface, int i) {
-//                                         Uri uri = Uri.parse("https://www.baidu.com");
-//                                         Intent intent = new Intent(Intent.ACTION_VIEW, uri);
-//                                         startActivity(intent);
+                                         Uri uri = Uri.parse("http://www.goodhome.net.cn:2902/android/new/install.apk");
+                                         Intent intent = new Intent(Intent.ACTION_VIEW, uri);
+                                         startActivity(intent);
                                      }
                                  });
 

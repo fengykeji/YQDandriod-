@@ -2,17 +2,17 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:background="@color/chunbai"
     android:orientation="vertical">
 
     <LinearLayout
+        android:background="@color/chunbai"
         android:id="@+id/ll_pipeikehu1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
         android:padding="10dp"
         android:visibility="visible">
-
-
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -29,12 +29,18 @@
                     android:orientation="vertical">
 
                     <LinearLayout
+                        android:layout_margin="5dp"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:orientation="horizontal">
 
                         <TextView
-                            android:layout_marginLeft="5dp"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginRight="5dp"
+                            android:text="联系人："
+                            android:textSize="13sp" />
+                        <TextView
                             android:id="@+id/tv_name1"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
@@ -64,14 +70,14 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginRight="5dp"
-                            android:text="意向总价："
+                            android:text="类型："
                             android:textSize="13sp" />
 
                         <TextView
                             android:id="@+id/tv_zongjia1"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text=""
+                            android:text="业主—主权益人"
                             android:textSize="13sp" />
 
                     </LinearLayout>
@@ -87,19 +93,20 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginRight="5dp"
-                            android:text="意向户型："
+                            android:text="联系电话："
                             android:textSize="13sp" />
 
                         <TextView
                             android:id="@+id/tv_huxin1"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text=""
+                            android:text="15928666180"
                             android:textSize="13sp" />
 
                     </LinearLayout>
 
                     <LinearLayout
+                        android:visibility="gone"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_margin="5dp"
@@ -117,74 +124,18 @@
                             android:id="@+id/tv_quyu1"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text=""
+                            android:text="xx区-xx大道"
                             android:textSize="13sp" />
 
                     </LinearLayout>
 
-                    <LinearLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:gravity="center_vertical"
-                        android:orientation="horizontal">
 
-                        <LinearLayout
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginLeft="5dp"
-                            android:gravity="center_vertical"
-                            android:orientation="horizontal">
-
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:paddingRight="5dp"
-                                android:text="购买意向度："
-                                android:textSize="13sp" />
-
-                            <TextView
-                                android:textColor="@color/juse"
-                                android:id="@+id/tv_intents1"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginRight="10dp"
-                                android:text=""
-                                android:textSize="13sp" />
-                        </LinearLayout>
-
-                        <LinearLayout
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:gravity="center_vertical"
-                            android:orientation="horizontal">
-
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:paddingRight="5dp"
-                                android:text="购买紧迫度："
-                                android:textSize="13sp" />
-
-                            <TextView
-                                android:textColor="@color/juse"
-                                android:id="@+id/tv_urgency"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginRight="10dp"
-                                android:text=""
-                                android:textSize="13sp" />
-                        </LinearLayout>
-
-
-                    </LinearLayout>
                 </LinearLayout>
 
 
                 <LinearLayout
                     android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
+                    android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"
                     android:gravity="center_vertical"
                     android:orientation="vertical">
@@ -196,13 +147,15 @@
                         android:orientation="horizontal">
 
                         <TextView
+                            android:id="@+id/tv_chakanquanbu"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_marginRight="10dp"
-                            android:text="匹配度："
+                            android:text="查看全部>>"
                             android:textSize="13sp" />
 
                         <TextView
+                            android:visibility="gone"
                             android:textColor="@color/liji_material_blue_500"
                             android:id="@+id/tv_pepeidu"
                             android:layout_width="wrap_content"
@@ -211,25 +164,6 @@
                             android:textSize="13sp" />
                     </LinearLayout>
 
-                    <TextView
-                        android:id="@+id/tv_telnum1"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginBottom="3dp"
-                        android:text="xxxxxxxxxxx" />
-
-                    <LinearLayout
-                        android:id="@+id/ll_dianji"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent">
-                    <Button
-                        android:id="@+id/house_button_推荐1"
-                        android:layout_width="match_parent"
-                        android:layout_height="30dp"
-                        android:background="@color/shenlan"
-                        android:text="推荐"
-                        android:textColor="@color/chunbai" />
-                    </LinearLayout>
 
 
                 </LinearLayout>
@@ -237,10 +171,9 @@
         </LinearLayout>
     </LinearLayout>
 
-        <ImageView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:src="@drawable/ic_line"></ImageView>
-
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_line"></ImageView>
 
 </LinearLayout>

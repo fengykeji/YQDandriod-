@@ -41,6 +41,7 @@ public class GongSiRenZhengWanActivity extends AppCompatActivity implements View
     private ImageView ib_photo;
     private int id;
     private GongSiRenZhengBean bean;
+    private TextView tv_ren;
 
 
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -64,6 +65,7 @@ public class GongSiRenZhengWanActivity extends AppCompatActivity implements View
         et_zhiwei = findViewById(R.id.tv_zhiwei);
         ib_photo = findViewById(R.id.ib_photo);
         et_gonghao = findViewById(R.id.et_gonghao);
+        tv_ren = findViewById(R.id.tv_ren);
 
         id = getIntent().getIntExtra("id",0);
 
@@ -103,6 +105,11 @@ public class GongSiRenZhengWanActivity extends AppCompatActivity implements View
                             et_zhiwei.setText(bean.getData().getPosition()+"");
                             tv_tuzhitime.setText(bean.getData().getCreate_time());
                             ib_photo.setImageURI(Uri.parse(AppConstants.URL+bean.getData().getImg_url()));
+                            if(bean.getData().getButter_project().equals("0")){
+                                tv_ren.setText("经济人");
+                            }else {
+                                tv_ren.setText("对接人");
+                            }
                         }
                     }
                 });

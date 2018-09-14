@@ -142,8 +142,8 @@
                         android:textSize="15sp"
                         android:text="角色"/>
                     <TextView
+                        android:id="@+id/tv_ren"
                         android:textColor="@color/chunhei"
-
                         android:layout_alignParentRight="true"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"

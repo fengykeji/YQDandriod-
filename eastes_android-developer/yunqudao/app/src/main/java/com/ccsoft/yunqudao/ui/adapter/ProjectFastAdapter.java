@@ -35,6 +35,7 @@ import com.lzy.okhttputils.OkHttpUtils;
 import com.lzy.okhttputils.callback.StringCallback;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -50,14 +51,22 @@ public class ProjectFastAdapter extends BaseRecyclerAdapter<ProjectFastRecommend
     private int need_id;
     private Button tuijian;
     private GetHouseTypeDetailBean bean;
-    public ProjectFastAdapter(Context context, int layoutId, List<ProjectFastRecommendListBean.DataBeanX.DataBean> data , int project_id) {
+    private String name="";
+    private String tel="";
+    private String project_name = "";
+    private List<ProjectFastRecommendListBean.DataBeanX.DataBean> dataList = new ArrayList<>();
+
+    public ProjectFastAdapter(Context context, int layoutId, List<ProjectFastRecommendListBean.DataBeanX.DataBean> data , int project_id
+    ,List<ProjectFastRecommendListBean.DataBeanX.DataBean> dataList) {
         super(context, layoutId, data);
         this.project_id = project_id;
+        this.dataList = dataList;
     }
 
     @Override
     protected void convert(BaseViewHolder holder,ProjectFastRecommendListBean.DataBeanX.DataBean  bean, int position) {
-        holder.setText(R.id.tv_name1,bean.getName());
+
+
         if(bean.getPrice()==null){
             holder.setText(R.id.tv_zongjia1,"");
         }else {
@@ -81,11 +90,22 @@ public class ProjectFastAdapter extends BaseRecyclerAdapter<ProjectFastRecommend
         holder.setText(R.id.tv_intents1,bean.getIntent()+"");
         holder.setText(R.id.tv_urgency,bean.getUrgency()+"");
         holder.setText(R.id.tv_telnum1,bean.getTel());
-        client_id = bean.getClient_id();
-        need_id = bean.getNeed_id();
+
+
+
+
+
+        holder.setText(R.id.tv_name1,bean.getName());
+//
         holder.setOnclick(R.id.house_button_推荐1, new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                client_id = dataList.get(position).getClient_id();
+                need_id = dataList.get(position).getNeed_id();
+                name = dataList.get(position).getName();
+                tel = dataList.get(position).getTel();
+                project_name = dataList.get(position).getProject_name();
+
                 getHouseTypeDatil();
             }
         });
@@ -97,18 +117,24 @@ public class ProjectFastAdapter extends BaseRecyclerAdapter<ProjectFastRecommend
      */
     private void getHouseTypeDatil(){
 
-        OkHttpUtils.get(AppConstants.URL+"user/project/advicer")
+        OkHttpUtils.get(AppConstants.URL+"agent/project/advicer")
                 .tag(this)
                 .params("project_id",project_id)
                 .execute(new StringCallback() {
                     @Override
                     public void onSuccess(String s, Call call, Response response) {
                          bean = JsonUtil.jsonToEntity(s,GetHouseTypeDetailBean.class);
-                        if (bean.getCode() == 200){
-                            if(bean.getData().getTotal().equals("0")){
-                                getRecommend(project_id,need_id,client_id);
-                            }else {
+                        if (bean.getCode() == 200) {
+                            if (bean.getData().getAdvicer_select() == 0) {
+                                getRecommend(project_id, need_id, client_id);
+                            } else if(bean.getData().getAdvicer_select() == 1){
                                 showPopupwindow();
+                            }else{
+                                if (bean.getData().getTotal().equals("0")) {
+                                    getRecommend(project_id, need_id, client_id);
+                                } else {
+                                    showPopupwindow();
+                                }
                             }
                         }
                     }
@@ -125,6 +151,12 @@ public class ProjectFastAdapter extends BaseRecyclerAdapter<ProjectFastRecommend
         intent.putExtra("project_id",project_id);
         intent.putExtra("client_need_id",need_id);
         intent.putExtra("client_id",client_id);
+        intent.putExtra("advicer_selected",bean.getData().getAdvicer_select());
+        intent.putExtra("tel_complete_state",bean.getData().getTel_complete_state());
+        intent.putExtra("project_name",bean.getData().getProject_name());
+        intent.putExtra("name",name);
+        intent.putExtra("tel",tel);
+        Log.e("cccccw",name+" "+tel+" "+project_name);
         intent.putExtras(bundle);
         context.startActivity(intent);
 

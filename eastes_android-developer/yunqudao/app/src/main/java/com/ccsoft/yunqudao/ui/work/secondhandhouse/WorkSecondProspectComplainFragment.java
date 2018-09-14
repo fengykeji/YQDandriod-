@@ -15,9 +15,11 @@ import android.widget.ImageView;
 import com.ccsoft.yunqudao.R;
 import com.ccsoft.yunqudao.adapter.WorkComplainAdapter;
 import com.ccsoft.yunqudao.bean.AppealBean;
+import com.ccsoft.yunqudao.bean.AppealListBean;
 import com.ccsoft.yunqudao.data.base.BaseRecyclerAdapter;
 import com.ccsoft.yunqudao.data.base.FooterHolder;
 import com.ccsoft.yunqudao.http.HttpAdress;
+import com.ccsoft.yunqudao.ui.adapter.AppealListAdapter;
 import com.ccsoft.yunqudao.ui.listener.EndlessRecyclerOnScrollListener;
 import com.ccsoft.yunqudao.ui.work.WorkRecommendComplainFragment;
 import com.ccsoft.yunqudao.utils.BaseCallBack;
@@ -46,10 +48,10 @@ public class WorkSecondProspectComplainFragment extends Fragment implements View
     private View mView;
     private WorkRecommendComplainFragment mWorkXinFangTuiJianShenSuFragment;
     private RecyclerView mWork_recyclerview_complain;
-    private AppealBean appealBean;
-    private List<AppealBean.DataBeanX.DataBean> datalist = new ArrayList<>();
+    private AppealListBean appealBean;
+    private List<AppealListBean.DataBean> datalist = new ArrayList<>();
     private SmartRefreshLayout mSwipRefresh;
-    private WorkComplainAdapter adapter;
+    private AppealListAdapter adapter;
     private AnimationDrawable anim;
     private ImageView yunsuan;
 
@@ -79,7 +81,7 @@ public class WorkSecondProspectComplainFragment extends Fragment implements View
         this.mWork_recyclerview_complain = mView.findViewById(R.id.work_recyclerview_complain);
         mSwipRefresh = mView.findViewById(R.id.mSwipRefresh);
         mWork_recyclerview_complain.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false));
-        adapter = new WorkComplainAdapter(getContext(),R.layout.item_work_complain,datalist);
+        adapter = new AppealListAdapter(getContext(),R.layout.item_appeallist,datalist);
         mWork_recyclerview_complain.setAdapter(adapter);
         mWork_recyclerview_complain.addOnScrollListener(endlessRecyclerOnScrollListener);
         yunsuan = mView.findViewById(R.id.yunsuan);
@@ -95,7 +97,7 @@ public class WorkSecondProspectComplainFragment extends Fragment implements View
             @Override
             public void onItemClickListner(View v, int position) {
                 Intent intent = new Intent(getContext(),WorkSecondBaoBeiComplainDetailActivity.class);
-                intent.putExtra("appeal_id",datalist.get(position).getAppeal_id()+"");
+                intent.putExtra("appeal_id",datalist.get(position).getAppeal_id());
                 intent.putExtra("gone","gone");
                 startActivity(intent);
             }
@@ -110,16 +112,15 @@ public class WorkSecondProspectComplainFragment extends Fragment implements View
         }
     }
     private void initData() {
-        OkHttpManager.getInstance().get(HttpAdress.APPEAL, new BaseCallBack() {
+        OkHttpManager.getInstance().get(HttpAdress.recordAppealList, new BaseCallBack() {
             @Override
             public void onSuccess(Call call, Response response, Object obj) throws MalformedURLException {
-                Type type = new TypeToken<AppealBean>() {}.getType();
+                Type type = new TypeToken<AppealListBean>() {}.getType();
                 appealBean = new Gson().fromJson(obj.toString(),type);
                 if(appealBean.getCode()==200&&appealBean.getData()!=null){
                     datalist.clear();
-                    datalist.addAll(appealBean.getData().getData());
+                    datalist.addAll(appealBean.getData());
                     curPage = 2;
-                    totalPage = appealBean.getData().getLast_page();
                     adapter.notifyDataSetChanged();
 //                    mSwipRefresh.setRefreshing(false);
                 }
@@ -145,7 +146,7 @@ public class WorkSecondProspectComplainFragment extends Fragment implements View
     int curPage;
     int totalPage;
     private void loadNextData(){
-        OkHttpUtils.get(HttpAdress.APPEAL)
+        OkHttpUtils.get(HttpAdress.recordAppealList)
                 .tag(getActivity())
                 .params("page", curPage)
                 .execute(new StringCallback() {
@@ -162,8 +163,8 @@ public class WorkSecondProspectComplainFragment extends Fragment implements View
                         }
                         if (code == 200 && data != null) {
                             curPage++;
-                            AppealBean bean = JsonUtil.jsonToEntity(s, AppealBean.class);
-                            datalist.addAll(bean.getData().getData());
+                            AppealListBean bean = JsonUtil.jsonToEntity(s, AppealListBean.class);
+                            datalist.addAll(bean.getData());
                             adapter.notifyDataSetChanged();
                         }
 

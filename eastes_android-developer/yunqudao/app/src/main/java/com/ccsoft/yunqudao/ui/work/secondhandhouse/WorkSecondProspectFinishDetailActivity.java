@@ -45,6 +45,8 @@ public class WorkSecondProspectFinishDetailActivity extends AppCompatActivity im
     private TextView                       mCustomers_text_card_type;
     private TextView                       mCustomers_text_card_id;
     private TextView                       mCustomers_text_address;
+    private TextView tv_kanfangfangshi,tv_maifangyiyuan,tv_maifangjinpo,tv_cankaojiage
+            ,tv_guanzhurenshu,tv_yugutime;
     private LinearLayout ll_fangyuanxinxi;
     private TabLayout mCustomers_TabLayout;
     private ViewPagerForScrollView mCustomers_viewpager_xiangqing;
@@ -52,7 +54,11 @@ public class WorkSecondProspectFinishDetailActivity extends AppCompatActivity im
 
     private int house_id;
 
-
+    @Override
+    protected void onStart() {
+        super.onStart();
+        initData();
+    }
 
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -79,6 +85,12 @@ public class WorkSecondProspectFinishDetailActivity extends AppCompatActivity im
         mCustomers_TabLayout = findViewById(R.id.customers_TabLayout);
         mCustomers_viewpager_xiangqing = findViewById(R.id.customers_viewpager_xiangqing);
         ll_fangyuanxinxi = findViewById(R.id.ll_fangyuanxinxi);
+        tv_kanfangfangshi = findViewById(R.id.tv_kanfangfangshi);
+        tv_maifangyiyuan = findViewById(R.id.tv_maifangyiyuan);
+        tv_maifangjinpo = findViewById(R.id.tv_maifangjinpo);
+        tv_cankaojiage = findViewById(R.id.tv_cankaojiage);
+        tv_guanzhurenshu = findViewById(R.id.tv_guanzhurenshu);
+        tv_yugutime = findViewById(R.id.tv_yugutime);
 
         addFragments();
 
@@ -88,6 +100,7 @@ public class WorkSecondProspectFinishDetailActivity extends AppCompatActivity im
 
         ll_fangyuanxinxi.setOnClickListener(this);
         mCustomers_button_quick_recommend.setOnClickListener(this);
+        mCustomers_button_back.setOnClickListener(this);
     }
 
     private void initData(){
@@ -100,8 +113,18 @@ public class WorkSecondProspectFinishDetailActivity extends AppCompatActivity im
                         ProspectFinishBean bean = JsonUtil.jsonToEntity(s,ProspectFinishBean.class);
                         if(bean.getCode() == 200){
                             mCustomers_text_name.setText(bean.getData().getHouse().getProject_name());
-                            mCustomers_text_sex.setText(bean.getData().getHouse().getPrice());
-                            mCustomers_text_birthday.setText(bean.getData().getHouse().getMinimum());
+                            mCustomers_text_sex.setText(bean.getData().getHouse().getPrice()+"");
+                            mCustomers_text_birthday.setText(bean.getData().getHouse().getMinimum()+"");
+                            mCustomers_text_tel.setText(bean.getData().getHouse().getPay_way());
+                            mCustomers_text_card_type.setText(bean.getData().getHouse().getProperty_belong());
+                            mCustomers_text_card_id.setText(bean.getData().getHouse().getIs_mortgage());
+                            mCustomers_text_address.setText(bean.getData().getHouse().getProperty_limit()+"");
+                            tv_kanfangfangshi.setText(bean.getData().getHouse().getCheck_way());
+                            tv_maifangyiyuan.setText(bean.getData().getHouse().getIntent()+"");
+                            tv_maifangjinpo.setText(bean.getData().getHouse().getUrgency()+"");
+                            tv_cankaojiage.setText(bean.getData().getHouse().getSuggest_price()+"");
+                            tv_guanzhurenshu.setText(bean.getData().getHouse().getFollow_num()+"");
+//                            tv_yugutime.setText(bean.getData().getHouse());
                         }
                     }
                 });
@@ -126,10 +149,14 @@ public class WorkSecondProspectFinishDetailActivity extends AppCompatActivity im
         switch (view.getId()){
             case R.id.ll_fangyuanxinxi:
                 Intent intent = new Intent(this,HouseInfoActivity.class);
+                intent.putExtra("house_id",house_id);
                 startActivity(intent);
                 break;
             case R.id.customers_button_quick_recommend:
                 showItemsDialogFragment();
+                break;
+            case R.id.customers_button_back:
+                finish();
                 break;
         }
     }

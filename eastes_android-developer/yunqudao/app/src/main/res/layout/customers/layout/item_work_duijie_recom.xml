@@ -163,10 +163,9 @@
             android:layout_weight="1"
             android:layout_width="0dp"
             android:layout_height="match_parent">
-            <TextView
+            <ImageView
+                android:src="@drawable/button1"
                 android:layout_marginLeft="30dp"
-                android:padding="10dp"
-                android:background="@color/juse"
                 android:id="@+id/tv_sure"
                 android:gravity="center"
                 android:layout_gravity="center"

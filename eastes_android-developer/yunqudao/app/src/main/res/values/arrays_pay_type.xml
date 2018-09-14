@@ -12,5 +12,9 @@
 
     </string-array>
 
+    <string-array name="看房方式">
+        <item></item>
+    </string-array>
+
 
 </resources>

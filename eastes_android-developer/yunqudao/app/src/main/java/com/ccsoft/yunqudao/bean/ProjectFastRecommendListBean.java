@@ -194,6 +194,12 @@ public class ProjectFastRecommendListBean {
             private int property_type;
             private String tel;
             private int sex;
+            private String project_name;
+
+            public String getProject_name() {
+                return project_name;
+            }
+
             private List<RegionBean> region;
 
             public int getClient_id() {

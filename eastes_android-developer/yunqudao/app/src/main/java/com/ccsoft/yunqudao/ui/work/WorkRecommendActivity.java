@@ -84,7 +84,6 @@ public class WorkRecommendActivity extends AppCompatActivity implements View.OnC
                 Intent intent = new Intent(WorkRecommendActivity.this, HomeActivity.class);
                 intent.putExtra("fid",3);
                 startActivity(intent);
-                finish();
             }
         });
         work_button_add_recommend.setOnClickListener(this);

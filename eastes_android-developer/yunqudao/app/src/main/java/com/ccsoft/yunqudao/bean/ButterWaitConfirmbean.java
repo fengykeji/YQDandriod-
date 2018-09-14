@@ -65,6 +65,12 @@ public class ButterWaitConfirmbean {
         private Object prev_page_url;
         private int to;
         private int total;
+        private int tel_complete_state;
+
+        public int getTel_complete_state() {
+            return tel_complete_state;
+        }
+
         private List<DataBean> data;
 
         public int getCurrent_page() {
@@ -207,6 +213,11 @@ public class ButterWaitConfirmbean {
             private String city_name;
             private String district_name;
             private String timsLimit;
+            private int tel_complete_state;
+
+            public int getTel_complete_state() {
+                return tel_complete_state;
+            }
 
             public int getClient_id() {
                 return client_id;

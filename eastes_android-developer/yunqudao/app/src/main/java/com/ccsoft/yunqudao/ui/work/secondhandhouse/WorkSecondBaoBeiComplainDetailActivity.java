@@ -3,6 +3,7 @@ package com.ccsoft.yunqudao.ui.work.secondhandhouse;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
@@ -96,7 +97,7 @@ public class WorkSecondBaoBeiComplainDetailActivity extends AppCompatActivity {
         });
     }
     private void initData(){
-        OkHttpUtils.get(HttpAdress.appealDetail)
+        OkHttpUtils.get(HttpAdress.recordAppealDetail)
                 .tag(this)
                 .params("appeal_id",appeal_id)
                 .execute(new StringCallback() {

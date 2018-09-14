@@ -76,6 +76,11 @@ public class ProspectBean {
         private String report_type;
         private String record_time;
         private String house;
+        private int timeLimit;
+
+        public int getTimeLimit() {
+            return timeLimit;
+        }
 
         public String getDisabled_state() {
             return disabled_state;

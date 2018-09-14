@@ -139,7 +139,7 @@ public class HouseDetailBean implements Serializable{
             private String project_name;
             private String absolute_address;
             private String sale_state;
-            private int average_price;
+            private float average_price;
             private String project_tags;
             private String developer_name;
             private String total_float_url;
@@ -193,7 +193,7 @@ public class HouseDetailBean implements Serializable{
                 this.sale_state = sale_state;
             }
 
-            public int getAverage_price() {
+            public float getAverage_price() {
                 return average_price;
             }
 

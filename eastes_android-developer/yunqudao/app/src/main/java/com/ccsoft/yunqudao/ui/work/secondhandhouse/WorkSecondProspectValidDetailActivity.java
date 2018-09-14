@@ -2,6 +2,7 @@ package com.ccsoft.yunqudao.ui.work.secondhandhouse;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -12,9 +13,13 @@ import android.widget.TextView;
 import com.ccsoft.yunqudao.R;
 import com.ccsoft.yunqudao.bean.ProspectBean;
 import com.ccsoft.yunqudao.http.HttpAdress;
+import com.ccsoft.yunqudao.utils.DataUtils;
 import com.ccsoft.yunqudao.utils.JsonUtil;
 import com.lzy.okhttputils.OkHttpUtils;
 import com.lzy.okhttputils.callback.StringCallback;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import okhttp3.Call;
 import okhttp3.Response;
@@ -138,8 +143,60 @@ public class WorkSecondProspectValidDetailActivity extends AppCompatActivity imp
                             work_commend_client_name.setText(bean.getData().getReport_type());
                             work_commend_client_sex.setText(bean.getData().getRecord_time());
                             work_commend_client_tel.setText(bean.getData().getComment());
+
+                            finishTime = bean.getData().getTimeLimit();
+                            handler.post(runnable);
                         }
                     }
                 });
+    }
+
+     /*
+倒计时
+*/
+
+    int finishTime;
+    String time;
+    String[] times;
+    Handler handler = new Handler();
+
+    Runnable runnable = new Runnable() {
+        @Override
+        public void run() {
+            time= DataUtils.getTime(finishTime);
+
+            overtime();
+            times = time.split("-");
+
+            date_day.setText(times[0]);
+            date_hour.setText(times[1]);
+            date_minute.setText(times[2]);
+            date_seconds.setText(times[3]);
+            handler.postDelayed(runnable,1000);
+        }
+    };
+
+    private void overtime(){
+        if(time.equals("0-0-0-0")){
+            OkHttpUtils.get(HttpAdress.flushDate)
+                    .tag(this)
+                    .execute(new StringCallback() {
+                        @Override
+                        public void onSuccess(String s, Call call, Response response) {
+                            int code = 0;
+                            String data = null;
+                            try {
+                                JSONObject jsonObject = new JSONObject(s);
+                                code = jsonObject.getInt("code");
+                                data = jsonObject.getString("data");
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                            }
+                            if (code == 200 && data != null) {
+                                finish();
+                            }
+                        }
+                    });
+        }
     }
 }

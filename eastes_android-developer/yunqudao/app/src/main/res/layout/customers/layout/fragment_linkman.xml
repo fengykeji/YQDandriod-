@@ -4,6 +4,7 @@
     android:layout_height="match_parent"
     android:background="@color/bgcolcor"
     android:orientation="vertical">
+
     <LinearLayout
         android:background="@color/chunbai"
         android:id="@+id/ll_pipeikehu1"
@@ -11,9 +12,7 @@
         android:layout_height="wrap_content"
         android:orientation="vertical"
         android:padding="10dp"
-        android:visibility="visible">
-
-
+        android:visibility="gone">
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -185,7 +184,7 @@
         android:layout_height="wrap_content"
         android:orientation="vertical"
         android:padding="10dp"
-        android:visibility="visible">
+        android:visibility="gone">
 
 
         <LinearLayout
@@ -345,6 +344,14 @@
             </RelativeLayout>
         </LinearLayout>
     </LinearLayout>
+
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/recyclerview"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+    </android.support.v7.widget.RecyclerView>
 
     <ImageView
         android:layout_width="match_parent"

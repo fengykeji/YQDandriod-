@@ -68,6 +68,7 @@ public class MessageReportVerifyActivity extends AppCompatActivity {
     private int project_id,client_id,property_advicer_wish_id,visit_num;
     private String client_name,client_tel,visit_time;
     private TextView work_commend_leibie,work_commend_client_comment;
+    private int tel_complete_state;
 
 
 
@@ -175,11 +176,14 @@ public class MessageReportVerifyActivity extends AppCompatActivity {
                                     work_commend_client_sex.setText("女");
                                 }
 
+                                tel_complete_state = data.getTel_complete_state();
                                 work_commend_client_tel.setText(data.getTel());
                                 work_commend_project_address.setText(data.getProvince_name() + " " + data.getCity_name() + " " + data.getDistrict_name()+" "+data.getAbsolute_address());
 
                                 finishTime = data.getTimeLimit();
                                 handler.post(runnable);
+                                Log.e("ccccc",finishTime+"");
+
 
                                 work_commend_leibie.setText(data.getRecommend_type());
                                 work_commend_client_comment.setText(data.getClient_comment());
@@ -218,7 +222,9 @@ public class MessageReportVerifyActivity extends AppCompatActivity {
         @Override
         public void run() {
             time= DataUtils.getTime(finishTime);
-
+            if(time.equals("0-0-0-0")){
+                ll_showsure.setVisibility(View.GONE);
+            }
 //            overtime();
             times = time.split("-");
 
@@ -267,6 +273,7 @@ public class MessageReportVerifyActivity extends AppCompatActivity {
                         intent.putExtra("client_name",client_name);
                         intent.putExtra("client_tel",client_tel);
                         intent.putExtra("client_id",client_id);
+                        intent.putExtra("tel_complete_state",tel_complete_state);
                         intent.putExtra("daofangid",1);
                         startActivity(intent);
                         break;

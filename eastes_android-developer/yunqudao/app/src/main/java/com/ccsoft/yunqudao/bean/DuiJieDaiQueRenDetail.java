@@ -97,6 +97,11 @@ public class DuiJieDaiQueRenDetail {
         private String comsulatent_advicer;
         public String comsulatent_advicer_tel;
         public String comsulatent_advicer_company;
+        private int tel_complete_state;
+
+        public int getTel_complete_state() {
+            return tel_complete_state;
+        }
 
         public String getComsulatent_advicer_company() {
             return comsulatent_advicer_company;

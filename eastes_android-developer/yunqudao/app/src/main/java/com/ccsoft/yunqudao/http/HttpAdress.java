@@ -161,6 +161,14 @@ public class HttpAdress {
     public static String houseSurveyDetail = AppConstants.URL+"agent/house/survey/detail";
     /*勘察维护列表*/
     public static String surveyList = AppConstants.URL+"agent/house/survey/list";
+    /*报备申诉列表*/
+    public static String recordAppealList = AppConstants.URL+"agent/house/record/appeal/list";
+    /*报备申诉详情*/
+    public static String recordAppealDetail = AppConstants.URL+"agent/house/record/appeal/detail";
+    /*添加联系人*/
+    public static String surveyAddContact = AppConstants.URL+"agent/house/survey/addContact";
+    /*添加跟进记录*/
+    public static String surveyAddFollow = AppConstants.URL+"agent/house/survey/addFollow";
 
 
 

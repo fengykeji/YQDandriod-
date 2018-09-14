@@ -122,7 +122,8 @@ public class WorkMessageActivity extends AppCompatActivity implements View.OnCli
                     intent.putExtra("client_id",dataList.get(position).getClient_id());
                     intent.putExtra("message_id",dataList.get(position).getMessage_id());
                     startActivity(intent);
-                }else if(dataList.get(position).getMessage_type()==1&&SpUtil.getString("agent_identity","").equals(2+"")){
+                }else if(dataList.get(position).getMessage_type()==1){
+                    //判断经纪人  &&SpUtil.getString("agent_identity","").equals(2+"")
                     Intent intent = new Intent(WorkMessageActivity.this,MessageReportVerifyActivity.class);
                     intent.putExtra("client_id",dataList.get(position).getClient_id());
                     intent.putExtra("message_id",dataList.get(position).getMessage_id());

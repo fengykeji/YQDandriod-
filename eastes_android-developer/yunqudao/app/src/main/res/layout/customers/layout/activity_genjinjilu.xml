@@ -97,7 +97,7 @@
                         >
                         <RadioButton
                             android:id="@+id/rb_tel1"
-                            android:text="一次性付款"
+                            android:text="电话"
                             android:textSize="14sp"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
@@ -106,7 +106,7 @@
                         <RadioButton
 
                             android:id="@+id/rb_qq1"
-                            android:text="公积金贷款"
+                            android:text="QQ"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="120dp"
@@ -115,7 +115,7 @@
                             />
                         <RadioButton
                             android:id="@+id/rb_weixin1"
-                            android:text="综合贷款"
+                            android:text="微信"
                             android:textSize="14sp"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
@@ -124,7 +124,7 @@
 
                         <RadioButton
                             android:id="@+id/rb_miantan1"
-                            android:text="银行按揭贷款"
+                            android:text="面谈"
                             android:textSize="14sp"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
@@ -133,7 +133,7 @@
                             />
                         <RadioButton
                             android:id="@+id/rb_qita1"
-                            android:text="分期付款"
+                            android:text="其他"
                             android:textSize="14sp"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
@@ -254,7 +254,7 @@
                             android:layout_height="wrap_content"
                             android:dropDownVerticalOffset="35dp"
                             android:dropDownWidth="1080px"
-                            android:entries="@array/付款方式"
+                            android:entries="@array/看房方式"
                             >
                         </Spinner>
 

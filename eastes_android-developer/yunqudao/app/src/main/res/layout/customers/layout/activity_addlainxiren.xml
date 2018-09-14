@@ -163,8 +163,53 @@
                     </LinearLayout>
                 </LinearLayout>
 
+                <!--证件类型-->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal"
+                    android:paddingBottom="20dp"
+                    android:weightSum="10"
+                    >
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:layout_weight="3"
+                        android:padding="10dp"
+                        android:text="类型："
+                        android:textColor="@color/chunhei"
+                        android:textSize="15sp"
+                        />
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:layout_weight="7"
+                        android:background="@drawable/shape_case"
+                        android:gravity="center"
+                        android:padding="10dp"
+                        android:weightSum="10"
+                        >
+                        <Spinner
+                            android:id="@+id/customers_spinner_card_type1"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:dropDownVerticalOffset="35dp"
+                            android:dropDownWidth="1080px"
+                            android:entries="@array/与业主关系"
+                            />
+                    </LinearLayout>
+
+                </LinearLayout>
+
                 <!--出生年月-->
                 <LinearLayout
+                    android:visibility="gone"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:gravity="center_vertical"
@@ -466,7 +511,9 @@
                 </LinearLayout>
 
                 <!--地址-->
+                <!--联系号码1-->
                 <LinearLayout
+                    android:id="@+id/customers_linearlayout_tel2"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:gravity="center_vertical"
@@ -478,40 +525,37 @@
                     <TextView
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_gravity="center_vertical"
                         android:layout_weight="3"
                         android:padding="10dp"
-                        android:text="地址："
+                        android:text="通讯地址："
                         android:textColor="@color/chunhei"
                         android:textSize="15sp"
                         />
 
-                    <LinearLayout
+
+                    <EditText
+                        android:id="@+id/customers_edittext_address3"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_gravity="center_vertical"
                         android:layout_weight="7"
                         android:background="@drawable/shape_case"
-                        android:gravity="center"
-                        android:weightSum="10"
-                        android:orientation="vertical"
-                        >
+                        android:digits="0123456789"
+                        android:hint="必填"
+                        android:inputType="number"
+                        android:maxLength="11"
+                        android:padding="10dp"
+                        android:textSize="15sp"
+                        />
 
-                        <TextView
-                            android:id="@+id/customers_edittext_address3"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="7"
-                            android:background="@drawable/shape_case"
-                            android:hint=""
-                            android:maxLength="30"
-                            android:padding="10dp"
-                            android:textSize="15sp"
-                            />
-
-
-
-                    </LinearLayout>
+                    <!---->
+                    <!--<ImageButton-->
+                    <!--android:id="@+id/customers_button_添加联系号码"-->
+                    <!--android:src="@drawable/ic_add_2"-->
+                    <!--android:layout_weight="1"-->
+                    <!--android:layout_width="0dp"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:background="@android:color/transparent"-->
+                    <!--/>-->
 
                 </LinearLayout>
 
