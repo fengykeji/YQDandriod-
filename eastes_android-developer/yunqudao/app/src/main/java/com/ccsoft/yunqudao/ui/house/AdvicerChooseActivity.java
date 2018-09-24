@@ -228,6 +228,8 @@ public class AdvicerChooseActivity extends Activity {
         im_back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                Button textview =  LayoutInflater.from(AdvicerChooseActivity.this).inflate(R.layout.activity_customers_add_customers2, null).findViewById(R.id.customers_button_commit);
+                textview.setEnabled(true);
                 finish();
             }
         });

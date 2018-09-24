@@ -117,7 +117,7 @@ public class RecommendInfoActivity extends AppCompatActivity {
 //        data = (GetHouseTypeDetailBean.DataBean.RowsBean) bundle.getSerializable("list");
 
 
-//            tel2 = tel1;
+            tel2 = tel1;
             tv_gongsimingzi.setText(project_name);
             tv_name.setText(name1);
             if(tel_complete_state!=0){

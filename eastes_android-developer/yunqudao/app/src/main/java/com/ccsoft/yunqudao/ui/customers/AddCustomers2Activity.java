@@ -561,9 +561,17 @@ public class AddCustomers2Activity extends AppCompatActivity implements View.OnC
         intent.putExtra("comment",comment);
         intent.putExtra("project_name",bean.getData().getProject_name());
         intent.putExtras(bundle);
-        startActivity(intent);
 
+
+            startActivity(intent);
+
+
+
+//        mCustomers_button_commit.setEnabled(false);
     }
+
+
+
 
     /**
      * 推荐

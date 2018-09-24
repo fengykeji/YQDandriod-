@@ -21,6 +21,7 @@ import com.ccsoft.yunqudao.data.AppConstants;
 import com.ccsoft.yunqudao.ui.adapter.HouseProjectFragmentPagerAdapter;
 import com.ccsoft.yunqudao.utils.ActivityManager;
 import com.ccsoft.yunqudao.utils.JsonUtil;
+import com.ccsoft.yunqudao.utils.SpUtil;
 import com.lzy.okhttputils.OkHttpUtils;
 import com.lzy.okhttputils.callback.StringCallback;
 import com.umeng.commonsdk.UMConfigure;
@@ -56,6 +57,7 @@ public class ProjectXiangQingActivity extends AppCompatActivity implements View.
     private int project_id;
     private String url;
     private TextView tv_xian,tv_xian1,tv_xian2;
+    private String project_name;
 
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -79,6 +81,7 @@ public class ProjectXiangQingActivity extends AppCompatActivity implements View.
 
     private void initView() {
 
+        project_name = getIntent().getStringExtra("project_name");
         color = getResources().getColor(R.color.liji_material_blue_500);
         color1 = getResources().getColor(R.color.chunhei);
         project_id = getIntent().getIntExtra("project_id",0);
@@ -184,7 +187,7 @@ public class ProjectXiangQingActivity extends AppCompatActivity implements View.
 // titleUrl是标题的网络链接，QQ和QQ空间等使用
         oks.setTitleUrl(url);
 // text是分享文本，所有平台都需要这个字段
-        oks.setText("房地产分销渠道平台");
+        oks.setText(SpUtil.getString("name","")+"邀请你参观"+project_name);
 // imagePath是图片的本地路径，Linked-In以外的平台都支持此参数
 //oks.setImagePath("/sdcard/test.jpg");//确保SDcard下面存在此张图片
 // url仅在微信（包括好友和朋友圈）中使用

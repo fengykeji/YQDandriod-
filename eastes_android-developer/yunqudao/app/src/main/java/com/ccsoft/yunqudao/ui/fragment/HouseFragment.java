@@ -217,6 +217,7 @@ public class HouseFragment extends Fragment implements View.OnClickListener ,Hou
             @Override
             public void onItemClickListner(View v, int position) {
                 Intent intent = new Intent(getContext(),ProjectXiangQingActivity.class);
+                intent.putExtra("project_name",houseListBeans.getData().get(position).getProject_name());
                 intent.putExtra("project_id",houseListBeans.getData().get(position).getProject_id());
                 intent.putExtra("Cycle",houseListBeans.getData().get(position).getCycle());
                 intent.putExtra("brokerage",houseListBeans.getData().get(position).getGuarantee_brokerage());
