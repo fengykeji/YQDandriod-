@@ -1,0 +1,448 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    package="com.ccsoft.yunqudao">
+
+    <uses-permission android:name="android.permission.CALL_PHONE"/>
+    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE"/>
+    <uses-permission android:name="android.permission.READ_PHONE_STATE"/>
+    <uses-permission android:name="android.permission.CALL_PHONE"/>
+
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
+    //获取设备网络状态，禁用后无法获取网络状态
+    <uses-permission android:name="android.permission.INTERNET"/>
+    //网络权限，当禁用后，无法进行检索等相关业务
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+    //读取设备硬件信息，统计数据
+    <uses-permission android:name="com.android.launcher.permission.READ_SETTINGS" />
+    //读取系统信息，包含系统版本等信息，用作统计
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    //获取设备的网络状态，鉴权所需网络代理
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+    //获取统计数据
+    <uses-permission android:name="android.permission.GET_TASKS" />
+    //鉴权所需该权限获取进程列表
+    <uses-permission android:name="android.permission.CAMERA" />
+    //使用步行AR导航，配置Camera权限
+
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.hardware.camera.autofocus" />
+
+    //拨号权限
+    <uses-permission android:name="android.permission.CALL_PHONE"/>
+
+    //角标显示权限
+    <uses-permission android:name="com.sec.android.provider.badge.permission.READ" />
+    <uses-permission android:name="com.sec.android.provider.badge.permission.WRITE" />
+
+    //分享权限
+    <uses-permission android:name="android.permission.GET_TASKS" />
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+    <uses-permission android:name="android.permission.MANAGE_ACCOUNTS"/>
+    <uses-permission android:name="android.permission.GET_ACCOUNTS"/>
+    <!-- 蓝牙分享所需的权限 -->
+    <uses-permission android:name="android.permission.BLUETOOTH" />
+    <uses-permission android:name="android.permission.BLUETOOTH_ADMIN" />
+
+    //地图权限
+    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <!--网络定位-->
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <!--GPS定位-->
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+
+
+    //极光权限
+    <!-- Required -->
+    <permission
+        android:name="com.ccsoft.yunqudao.permission.JPUSH_MESSAGE"
+        android:protectionLevel="signature" />
+
+    <!-- Required -->
+    <uses-permission android:name="您应用的包名.permission.JPUSH_MESSAGE" />
+    <uses-permission android:name="android.permission.RECEIVE_USER_PRESENT" />
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.VIBRATE" />
+
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" /><uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+
+
+    <!-- Optional. Required for location feature -->
+    <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" /> <!-- 用于开启 debug 版本的应用在6.0 系统上 层叠窗口权限 -->
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_LOCATION_EXTRA_COMMANDS" />
+    <uses-permission android:name="android.permission.CHANGE_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.GET_TASKS" />
+
+
+
+
+
+
+    <application
+        android:name=".App"
+        android:allowBackup="true"
+        android:icon="@drawable/icon"
+        android:label="@string/app_name"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:supportsRtl="true"
+        android:theme="@style/Theme.AppCompat.Light.NoActionBar"
+        >
+        <meta-data
+            android:name="com.baidu.lbsapi.API_KEY"
+            android:value="FWR9jz6L4IyUhdXk1cc0Pj70hdFYyUoX" />
+        <meta-data
+            android:name="UMENG_APPKEY"
+            android:value="5ac9defef29d986c30000078">
+        </meta-data>
+
+        <provider
+            android:name="android.support.v4.content.FileProvider"
+            android:authorities="com.ccsoft.yunqudao.fileProvider"
+            android:exported="false"
+            android:grantUriPermissions="true">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/provider_paths" />
+        </provider>
+
+
+        <service android:name="cn.jpush.android.service.PushService"
+            android:process=":multiprocess"
+            tools:node="replace" >
+        </service>
+
+
+
+
+        <activity
+            android:name="com.mob.tools.MobUIShell"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar"
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:windowSoftInputMode="stateHidden|adjustResize" >
+
+            <!-- 调用新浪原生SDK，需要注册的回调activity -->
+            <intent-filter>
+                <action android:name="com.sina.weibo.sdk.action.ACTION_SDK_REQ_ACTIVITY" />
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+
+            <!--集成line客户端登录授权，需要添如下格式的过滤器-->
+            <intent-filter>
+                <data android:scheme="line.1477692153" />
+                <action android:name="android.intent.action.VIEW"/>
+                <category android:name="android.intent.category.BROWSABLE" />
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+
+        </activity>
+        <!-- 填写您从Mob开发者后台中得到的Appkey和AppSecret -->
+        <meta-data android:name="Mob-AppKey" android:value="26cb495185f10"/>
+        <meta-data android:name="Mob-AppSecret" android:value="1eb21e27eba51ebb20dd473cf4080fe7"/>
+        <!--微信分享回调 -->
+        <activity
+            android:name="com.ccsoft.yunqudao.wxapi.WXEntryActivity"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar"
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:exported="true"
+            android:screenOrientation="portrait" />
+
+        <activity
+            android:name="cn.sharesdk.tencent.qq.ReceiveActivity"
+            android:launchMode="singleTask"
+            android:noHistory="true">
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+                <data android:scheme="tencent1106811849" />
+            </intent-filter></activity>
+
+
+
+
+
+
+        <activity
+            android:name=".ui.mian.MainActivity"
+            android:theme="@style/AppTheme.NoActionBarWindowhBackGround">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN"/>
+
+                <category android:name="android.intent.category.LAUNCHER"/>
+            </intent-filter>
+        </activity>
+        <activity
+            android:name="ui.home.HomeActivity"
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait">
+        </activity>
+        <activity android:name=".ui.Guide.GuideActivity">
+        </activity>
+        <activity android:name=".ui.home.HomeActivity"></activity>
+        <!--消息模块-->
+        <activity android:name=".ui.message.WorkMessageActivity">
+        </activity>
+        <activity android:name=".ui.message.SystemMessageActivity">
+        </activity>
+        <activity android:name=".ui.message.ShenHeTongGuoActivity">
+        </activity>
+        <activity android:name=".ui.message.ShenHeWeiTongGuoActivity">
+        </activity>
+        <activity android:name=".ui.message.DaiQueRenXiangQingActivity">
+        </activity>
+        <activity android:name=".ui.message.WeiDaoFangShenSuActivity">
+        </activity>
+        <activity android:name=".ui.message.WeiDaoFangShiXiaoXiangQingActivity">
+        </activity>
+        <activity android:name=".ui.message.WeiTuoRenPanDuanShiXiaoXiangQingActivity">
+        </activity>
+        <activity android:name=".ui.message.ZhiYeGuWenPanDuanShiXiaoXiangQingActivity">
+        </activity>
+        <activity android:name=".ui.message.MessageCommendVerifyDetailActivity"></activity>
+        <activity android:name=".ui.message.MessageReportVerifyActivity"></activity>
+        <activity android:name=".ui.message.MessagekReportValidDeatilActivity"></activity>
+        <activity android:name=".ui.message.MessageChengjiaoVailddetailActivity"></activity>
+        <activity android:name=".ui.message.MessageCommendDisableDetailsActivity"></activity>
+        <activity android:name=".ui.message.MessageReportDisableActivity"></activity>
+        <activity android:name=".ui.message.QiangDanListActivity"></activity>
+
+        <!--房源模块-->
+        <activity android:name=".ui.house.ProjectDanYuanXiangQingActivity">
+        </activity>
+        <activity android:name=".ui.house.ProjectDongLieBiaoActivity">
+        </activity>
+        <activity android:name=".ui.house.ProjectDongTaiXiangQingActivity">
+        </activity>
+        <activity android:name=".ui.house.ProjectHuXingXiangQingActivity">
+        </activity>
+        <activity android:name=".ui.house.ProjectJiChuXinXiActivity">
+        </activity>
+        <activity android:name=".ui.house.ProjectKeHuZhuangTaiXiangQingActivity">
+        </activity>
+        <activity android:name=".ui.house.ProjectLouDongXiangQingActivity">
+        </activity>
+        <activity android:name=".ui.house.ProjectPiPeiKeHuActivity">
+        </activity>
+        <activity android:name=".ui.house.ProjectXiangCeActivity">
+        </activity>
+        <activity android:name=".ui.house.ProjectXiangQingActivity">
+        </activity>
+        <activity android:name=".ui.house.ProjectCityChooseActivity">
+        </activity>
+        <activity android:name=".ui.house.ProjectDanYuanActivity"
+            android:theme="@style/dialogstyle"></activity>
+        <activity android:name=".ui.house.ProjectXiangCeVebViewActivity"></activity>
+       <activity android:name=".ui.house.AdvicerChooseActivity"
+           android:theme="@style/AppTheme.NoActionBarWindowhBackGround"></activity>
+        <activity android:name=".ui.house.RecommendInfoActivity"
+            android:theme="@style/AppTheme.NoActionBarWindowhBackGround"
+            ></activity>
+
+
+        <!--客源模块-->
+        <activity android:name=".ui.customers.AddCustomers1Activity">
+        </activity>
+        <activity android:name=".ui.customers.AddCustomers2Activity">
+        </activity>
+        <activity android:name=".ui.customers.CustomersXiangQingActivity">
+        </activity>
+        <activity android:name=".ui.customers.PiPeiProjectListActivity">
+        </activity>
+        <activity android:name=".ui.customers.PushProjectZhuangTaiActivity">
+        </activity>
+        <activity android:name=".ui.customers.AddLabelActivity">
+        </activity>
+        <activity android:name=".ui.customers.AddGenJinJiLuActivity">
+        </activity>
+        <activity android:name=".ui.customers.QuickRecommendActivity">
+        </activity>
+        <activity android:name=".ui.customers.OpenCityActivity">
+        </activity>
+        <activity android:name=".ui.customers.ResetClientNeedActivity">
+        </activity>
+        <activity android:name=".ui.customers.ResetClientBasicActivity">
+        </activity>
+
+
+        <!--工作模块-->
+        <activity android:name=".ui.work.WorkRecommendActivity">
+        </activity>
+        <activity android:name=".ui.work.WorkReportActivity">
+        </activity>
+        <activity android:name=".ui.work.WorkDaiQueRenXiangQingActivity">
+        </activity>
+        <activity android:name=".ui.work.WorkReportValidActivity">
+        </activity>
+        <activity android:name=".ui.work.WorkComplainActivity">
+        </activity>
+        <activity android:name=".ui.work.WorkComplainOverActivity">
+        </activity>
+        <activity android:name=".ui.work.WorkComplainListActivity">
+        </activity>
+        <activity android:name=".ui.work.WorkWeiDaoFangShiXiaoXiangQingActivity">
+        </activity>
+        <activity android:name=".ui.work.WorkShiXiaoXiangQing1Activity">
+        </activity>
+        <activity android:name=".ui.work.WorkShiXiaoXiangQing2Activity">
+        </activity>
+        <activity android:name=".ui.work.WorkShiXiaoXiangQing3Activity">
+        </activity>
+        <activity android:name=".ui.work.WorkUpdateCuetomers1Activity">
+        </activity>
+        <activity android:name=".ui.work.WorkUpdateCuetomers2Activity">
+        </activity>
+        <activity android:name=".ui.work.WorkWeiQueRenXiangQingActivity">
+        </activity>
+        <activity android:name=".ui.work.WorkYiQueRenXiangQingActivity">
+        </activity>
+        <activity android:name=".ui.work.WorkYouXiaoDaoFangXiangQingActivity">
+        </activity>
+        <activity android:name=".ui.work.WorkChengJiaoKeHuActivity">
+        </activity>
+        <activity android:name=".ui.work.AddWorkActivity">
+        </activity>
+        <activity android:name=".ui.work.WorkDealVerifydetailActivity">
+        </activity>
+        <activity android:name=".ui.work.WorkChengjiaoVailddetailActivity">
+        </activity>
+        <activity android:name=".ui.work.WorkChengjiaoDisableDetailActivity">
+        </activity>
+        <activity android:name=".ui.work.duijierentuijian.WorkDuiJieRecommendActivity">
+        </activity>
+        <activity android:name=".ui.work.duijierentuijian.WorkDuiJieCommendVerifyDetailActivity">
+        </activity>
+        <activity android:name=".ui.work.duijierentuijian.WorkDuiJieCommendValidDetailActivity">
+        </activity>
+        <activity android:name=".ui.work.duijierentuijian.WrokDuiJieCommendDisableDetailsActivity">
+        </activity>
+        <activity android:name=".ui.work.duijierentuijian.DuiJieQueRenActivity"></activity>
+        <activity android:name=".ui.work.duijierentuijian.WeiDaoFangActivity"
+            android:theme="@style/dialogstyle"></activity>
+
+
+        //二手房
+        <activity android:name=".ui.work.secondhandhouse.WorkSecondBaoBeiActivity"></activity>
+        <activity android:name=".ui.work.secondhandhouse.WorkSecondProspectActivity"></activity>
+        <activity android:name=".ui.work.secondhandhouse.WorkSecondProspectMaintainActivity"></activity>
+        <activity android:name=".ui.work.secondhandhouse.WorkSecondCompactDaiGouActivity"></activity>
+        <activity android:name=".ui.work.secondhandhouse.WorkSecondBaoBeiVerfyDetailActivity"></activity>
+        <activity android:name=".ui.work.secondhandhouse.WorkSecondBaoBeiValidDetailActivity"></activity>
+        <activity android:name=".ui.work.secondhandhouse.WorkSecondBaoBeiDisableDetailActivity"></activity>
+        <activity android:name=".ui.work.secondhandhouse.WorkSecondBaoBeiComplainDetailActivity"></activity>
+        <activity android:name=".ui.work.secondhandhouse.WorkSecondProspectVerfyDetailActivity"></activity>
+        <activity android:name=".ui.work.secondhandhouse.WorkSecondProspectValidDetailActivity"></activity>
+        <activity android:name=".ui.work.secondhandhouse.WorkSecondProspectDisableDetailActivity"></activity>
+        <activity android:name=".ui.work.secondhandhouse.WorkSecondProspectFinishDetailActivity"></activity>
+        <activity android:name=".ui.work.secondhandhouse.WorkSecondProspectMaintainDetailActivity"></activity>
+        <activity android:name=".ui.work.secondhandhouse.WorkSecondCompactDaiGouVerfyDetailActivity"></activity>
+        <activity android:name=".ui.work.secondhandhouse.WorkSecondCompactDaiGouVaildDetailActivity"></activity>
+        <activity android:name=".ui.work.secondhandhouse.WorkSecondShenSuActivity"></activity>
+        <activity android:name=".ui.work.secondhandhouse.HouseWuXiaoShenQingActivity"></activity>
+        <activity android:name=".ui.work.secondhandhouse.HouseYouXiaoActivity"></activity>
+        <activity android:name=".ui.work.secondhandhouse.WorkSecondProspectBianGengShiJianActivity"></activity>
+        <activity android:name=".ui.work.secondhandhouse.ChaKanBianGengJiLuActivity"></activity>
+        <activity android:name=".ui.work.secondhandhouse.KanChaShiXiaoActivity"></activity>
+        <activity android:name=".ui.work.secondhandhouse.WanChengKanChaActivity"></activity>
+        <activity android:name=".ui.work.secondhandhouse.HouseInfoActivity"></activity>
+        <activity android:name=".ui.work.secondhandhouse.YeZhuInfoActivity"></activity>
+        <activity android:name=".ui.work.secondhandhouse.GenJinJiLuActivity"></activity>
+        <activity android:name=".ui.house.secondhandhouse.SecondHouseListActivity"></activity>
+        <activity android:name=".ui.house.secondhandhouse.SencondHouseFangYuanInfoActivity"></activity>
+        <activity android:name=".ui.work.secondhandhouse.ModificatyProjectFenXiActivity"></activity>
+        <activity android:name=".ui.work.secondhandhouse.AddBaoBeiActivity"></activity>
+        <activity android:name=".ui.work.secondhandhouse.CommitBaoBeiActivity"></activity>
+        <activity android:name=".ui.house.secondhandhouse.SecondHouseXiangQingActivity"></activity>
+        <activity android:name=".ui.house.secondhandhouse.XiaoQuhouseActivity"></activity>
+        <activity android:name=".ui.work.secondhandhouse.XiaoQuXiangQingActivity"></activity>
+        <activity android:name=".ui.work.secondhandhouse.AddLianXiRenActivity"></activity>
+
+
+
+
+        <!--我的模块-->
+        <activity android:name=".ui.me.PactActivity">
+        </activity>
+        <activity android:name=".ui.me.WoDeZiLiaoActivity">
+        </activity>
+        <activity android:name=".ui.me.GongSiRenZhengActivity">
+        </activity>
+        <activity android:name=".ui.me.GongZuoJingLiActivity">
+        </activity>
+        <activity android:name=".ui.me.WoDeYongJinActivity">
+        </activity>
+        <activity android:name=".ui.me.WoDeGuanZhuActivity">
+        </activity>
+        <activity android:name=".ui.me.YiJianFanKuiActivity">
+        </activity>
+        <activity android:name=".ui.me.ShenFenZhengRenZhengActivity">
+        </activity>
+        <activity android:name=".ui.me.YinHangKaActivity">
+        </activity>
+        <activity android:name=".ui.me.YiJieListActivity">
+        </activity>
+        <activity android:name=".ui.me.WeiJieListActivity">
+        </activity>
+        <activity android:name=".ui.me.WoDeErWeiMaActivity">
+        </activity>
+        <activity android:name=".ui.me.ResetBirthDayActivity">
+        </activity>
+        <activity android:name=".ui.me.ResetDiZhiActivity">
+        </activity>
+        <activity android:name=".ui.me.ResetPassWordActivity">
+        </activity>
+        <activity android:name=".ui.me.ResetPhoneActivity">
+        </activity>
+        <activity android:name=".ui.me.ResetNameActivity">
+        </activity>
+        <activity android:name=".ui.mian.LoginActivity">
+        </activity>
+        <activity android:name=".ui.mian.RegisterActivity">
+        </activity>
+        <activity android:name=".ui.me.RenZhengXinXiTianXieActivity">
+        </activity>
+        <activity android:name=".ui.me.RenZhengXinXiShenHeZhongActivity">
+        </activity>
+        <activity android:name=".ui.mian.ForgetResetPassWordActivity">
+        </activity>
+        <activity android:name=".ui.work.WorkCommendVerifyDetailActivity">
+        </activity>
+        <activity android:name=".ui.work.WorkCommendValidDetailActivity">
+        </activity>
+        <activity android:name=".ui.work.WorkReportVerifyActivity"/>
+        <activity android:name=".ui.work.WorkReportValidDeatilActivity"/>
+        <activity android:name=".ui.work.WorkReportDisableActivity"/>
+        <activity android:name=".ui.work.WrokCommendDisableDetailsActivity"/>
+        <activity android:name=".ui.me.GongSiRenZheng1Activity"></activity>
+        <activity android:name=".ui.me.GongSiXiangQiangActivity"></activity>
+        <activity android:name=".ui.me.GongSiRenZhengZhongActivity"></activity>
+        <activity android:name=".ui.me.GongSiRenZhengWanActivity"></activity>
+        <activity android:name=".ui.me.WeiJieYongJinXiangQingActivity"></activity>
+        <activity android:name=".ui.me.YaoQingJiangLiActivity"></activity>
+        <activity android:name=".ui.me.MyTeamActivity"></activity>
+        <activity android:name=".ui.me.YaoQingErWeiMaActivity"></activity>
+        <activity android:name=".ui.me.XuanZheXiangMuActivity"></activity>
+
+    </application>
+
+</manifest>

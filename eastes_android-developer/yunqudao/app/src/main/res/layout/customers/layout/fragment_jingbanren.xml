@@ -1,0 +1,158 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="20dp">
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="5dp"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <TextView
+            android:textColor="@color/miantext"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="5dp"
+            android:text="客户名称："
+            android:textSize="13sp" />
+
+        <TextView
+            android:textColor="@color/miantext"
+            android:id="@+id/tv_zongjia2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="冷月赢"
+            android:textSize="13sp" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="5dp"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <TextView
+            android:textColor="@color/miantext"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="5dp"
+            android:text="性别："
+            android:textSize="13sp" />
+
+        <TextView
+            android:textColor="@color/miantext"
+            android:id="@+id/tv_xingbie"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="男"
+            android:textSize="13sp" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="5dp"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <TextView
+            android:textColor="@color/miantext"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="5dp"
+            android:text="联系电话："
+            android:textSize="13sp" />
+
+        <TextView
+            android:textColor="@color/miantext"
+            android:id="@+id/tv_lianxitel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="冷月赢"
+            android:textSize="13sp" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="5dp"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <TextView
+            android:textColor="@color/miantext"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="5dp"
+            android:text="所属门店："
+            android:textSize="13sp" />
+
+        <TextView
+            android:textColor="@color/miantext"
+            android:id="@+id/tv_suoshumendian"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="冷月赢"
+            android:textSize="13sp" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="5dp"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <TextView
+            android:textColor="@color/miantext"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="5dp"
+            android:text="门店地址："
+            android:textSize="13sp" />
+
+        <TextView
+            android:textColor="@color/miantext"
+            android:id="@+id/tv_mendiandizhi"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="冷月赢"
+            android:textSize="13sp" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="5dp"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <TextView
+            android:textColor="@color/miantext"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="5dp"
+            android:text="登记日期："
+            android:textSize="13sp" />
+
+        <TextView
+            android:textColor="@color/miantext"
+            android:id="@+id/tv_dengjiriqi"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="冷月赢"
+            android:textSize="13sp" />
+
+    </LinearLayout>
+
+</LinearLayout>

@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!--* "21":{"type":"装修标准","param":[{"id":80,"param":"毛坯"},{"id":81,"param":"简装"},-->
+    <!--* {"id":82,"param":"精装"}]},-->
+
+
+    <string-array name="申诉类型">
+        <item>""</item>
+        <item>申诉类型1</item>
+        <item>申诉类型2</item>
+        <item>申诉类型3</item>
+    </string-array>
+
+</resources>

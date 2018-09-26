@@ -1,0 +1,264 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="44dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:text="客户列表"
+            android:textColor="@color/chunhei"
+            android:textSize="16sp" />
+
+        <ImageButton
+            android:id="@+id/customers_button_add_customers"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:background="@android:color/transparent"
+            android:paddingRight="10dp"
+            android:src="@drawable/ic_add" />
+    </RelativeLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
+        android:focusable="true"
+        android:focusableInTouchMode="true">
+
+        <RelativeLayout
+
+            android:layout_width="match_parent"
+            android:layout_height="34dp"
+            android:layout_gravity="center_vertical"
+            android:background="@drawable/shape_ettext">
+
+            <EditText
+                android:paddingLeft="10dp"
+                android:id="@+id/et_search"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_centerVertical="true"
+                android:hint="请输入姓名/手机号"
+                android:background="@null"
+                android:textSize="15sp" />
+
+            <ImageView
+                android:paddingRight="10dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:src="@drawable/ic_search2" />
+        </RelativeLayout>
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:gravity="center"
+        android:orientation="horizontal"
+        android:padding="10dp"
+        android:weightSum="8">
+        <!--需求类型-->
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="2"
+            android:gravity="center"
+            android:orientation="horizontal"
+            >
+
+
+            <TextView
+                android:id="@+id/content_need"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="3"
+                android:ellipsize="end"
+                android:gravity="center"
+                android:singleLine="true"
+                android:text="需求类型" />
+            <ImageView
+                android:src="@drawable/downarrow"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+            <Spinner
+                android:visibility="gone"
+                android:id="@+id/spinner_need"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:dropDownVerticalOffset="35dp"
+                android:dropDownWidth="1080px"
+                android:entries="@array/需求类型"
+                android:spinnerMode="dropdown" />
+        </LinearLayout>
+        <!--意向区域-->
+        <LinearLayout
+            android:visibility="gone"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="2"
+            android:gravity="center"
+            android:orientation="horizontal"
+            >
+
+
+            <TextView
+                android:id="@+id/content_price"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="3"
+                android:ellipsize="end"
+                android:gravity="center"
+                android:singleLine="true"
+                android:text="意向区域" />
+            <ImageView
+                android:src="@drawable/downarrow"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+            <Spinner
+                android:visibility="gone"
+                android:id="@+id/spinner_price"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:dropDownVerticalOffset="35dp"
+                android:dropDownWidth="1080px"
+                android:entries="@array/意向区域" />
+        </LinearLayout>
+        <!--意向度-->
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="2"
+            android:gravity="center"
+            android:orientation="horizontal"
+           >
+
+
+            <TextView
+                android:id="@+id/content_intent"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="3"
+                android:ellipsize="end"
+                android:gravity="center"
+                android:singleLine="true"
+                android:text="意向度" />
+            <ImageView
+                android:src="@drawable/downarrow"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+            <Spinner
+                android:visibility="gone"
+                android:id="@+id/spinner_intent"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:dropDownVerticalOffset="35dp"
+                android:dropDownWidth="1080px"
+                android:entries="@array/意向度" />
+        </LinearLayout>
+        <!--紧迫度-->
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="2"
+            android:gravity="center"
+            android:orientation="horizontal"
+            >
+
+
+            <TextView
+                android:id="@+id/content_more"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="3"
+                android:ellipsize="end"
+                android:gravity="center"
+                android:singleLine="true"
+                android:text="紧迫度" />
+            <ImageView
+                android:src="@drawable/downarrow"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+            <Spinner
+                android:visibility="gone"
+                android:id="@+id/spinner_more"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:dropDownVerticalOffset="35dp"
+                android:dropDownWidth="1080px"
+                android:entries="@array/紧迫度" />
+        </LinearLayout>
+
+
+    </LinearLayout>
+
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/ic_line" />
+
+    
+
+<LinearLayout
+    android:background="@color/bgcolcor"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+<com.scwang.smartrefresh.layout.SmartRefreshLayout
+    android:id="@+id/customers_swiperefreshlayout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <LinearLayout
+        android:padding="10dp"
+        android:gravity="center"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+   <ImageView
+       android:id="@+id/yunsuan"
+       android:src="@drawable/animation_refresh"
+       android:layout_width="50dp"
+       android:layout_height="50dp" />
+        <TextView
+            android:layout_marginLeft="10dp"
+            android:text="人算不如云算"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+    </LinearLayout>
+
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/customers_recyclerview"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+    <com.scwang.smartrefresh.layout.footer.ClassicsFooter
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+
+
+</com.scwang.smartrefresh.layout.SmartRefreshLayout>
+</LinearLayout>
+
+
+</LinearLayout>

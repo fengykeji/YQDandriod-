@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    >
+<LinearLayout
+    android:id="@+id/message_item_linearlayout_工作消息"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    >
+
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_gravity="center_vertical"
+        android:layout_margin="15dp"
+        android:src="@drawable/ic_worknews"
+        />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center|left"
+        android:orientation="vertical"
+        >
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="工作消息"
+            android:lines="1"
+            android:ellipsize="end"
+            android:textSize="18sp"
+            />
+        <TextView
+            android:id="@+id/message_text_未读工作消息条数"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="未读消息1条"
+            android:lines="1"
+            android:ellipsize="end"
+            android:textSize="15sp"
+            />
+    </LinearLayout>
+</LinearLayout>
+
+</LinearLayout>

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content">
+
+    <TextView
+        android:gravity="center"
+        android:layout_marginLeft="5dp"
+        android:background="#dcdcdc"
+        android:id="@+id/tv_danyuan"
+        android:text="1802"
+        android:layout_width="93dp"
+        android:layout_height="33dp" />
+
+</LinearLayout>

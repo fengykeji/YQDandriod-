@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:background="@color/bgcolcor"
+    >
+    <LinearLayout
+        android:gravity="center"
+        android:padding="20dp"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <RelativeLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+<TextView
+    android:layout_centerHorizontal="true"
+    android:textColor="@color/miantext"
+    android:textSize="18sp"
+    android:text="该项目置业顾问"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content" />
+
+            <ImageView
+                android:id="@+id/im_back"
+                android:layout_alignParentRight="true"
+                android:src="@drawable/ic_delete"
+                android:layout_width="30dp"
+                android:layout_height="30dp" />
+        </RelativeLayout>
+
+    <TextView
+        android:id="@+id/tv_name"
+        android:layout_marginTop="20dp"
+        android:text="不选择"
+        android:padding="10dp"
+        android:background="@color/gray"
+        android:textSize="16sp"
+        android:textColor="@color/miantext"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+        <LinearLayout
+            android:visibility="gone"
+            android:id="@+id/ll_nochoose"
+            android:background="@color/chunbai"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+        <TextView
+            android:layout_margin="15dp"
+            android:text="不选择"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        </LinearLayout>
+
+    <android.support.v7.widget.RecyclerView
+        android:background="@color/chunbai"
+        android:visibility="gone"
+        android:id="@+id/select"
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        app:layout_scrollFlags="scroll|enterAlways|snap">
+
+    </android.support.v7.widget.RecyclerView>
+
+        <LinearLayout
+            android:layout_marginTop="20dp"
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <TextView
+                android:textSize="16sp"
+                android:text="电话号码："
+                android:textColor="@color/miantext"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+    <TextView
+        android:id="@+id/tv_tel"
+        android:textSize="16sp"
+        android:textColor="@color/miantext"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+        </LinearLayout>
+
+    <RelativeLayout
+        android:layout_marginTop="20dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        >
+        <Button
+            android:id="@+id/button_next"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/ic_loginbackground"
+            android:text="推荐"
+            android:textColor="@color/chunbai"
+            android:textSize="15sp"
+            />
+
+
+    </RelativeLayout>
+    </LinearLayout>
+
+</LinearLayout>

@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string-array name="证件类型">
+
+        <item>身份证</item>
+
+
+    </string-array>
+
+    <string-array name="公司认证">
+        <item>经纪人</item>
+        <item>对接人</item>
+    </string-array>
+
+
+
+
+</resources>

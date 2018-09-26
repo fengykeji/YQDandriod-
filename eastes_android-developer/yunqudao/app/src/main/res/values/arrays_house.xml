@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string-array name="区域">
+        <item>区域</item>
+        <item>城区</item>
+        <item>地铁</item>
+        <item>新区</item>
+        <item>郊区</item>
+
+    </string-array>
+
+    <string-array name="均价">
+        <item>均价</item>
+        <item>4000-5000</item>
+        <item>5000-8000</item>
+        <item>8000-10000</item>
+        <item>10000-15000</item>
+        <item>15000以上</item>
+
+    </string-array>
+
+    <string-array name="类型">
+        <item>类型</item>
+        <item>公寓</item>
+        <item>别墅</item>
+        <item>loft</item>
+        <item>商铺</item>
+        <item>写字楼</item>
+
+    </string-array>
+
+    <string-array name="更多">
+        <item>更多</item>
+        <item>地铁房</item>
+        <item>学区房</item>
+        <item>商住两用</item>
+
+    </string-array>
+
+    <string-array name="排序">
+        <item>排序</item>
+        <item>价格由低到高</item>
+        <item>价格由高到低</item>
+        <item>面积由小到大</item>
+        <item>面积由大到小</item>
+    </string-array>
+
+</resources>

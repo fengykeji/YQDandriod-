@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    >
+
+<!--导航栏-->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:weightSum="5"
+        >
+
+        <ImageButton
+            android:paddingRight="30dp"
+            android:id="@+id/house_button_返回"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@android:color/transparent"
+            android:src="@drawable/ic_leftarrow"
+            />
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1">
+        <Button
+            android:textColor="@color/liji_material_blue_500"
+            android:id="@+id/house_button_项目"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@android:color/transparent"
+            android:text="项目"
+            android:textSize="18sp"
+            />
+            <TextView
+                android:layout_marginLeft="12dp"
+                android:id="@+id/tv_xian"
+                android:background="@color/liji_material_blue_500"
+                android:layout_width="50dp"
+                android:layout_height="1dp" />
+        </LinearLayout>
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1">
+        <Button
+            android:id="@+id/house_button_佣金"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@android:color/transparent"
+            android:text="渠道"
+            android:textSize="18sp"
+            />
+            <TextView
+                android:layout_marginLeft="12dp"
+                android:id="@+id/tv_xian1"
+                android:visibility="gone"
+                android:background="@color/liji_material_blue_500"
+                android:layout_width="50dp"
+                android:layout_height="1dp" />
+        </LinearLayout>
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1">
+        <Button
+            android:id="@+id/house_button_分析"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@android:color/transparent"
+            android:text="分析"
+            android:textSize="18sp"
+            />
+        <TextView
+            android:layout_marginLeft="12dp"
+            android:id="@+id/tv_xian2"
+            android:visibility="gone"
+            android:background="@color/liji_material_blue_500"
+            android:layout_width="50dp"
+            android:layout_height="1dp" />
+    </LinearLayout>
+
+        <ImageButton
+
+            android:id="@+id/house_button_分享"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@android:color/transparent"
+            android:src="@drawable/ic_share"
+            />
+    </LinearLayout>
+    <com.ccsoft.yunqudao.ui.house.CustomViewPager
+        android:id="@+id/house_viewpager_分类"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        >
+    </com.ccsoft.yunqudao.ui.house.CustomViewPager>
+
+</LinearLayout>
