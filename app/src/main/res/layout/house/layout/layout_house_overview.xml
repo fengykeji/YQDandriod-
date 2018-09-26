@@ -1,0 +1,736 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v4.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical">
+<com.zhy.autolayout.AutoLinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/white"
+    android:orientation="vertical">
+    <com.zhy.autolayout.AutoRelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical">
+
+        <ImageView
+            android:id="@+id/iv_back"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:paddingLeft="30px"
+            android:paddingBottom="42px"
+            android:paddingRight="30px"
+            android:paddingTop="42px"
+            android:src="@drawable/ic_leftarrow" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:text="楼盘详情"
+            android:textColor="@android:color/black"
+            android:textSize="16sp" />
+    </com.zhy.autolayout.AutoRelativeLayout>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="120px"
+        android:paddingLeft="28px"
+        android:gravity="center_vertical"
+        android:text="基本信息"
+        android:textSize="23sp"
+        android:textColor="@color/color_333333"/>
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_line" />
+
+    <com.zhy.autolayout.AutoLinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="130px"
+        android:paddingLeft="28px"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="400px"
+            android:layout_height="wrap_content"
+            android:text="楼栋数"
+            android:textSize="20sp"
+            android:textColor="@color/textColor_737373"/>
+
+        <TextView
+            android:id="@+id/tv_build_number"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            tools:text="数据"
+            android:textSize="20sp"
+            android:textColor="@color/color_333333"/>
+    </com.zhy.autolayout.AutoLinearLayout>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:layout_marginLeft="28px"
+        android:layout_marginRight="28px"
+        android:background="@color/color_565656"/>
+
+    <com.zhy.autolayout.AutoLinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="130px"
+        android:paddingLeft="28px"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="400px"
+            android:layout_height="wrap_content"
+            android:text="房屋总数"
+            android:textSize="20sp"
+            android:textColor="@color/textColor_737373"/>
+
+        <TextView
+            android:id="@+id/tv_house_number"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            tools:text="数据"
+            android:textSize="20sp"
+            android:textColor="@color/color_333333"/>
+    </com.zhy.autolayout.AutoLinearLayout>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:layout_marginLeft="28px"
+        android:layout_marginRight="28px"
+        android:background="@color/color_565656"/>
+
+    <com.zhy.autolayout.AutoLinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="130px"
+        android:paddingLeft="28px"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="400px"
+            android:layout_height="wrap_content"
+            android:text="总户数"
+            android:textSize="20sp"
+            android:textColor="@color/textColor_737373"/>
+
+        <TextView
+            android:id="@+id/tv_all_user"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            tools:text="数据"
+            android:textSize="20sp"
+            android:textColor="@color/color_333333"/>
+    </com.zhy.autolayout.AutoLinearLayout>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:layout_marginLeft="28px"
+        android:layout_marginRight="28px"
+        android:background="@color/color_565656"/>
+
+    <com.zhy.autolayout.AutoLinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="130px"
+        android:paddingLeft="28px"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="400px"
+            android:layout_height="wrap_content"
+            android:text="开发商"
+            android:textSize="20sp"
+            android:textColor="@color/textColor_737373"/>
+
+        <TextView
+            android:id="@+id/tv_developers"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            tools:text="数据"
+            android:textSize="20sp"
+            android:textColor="@color/color_333333"/>
+    </com.zhy.autolayout.AutoLinearLayout>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:layout_marginLeft="28px"
+        android:layout_marginRight="28px"
+        android:background="@color/color_565656"/>
+
+    <com.zhy.autolayout.AutoLinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="130px"
+        android:paddingLeft="28px"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="400px"
+            android:layout_height="wrap_content"
+            android:text="建成时间"
+            android:textSize="20sp"
+            android:textColor="@color/textColor_737373"/>
+
+        <TextView
+            android:id="@+id/tv_build_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            tools:text="数据"
+            android:textSize="20sp"
+            android:textColor="@color/color_333333"/>
+    </com.zhy.autolayout.AutoLinearLayout>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:layout_marginLeft="28px"
+        android:layout_marginRight="28px"
+        android:background="@color/color_565656"/>
+
+    <com.zhy.autolayout.AutoLinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="130px"
+        android:paddingLeft="28px"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="400px"
+            android:layout_height="wrap_content"
+            android:text="建筑类型"
+            android:textSize="20sp"
+            android:textColor="@color/textColor_737373"/>
+
+        <TextView
+            android:id="@+id/tv_build_type"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            tools:text="数据"
+            android:textSize="20sp"
+            android:textColor="@color/color_333333"/>
+    </com.zhy.autolayout.AutoLinearLayout>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:layout_marginLeft="28px"
+        android:layout_marginRight="28px"
+        android:background="@color/color_565656"/>
+
+    <com.zhy.autolayout.AutoLinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="130px"
+        android:paddingLeft="28px"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="400px"
+            android:layout_height="wrap_content"
+            android:text="绿化面积"
+            android:textSize="20sp"
+            android:textColor="@color/textColor_737373"/>
+
+        <TextView
+            android:id="@+id/tv_green_area"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            tools:text="数据"
+            android:textSize="20sp"
+            android:textColor="@color/color_333333"/>
+    </com.zhy.autolayout.AutoLinearLayout>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:layout_marginLeft="28px"
+        android:layout_marginRight="28px"
+        android:background="@color/color_565656"/>
+
+    <com.zhy.autolayout.AutoLinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="130px"
+        android:paddingLeft="28px"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="400px"
+            android:layout_height="wrap_content"
+            android:text="建筑率"
+            android:textSize="20sp"
+            android:textColor="@color/textColor_737373"/>
+
+        <TextView
+            android:id="@+id/tv_build_ratio"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            tools:text="数据"
+            android:textSize="20sp"
+            android:textColor="@color/color_333333"/>
+    </com.zhy.autolayout.AutoLinearLayout>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:layout_marginLeft="28px"
+        android:layout_marginRight="28px"
+        android:background="@color/color_565656"/>
+
+    <com.zhy.autolayout.AutoLinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="130px"
+        android:paddingLeft="28px"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="400px"
+            android:layout_height="wrap_content"
+            android:text="总建筑面积"
+            android:textSize="20sp"
+            android:textColor="@color/textColor_737373"/>
+
+        <TextView
+            android:id="@+id/tv_all_build_area"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            tools:text="数据"
+            android:textSize="20sp"
+            android:textColor="@color/color_333333"/>
+    </com.zhy.autolayout.AutoLinearLayout>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:layout_marginLeft="28px"
+        android:layout_marginRight="28px"
+        android:background="@color/color_565656"/>
+
+    <com.zhy.autolayout.AutoLinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="130px"
+        android:paddingLeft="28px"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="400px"
+            android:layout_height="wrap_content"
+            android:text="建筑占地面积"
+            android:textSize="20sp"
+            android:textColor="@color/textColor_737373"/>
+
+        <TextView
+            android:id="@+id/tv_build_floor_area"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            tools:text="数据"
+            android:textSize="20sp"
+            android:textColor="@color/color_333333"/>
+    </com.zhy.autolayout.AutoLinearLayout>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:layout_marginLeft="28px"
+        android:layout_marginRight="28px"
+        android:background="@color/color_565656"/>
+
+    <com.zhy.autolayout.AutoLinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="130px"
+        android:paddingLeft="28px"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="400px"
+            android:layout_height="wrap_content"
+            android:text="绿化率"
+            android:textSize="20sp"
+            android:textColor="@color/textColor_737373"/>
+
+        <TextView
+            android:id="@+id/tv_green_ratio"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            tools:text="数据"
+            android:textSize="20sp"
+            android:textColor="@color/color_333333"/>
+    </com.zhy.autolayout.AutoLinearLayout>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:layout_marginLeft="28px"
+        android:layout_marginRight="28px"
+        android:background="@color/color_565656"/>
+
+    <com.zhy.autolayout.AutoLinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="130px"
+        android:paddingLeft="28px"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="400px"
+            android:layout_height="wrap_content"
+            android:text="容积率"
+            android:textSize="20sp"
+            android:textColor="@color/textColor_737373"/>
+
+        <TextView
+            android:id="@+id/tv_plot_ratio"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            tools:text="数据"
+            android:textSize="20sp"
+            android:textColor="@color/color_333333"/>
+    </com.zhy.autolayout.AutoLinearLayout>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:layout_marginLeft="28px"
+        android:layout_marginRight="28px"
+        android:background="@color/color_565656"/>
+
+    <com.zhy.autolayout.AutoLinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="130px"
+        android:paddingLeft="28px"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="400px"
+            android:layout_height="wrap_content"
+            android:text="地上面积"
+            android:textSize="20sp"
+            android:textColor="@color/textColor_737373"/>
+
+        <TextView
+            android:id="@+id/tv_overground_part"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            tools:text="数据"
+            android:textSize="20sp"
+            android:textColor="@color/color_333333"/>
+    </com.zhy.autolayout.AutoLinearLayout>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:layout_marginLeft="28px"
+        android:layout_marginRight="28px"
+        android:background="@color/color_565656"/>
+
+    <com.zhy.autolayout.AutoLinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="130px"
+        android:paddingLeft="28px"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="400px"
+            android:layout_height="wrap_content"
+            android:text="总占地面积"
+            android:textSize="20sp"
+            android:textColor="@color/textColor_737373"/>
+
+        <TextView
+            android:id="@+id/tv_all_floor_area"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            tools:text="数据"
+            android:textSize="20sp"
+            android:textColor="@color/color_333333"/>
+    </com.zhy.autolayout.AutoLinearLayout>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:layout_marginLeft="28px"
+        android:layout_marginRight="28px"
+        android:background="@color/color_565656"/>
+
+    <com.zhy.autolayout.AutoLinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="130px"
+        android:paddingLeft="28px"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="400px"
+            android:layout_height="wrap_content"
+            android:text="地上车位"
+            android:textSize="20sp"
+            android:textColor="@color/textColor_737373"/>
+
+        <TextView
+            android:id="@+id/tv_overground_carport"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            tools:text="数据"
+            android:textSize="20sp"
+            android:textColor="@color/color_333333"/>
+    </com.zhy.autolayout.AutoLinearLayout>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:layout_marginLeft="28px"
+        android:layout_marginRight="28px"
+        android:background="@color/color_565656"/>
+
+    <com.zhy.autolayout.AutoLinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="130px"
+        android:paddingLeft="28px"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="400px"
+            android:layout_height="wrap_content"
+            android:text="地下面积"
+            android:textSize="20sp"
+            android:textColor="@color/textColor_737373"/>
+
+        <TextView
+            android:id="@+id/tv_underground_part"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            tools:text="数据"
+            android:textSize="20sp"
+            android:textColor="@color/color_333333"/>
+    </com.zhy.autolayout.AutoLinearLayout>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:layout_marginLeft="28px"
+        android:layout_marginRight="28px"
+        android:background="@color/color_565656"/>
+
+    <com.zhy.autolayout.AutoLinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="130px"
+        android:paddingLeft="28px"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="400px"
+            android:layout_height="wrap_content"
+            android:text="地下车位"
+            android:textSize="20sp"
+            android:textColor="@color/textColor_737373"/>
+
+        <TextView
+            android:id="@+id/tv_underground_carport"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            tools:text="数据"
+            android:textSize="20sp"
+            android:textColor="@color/color_333333"/>
+    </com.zhy.autolayout.AutoLinearLayout>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:layout_marginLeft="28px"
+        android:layout_marginRight="28px"
+        android:background="@color/color_565656"/>
+
+    <com.zhy.autolayout.AutoLinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="130px"
+        android:paddingLeft="28px"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="400px"
+            android:layout_height="wrap_content"
+            android:text="停车费"
+            android:textSize="20sp"
+            android:textColor="@color/textColor_737373"/>
+
+        <TextView
+            android:id="@+id/tv_parking_fee"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            tools:text="数据"
+            android:textSize="20sp"
+            android:textColor="@color/color_333333"/>
+    </com.zhy.autolayout.AutoLinearLayout>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:layout_marginLeft="28px"
+        android:layout_marginRight="28px"
+        android:background="@color/color_565656"/>
+
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="8dp"
+        android:scaleType="fitXY"
+        android:src="@drawable/ic_line"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="120px"
+        android:paddingLeft="28px"
+        android:gravity="center_vertical"
+        android:text="物业信息"
+        android:textSize="23sp"
+        android:textColor="@color/color_333333"/>
+
+    <com.zhy.autolayout.AutoLinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="130px"
+        android:paddingLeft="28px"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="400px"
+            android:layout_height="wrap_content"
+            android:text="物业公司"
+            android:textSize="20sp"
+            android:textColor="@color/textColor_737373"/>
+
+        <TextView
+            android:id="@+id/tv_wuyegongsi"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            tools:text="数据"
+            android:textSize="20sp"
+            android:textColor="@color/color_333333"/>
+    </com.zhy.autolayout.AutoLinearLayout>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:layout_marginLeft="28px"
+        android:layout_marginRight="28px"
+        android:background="@color/color_565656"/>
+
+    <com.zhy.autolayout.AutoLinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="130px"
+        android:paddingLeft="28px"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="400px"
+            android:layout_height="wrap_content"
+            android:text="物业费"
+            android:textSize="20sp"
+            android:textColor="@color/textColor_737373"/>
+
+        <TextView
+            android:id="@+id/tv_wuye_fee"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            tools:text="数据"
+            android:textSize="20sp"
+            android:textColor="@color/color_333333"/>
+    </com.zhy.autolayout.AutoLinearLayout>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:layout_marginLeft="28px"
+        android:layout_marginRight="28px"
+        android:background="@color/color_565656"/>
+
+    <com.zhy.autolayout.AutoLinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="130px"
+        android:paddingLeft="28px"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="400px"
+            android:layout_height="wrap_content"
+            android:text="供暖方式"
+            android:textSize="20sp"
+            android:textColor="@color/textColor_737373"/>
+
+        <TextView
+            android:id="@+id/tv_heating_type"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            tools:text="数据"
+            android:textSize="20sp"
+            android:textColor="@color/color_333333"/>
+    </com.zhy.autolayout.AutoLinearLayout>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:layout_marginLeft="28px"
+        android:layout_marginRight="28px"
+        android:background="@color/color_565656"/>
+
+    <com.zhy.autolayout.AutoLinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="130px"
+        android:paddingLeft="28px"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="400px"
+            android:layout_height="wrap_content"
+            android:text="供水类型"
+            android:textSize="20sp"
+            android:textColor="@color/textColor_737373"/>
+
+        <TextView
+            android:id="@+id/tv_water_type"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            tools:text="数据"
+            android:textSize="20sp"
+            android:textColor="@color/color_333333"/>
+    </com.zhy.autolayout.AutoLinearLayout>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:layout_marginLeft="28px"
+        android:layout_marginRight="28px"
+        android:background="@color/color_565656"/>
+
+    <com.zhy.autolayout.AutoLinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="130px"
+        android:paddingLeft="28px"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="400px"
+            android:layout_height="wrap_content"
+            android:text="供电类型"
+            android:textSize="20sp"
+            android:textColor="@color/textColor_737373"/>
+
+        <TextView
+            android:id="@+id/tv_power_type"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            tools:text="数据"
+            android:textSize="20sp"
+            android:textColor="@color/color_333333"/>
+    </com.zhy.autolayout.AutoLinearLayout>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:layout_marginLeft="28px"
+        android:layout_marginRight="28px"
+        android:background="@color/color_565656"/>
+
+</com.zhy.autolayout.AutoLinearLayout>
+
+</android.support.v4.widget.NestedScrollView>

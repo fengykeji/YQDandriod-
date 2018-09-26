@@ -1,0 +1,982 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/bgcolcor"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:background="@color/chunbai"
+        android:layout_width="match_parent"
+        android:layout_height="44dp"
+        android:orientation="horizontal"
+        >
+        <ImageButton
+            android:id="@+id/customers_button_back"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_centerVertical="true"
+            android:paddingLeft="20dp"
+            android:background="@android:color/transparent"
+            android:src="@drawable/ic_leftarrow"
+            />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:text="修改勘察信息"
+            android:textColor="@color/chunhei"
+            android:textSize="16sp"
+            />
+
+
+        <ImageButton
+            android:visibility="gone"
+            android:id="@+id/customers_button_quick_recommend"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:src="@drawable/ic_add"
+            android:layout_centerVertical="true"
+            android:background="@android:color/transparent"
+            android:layout_alignParentRight="true"
+            android:paddingRight="20dp"
+            />
+    </RelativeLayout>
+
+    <ImageView
+        android:src="@drawable/ic_line"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="9">
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+    <LinearLayout
+        android:background="@color/chunbai"
+        android:padding="10dp"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:textColor="@color/miantext"
+            android:text="推荐编号："
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <TextView
+            android:text="自动生成"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+    </LinearLayout>
+
+
+    <RelativeLayout
+        android:padding="10dp"
+        android:background="@color/chunbai"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        >
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:paddingBottom="10dp"
+            android:paddingTop="10dp"
+            >
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="10dp"
+                android:src="@drawable/ic_blue"
+                />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="客户信息:"
+                android:textColor="@color/chunhei"
+                android:textSize="16sp"
+                />
+            <TextView
+                android:id="@+id/tv_showcontent"
+                android:gravity="right"
+                android:text="展开"
+                android:textSize="16sp"
+                android:textColor="@color/color_aaa"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
+    </RelativeLayout>
+
+
+    <LinearLayout
+        android:id="@+id/ll_content"
+        android:visibility="gone"
+        android:background="@color/chunbai"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="20dp"
+        >
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <!--姓名-->
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_weight="1.5"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:paddingBottom="20dp"
+                android:weightSum="10"
+                >
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="5"
+                    android:padding="10dp"
+                    android:text="主权益人名称："
+                    android:textColor="@color/chunhei"
+                    android:textSize="13sp"
+                    />
+
+
+                <EditText
+                    android:id="@+id/customers_edittext_name"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="5"
+                    android:background="@drawable/shape_case"
+                    android:hint="必填"
+                    android:maxLength="5"
+                    android:padding="10dp"
+                    android:textSize="15sp"
+
+                    />
+            </LinearLayout>
+
+            <!--性别-->
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:paddingBottom="20dp"
+                android:weightSum="7"
+                >
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="3"
+                    android:padding="10dp"
+                    android:text="性别:"
+                    android:textColor="@color/chunhei"
+                    android:textSize="15sp"
+                    />
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="4"
+                    android:background="@drawable/shape_case"
+                    android:weightSum="10"
+                    >
+
+
+                    <Spinner
+                        android:id="@+id/customers_spinner_sex"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="10"
+                        android:layout_gravity="center"
+                        android:dropDownVerticalOffset="35dp"
+                        android:dropDownWidth="1080px"
+                        android:entries="@array/性别"
+                        />
+
+
+                </LinearLayout>
+
+            </LinearLayout>
+        </LinearLayout>
+
+        <!--出生年月-->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:paddingBottom="20dp"
+            android:weightSum="10"
+            >
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_weight="3"
+                android:padding="10dp"
+                android:text="电话号码1："
+                android:textColor="@color/chunhei"
+                android:textSize="13sp"
+                />
+            <EditText
+                android:id="@+id/customers_edittext_tel1"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="7"
+                android:background="@drawable/shape_case"
+                android:digits="0123456789"
+                android:hint=""
+                android:inputType="number"
+                android:maxLength="11"
+                android:padding="10dp"
+                android:textSize="15sp"
+                />
+
+        </LinearLayout>
+
+        <!--联系号码1-->
+        <LinearLayout
+            android:id="@+id/customers_linearlayout_tel"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:paddingBottom="20dp"
+            android:weightSum="10"
+            >
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="3"
+                android:padding="10dp"
+                android:text="联系号码2："
+                android:textColor="@color/chunhei"
+                android:textSize="13sp"
+                />
+
+
+            <EditText
+                android:id="@+id/customers_edittext_tel"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="7"
+                android:background="@drawable/shape_case"
+                android:digits="0123456789"
+                android:hint=""
+                android:inputType="number"
+                android:maxLength="11"
+                android:padding="10dp"
+                android:textSize="15sp"
+                />
+
+
+
+        </LinearLayout>
+
+
+        <!--证件类型-->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:paddingBottom="20dp"
+            android:weightSum="10"
+            >
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_weight="3"
+                android:padding="10dp"
+                android:text="证件类型："
+                android:textColor="@color/chunhei"
+                android:textSize="15sp"
+                />
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_weight="7"
+                android:background="@drawable/shape_case"
+                android:gravity="center"
+                android:padding="10dp"
+                android:weightSum="10"
+                >
+                <Spinner
+                    android:id="@+id/customers_spinner_card_type"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:dropDownVerticalOffset="35dp"
+                    android:dropDownWidth="1080px"
+                    android:entries="@array/证件类型"
+                    />
+            </LinearLayout>
+
+        </LinearLayout>
+        <!--证件号-->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:paddingBottom="20dp"
+            android:weightSum="10"
+            >
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="3"
+                android:padding="10dp"
+                android:text="证件号："
+                android:textColor="@color/chunhei"
+                android:textSize="15sp"
+                />
+
+
+            <EditText
+                android:id="@+id/customers_edittext_card_id"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="7"
+                android:background="@drawable/shape_case"
+                android:digits="0123456789X"
+                android:hint="最后一位X为大写"
+                android:inputType="number"
+                android:maxLength="18"
+                android:padding="10dp"
+                android:textSize="15sp"
+                />
+
+        </LinearLayout>
+
+        <!--区域-->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:paddingBottom="20dp"
+            android:weightSum="10"
+            android:visibility="gone"
+            >
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_weight="3"
+                android:padding="10dp"
+                android:text="区域："
+                android:textColor="@color/chunhei"
+                android:textSize="15sp"
+                />
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_weight="7"
+                android:background="@drawable/shape_case"
+                android:gravity="center"
+                android:weightSum="10"
+                >
+
+
+                <TextView
+                    android:id="@+id/customers_edittext_address2"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="7"
+                    android:background="@drawable/shape_case"
+                    android:maxLength="30"
+                    android:padding="10dp"
+                    android:textSize="15sp"
+                    />
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <!--地址-->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:paddingBottom="20dp"
+            android:weightSum="10"
+            >
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_weight="3"
+                android:padding="10dp"
+                android:text="地址："
+                android:textColor="@color/chunhei"
+                android:textSize="15sp"
+                />
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_weight="7"
+                android:background="@drawable/shape_case"
+                android:gravity="center"
+                android:weightSum="10"
+                android:orientation="vertical"
+                >
+
+                <TextView
+                    android:id="@+id/customers_edittext_address3"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="7"
+                    android:background="@drawable/shape_case"
+                    android:hint=""
+                    android:maxLength="30"
+                    android:padding="10dp"
+                    android:textSize="15sp"
+                    />
+
+
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+
+        <!--地址-->
+        <LinearLayout
+            android:visibility="gone"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:paddingBottom="20dp"
+            android:weightSum="10"
+            >
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_weight="3"
+                android:padding="10dp"
+                android:text=""
+                android:textColor="@color/chunhei"
+                android:textSize="15sp"
+                />
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_weight="7"
+                android:background="@drawable/shape_case"
+                android:gravity="center"
+                android:weightSum="10"
+                android:orientation="vertical"
+                >
+
+
+
+                <EditText
+                    android:id="@+id/customers_edittext_address1"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="7"
+                    android:background="@drawable/shape_case"
+                    android:hint="详细地址,最多30个字"
+                    android:maxLength="30"
+                    android:padding="10dp"
+                    android:textSize="15sp"
+                    />
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+            <RelativeLayout
+                android:padding="10dp"
+                android:background="@color/chunbai"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                >
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal"
+                    android:paddingBottom="10dp"
+                    android:paddingTop="10dp"
+                    >
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginRight="10dp"
+                        android:src="@drawable/ic_blue"
+                        />
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="经办人信息:"
+                        android:textColor="@color/chunhei"
+                        android:textSize="16sp"
+                        />
+                    <TextView
+                        android:id="@+id/tv_showcontent1"
+                        android:gravity="right"
+                        android:text="展开"
+                        android:textSize="16sp"
+                        android:textColor="@color/color_aaa"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" />
+                </LinearLayout>
+            </RelativeLayout>
+
+            <LinearLayout
+                android:visibility="gone"
+                android:id="@+id/ll_content1"
+                android:background="@color/chunbai"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="20dp"
+                >
+                <LinearLayout
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                    <!--姓名-->
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_weight="1.5"
+                        android:layout_height="wrap_content"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal"
+                        android:paddingBottom="20dp"
+                        android:weightSum="10"
+                        >
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="5"
+                            android:padding="10dp"
+                            android:text="主权益人名称："
+                            android:textColor="@color/chunhei"
+                            android:textSize="13sp"
+                            />
+
+
+                        <EditText
+                            android:id="@+id/customers_edittext_name1"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="5"
+                            android:background="@drawable/shape_case"
+                            android:hint="必填"
+                            android:maxLength="5"
+                            android:padding="10dp"
+                            android:textSize="15sp"
+
+                            />
+                    </LinearLayout>
+
+                    <!--性别-->
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:layout_height="wrap_content"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal"
+                        android:paddingBottom="20dp"
+                        android:weightSum="7"
+                        >
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="3"
+                            android:padding="10dp"
+                            android:text="性别:"
+                            android:textColor="@color/chunhei"
+                            android:textSize="15sp"
+                            />
+
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_weight="4"
+                            android:background="@drawable/shape_case"
+                            android:weightSum="10"
+                            >
+
+
+                            <Spinner
+                                android:id="@+id/customers_spinner_sex1"
+                                android:layout_width="0dp"
+                                android:layout_height="match_parent"
+                                android:layout_weight="10"
+                                android:layout_gravity="center"
+                                android:dropDownVerticalOffset="35dp"
+                                android:dropDownWidth="1080px"
+                                android:entries="@array/性别"
+                                />
+
+
+                        </LinearLayout>
+
+                    </LinearLayout>
+                </LinearLayout>
+
+                <!--出生年月-->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal"
+                    android:paddingBottom="20dp"
+                    android:weightSum="10"
+                    >
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:layout_weight="3"
+                        android:padding="10dp"
+                        android:text="电话号码1："
+                        android:textColor="@color/chunhei"
+                        android:textSize="13sp"
+                        />
+                    <EditText
+                        android:id="@+id/customers_edittext_tel11"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="7"
+                        android:background="@drawable/shape_case"
+                        android:digits="0123456789"
+                        android:hint=""
+                        android:inputType="number"
+                        android:maxLength="11"
+                        android:padding="10dp"
+                        android:textSize="15sp"
+                        />
+
+                </LinearLayout>
+
+                <!--联系号码1-->
+                <LinearLayout
+                    android:id="@+id/customers_linearlayout_tel1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal"
+                    android:paddingBottom="20dp"
+                    android:weightSum="10"
+                    >
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="3"
+                        android:padding="10dp"
+                        android:text="联系号码2："
+                        android:textColor="@color/chunhei"
+                        android:textSize="13sp"
+                        />
+
+
+                    <EditText
+                        android:id="@+id/customers_edittext_tel111"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="7"
+                        android:background="@drawable/shape_case"
+                        android:digits="0123456789"
+                        android:hint=""
+                        android:inputType="number"
+                        android:maxLength="11"
+                        android:padding="10dp"
+                        android:textSize="15sp"
+                        />
+
+
+
+                </LinearLayout>
+
+
+                <!--证件类型-->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal"
+                    android:paddingBottom="20dp"
+                    android:weightSum="10"
+                    >
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:layout_weight="3"
+                        android:padding="10dp"
+                        android:text="证件类型："
+                        android:textColor="@color/chunhei"
+                        android:textSize="15sp"
+                        />
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:layout_weight="7"
+                        android:background="@drawable/shape_case"
+                        android:gravity="center"
+                        android:padding="10dp"
+                        android:weightSum="10"
+                        >
+                        <Spinner
+                            android:id="@+id/customers_spinner_card_type1"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:dropDownVerticalOffset="35dp"
+                            android:dropDownWidth="1080px"
+                            android:entries="@array/证件类型"
+                            />
+                    </LinearLayout>
+
+                </LinearLayout>
+                <!--证件号-->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal"
+                    android:paddingBottom="20dp"
+                    android:weightSum="10"
+                    >
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="3"
+                        android:padding="10dp"
+                        android:text="证件号："
+                        android:textColor="@color/chunhei"
+                        android:textSize="15sp"
+                        />
+
+
+                    <EditText
+                        android:id="@+id/customers_edittext_card_id1"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="7"
+                        android:background="@drawable/shape_case"
+                        android:digits="0123456789X"
+                        android:hint="最后一位X为大写"
+                        android:inputType="number"
+                        android:maxLength="18"
+                        android:padding="10dp"
+                        android:textSize="15sp"
+                        />
+
+                </LinearLayout>
+
+                <!--区域-->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal"
+                    android:paddingBottom="20dp"
+                    android:weightSum="10"
+                    android:visibility="gone"
+                    >
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:layout_weight="3"
+                        android:padding="10dp"
+                        android:text="区域："
+                        android:textColor="@color/chunhei"
+                        android:textSize="15sp"
+                        />
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:layout_weight="7"
+                        android:background="@drawable/shape_case"
+                        android:gravity="center"
+                        android:weightSum="10"
+                        >
+
+
+                        <TextView
+                            android:id="@+id/customers_edittext_address21"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="7"
+                            android:background="@drawable/shape_case"
+                            android:maxLength="30"
+                            android:padding="10dp"
+                            android:textSize="15sp"
+                            />
+                    </LinearLayout>
+
+                </LinearLayout>
+
+                <!--地址-->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal"
+                    android:paddingBottom="20dp"
+                    android:weightSum="10"
+                    >
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:layout_weight="3"
+                        android:padding="10dp"
+                        android:text="地址："
+                        android:textColor="@color/chunhei"
+                        android:textSize="15sp"
+                        />
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:layout_weight="7"
+                        android:background="@drawable/shape_case"
+                        android:gravity="center"
+                        android:weightSum="10"
+                        android:orientation="vertical"
+                        >
+
+                        <TextView
+                            android:id="@+id/customers_edittext_address31"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="7"
+                            android:background="@drawable/shape_case"
+                            android:hint=""
+                            android:maxLength="30"
+                            android:padding="10dp"
+                            android:textSize="15sp"
+                            />
+
+
+
+                    </LinearLayout>
+
+                </LinearLayout>
+
+
+                <!--地址-->
+                <LinearLayout
+                    android:visibility="gone"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal"
+                    android:paddingBottom="20dp"
+                    android:weightSum="10"
+                    >
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:layout_weight="3"
+                        android:padding="10dp"
+                        android:text=""
+                        android:textColor="@color/chunhei"
+                        android:textSize="15sp"
+                        />
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:layout_weight="7"
+                        android:background="@drawable/shape_case"
+                        android:gravity="center"
+                        android:weightSum="10"
+                        android:orientation="vertical"
+                        >
+
+
+
+                        <EditText
+                            android:id="@+id/customers_edittext_address11"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_weight="7"
+                            android:background="@drawable/shape_case"
+                            android:hint="详细地址,最多30个字"
+                            android:maxLength="30"
+                            android:padding="10dp"
+                            android:textSize="15sp"
+                            />
+                    </LinearLayout>
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+
+        </LinearLayout>
+    </ScrollView>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        >
+        <Button
+            android:id="@+id/button_next"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/ic_loginbackground"
+            android:text="确定"
+            android:textColor="@color/chunbai"
+            android:textSize="15sp"
+            />
+    </RelativeLayout>
+
+</LinearLayout>

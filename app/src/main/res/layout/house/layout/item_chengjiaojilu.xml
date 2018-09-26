@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.zhy.autolayout.AutoRelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="420px"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:gravity="center_vertical">
+
+    <ImageView
+        android:id="@+id/iv_image"
+        android:layout_width="300px"
+        android:layout_height="265px"
+        tools:src="@mipmap/ic_launcher"/>
+
+    <TextView
+        android:id="@+id/tv_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:includeFontPadding="false"
+        android:layout_toRightOf="@id/iv_image"
+        android:layout_marginLeft="34px"
+        tools:text="title"
+        android:textColor="@color/color_333333"
+        android:textSize="20sp"/>
+    <TextView
+        android:id="@+id/tv_area"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:includeFontPadding="false"
+        android:layout_marginLeft="30px"
+        android:layout_toRightOf="@id/iv_image"
+        android:layout_below="@id/tv_title"
+        android:layout_marginTop="22px"
+        tools:text="三室两厅"
+        android:textColor="@color/textColor_737373"
+        android:textSize="16sp"/>
+
+    <com.zhy.autolayout.AutoLinearLayout
+        android:id="@+id/ll_price"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:layout_marginLeft="30px"
+        android:layout_marginTop="22px"
+        android:layout_toRightOf="@id/iv_image"
+        android:layout_below="@id/tv_area"
+        android:orientation="horizontal">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            tools:text="108"
+            android:textSize="20sp"
+            android:textColor="@color/textColor_ff4646"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="30px"
+            tools:text="1000元"
+            android:textSize="16sp"
+            android:textColor="@color/textColor_737373"/>
+    </com.zhy.autolayout.AutoLinearLayout>
+
+    <com.zhy.autolayout.AutoRelativeLayout
+        android:id="@+id/rl_time"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@id/iv_image"
+        android:layout_below="@id/ll_price"
+        android:layout_marginTop="22px"
+        android:layout_marginLeft="30px"
+        android:layout_marginRight="30px">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            tools:text="物业类型：住宅"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            tools:text="成交时间：15点47分"/>
+    </com.zhy.autolayout.AutoRelativeLayout>
+
+    <com.zhy.view.flowlayout.TagFlowLayout
+        android:id="@+id/tl_houseType1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@id/iv_image"
+        android:layout_below="@+id/rl_time">
+    </com.zhy.view.flowlayout.TagFlowLayout>
+
+    <com.zhy.view.flowlayout.TagFlowLayout
+        android:id="@+id/tl_houseType2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@id/iv_image"
+        android:layout_below="@+id/tl_houseType1">
+    </com.zhy.view.flowlayout.TagFlowLayout>
+
+</com.zhy.autolayout.AutoRelativeLayout>

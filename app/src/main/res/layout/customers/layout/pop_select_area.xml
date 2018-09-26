@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.zhy.autolayout.AutoLinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="482px"
+    android:orientation="horizontal">
+
+    <com.zhy.autolayout.AutoLinearLayout
+        android:layout_width="280px"
+        android:layout_height="match_parent"
+        android:background="@color/white"
+        android:paddingLeft="24px"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/tv_item1"
+            android:layout_width="280px"
+            android:layout_height="120px"
+            android:gravity="center_vertical"
+            android:text="城区"
+            android:textColor="@color/selector_textcolor_white_blue"
+            android:textSize="18sp"/>
+
+        <TextView
+            android:id="@+id/tv_item2"
+            android:layout_width="280px"
+            android:layout_height="120px"
+            android:gravity="center_vertical"
+            android:text="地铁"
+            android:textSize="18sp"
+            android:textColor="@color/selector_textcolor_white_blue"/>
+
+        <TextView
+            android:id="@+id/tv_item3"
+            android:layout_width="280px"
+            android:layout_height="120px"
+            android:gravity="center_vertical"
+            android:text="附近"
+            android:textSize="18sp"
+            android:textColor="@color/selector_textcolor_white_blue"/>
+    </com.zhy.autolayout.AutoLinearLayout>
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/rv_list"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginLeft="36px"
+        android:layout_marginTop="28px"
+        android:layout_marginBottom="28px"></android.support.v7.widget.RecyclerView>
+</com.zhy.autolayout.AutoLinearLayout>

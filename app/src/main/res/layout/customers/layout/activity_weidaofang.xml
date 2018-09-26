@@ -1,0 +1,160 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:padding="20dp"
+        android:background="@color/chunbai"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+    <RelativeLayout
+        android:layout_marginBottom="20dp"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <TextView
+            android:layout_centerHorizontal="true"
+            android:textColor="@color/miantext"
+            android:textSize="18sp"
+            android:text=""
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <ImageView
+            android:id="@+id/im_back"
+            android:layout_alignParentRight="true"
+            android:src="@drawable/ic_delete"
+            android:layout_width="30dp"
+            android:layout_height="30dp" />
+    </RelativeLayout>
+
+    <!--置业顾问-->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:paddingBottom="20dp"
+        android:weightSum="10"
+        >
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_weight="3"
+            android:padding="10dp"
+            android:text="到访时间："
+            android:textColor="@color/chunhei"
+            android:textSize="15sp"
+            />
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_weight="7"
+            android:background="@drawable/shape_case"
+            android:gravity="center"
+            android:weightSum="10"
+            android:orientation="vertical"
+            >
+
+            <TextView
+                android:id="@+id/customers_edittext_zhiye"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="7"
+                android:background="@drawable/shape_case"
+                android:hint=""
+                android:maxLength="30"
+                android:padding="10dp"
+                android:textSize="15sp"
+                />
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <!--到访人数-->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:paddingBottom="20dp"
+        android:weightSum="10"
+        >
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_weight="3"
+            android:padding="10dp"
+            android:text="到访类型："
+            android:textColor="@color/chunhei"
+            android:textSize="15sp"
+            />
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_weight="7"
+            android:background="@drawable/shape_case"
+            android:gravity="center"
+            android:padding="10dp"
+            android:weightSum="10"
+            >
+            <Spinner
+                android:id="@+id/customers_spinner_card_type"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:dropDownVerticalOffset="35dp"
+                android:dropDownWidth="1080px"
+                android:entries="@array/用户失效类型"
+
+                />
+        </LinearLayout>
+    </LinearLayout>
+
+    <ImageView
+        android:src="@drawable/ic_line"
+        android:layout_width="match_parent"
+        android:layout_height="3dp" />
+        <LinearLayout
+            android:background="@drawable/shape_case"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+    <EditText
+        android:id="@+id/et_comment"
+        android:gravity="top"
+        android:background="@null"
+        android:hint="无效描述:"
+        android:layout_width="match_parent"
+        android:layout_height="100dp" />
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_margin="20dp"
+            >
+            <Button
+                android:layout_gravity="bottom"
+                android:id="@+id/button_next"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/ic_loginbackground"
+                android:text="确定"
+                android:textColor="@color/chunbai"
+                android:textSize="15sp"
+                />
+
+
+        </LinearLayout>
+    </LinearLayout>
+
+</LinearLayout>

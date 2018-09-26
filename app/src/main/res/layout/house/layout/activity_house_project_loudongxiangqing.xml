@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    >
+
+
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        >
+
+        <ImageView
+            android:id="@+id/house_imageview_楼栋详情"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            />
+        <WebView
+            android:id="@+id/wv_webview"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+        </WebView>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="10dp"
+        >
+
+        <ImageButton
+            android:id="@+id/house_button_返回"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:src="@drawable/ic_leftarrow_white"
+            android:background="@android:color/transparent"
+            />
+
+
+    </LinearLayout>
+
+        <android.support.v4.widget.DrawerLayout
+            android:layout_gravity="right"
+            android:layout_width="150dp"
+            android:layout_height="match_parent"
+            android:id="@+id/drawerLayout"
+            >
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+        <ImageView
+            android:src="@drawable/an"
+            android:id="@+id/tv_showdrawer"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:text="展开"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        </RelativeLayout>
+
+           <RelativeLayout
+               android:id="@+id/rlRight"
+               android:layout_gravity="right"
+               android:layout_width="150dp"
+               android:layout_height="match_parent">
+
+           <android.support.v7.widget.RecyclerView
+               android:layout_centerVertical="true"
+               android:layout_marginLeft="30dp"
+               android:id="@+id/re_loudong"
+               android:layout_width="match_parent"
+               android:layout_height="wrap_content">
+
+           </android.support.v7.widget.RecyclerView>
+               <ImageView
+                   android:id="@+id/im_closedrawer"
+                   android:visibility="visible"
+                   android:layout_centerVertical="true"
+                   android:layout_width="wrap_content"
+                   android:layout_height="wrap_content"
+                   android:src="@drawable/rightarrow"/>
+
+
+           </RelativeLayout>
+
+        </android.support.v4.widget.DrawerLayout>
+
+    </FrameLayout>
+
+
+
+</LinearLayout>

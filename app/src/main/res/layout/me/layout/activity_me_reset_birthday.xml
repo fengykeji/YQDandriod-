@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/qianhui"
+    android:focusableInTouchMode="true"
+    android:focusable="true"
+    >
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:background="@color/chunbai"
+        >
+        <ImageButton
+            android:id="@+id/me_button_返回"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_centerVertical="true"
+            android:background="@android:color/transparent"
+            android:src="@drawable/ic_leftarrow"
+            />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:text="出生年月"
+            android:textColor="@color/chunhei"
+            android:textSize="16sp"
+            />
+        <Button
+            android:id="@+id/me_button_保存"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_alignParentRight="true"
+            android:text="保存"
+            android:textColor="@color/chunhei"
+            android:textSize="15sp"
+            android:background="@android:color/transparent"
+            />
+    </RelativeLayout>
+
+<ImageView
+    android:layout_width="match_parent"
+    android:layout_height="10dp"
+    android:background="@drawable/ic_line"/>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="10dp"
+        android:background="@color/chunbai"
+        >
+
+        <TextView
+            android:hint="请输入日期"
+            android:textSize="15sp"
+            android:textColor="@color/chunhei"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/me_edittext_出生年月"
+            android:layout_centerVertical="true"
+            android:background="@android:color/transparent"
+            />
+
+        <ImageButton
+            android:visibility="gone"
+            android:id="@+id/me_button_时间选择器"
+            android:src="@drawable/ic_downarrow2"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:background="@android:color/transparent"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            />
+    </RelativeLayout>
+
+
+
+</LinearLayout>

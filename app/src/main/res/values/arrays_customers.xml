@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string-array name="需求类型">
+        <item>需求类型</item>
+        <item>城区</item>
+        <item>地铁</item>
+        <item>新区</item>
+        <item>郊区</item>
+
+    </string-array>
+
+    <string-array name="意向区域">
+        <item>意向区域</item>
+        <item>市辖区</item>
+        <item>近郊区</item>
+        <item>远郊区</item>
+
+    </string-array>
+
+    <string-array name="意向度">
+        <item>意向度</item>
+        <item>0-10%</item>
+        <item>10-30%</item>
+        <item>30-50%</item>
+        <item>50-80%</item>
+        <item>80%以上</item>
+
+
+
+    </string-array>
+
+    <string-array name="紧迫度">
+        <item>0-10%</item>
+        <item>10-30%</item>
+        <item>30-50%</item>
+        <item>50-80%</item>
+        <item>80%以上</item>
+
+    </string-array>
+
+
+
+
+</resources>
